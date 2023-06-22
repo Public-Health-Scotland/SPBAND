@@ -1,0 +1,111 @@
+/* CSS styles used in the shiny app */
+
+/* to avoid red text error messages in the whole app, take out for testing*/
+.shiny-output-error { visibility: hidden; }
+.shiny-output-error:before { visibility: hidden; }
+
+/* to force sidebar to "fit" below widened header bar */
+/*.sidebar {
+  /*margin: 0;
+  padding: 0;
+  width: 220px;
+  position: fixed;
+  height: 75%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100vh;
+  -ms-overflow-style: none;
+}*/
+
+/*to put dashboard title on far right of header bar in white, font size 20 */
+
+.navbar-custom-menu {
+  padding: 10px;
+  max-height: 54px;
+  text-align: center;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+/* to force phs logo to have a white background */
+.skin-blue .main-header .logo {
+  background-color: white;
+  max-height: 54px;
+}
+
+.skin-blue .main-header .logo:hover {
+  background-color: white; 
+  max-height: 54px;
+}
+
+.skin-blue .main-header .nav-bar-static-top {
+  background-color: white; 
+  max-height: 54px;
+}
+
+.sidebar {
+    position: fixed;
+    width: 290px;
+    white-space: nowrap;
+    overflow-y: scroll;
+}
+
+/* to wrap sidebarMenu text */
+.sidebar-menu > li {
+white-space: normal;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+  /*  font-size: 0.875em;  14px/16=0.875em */
+  /*  overflow-x: hidden;
+    overflow-y: auto; */
+}
+
+/*.footer {
+     text-align: left;
+     font-size: 10px;
+     position: absolute;
+     bottom: 0;
+     padding-left: 10px;
+     padding-top: 10px;
+}*/
+
+/* to force box title to appear the same as the tabBox title */
+
+.box-title {
+  border-style: solid;
+  border-bottom-color: #ffffff;
+  border-width: 0 0 1px 0;
+  /*width: 100%;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px !important;
+  font-weight: bold;
+  text-align: left;
+  background-color: white;
+  padding: 0 10px;
+  }
+  
+/*.sticky_footer {
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#3c8dbc;
+  z-index: 0;
+  opacity: 0.9;
+  }*/
+  
+/* to pad bullet points*/  
+  
+ul li {
+ padding: 0 0 4px 23px;
+}
+
+                  
