@@ -6,22 +6,22 @@ terminations_runchart_data <- reactive({
   req(input$hbname)
   
   data <- terminations_data %>%
-  filter(HBNAME == Selected$HBName &
-           HBTYPE == Selected$HBType) %>%
+  filter(hbname == Selected$HBName &
+           hbtype == Selected$HBType) %>%
     set_variable_labels(
-    MEASURE = "Number of terminations",
-    MEDIAN = " average to end Feb 2020",
-    EXTENDED = " projected average from Mar 2020"
+    measure = "Number of terminations",
+    median = " average to end Feb 2020",
+    extended = " projected average from Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Month: ", 
-                         format(DATE, "%b %Y"),
+                         format(date, "%b %Y"),
                          "<br>",
-                         var_label(MEASURE),
+                         var_label(measure),
                          ": ",
-                         MEASURE),
+                         prettyNum(measure, big.mark = ",")),
          orig_trend = FALSE, # to prevent this line being plotted
          orig_shift = FALSE, # ditto
-         HBNAME2 = factor(HBNAME2, 
+         hbname2 = factor(hbname2, 
                           levels = c("NHS Ayrshire & Arran", "NHS Borders",
                                      "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
                                      "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
@@ -54,7 +54,7 @@ output$terminations_runcharts <- renderPlotly({
                   yaxislabel = "Number of terminations"
                   ) %>%
     layout(xaxis = list(range = 
-                          range(terminations_runchart_data()$DATE) + c(months(-1), months(1))))
+                          range(terminations_runchart_data()$date) + c(months(-1), months(1))))
       
     }
   
@@ -78,7 +78,7 @@ terminations_download <- builds_download_data("TERMINATIONS")
 output$terminations_download_data <- downloadHandler(
   
   filename = function() {
-      paste0(first(terminations_download$INDICATOR), "_", extract_date, ".csv", sep = "")
+      paste0(first(terminations_download$indicator), "_", refresh_date, ".csv", sep = "")
     },
   
   content = function(file) {

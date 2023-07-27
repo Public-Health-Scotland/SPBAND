@@ -7,7 +7,7 @@ output$apgar5_download_data1 <- output$apgar5_download_data2 <-
   downloadHandler(
   
   filename = function() {
-      paste0(first(apgar5_download_data$INDICATOR), "_", extract_date, ".csv", sep = "")
+      paste0(first(apgar5_download_data$indicator), "_", refresh_date, ".csv", sep = "")
     },
   
   content = function(file) {

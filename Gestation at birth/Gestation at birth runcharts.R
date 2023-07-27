@@ -2,8 +2,8 @@
 
 max_plots_gestation_at_birth <- 4
 
-gest_at_birthplotListNames = c("under 32 weeks", ">= 32 and <= 36 weeks",
-                               "under 37 weeks", ">= 42 weeks")
+gest_at_birthplotListNames = c("42 weeks and over", "between 32 and 36 weeks", 
+                               "under 32 weeks", "under 37 weeks")
 
 y_max_gestation <- reactiveVal(0) # initialise y_max_gestation
 
@@ -13,46 +13,51 @@ gest_at_birth_runchart_data <- reactive ({
   #req(input$period)
   
   data <- gest_at_birth_data %>%
-    filter(HBNAME == Selected$HBName &
-             PERIOD == "Q" &
-             HBTYPE == Selected$HBType &
-             INDICATOR_CAT != ">= 37 and <= 41 weeks") %>% 
-    mutate(NUM_label = paste0("Number of babies born at ", INDICATOR_CAT, ": "),
-           MEASURE_label = paste0("Percentage of babies born at ", INDICATOR_CAT, " (%)"),
-           #DATE = QUARTER_LABEL
+    filter(hbname == Selected$HBName &
+             period == "Q" &
+             hbtype == Selected$HBType &
+             indicator_cat %in% gest_at_birthplotListNames
+           ) %>% 
+    mutate(num_label = paste0("Number of babies born at ", formatted_name, ": "),
+           measure_label = paste0("Percentage of babies born at ", formatted_name, " (%)"),
     ) %>% 
     set_variable_labels(
-      DEN = "Total number of births: ",
-      MEDIAN = " average to Oct-Dec 2019",
-      EXTENDED = " projected average from Jan-Mar 2020")
+      den = "Total number of births: ",
+      median = " average to Oct-Dec 2019",
+      extended = " projected average from Jan-Mar 2020") %>% 
+      droplevels()
   
-  new_labels <- unique(c(data$NUM_label, data$MEASURE_label))
+  new_labels <- unique(c(data$num_label, data$measure_label))
   
-  new_max <- max(data$MEASURE) # local maximum MEASURE
+  new_max <- max(data$measure) # local maximum measure
   
-  observeEvent(new_max, {   # update local maximum MEASURE when Board changes
+  observeEvent(new_max, {   # update local maximum measure when Board changes
     y_max_gestation(new_max)
   }
   )
   
   data <- data %>% 
-    split(.$INDICATOR_CAT)
+    split(.$indicator_cat)
   
   for (i in seq_along(data)){
-    var_label(data[[i]]$NUM) <- new_labels[[i]]
-    var_label(data[[i]]$MEASURE) <- new_labels[[i+4]]
+    var_label(data[[i]]$num) <- new_labels[[i]]
+    var_label(data[[i]]$measure) <- new_labels[[i+4]]
   }
   
   for (i in seq_along(data)){
     data[[i]]$mytext <- paste0("Quarter: ",
-                               data[[i]]$QUARTER_LABEL,
+                               data[[i]]$quarter_label,
                                "<br>",
-                               var_label(data[[i]]$NUM), data[[i]]$NUM, "<br>",
-                               var_label(data[[i]]$DEN), data[[i]]$DEN, "<br>",
+                               var_label(data[[i]]$num),
+                               prettyNum(data[[i]]$num, big.mark = ","), #data[[i]]$num,
+                               "<br>",
+                               var_label(data[[i]]$den),
+                               prettyNum(data[[i]]$den, big.mark = ","), #data[[i]]$den,
+                               "<br>",
                                "Percentage of births: ", # not MEASURE_LABEL - too long
-                               format(data[[i]]$MEASURE,
-                                      digits = 1,
-                                      nsmall = 1),
+                               format(data[[i]]$measure,
+                                      digits = 2,
+                                      nsmall = 2),
                                "%")
   }
   
@@ -78,7 +83,7 @@ output$gest_at_birth_runcharts <- renderUI({
       column(7, 
              h4(HTML(paste0("32", tags$sup("+0"),
                             " to 36", tags$sup("+6"), " weeks"))),
-             plotlyOutput(gest_at_birthplotListNames[[1]])
+             plotlyOutput(gest_at_birthplotListNames[[2]])
       )
       ), # fluidRow
     
@@ -92,7 +97,7 @@ output$gest_at_birth_runcharts <- renderUI({
       column(1),
       column(4,
              h4(HTML(paste0("42", tags$sup("+0"), " weeks and over"))),
-             plotlyOutput(gest_at_birthplotListNames[[2]])
+             plotlyOutput(gest_at_birthplotListNames[[1]])
              )
     ) # fluidRow
   )

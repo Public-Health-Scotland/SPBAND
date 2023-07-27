@@ -12,38 +12,37 @@ type_of_birth_runchart_data <- reactive({
   #req(input$period)
   
   data <- type_of_birth_data %>%
-    filter(HBNAME == Selected$HBName &
-             PERIOD == "Q" &
-             HBTYPE == Selected$HBType) %>% 
-    mutate(NUM_label = if_else(INDICATOR_CAT == "all caesarean births",
+    filter(hbname == Selected$HBName &
+             period == "Q" &
+             hbtype == Selected$HBType) %>% 
+    mutate(num_label = if_else(indicator_cat == "all caesarean births",
                                paste0("Number of births that were caesarean births: "),
-                               paste0("Number of births that were ", INDICATOR_CAT, ": ")),
-           MEASURE_label = paste0("Percentage of births that were ", INDICATOR_CAT, " (%)"),
-           #DATE = QUARTER_LABEL
+                               paste0("Number of births that were ", indicator_cat, ": ")),
+           measure_label = paste0("Percentage of births that were ", indicator_cat, " (%)"),
     ) %>% 
     set_variable_labels(
-      DEN = "Total number of births: ",
-      MEDIAN = " average to Oct-Dec 2019",
-      EXTENDED = " projected average from Jan-Mar 2020")
+      den = "Total number of births: ",
+      median = " average to Oct-Dec 2019",
+      extended = " projected average from Jan-Mar 2020")
 
-  new_labels = unique(c(data$NUM_label, data$MEASURE_label))
+  new_labels = unique(c(data$num_label, data$measure_label))
   
   data <- data %>% 
-    split(.$INDICATOR_CAT)
+    split(.$indicator_cat)
   
   for (i in seq_along(data)){
-    var_label(data[[i]]$NUM) <- new_labels[[i]]
-    var_label(data[[i]]$MEASURE) <- new_labels[[i+5]]
+    var_label(data[[i]]$num) <- new_labels[[i]]
+    var_label(data[[i]]$measure) <- new_labels[[i+5]]
   }
   
   for (i in seq_along(data)){
     data[[i]]$mytext <- paste0("Quarter: ",
-                               data[[i]]$QUARTER_LABEL,
+                               data[[i]]$quarter_label,
                                "<br>",
-                               var_label(data[[i]]$NUM), data[[i]]$NUM, "<br>",
-                               var_label(data[[i]]$DEN), data[[i]]$DEN, "<br>",
+                               var_label(data[[i]]$num), data[[i]]$num, "<br>",
+                               var_label(data[[i]]$den), data[[i]]$den, "<br>",
                                "Percentage of births: ", # not MEASURE_LABEL - too long
-                               format(data[[i]]$MEASURE,
+                               format(data[[i]]$measure,
                                       digits = 1,
                                       nsmall = 1),
                                "%")

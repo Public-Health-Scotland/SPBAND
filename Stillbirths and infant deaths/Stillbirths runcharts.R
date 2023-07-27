@@ -1,21 +1,27 @@
 # a) data ----
 
 stillbirths_runchart_data <-
-  # selects data
 
 NRS_timeseries %>%
+  filter(!indicator_cat %like% "total" & # don't want the "total" values
+           quarter_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
+  mutate(measure_label = paste0("Rate per 1,000 ", den_description),
+         date_label = if_else(quarter_label == "2020",
+                              paste0("Year: ", quarter_label),
+                              paste0("Quarter: ", quarter_label)
+         )
+         ) %>% 
   set_variable_labels(
-    MEASURE = "rate per 1,000 related births",
-    MEAN = " average to Oct-Dec 2019",
-    EXTENDED = " projected average from Jan-Mar 2020"
+    mean = " average to Oct-Dec 2019",
+    extended = " projected average from Jan-Mar 2020"
     ) %>% 
-    mutate(mytext = paste0(INDICATOR_CAT,
+    mutate(mytext = paste0(date_label,
                            "<br>",
-                           DATE,
+                           str_to_sentence(indicator_cat),
                            "<br>",
-                           var_label(MEASURE),
+                           measure_label,
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
                                   nsmall = 1)
                            )
@@ -44,12 +50,12 @@ yaxis_plots[["range"]] <- list(0, y_max_NRS * 1.05) # expands the y-axis range t
 # create plotly chart
 
 stillbirth_charts <- stillbirths_runchart_data %>%
-  split(.$INDICATOR_CAT) %>% 
+  split(.$indicator_cat2) %>% 
   lapply(
     function(d)
       plot_ly(d, 
-              x = ~ QUARTER,
-              y = ~ EXTENDED, # dotted blue line # this line first as plotting last leads to overrun 
+              x = ~ quarter_label,
+              y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
               type = "scatter",
               mode = "lines",
               line = list(
@@ -60,12 +66,12 @@ stillbirth_charts <- stillbirths_runchart_data %>%
               name = "projected average from Jan-Mar 2020", # label of variable
               legendrank = 300, 
               legendgroup = "extended",
-              showlegend = ~ unique(INDICATOR_CAT) == "infant deaths",
+              showlegend = ~ unique(indicator_cat) == "infant deaths",
               hovertext = "",
               hoverinfo = "none"
               ) %>%
       add_trace(
-        y = ~ MEASURE,
+        y = ~ measure,
         type = "scatter",
         mode = "lines+markers",
         line = list(color = "black", # black lines
@@ -76,12 +82,12 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         name = "rate per 1,000 related births", # retrieves label of variable
         legendrank = 100,
         legendgroup = "measure",
-        showlegend = ~ unique(INDICATOR_CAT) == "infant deaths",
+        showlegend = ~ unique(indicator_cat) == "infant deaths",
         hovertext = ~ mytext,
         hoverinfo = "text"
         ) %>%
       add_trace(
-        y = ~ MEAN, # solid blue line
+        y = ~ mean, # solid blue line
         type = "scatter",
         mode = "lines",
         line = list(color = phs_colours("phs-blue"), 
@@ -89,7 +95,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         name = "average to Oct-Dec 2019", # label of variable
         legendrank = 200,
         legendgroup = "mean",
-        showlegend = ~ unique(INDICATOR_CAT) == "infant deaths",
+        showlegend = ~ unique(indicator_cat) == "infant deaths",
         hovertext = ""
         ) %>%
       layout(xaxis = xaxis_plots,
@@ -97,7 +103,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
              annotations = list(
                x = 0.5,
                y = 1.0,
-               text = ~ unique(INDICATOR_CAT),
+               text = ~ unique(indicator_cat),
                font = list(size = 16),
                xref = "paper",
                yref = "paper",
@@ -150,7 +156,7 @@ output$stillbirths_runcharts_title <- renderText({
 output$stillbirths_download_data <- downloadHandler(
 
   filename = function() {
-      paste0(first(stillbirths_download$INDICATOR), "_", extract_date, ".csv", sep = "")
+      paste0(first(stillbirths_download$indicator), "_", refresh_date, ".csv", sep = "")
     },
 
   content = function(file) {

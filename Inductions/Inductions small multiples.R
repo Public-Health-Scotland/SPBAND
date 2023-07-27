@@ -6,24 +6,24 @@ inductions_small_multiples_data <- reactive({
   #req(input$period)
   
   data <- inductions_data %>%
-    filter(HBTYPE == Selected$HBType & PERIOD == "Q") %>%
+    filter(hbtype == Selected$HBType & period == "Q") %>%
     set_variable_labels(
-      MEASURE = "Percentage of births following induction (%)",
-      MEDIAN = " average to Oct-Dec 2019",
-      EXTENDED = " projected average from Jan-Mar 2020"
+      measure = "Percentage of births following induction (%)",
+      median = " average to Oct-Dec 2019",
+      extended = " projected average from Jan-Mar 2020"
     ) %>% 
-  mutate(mytext = paste0(HBNAME,
+  mutate(mytext = paste0(hbname,
                            "<br>",
                          "Quarter: ", 
-                         QUARTER_LABEL,
+                         quarter_label,
                          "<br>",
                          "Percentage of births",
                          ": ",
-                         format(MEASURE,
+                         format(measure,
                                 digits = 1,
                                 nsmall = 1),
                          "%"),
-        DATE = QUARTER_LABEL
+        date = quarter_label
   )
 
 })

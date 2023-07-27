@@ -8,12 +8,12 @@ multi_indicator_chart_data <- reactive({
   req(input$date)
   
   data <- filter(annual_dataframe,
-                 DATE == Selected$Date
-                 & HBTYPE == Selected$HBType) %>% 
-    arrange(desc(KEY_INDICATOR_REF)) %>% 
-    mutate(LABEL = sub("Percentage", "%", PLOTLYLABEL)) %>% 
-    select(- PLOTLYLABEL) %>% 
-    mutate(LABEL = factor(LABEL, levels = as.character(unique(LABEL)))) # updates the factor levels
+                 date == Selected$Date
+                 & hbtype == Selected$HBType) %>% 
+    arrange(desc(key_measure_ref)) %>% 
+    mutate(label = sub("Percentage", "%", plotlylabel)) %>% 
+    select(- plotlylabel) %>% 
+    mutate(label = factor(label, levels = as.character(unique(label)))) # updates the factor levels
   
   if (is.null(data()))
   {
@@ -33,24 +33,24 @@ output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
 fig <- plot_ly(
     data = filter(
       multi_indicator_chart_data(),
-      !HBNAME %in% c("Scotland",
+      !hbname %in% c("Scotland",
                      as.character(Selected$HBName)) # dots for non-selected Boards exc. Scotland
     ),
     x = ~ RESCALED,
-    y = ~ LABEL,
+    y = ~ label,
     type = "scatter",
     mode = "markers",
     orientation = "h",
     name = "other Boards",
     visible = TRUE,
     #showlegend = FALSE,
-    hovertext = ~ paste0(HBNAME,
+    hovertext = ~ paste0(hbname,
                          ": ",
                          format(
-                           MEASURE,
+                           measure,
                            digits = 1, nsmall = 1
                          ),
-                         SUFFIX),
+                         suffix),
     hoverinfo = "text",
     opacity = .5,
     marker = list(color = "#CAC6D1",
@@ -58,9 +58,9 @@ fig <- plot_ly(
     size = I(20)
   ) %>% 
     add_markers(data = filter(multi_indicator_chart_data(),
-                              HBNAME == "Scotland"), # dots for Scotland
+                              hbname == "Scotland"), # dots for Scotland
                 x = ~ RESCALED,
-                y = ~ LABEL,
+                y = ~ label,
                 name = "Scotland",
                 #visible = TRUE,
                 opacity = 1,
@@ -68,10 +68,10 @@ fig <- plot_ly(
                               line = list(color = "#000000", width = 1) ),
                 size = I(50)) %>%
     add_markers(data = filter(multi_indicator_chart_data(),
-                              HBNAME == as.character(Selected$HBName)), # dots for selected Board
+                              hbname == as.character(Selected$HBName)), # dots for selected Board
                 x = ~ RESCALED,
-                y = ~ LABEL,
-                name = ~ HBNAME,
+                y = ~ label,
+                name = ~ hbname,
                 opacity = 1,
                 marker = list(color = "#83BB26", # phs-green want #0078D4 phs-blue?
                               line = list(color = "#000000", width = 1) ),
@@ -88,7 +88,7 @@ fig <- plot_ly(
                    showgrid = TRUE,
                    showticklabels = TRUE,
                    zeroline = TRUE,
-                   categoryorder = "trace"), # plots traces in KEY_INDICATOR_REF order
+                   categoryorder = "trace"), # plots traces in key_measure_ref order
       legend = list(orientation = "h",
                     xanchor = "auto",
                     x = 0.5,
@@ -99,10 +99,10 @@ fig <- plot_ly(
 # puts min and max values on chart
   
   fig <- fig %>% add_annotations(x = -0.05,
-                                 y = multi_indicator_chart_data()$LABEL,
+                                 y = multi_indicator_chart_data()$label,
                                  text = paste0(format(multi_indicator_chart_data()$MIN,
                                                       digits = 1, nsmall = 1)),
-                                 #data_multi_indicator_chart$SUFFIX),
+                                 #data_multi_indicator_chart$suffix),
                                  font = list(
                                    color = "#CAC6D1"),
                                  showarrow = FALSE,
@@ -111,10 +111,10 @@ fig <- plot_ly(
   )
   
   fig <- fig %>% add_annotations(x = 1,
-                                  y = multi_indicator_chart_data()$LABEL,
+                                  y = multi_indicator_chart_data()$label,
                                   text = paste0(format(multi_indicator_chart_data()$MAX,
                                                        digits = 1, nsmall = 1),
-                                                multi_indicator_chart_data()$SUFFIX),
+                                                multi_indicator_chart_data()$suffix),
                                   xanchor = 'left',
                                   font = list(
                                     color = "#CAC6D1"),

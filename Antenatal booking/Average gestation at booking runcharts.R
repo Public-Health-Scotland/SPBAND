@@ -6,12 +6,12 @@ gest_at_booking_runchart_data <- reactive({
   #req(input$period)
 
   data <- gest_at_booking_data %>%
-    filter(HBNAME == Selected$HBName &
-             HBTYPE == Selected$HBType) %>%
+    filter(hbname == Selected$HBName &
+             hbtype == Selected$HBType) %>%
     set_variable_labels(
-      MEASURE = "Average gestation at booking",
-      MEDIAN = "average gestation to end Feb 2020",
-      EXTENDED = 
+      measure = "Average gestation at booking",
+      median = "average gestation to end Feb 2020",
+      extended = 
         case_when(Selected$HBName == "NHS Forth Valley" ~ 
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Feb 2021"),
                   Selected$HBName == "NHS Tayside" ~ 
@@ -19,11 +19,11 @@ gest_at_booking_runchart_data <- reactive({
                   TRUE ~ "projected average gestation from Mar 2020")
     ) %>% 
     mutate(mytext = paste0("Month: ", 
-                           format(DATE, "%b %Y"),
+                           format(date, "%b %Y"),
                            "<br>",
-                           var_label(MEASURE),
+                           var_label(measure),
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks")

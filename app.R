@@ -122,7 +122,7 @@ home <- tabItem(
            hr(),
            
            p("The data displays on this ",
-             strong("Scottish Pregnancy, Birth and Neonatal Data (SPBAND) Dashboard"),
+             strong("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"),
              " have been developed in response to commitment 67 in ",
              
              tags$a(
@@ -148,7 +148,7 @@ home <- tabItem(
            p("Given the extensive work done in England through a Delphi process to derive
              14 monthly Clinical Quality Improvement Metrics or ", strong("CQIMS,"),
              " the concepts included in the CQIMs measures were used as a starting point
-             for further engagement on establishing core measures of pregnancy, birth,
+             for further engagement on establishing core measures of pregnancy, births,
              and neonatal care quality relevant to multiple audiences (policy makers,
              planners, clinical staff, the public) and suitable for a publicly accessible
              dashboard."
@@ -182,7 +182,7 @@ home <- tabItem(
            p("We have continued to update the data displays for these measures on the
              Wider Impacts dashboard but recognise that additional ways of looking at the
              data are helpful. We have therefore developed this post-COVID ",
-             strong("Pregnancy, Birth and Neonatal Data"),
+             strong("Pregnancy, Births and Neonatal Data"),
              " dashboard for Scotland, which offers alternative data views, including
              time series charts to allow comparison (for a particular measure) across
              Health Board areas, and a multi-indicator board comparison to display
@@ -311,14 +311,15 @@ multi_indicator_overview <- tabItem(
                                 )
                              ),
                       
-                      column(1, downloadButton("multi_indicator_download_data1", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("multi_indicator_download_data1", "Download data"                                                )
                              ),
                       
                       column(12,
-                             plotlyOutput("multi_indicator_chart",
+                             loading(plotlyOutput("multi_indicator_chart",
                                           height = "33em"
                                           )
+                                     )
                              ),
                       
                       column(12,
@@ -328,14 +329,15 @@ multi_indicator_overview <- tabItem(
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             h5("Source: PHS Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02"
+                             h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02"
                                 )
                              )
+                      
                     ) # fluidRow
                     
                     ), # tabPanel("multi_indicator_overview")
@@ -358,15 +360,16 @@ multi_indicator_overview <- tabItem(
                                 )
                              ),
                       
-                      column(1, downloadButton("multi_indicator_download_data2", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("multi_indicator_download_data2", "Download data"
+                                            )
                              ),
                       
                       column(11,
-                             DTOutput("mytable"
-                                      ),
+                             loading(DTOutput("mytable"
+                                      )
+                                     ),
                              br()
-                             
                              ),
                       
                       column(12,
@@ -376,12 +379,12 @@ multi_indicator_overview <- tabItem(
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             h5("Source: PHS Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02"
+                             h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02"
                                 )
                              )
                       
@@ -439,12 +442,12 @@ multi_indicator_overview <- tabItem(
 #                              ),
 #                       
 #                       column(12, 
-#                              h5(paste0("Data refreshed on ", nice_extract_date)
+#                              h5(paste0("Data refreshed on ", pretty_refresh_date)
 #                                 )
 #                              ),
 #                       
 #                       column(12,
-#                              h5("Source: PHS Scotland - Antenatal Booking Collection, Notifications of Abortion to the Chief Medical Officer for Scotland (CMO), SMR02"
+#                              h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection, Notifications of Abortion to the Chief Medical Officer for Scotland (CMO), SMR02"
 #                                 )
 #                              )
 #                     ) # fluidRow
@@ -487,12 +490,12 @@ multi_indicator_overview <- tabItem(
            #                   ),
            #            
            #            column(12, 
-           #                   h5(paste0("Data refreshed on ", nice_extract_date)
+           #                   h5(paste0("Data refreshed on ", pretty_refresh_date)
            #                      )
            #                   ),
            #            
            #            column(12,
-           #                   h5("Source: PHS Scotland - Antenatal Booking Collection, Notifications of Abortion to the Chief Medical Officer for Scotland (CMO), SMR02"
+           #                   h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection, Notifications of Abortion to the Chief Medical Officer for Scotland (CMO), SMR02"
            #                      )
            #                   )
            #            
@@ -521,7 +524,6 @@ fluidRow(
                   fluidRow(
 
                   column(12,
-
                            h3(textOutput("bookings_runcharts_title"
                                          ),
                               style = "font-weight: normal;
@@ -530,38 +532,34 @@ fluidRow(
                            ),
 
                    column(10,
-
                            h4("Number of pregnancies booked for antenatal care"
                               )
                            ),
 
-                    column(1, downloadButton("bookings_download_data", "Download data"
-                                              )
+                    column(1, 
+                           downloadButton("bookings_download_data", "Download data"
+                                          )
                            ),
 
                     column(12,
-
-                           plotlyOutput("bookings_runcharts", # timeseries not runchart
+                           loading(plotlyOutput("bookings_runcharts", # timeseries not runchart
                                         height = "30em"
                                         )
+                           )
                            ),
 
                     column(12,
-                           h5(paste0("Data refreshed on ", nice_extract_date)
+                           h5(paste0("Data refreshed on ", pretty_refresh_date)
                               )
                            ),
 
                     column(12,
-
-                           h5("Source: PHS Scotland - Antenatal Booking Collection"
+                           h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection"
                               ),
-                           
                            hr()
-                           
                            ),
 
                     column(12,
-                           
                            p("The black dots connected by a line in the chart above show the number
                              of pregnancies booked for antenatal care, for each month from Apr 2019
                              onwards."
@@ -575,6 +573,7 @@ fluidRow(
                              )
                            
                            ) # column
+                  
                   ) # fluidRow
                   ), # tabPanel("booking_runcharts")
          
@@ -584,7 +583,6 @@ fluidRow(
                   
                   fluidRow(
                     column(12,
-                           
                              h3("Number of pregnancies booked for antenatal care"
                                 )
                              )
@@ -666,6 +664,7 @@ fluidRow(
                           )
                         
                         ) # box
+                    
                     ) # fluidRow
                   ) # tabPanel("booking_datasource")
          ) # tabBox ("Average gestation at booking")
@@ -689,7 +688,6 @@ terminations <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("terminations_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -698,39 +696,34 @@ terminations <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Number of terminations"
                                 )
                              ),
                       
-                      column(1, downloadButton("terminations_download_data", "Download data"
-                                                )
-                             ),
-                      
-                      column(12, 
-                             
-                             plotlyOutput("terminations_runcharts", # timeseries not runchart
-                                          height = "30em"
-                                          )
+                      column(1, 
+                             downloadButton("terminations_download_data", "Download data"
+                                            )
                              ),
                       
                       column(12,
-                             
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             loading(plotlyOutput("terminations_runcharts", # timeseries not runchart
+                                          height = "30em"
+                                          )
+                             )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)"
+                             h5("Source: Public Health Scotland (PHS) - Termination of Pregnancy Submissions Scotland (ToPSS)"
                                 ),
-                             
                              hr()
-                             
                              ),
                       
                       column(12,
-                             
                              p("The black dots connected by a line in the chart above show the
                                number of terminations of pregnancy, for each month, from Jan 2017
                                onwards."
@@ -753,7 +746,6 @@ terminations <- tabItem(
                   
                   fluidRow(
                     column(12,
-                           
                              h3("Number of terminations"
                                 )
                              )
@@ -816,6 +808,7 @@ terminations <- tabItem(
                           )
                         
                         ) # box
+                    
                     ) # fluidRow
                   ) # tabPanel("termination_datasource")
            ) # tabBox ("Number of terminations")
@@ -839,7 +832,6 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_booking_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -848,30 +840,30 @@ gestation_at_booking <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Average gestation at booking (based on completed weeks of pregnancy)"
                                 )
                              ),
                       
-                      column(1, downloadButton("gest_at_booking_download_data1", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("gest_at_booking_download_data1", "Download data"
+                                            )
                              ),
                       
                       column(11,
-                             
-                             plotlyOutput("gest_at_booking_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("gest_at_booking_small_multiples",
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - Antenatal Booking Collection"
+                             h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection"
                                 )
                              )
                       
@@ -885,7 +877,6 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_booking_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -894,37 +885,35 @@ gestation_at_booking <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Average gestation at booking (based on completed weeks of pregnancy)"
                                 )
                              ),
                       
-                      column(1, downloadButton("gest_at_booking_download_data2", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("gest_at_booking_download_data2", "Download data"
+                                            )
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("gest_at_booking_runcharts",
-                                          height = "30em"
-                                          )
+                             loading(
+                               plotlyOutput("gest_at_booking_runcharts",
+                                            height = "30em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - Antenatal Booking Collection"
+                             h5("Source: Public Health Scotland (PHS) - Antenatal Booking Collection"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-                             
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -961,7 +950,6 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3("Average gestation at booking"
                                 )
                              )
@@ -1068,7 +1056,6 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_termination_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1077,20 +1064,21 @@ gestation_at_termination <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Average gestation at termination (based on completed weeks of pregnancy)"
                                 )
                              ),
                       
-                      column(1, downloadButton("gest_at_termination_download_data1", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("gest_at_termination_download_data1", "Download data"
+                                            )
                              ),
                       
                       column(11,
-                             
-                             plotlyOutput("gest_at_termination_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("gest_at_termination_small_multiples",  
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
                       column(12,
@@ -1099,15 +1087,15 @@ gestation_at_termination <- tabItem(
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)"
+                             h5("Source: Public Health Scotland (PHS) - Termination of Pregnancy Submissions Scotland (ToPSS)"
                                 )
                              )
+                      
                       ) # fluidRow
                     
            ), # tabPanel("gest_at_termination_overview")
@@ -1118,7 +1106,6 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_terminaton_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1127,38 +1114,35 @@ gestation_at_termination <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Average gestation at termination (based on completed weeks of pregnancy)"
                                 )
                              ),
                       
-                      column(1, downloadButton("gest_at_termination_download_data2", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("gest_at_termination_download_data2", "Download data"
+                                            )
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("gest_at_termination_runcharts",
-                                          height = "30em"
-                                          )
+                             loading(
+                               plotlyOutput("gest_at_termination_runcharts",
+                                            height = "30em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)"
+                             h5("Source: Public Health Scotland (PHS) - Termination of Pregnancy Submissions Scotland (ToPSS)"
                                 ),
-                             
                              hr()
-                             
                              ),
                       
                       column(12,
-                             
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -1301,44 +1285,166 @@ location_of_ex_pre_term <- tabItem(
 
            # Holding tab
            
-           tabPanel(title = "Indicator work in progress", #value = "pre-term births",
+           # tabPanel(title = "Indicator work in progress", #value = "pre-term births",
+           #          
+           #          fluidRow(
+           #            column(10,
+           #                   h4("Percentage of births at 22-26 weeks gestation resulting in a
+           #                      live born baby that occur in a hospital with a neonatal intensive 
+           #                      care unit on site: Scotland"
+           #                      ),
+           #                   br(),
+           #                   br(),
+           #                   br(),
+           #                   br(),
+           #                   
+           #                   p("This indicator will be available in a future release."
+           #                     ),
+           #                   
+           #                   p("In the meantime, data on a closely-related measure, ‘Percentage of 
+           #                     births at ", strong("23-26 weeks gestation"), " resulting in a
+           #                     live born baby that occur in a hospital with a neonatal intensive 
+           #                     care unit’ continues to be presented in the", strong("Births and babies"),
+           #                     "tab of the ",
+           # 
+           #                     tags$a(
+           #                       href = "https://scotland.shinyapps.io/phs-covid-wider-impact/",
+           #                       "COVID-19 wider impacts on the health care system dashboard.",
+           #                       class = "externallink",
+           #                       target = "_blank"
+           #                       )
+           #                     )
+           #                   )
+           #            
+           #            ) # fluidRow
+           #          ), # tabPanel("pre-term births_overview")
+           
+           # Control chart and context chart
+
+           tabPanel(title = "Scotland", #value = "extreme_preterm_control_charts",
+                    
+                    fluidRow(
+                      column(12,
+                             h3(textOutput("extremely_preterm_control_chart_title"
+                                           ),
+                                style = "font-weight: normal;
+                                         text-align: center;"
+                                )
+                             ),
+                      
+                      column(10,
+                             h4("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit (NICU) on site*"
+                                )
+                             ),
+                      
+                      column(1, 
+                             downloadButton("extremely_preterm_download_data", "Download data"
+                                            )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("extremely_preterm_control_chart",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5("* Note that this indicator differs from the Wider Impacts dashboard
+                                indicator as it includes babies born at 22 weeks gestation")
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                ),
+                             hr()
+                             ),
+                      
+                      column(12,
+                             p("As births at 22-26 weeks gestation are relatively rare events in
+                               Scotland, the percentage of these births that occur in a hospital
+                               with a neonatal intensive care unit on site will fluctuate over time
+                               just by chance. We have therefore used ‘control charts’ to present the
+                               percentages above."
+                               ),
+                             
+                             p("Control charts use a series of rules to help identify unusual behaviour
+                               in data and indicate patterns that merit further investigation. Read 
+                               more about the rules used in the charts in the ‘How do we identify 
+                               patterns in the data?’ section on the Home page."
+                               ),
+                             
+                             p(tags$div(
+                               HTML(paste0(
+                                 "The dots joined by a solid purple line in the chart above show the
+                                 percentage of births between 22", tags$sup("+0"), " and 26", 
+                                 tags$sup("+6"), " weeks gestation inclusive that occurred in a 
+                                 hospital with a neonatal intensive care unit on site, for quarters
+                                 from Jan-Mar 2018 onwards."
+                                 )
+                                 ) # HTML
+                               ) # div
+                               ),
+                             
+                             p("The other lines - centreline, and control and warning limits - are
+                               there to help show how unexpected any observed changes are."
+                               ),
+                             
+                             p("To provide a basis for identifying patterns in the data, a dashed
+                               magenta line shows the average (mean) of the mean percentage of births
+                               at 22-26 weeks gestation resulting in a live born baby that occur in a
+                               hospital with a neonatal intensive care unit on site, over the entire
+                               time period."
+                               ),
+                             
+                             p("Control and warning limits take into consideration the random variation
+                               that would be expected by chance, and help us decide when values are
+                               unexpectedly low or high and require further investigation."
+                               ),
+                             
+                             p("Due to the small number of births at this very early gestation, data
+                               is only shown at all Scotland level. "
+                               ),
+                             
+                             hr()
+                             
+                             )
+                      
+                      ), # fluidRow
                     
                     fluidRow(
                       column(10,
-                             
-                             h4("Percentage of births at 22-26 weeks gestation resulting in a
-                                live born baby that occur in a hospital with a neonatal intensive 
-                                care unit on site: Scotland"
-                                ),
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             p("This indicator will be available in a future release."
-                               ),
-                             
-                             p("In the meantime, data on a closely-related measure, ‘Percentage of 
-                               births at ", strong("23-26 weeks gestation"), " resulting in a
-                               live born baby that occur in a hospital with a neonatal intensive 
-                               care unit’ continues to be presented in the", strong("Births and babies"),
-                               "tab of the ",
-
-                               tags$a(
-                                 href = "https://scotland.shinyapps.io/phs-covid-wider-impact/",
-                                 "COVID-19 wider impacts on the health care system dashboard.",
-                                 class = "externallink",
-                                 target = "_blank"
-                                 )
-                               )
-                             )
+                             h4("Number of births at 22-26 weeks gestation"
+                                )
+                             ),
                       
+                      column(12,
+                             loading(
+                               plotlyOutput("extremely_preterm_context_chart",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
                       ) # fluidRow
-                    ), # tabPanel("pre-term births_overview")
+                    
+                    ), # tabPanel("extremely_preterm_control_chart")
            
            # Data source and definitions etc.
 
@@ -1586,7 +1692,6 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("inductions_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1595,31 +1700,31 @@ inductions <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of singleton live births at 37-42 weeks gestation
                                 following induction of labour"
                                 )
                              ),
                       
-                      column(1, downloadButton("inductions_download_data1", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("inductions_download_data1", "Download data"
+                                            )
                              ),
                       
                       column(11,
-                             
-                             plotlyOutput("inductions_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("inductions_small_multiples",
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 )
                              )
                       
@@ -1633,7 +1738,6 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("inductions_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1642,38 +1746,36 @@ inductions <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of singleton live births at 37-42 weeks gestation
                                 following induction of labour"
                                 )
                              ),
                       
-                      column(1, downloadButton("inductions_download_data2", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("inductions_download_data2", "Download data"
+                                            )
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("inductions_runcharts",
-                                          height = "30em"
-                                          )
+                             loading(
+                               plotlyOutput("inductions_runcharts",
+                                            height = "30em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-                             
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -1705,10 +1807,38 @@ inductions <- tabItem(
                              p("The black dots become yellow where there are 6 or more consecutive
                                points above or below the average and are highlighted in green where
                                there are 5 or more consecutively increasing or decreasing points."
-                               )
+                               ),
+                             
+                             hr()
                              
                              )
                       
+                      ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             h4("Number of singleton live births at 37-42 weeks gestation"
+                                )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("inductions_context_charts",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
                       ) # fluidRow
                     
                     ), # tabPanel("induction_of_labour_runcharts")
@@ -1869,7 +1999,6 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("type_of_birth_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1878,7 +2007,6 @@ type_of_birth <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4(textOutput("type_of_birth_small_multiples_sub_title"
                                            )
                                 )
@@ -1890,10 +2018,11 @@ type_of_birth <- tabItem(
                              ),
 
                       column(10,
-                             
-                             plotlyOutput("type_of_birth_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("type_of_birth_small_multiples",
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
                       column(2,
@@ -1902,14 +2031,13 @@ type_of_birth <- tabItem(
                                       )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 )
                              )
                       
@@ -1923,7 +2051,6 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("type_of_birth_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -1932,36 +2059,34 @@ type_of_birth <- tabItem(
                              ),
                       
                       column(10,
-                             
-                             h4("Percentage of singleton live births that were"
+                             h4("Percentage of singleton live births at any gestation that were"
                                 )
                              ),
                       
-                      column(1, downloadButton("type_of_birth_download_data2", "Download data"
-                                                )
+                      column(1, 
+                             downloadButton("type_of_birth_download_data2", "Download data"
+                                            )
                              ),
                       
                       column(11,
-                             
-                             uiOutput("type_of_birth_runcharts"
-                                      )
+                             loading(
+                               uiOutput("type_of_birth_runcharts"
+                                        )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-                             
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -1984,10 +2109,38 @@ type_of_birth <- tabItem(
                              p("The black dots become yellow where there are 6 or more consecutive
                                points above or below the average and are highlighted in green where
                                there are 5 or more consecutively increasing or decreasing points."
-                               )
+                               ),
                              
+                             hr()
+
                              )
                       
+                      ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             h4("Number of singleton live births at any gestation by type of birth"
+                                )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("type_of_birth_context_charts",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
                       ) # fluidRow
                     
                     ), # tabPanel("type_of_birth_runcharts")
@@ -2135,6 +2288,7 @@ type_of_birth <- tabItem(
                             )
                           
                           ) # box
+                      
                       ) # fluidRow
                     ) # tabPanel("type_of_birth_datasource")
            
@@ -2159,7 +2313,6 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("tears_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -2168,7 +2321,6 @@ perineal_tears <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
                                 )
                              ),
@@ -2179,20 +2331,20 @@ perineal_tears <- tabItem(
                              ),
                       
                       column(11,
-                             
-                             plotlyOutput("tears_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("tears_small_multiples",  
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
 
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 )
                              )
                       
@@ -2206,7 +2358,6 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("tears_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -2215,7 +2366,6 @@ perineal_tears <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
                                 )
                              ),
@@ -2226,27 +2376,25 @@ perineal_tears <- tabItem(
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("tears_runcharts",
-                                          height = "30em"
-                                          )
+                             loading(
+                               plotlyOutput("tears_runcharts",
+                                            height = "30em"
+                                            )
+                               )
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-       
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -2278,10 +2426,39 @@ perineal_tears <- tabItem(
                              p("The black dots become yellow where there are 6 or more consecutive
                                points above or below the average and are highlighted in green where
                                there are 5 or more consecutively increasing or decreasing points."
-                               )
+                               ),
+                             
+                             hr()
                              
                              )
                       
+                      ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             h4("Number of women giving birth vaginally to a singleton live or 
+                                stillborn baby with a cephalic presentation between 37-42 weeks gestation"
+                                )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("tears_context_charts",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
                       ) # fluidRow
                     
                     ), # tabPanel("tears_runcharts")
@@ -2474,6 +2651,7 @@ perineal_tears <- tabItem(
                             )
                           
                           ) # box
+                      
                       ) # fluidRow
                     ) # tabPanel("tears_datasource")
            ) # tabBox ("Perineal tears")
@@ -2497,7 +2675,6 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_birth_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -2506,7 +2683,6 @@ gestation_at_birth <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4(htmlOutput("gest_at_birth_small_multiples_sub_title"
                                            )
                                 )
@@ -2518,10 +2694,11 @@ gestation_at_birth <- tabItem(
                              ),
                       
                       column(10,
-                             
-                             plotlyOutput("gest_at_birth_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("gest_at_birth_small_multiples",
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
                       column(2,
@@ -2531,13 +2708,12 @@ gestation_at_birth <- tabItem(
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 )
                              )
                       
@@ -2551,7 +2727,6 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("gest_at_birth_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -2560,7 +2735,6 @@ gestation_at_birth <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of singleton live babies born at the stated gestation",
                                 style = "font-weight: normal;
                                          text-align: left;"
@@ -2573,26 +2747,24 @@ gestation_at_birth <- tabItem(
                              ),
                       
                       column(12,
-                             
-                             uiOutput("gest_at_birth_runcharts"
-                                      )
+                             loading(
+                               uiOutput("gest_at_birth_runcharts"
+                                        )
+                               )
                              ),
                       
                       column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-       
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -2617,11 +2789,39 @@ gestation_at_birth <- tabItem(
                              p("The black dots become yellow where there are 6 or more consecutive
                                points above or below the average and are highlighted in green where
                                there are 5 or more consecutively increasing or decreasing points."
-                               )
+                               ),
+                             
+                             hr()
                              
                              )
                       
-                    ) # fluidRow
+                    ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             h4("Number of singleton live babies born at the stated gestation"
+                                )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("gest_at_birth_context_charts",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
+                      ) # fluidRow
 
                     ), # tabPanel("gest_at_birth_runcharts")
            
@@ -2780,6 +2980,7 @@ gestation_at_birth <- tabItem(
                             )
 
                           ) # box
+                      
                       ) # fluidRow
                     ) # tabPanel("gest_at_birth_datasource")
            ) # tabBox("Gestation at birth")
@@ -2799,118 +3000,134 @@ stillbirths <- tabItem(
 
            # Holding tab
            
-           tabPanel(title = "Indicator work in progress", #value = "stillbirths",
-                    
-                    fluidRow(
-                      column(10,
-                             tags$div(
-                               HTML("<ul>
-                                    
-                                    <li>Quarterly rate of stillbirths per 1,000 total (live + still)
-                                    births in Scotland</li>
-                                    
-                                    <li>Quarterly rate of neonatal deaths per 1,000 live births in 
-                                    Scotland</li>
-                                    
-                                    <li>Quarterly rate of extended perinatal deaths per 1,000 total
-                                    (live + still) births in Scotland</li>
-                                    
-                                    <li>Quarterly rate of post-neonatal deaths per 1,000 live births
-                                    in Scotland</li>
-                                    
-                                    <li>Quarterly rate of infant deaths per 1,000 live births in 
-                                    Scotland</li>
-                                    
-                                    </ul>"
-                                    ) # HTML
-                               ), # div
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             br(),
-                             
-                             p("This indicator is still under development. However, we have provided 
-                               some initial charts to indicate the proposed format on the ",
-                               strong("Timeseries"), " tab."
-                               ),
-                             
-                             p("In the meantime, ", strong("monthly"), "data on this measure continues
-                               to be presented in the", strong("Births and babies"), "tab of the ",
-
-                               tags$a(
-                                 href = "https://scotland.shinyapps.io/phs-covid-wider-impact/",
-                                 "COVID-19 wider impacts on the health care system dashboard.",
-                                 class = "externallink",
-                                 target = "_blank"
-                                 )
-                               ),
-                             
-                             p("Please note there are slight differences between the two underlying 
-                                data sources, as well as a difference in the reporting periods."
-                               ),
-                             
-                             p("The source data for the indicator in SPBAND can be found in ",
-                               
-                               tags$a(
-                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
-                                 "Births, Deaths and Other Vital Events - Quarterly Figures (external website)",
-                                 class = "externallink",
-                                 target = "_blank"
-                                 ),
-                               
-                               "on the NRS website."
-                               )
-                             )
-
-                      ) # fluidRow
-    
-                    ), # tabPanel("stillbirths_holding")
+           # tabPanel(title = "Indicator work in progress", #value = "stillbirths",
+           #          
+           #          fluidRow(
+           #            column(10,
+           #                   tags$div(
+           #                     HTML("<ul>
+           #                          
+           #                          <li>Quarterly rate of stillbirths per 1,000 total (live + still)
+           #                          births in Scotland</li>
+           #                          
+           #                          <li>Quarterly rate of neonatal deaths per 1,000 live births in 
+           #                          Scotland</li>
+           #                          
+           #                          <li>Quarterly rate of extended perinatal deaths per 1,000 total
+           #                          (live + still) births in Scotland</li>
+           #                          
+           #                          <li>Quarterly rate of post-neonatal deaths per 1,000 live births
+           #                          in Scotland</li>
+           #                          
+           #                          <li>Quarterly rate of infant deaths per 1,000 live births in 
+           #                          Scotland</li>
+           #                          
+           #                          </ul>"
+           #                          ) # HTML
+           #                     ), # div
+           #                   
+           #                   br(),
+           #                   br(),
+           #                   br(),
+           #                   br(),
+           #                   
+           #                   p("This indicator is still under development. However, we have provided 
+           #                     some initial charts to indicate the proposed format on the ",
+           #                     strong("Timeseries"), " tab."
+           #                     ),
+           #                   
+           #                   p("In the meantime, ", strong("monthly"), "data on this measure continues
+           #                     to be presented in the", strong("Births and babies"), "tab of the ",
+           # 
+           #                     tags$a(
+           #                       href = "https://scotland.shinyapps.io/phs-covid-wider-impact/",
+           #                       "COVID-19 wider impacts on the health care system dashboard.",
+           #                       class = "externallink",
+           #                       target = "_blank"
+           #                       )
+           #                     ),
+           #                   
+           #                   p("Please note there are slight differences between the two underlying 
+           #                      data sources, as well as a difference in the reporting periods."
+           #                     ),
+           #                   
+           #                   p("The source data for the indicator in SPBAND can be found in ",
+           #                     
+           #                     tags$a(
+           #                       href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+           #                       "Births, Deaths and Other Vital Events - Quarterly Figures (external website)",
+           #                       class = "externallink",
+           #                       target = "_blank"
+           #                       ),
+           #                     
+           #                     "on the NRS website."
+           #                     )
+           #                   )
+           # 
+           #            ) # fluidRow
+           # 
+           #          ), # tabPanel("stillbirths_holding")
            
            # Small multiples tab
            
-           tabPanel(title = "Timeseries", # value = "stillbirths_overview",
+           tabPanel(title = "Scotland", # value = "stillbirths_overview",
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("stillbirths_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
                                          text-align: center;"
                                 )
                              ),
+                      
+                      column(10,
+                             h4("Quarterly rates of stillbirths and infant deaths*"
+                                )
+                             ),
 
-                      column(1, offset = 10,
+                      column(1, 
+                             offset = 10,
                              downloadButton("stillbirths_download_data", "Download data"
                                             )
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("stillbirths_runcharts",
-                                          height = "60em"
-                                          )
+                             loading(
+                               plotlyOutput("stillbirths_runcharts",
+                                            height = "60em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5("* Rates are per 1,000 live births except for stillbirths and extended
+                                perinatal deaths, where the rates are per 1,000 total (live and still)
+                                births."
+                                )
                              ),
 
-                      column(12, 
-                             h5(paste0("Data first published by NRS on ", NRS_published_date)
+                      column(12,
+                             h5(paste0("Data first published by National Records of Scotland (NRS) on ", NRS_published_date)
                                 )
                              ),
                       
                       column(12,
+                             h5("Source: National Records of Scotland (NRS) ", #vital event registrations"
+                                #),
                              
-                             h5("Source: NRS vital event registrations"
-                                ),
+                             tags$a(
+                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                                 "Births, Deaths and Other Vital Events - Quarterly Figures (external website)",
+                                 class = "externallink",
+                                 target = "_blank"
+                                 )
+                             ),
                              
                              hr()
                              ),
                       
                       column(12,
-                             
                              p("In mid-March 2020 Registration Offices closed due to the Covid-19 
                                pandemic. Birth registrations were postponed. Birth registration 
                                restarted in late June 2020. Quarterly rates for stillbirths and 
@@ -2968,7 +3185,7 @@ stillbirths <- tabItem(
                       box(title = "Data source and definitions",
                           width = 5,
 
-                          p("Data source: NRS vital event registrations"
+                          p("Data source: National Records of Scotland (NRS) vital event registrations"
                             ),
                           
                           p("The quarterly stillbirth and infant mortality rates shown in this indicator 
@@ -3075,9 +3292,10 @@ stillbirths <- tabItem(
                             )
 
                           ) # box
+                      
                       ) # fluidRow
                     ) # tabPanel("stillbirths_datasource")
-           # tabPanel("stillbirths")
+
            ) # tabBox("Stillbirths and infant deaths")
     ) # fluidRow
   ) # tabItem ("stillbirths")
@@ -3099,7 +3317,6 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("apgar5_small_multiples_title"
                                            ),
                                 style = "font-weight: normal;
@@ -3108,7 +3325,6 @@ apgar_scores <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of singleton live births at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
                                 )
                              ),
@@ -3119,20 +3335,20 @@ apgar_scores <- tabItem(
                              ),
                       
                       column(11,
-                             
-                             plotlyOutput("apgar5_small_multiples",
-                                          height = "35em"
-                                          )
+                             loading(
+                               plotlyOutput("apgar5_small_multiples",
+                                            height = "35em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
 
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 )
                              )
                       
@@ -3146,7 +3362,6 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             
                              h3(textOutput("apgar5_runcharts_title"
                                            ),
                                 style = "font-weight: normal;
@@ -3155,7 +3370,6 @@ apgar_scores <- tabItem(
                              ),
                       
                       column(10,
-                             
                              h4("Percentage of singleton live births at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
                                 )
                              ),
@@ -3166,27 +3380,25 @@ apgar_scores <- tabItem(
                              ),
                       
                       column(12,
-                             
-                             plotlyOutput("apgar5_runcharts",
-                                          height = "30em"
-                                          )
+                             loading(
+                               plotlyOutput("apgar5_runcharts",
+                                            height = "30em"
+                                            )
+                               )
                              ),
                       
-                      column(12, 
-                             h5(paste0("Data refreshed on ", nice_extract_date)
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
                                 )
                              ),
                       
                       column(12,
-                             
-                             h5("Source: PHS Scotland - SMR02"
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
                                 ),
-                             
                              hr()
                              ),
                       
                       column(12,
-       
                              p("We have used run charts to present the data above. Run charts use a
                                series of rules to help identify unusual behaviour in data and 
                                indicate patterns that merit further investigation. Read more about 
@@ -3217,10 +3429,38 @@ apgar_scores <- tabItem(
                              p("The black dots become yellow where there are 6 or more consecutive
                                points above or below the average and are highlighted in green where
                                there are 5 or more consecutively increasing or decreasing points."
-                               )
+                               ),
+                             
+                             hr()
                              
                              )
                       
+                      ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             h4("Number of singleton live births at 37-42 weeks gestation"
+                                )
+                             ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("apgar5_context_charts",
+                                            height = "30em"
+                                            )
+                               )
+                             ),
+                      
+                      column(12,
+                             h5(paste0("Data refreshed on ", pretty_refresh_date)
+                                )
+                             ),
+                      
+                      column(12,
+                             h5("Source: Public Health Scotland (PHS) - SMR02"
+                                )
+                             )
+                             
                       ) # fluidRow
                     
                     ), # tabPanel("Runcharts and time series")
@@ -3334,6 +3574,7 @@ apgar_scores <- tabItem(
                           )
 
                           ) # box
+                      
                       ) # fluidRow
                     ) # tabPanel("apgar5_datasource")
            ) # tabBox("Low Apgar5 scores")
@@ -3414,8 +3655,8 @@ server <- function(input, output, session) {
                              Date = "2020/21",
                              Subgroup = "Age group",
                              Indicator_cat = "all caesarean births",
-                             Gestation = ">= 42 weeks",
-                             Nicename = "")
+                             Gestation = "under 32 weeks",
+                             Nicename = "under 32 weeks")
   
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
@@ -3427,12 +3668,13 @@ server <- function(input, output, session) {
   
   # topicList feeds into the observeEvent which sets the view to the first page whenever a different
   # tabset is selected from the menu. This ensures that the filters are shown correctly. Filter selections,
-  # e.g. HBTYPE, HBNAME will persist
+  # e.g. hbtype, hbname will persist
   
   topicList <- c("pregnancies_booked",
                  "terminations",
                  "gestation_at_booking",
                  "gestation_at_termination",
+                 "location_of_ex_pre_term",
                  "inductions",
                  "type_of_birth",
                  "perineal_tears",
@@ -3440,7 +3682,7 @@ server <- function(input, output, session) {
                  "stillbirths",
                  "apgar_scores")
   
-  tabsetList <- paste("tabset", seq_len(10), sep = "") # not used?
+  tabsetList <- paste("tabset", seq_len(11), sep = "") # not used?
   
   # this observeEvent sets the tabset back to the first tabPanel when a new tabset is selected from the 
   # menu
@@ -3450,34 +3692,50 @@ server <- function(input, output, session) {
                if (input$topics %in% topicList) {
                  
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset10",
+                                   "tabset01", # multi_indicator_overview
+                                   "All boards")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset10", # pregnancies_booked
                                    "Timeseries")
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset11",
+                                   "tabset11", # terminations
                                    "Timeseries")
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset12",
+                                   "tabset12", # gestation_at_booking
+                                   "Board comparison")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset13", # gestation_at_termination
+                                   "Board comparison")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset20", # location_of_ex_pre_term
+                                   "Scotland")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset21", # inductions
+                                   "Board comparison")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset22", # type_of_birth
+                                   "Board comparison")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset23", # perineal_tears
                                    "Board comparison")
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset13",
+                                   "tabset24", # gestation_at_birth
                                    "Board comparison")
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset21",
-                                   "Board comparison")
+                                   "tabset25", # stillbirths
+                                   "Scotland")
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset22",
-                                   "Board comparison")
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset23",
-                                   "Board comparison")
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset24",
-                                   "Board comparison")
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset25",
-                                   "Indicator work in progress")
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset26",
+                                   "tabset26", # apgar_scores
                                    "Board comparison")
                }
   )
@@ -3528,7 +3786,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # select HBNAME
+  # select hbname
   
   output$hbnameControl <- renderUI({ 
     hidden(
@@ -3543,7 +3801,7 @@ server <- function(input, output, session) {
     ) 
   })
   
-  # determines whether the HBNAME filter should show or not
+  # determines whether the hbname filter should show or not
   
   observe(toggleElement(id = "hbname",
                         condition = ((input$topics %in% show_HBname &
@@ -3552,7 +3810,7 @@ server <- function(input, output, session) {
                         )
           )
   
-  # select DATE (financial year or calendar year)
+  # select date (financial year or calendar year)
 
   output$dateControl <- renderUI({ 
     hidden(
@@ -3566,7 +3824,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # determines whether the DATE filter should show or not
+  # determines whether the date filter should show or not
   
   observe(
     toggleElement(id = "date",
@@ -3601,8 +3859,8 @@ server <- function(input, output, session) {
                                      " to 36", tags$sup("+6"), " weeks")),
                          "under 37 weeks",
                          HTML(paste0("42", tags$sup("+0"), " weeks and over"))),
-      choiceValues = list("under 32 weeks", ">= 32 and <= 36 weeks",
-                          "under 37 weeks", ">= 42 weeks"),
+      choiceValues = list("under 32 weeks", "between 32 and 36 weeks",
+                          "under 37 weeks", "42 weeks and over"),
       selected = "under 32 weeks",
       inline = FALSE
     )
@@ -3619,7 +3877,9 @@ server <- function(input, output, session) {
   # observe(print(paste0("5: ", input$tabset5)))
   # observe(print(paste0("6: ", input$tabset6)))
   # observe(print(paste0("7: ", input$tabset7)))
-  #observe(print(input$subgroup))
+  # observe(print(input$hbname))
+  # observe(print(y_max_term))
+  # observe(print(y_max_not_term))
   #observe(print(Selected$Date))
   #observe(print(Selected$HBName))
   #observe(print(Selected$HBType))
@@ -3628,10 +3888,10 @@ server <- function(input, output, session) {
   #observe(print(model_runchart_data2()))
   
   # output$sourceABC1 <- output$sourceABC2 <- renderText({
-  #   "Source: PHS Scotland - Antenatal Booking Collection"})
+  #   "Source: Public Health Scotland (PHS) - Antenatal Booking Collection"})
   # 
   # output$sourceSMR02_1 <- output$sourceSMR02_2 <- renderText({
-  #   "Source: PHS Scotland - SMR02, Antenatal Booking Collection"})
+  #   "Source: Public Health Scotland (PHS) - SMR02, Antenatal Booking Collection"})
   
   # this section tells the app where to find the code for each tab
   
@@ -3659,15 +3919,25 @@ server <- function(input, output, session) {
   
   source("Terminations/Average gestation at termination download data.R", local = TRUE)
   
+  source("Extremely preterm/Extremely preterm control chart.R", local = TRUE) 
+  
+  source("Extremely preterm/Extremely preterm context chart.R", local = TRUE) 
+    
+  source("Extremely preterm/Extremely preterm download data.R", local = TRUE)
+  
   source("Inductions/Inductions small multiples.R", local = TRUE)
   
   source("Inductions/Inductions runcharts.R", local = TRUE)
+  
+  source("Inductions/Inductions context charts.R", local = TRUE)
   
   source("Inductions/Inductions download data.R", local = TRUE)
   
   source("Type of birth/Type of birth small multiples.R", local = TRUE)
   
   source("Type of birth/Type of birth runcharts.R", local = TRUE)
+    
+  source("Type of birth/Type of birth context charts.R", local = TRUE)
   
   source("Type of birth/Type of birth download data.R", local = TRUE)
 
@@ -3675,11 +3945,15 @@ server <- function(input, output, session) {
   
   source("Tears/Tears runcharts.R", local = TRUE)
   
+  source("Tears/Tears context charts.R", local = TRUE)
+  
   source("Tears/Tears download data.R", local = TRUE)
   
   source("Gestation at birth/Gestation at birth small multiples.R", local = TRUE)
   
   source("Gestation at birth/Gestation at birth runcharts.R", local = TRUE)
+  
+  source("Gestation at birth/Gestation at birth context charts.R", local = TRUE)
   
   source("Gestation at birth/Gestation at birth download data.R", local = TRUE)
   
@@ -3688,6 +3962,8 @@ server <- function(input, output, session) {
   source("Apgar5/Apgar5 small multiples.R", local = TRUE)
   
   source("Apgar5/Apgar5 runcharts.R", local = TRUE)
+  
+  source("Apgar5/Apgar5 context charts.R", local = TRUE)
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
 }

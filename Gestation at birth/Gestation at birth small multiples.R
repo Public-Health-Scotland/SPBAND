@@ -2,12 +2,17 @@
 
 # map input$gestation to visually nicer gestation group names for title
 
+# initialise Selected$Nicename
+
+Selected$Nicename <- "under 32 weeks"
+Selected$Gestation <- "under 32 weeks"
+
 observeEvent(input$gestation, Selected$Nicename <- case_when(
   input$gestation == "under 32 weeks" ~ "under 32 weeks",
-  input$gestation == ">= 32 and <= 36 weeks" ~ paste0("32", "<sup>+0</sup>",
+  input$gestation == "between 32 and 36 weeks" ~ paste0("32", "<sup>+0</sup>",
                                                          " to 36", "<sup>+6</sup>", " weeks"),
   input$gestation == "under 37 weeks" ~ "under 37 weeks",
-  input$gestation == ">= 42 weeks" ~ paste0("42", "<sup>+0</sup>", " weeks and over")
+  input$gestation == "42 weeks and over" ~ paste0("42", "<sup>+0</sup>", " weeks and over")
   )
 )
 
@@ -17,29 +22,30 @@ gest_at_birth_small_multiples_data <- reactive({
   #req(input$period)
 
   data <- gest_at_birth_data %>%
-  filter(HBTYPE == Selected$HBType &
-           PERIOD == "Q" &
-           INDICATOR_CAT == Selected$Gestation) %>%
+  filter(hbtype == Selected$HBType &
+           period == "Q" &
+           indicator_cat == Selected$Gestation) %>%
     set_variable_labels(
-    MEASURE = paste0("Percentage of births at ",
-                     HTML(Selected$Nicename), " (%)"),
-    MEDIAN = " average to Oct-Dec 2019",
-    EXTENDED = " projected average from Jan-Mar 2020"
+    measure = paste0("Percentage of births at ",
+                     HTML(Selected$Nicename),
+                     " (%)"),
+    median = " average to Oct-Dec 2019",
+    extended = " projected average from Jan-Mar 2020"
     ) %>% 
-    mutate(mytext = paste0(HBNAME,
+    mutate(mytext = paste0(hbname,
                            ": ",
-                           Selected$Nicename,
+                           formatted_name,
                            "<br>",
                            "Quarter: ",
-                           QUARTER_LABEL,
+                           quarter_label,
                            "<br>",
                            "Percentage of births",
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
-                                  nsmall = 1),
+                                  nsmall = 2),
                            "%"),
-           DATE = QUARTER_LABEL
+           date = quarter_label
            )
 
   if (is.null(data))

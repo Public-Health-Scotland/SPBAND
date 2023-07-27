@@ -6,25 +6,25 @@ gest_at_termination_small_multiples_data <- reactive({
   #req(input$period)
   
   data <- gest_at_termination_data %>%
-    filter(HBTYPE == Selected$HBType) %>%
+    filter(hbtype == Selected$HBType) %>%
     set_variable_labels(
-      MEASURE = "Average gestation at termination",
-      MEDIAN = " average gestation to end Feb 2020",
-      EXTENDED = " projected average gestation from Mar 2020 to end Jul 2020"
+      measure = "Average gestation at termination",
+      median = " average gestation to end Feb 2020",
+      extended = " projected average gestation from Mar 2020 to end Jul 2020"
     ) %>% 
-    mutate(HBNAME2 = factor(HBNAME2, 
+    mutate(hbname2 = factor(hbname2, 
                             levels = c("Scotland", "NHS Ayrshire & Arran", "NHS Borders",
                                        "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
                                        "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
                                        "NHS Lanarkshire", "NHS Lothian", "NHS Tayside")),
-           mytext = paste0(HBNAME,
+           mytext = paste0(hbname,
                            "<br>",
                            "Month: ", 
-                           format(DATE, "%b %Y"),
+                           format(date, "%b %Y"),
                            "<br>",
-                           var_label(MEASURE),
+                           var_label(measure),
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks"

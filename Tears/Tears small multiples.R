@@ -6,24 +6,24 @@ tears_small_multiples_data <- reactive({
   #req(input$period)
   
   data <- tears_data %>%
-    filter(HBTYPE == Selected$HBType & PERIOD == "Q") %>%
+    filter(hbtype == Selected$HBType & period == "Q") %>%
     set_variable_labels(
-      MEASURE = "Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third or fourth degree perineal tear (%)",
-      MEDIAN = " average to Oct-Dec 2019",
-      EXTENDED = " projected average from Jan-Mar 2020"
+      measure = "Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third or fourth degree perineal tear (%)",
+      median = " average to Oct-Dec 2019",
+      extended = " projected average from Jan-Mar 2020"
     ) %>% 
-  mutate(mytext = paste0(HBNAME,
+  mutate(mytext = paste0(hbname,
                            "<br>",
                          "Quarter: ", 
-                         QUARTER_LABEL,
+                         quarter_label,
                          "<br>",
                          "Percentage of women",
                          ": ",
-                         format(MEASURE,
+                         format(measure,
                                 digits = 1,
                                 nsmall = 1),
                          "%"),
-        DATE = QUARTER_LABEL
+        date = quarter_label
   )
 
   

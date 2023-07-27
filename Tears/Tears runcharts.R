@@ -6,30 +6,31 @@ tears_runchart_data <- reactive({
   #req(input$period)
   
 data <- tears_data %>%
-  filter(HBNAME == Selected$HBName &
-           PERIOD == "Q" &
-           HBTYPE == Selected$HBType) %>%
+  filter(hbname == Selected$HBName &
+           period == "Q" &
+           hbtype == Selected$HBType) %>%
   set_variable_labels(
-    NUM = "Number of women who have a third or fourth degree perineal tear: ",
-    DEN = "Total number of women: ",
-    MEASURE = "percentage of women (%)",
-    MEDIAN = " average to Oct-Dec 2019",
-    EXTENDED = " projected average from Jan-Mar 2020"
-    #orig_trend = "Trends: 5 or more consistently increasing or decreasing points",
-    #orig_shift = "Shifts: 6 or more consecutive points above or below average"
+    num = "Number of women who have a third or fourth degree perineal tear: ",
+    den = "Total number of women: ",
+    measure = "percentage of women (%)",
+    median = " average to Oct-Dec 2019",
+    extended = " projected average from Jan-Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Quarter: ", 
-                         QUARTER_LABEL,
+                         quarter_label,
                          "<br>",
-                         var_label(NUM), NUM, "<br>",
-                         var_label(DEN), DEN, "<br>",
+                         var_label(num),
+                         num,
+                         "<br>",
+                         var_label(den),
+                         den,
+                         "<br>",
                          "Percentage of women",
                          ": ",
-                         format(MEASURE,
+                         format(measure,
                                 digits = 1,
                                 nsmall = 1),
                          "%")
-         #DATE = QUARTER_LABEL
   )
 
   if (is.null(data()))

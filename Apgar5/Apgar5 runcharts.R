@@ -6,30 +6,31 @@ apgar5_runchart_data <- reactive({
   #req(input$period)
   
 data <- apgar5_data %>%
-  filter(HBNAME == Selected$HBName &
-           PERIOD == "Q" &
-           HBTYPE == Selected$HBType) %>%
+  filter(hbname == Selected$HBName &
+           period == "Q" &
+           hbtype == Selected$HBType) %>%
   set_variable_labels(
-    NUM = "Number of births that have a 5 minute Apgar score of <7: ",
-    DEN = "Total number of births: ",
-    MEASURE = "percentage of births (%)",
-    MEDIAN = " average to Oct-Dec 2019",
-    EXTENDED = " projected average from Jan-Mar 2020"
-    #orig_trend = "Trends: 5 or more consistently increasing or decreasing points",
-    #orig_shift = "Shifts: 6 or more consecutive points above or below average"
+    num = "Number of births that have a 5 minute Apgar score of <7: ",
+    den = "Total number of births: ",
+    measure = "percentage of births (%)",
+    median = " average to Oct-Dec 2019",
+    extended = " projected average from Jan-Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Quarter: ", 
-                         QUARTER_LABEL,
+                         quarter_label,
                          "<br>",
-                         var_label(NUM), NUM, "<br>",
-                         var_label(DEN), DEN, "<br>",
+                         var_label(num),
+                         prettyNum(num, big.mark = ","),
+                         "<br>",
+                         var_label(den),
+                         prettyNum(den, big.mark = ","),
+                         "<br>",
                          "Percentage of births",
                          ": ",
-                         format(MEASURE,
+                         format(measure,
                                 digits = 1,
-                                nsmall = 1),
+                                nsmall = 2),
                          "%")
-         #DATE = QUARTER_LABEL
   )
 
   if (is.null(data()))

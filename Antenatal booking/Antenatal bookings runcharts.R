@@ -3,22 +3,22 @@
 bookings_runchart_data <- reactive({
   # selects data
   
-  #req(input$HBNAME)
+  #req(input$hbname)
   
   data <- bookings_data %>%
-  filter(HBNAME == Selected$HBName &
-           HBTYPE == Selected$HBType) %>%
+  filter(hbname == Selected$HBName &
+           hbtype == Selected$HBType) %>%
     set_variable_labels(
-    MEASURE = "Number of pregnancies booked",
-    MEDIAN = " average to end Feb 2020",
-    EXTENDED = " projected average from Mar 2020"
+    measure = "Number of pregnancies booked",
+    median = " average to end Feb 2020",
+    extended = " projected average from Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Month: ", 
-                         format(DATE, "%b %Y"),
+                         format(date, "%b %Y"),
                          "<br>",
-                         var_label(MEASURE),
+                         var_label(measure),
                          ": ",
-                         MEASURE),
+                         prettyNum(measure, big.mark = ",")),
          orig_trend = FALSE, # to prevent this line being plotted
          orig_shift = FALSE # ditto
          )
@@ -59,7 +59,7 @@ bookings_download <- builds_download_data("BOOKINGS")
 output$bookings_download_data <- downloadHandler(
 
   filename = function() {
-      paste0(first(bookings_download$INDICATOR), "_", extract_date, ".csv", sep = "")
+      paste0(first(bookings_download$indicator), "_", refresh_date, ".csv", sep = "")
     },
 
   content = function(file) {

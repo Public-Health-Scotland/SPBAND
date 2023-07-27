@@ -1,6 +1,6 @@
 # a) data ----
 
-# map input$tob to the values in INDICATOR_CAT to enable filtering of the data frame
+# map input$tob to the values in indicator_cat to enable filtering of the data frame
 
 observeEvent(input$tob, Selected$Indicator_cat <- input$tob)
 
@@ -10,28 +10,28 @@ type_of_birth_small_multiples_data <- reactive({
   #req(input$period)
   
   data <- type_of_birth_data %>%
-  filter(HBTYPE == Selected$HBType &
-           PERIOD == "Q" &
-           INDICATOR_CAT == Selected$Indicator_cat) %>%
+  filter(hbtype == Selected$HBType &
+           period == "Q" &
+           indicator_cat == Selected$Indicator_cat) %>%
     set_variable_labels(
-    MEASURE = paste0("Percentage of births that were ",
+    measure = paste0("Percentage of births that were ",
                      Selected$Indicator_cat, " (%)"),
-    MEDIAN = " average to Oct-Dec 2019",
-    EXTENDED = " projected average from Jan-Mar 2020") %>% 
-    mutate(mytext = paste0(HBNAME,
+    median = " average to Oct-Dec 2019",
+    extended = " projected average from Jan-Mar 2020") %>% 
+    mutate(mytext = paste0(hbname,
                            ": ",
-                           INDICATOR_CAT,
+                           indicator_cat,
                            "<br>",
                            "Quarter: ", 
-                           QUARTER_LABEL,
+                           quarter_label,
                            "<br>",
                            "Percentage of births",
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
                                   nsmall = 1),
                          "%"),
-         DATE = QUARTER_LABEL
+         date = quarter_label
   )
   
   if (is.null(data))
@@ -67,10 +67,13 @@ output$type_of_birth_small_multiples_title <- renderText({
 output$type_of_birth_small_multiples_sub_title <- renderText({
   
   case_match(Selected$Indicator_cat,
-         "assisted births" ~ paste0("Percentage of singleton live births that were ", input$tob, 
-                             " (includes forceps, ventouse and vaginal breech births)"),
-         "all caesarean births" ~ "Percentage of singleton live births that were caesarean births",
-         .default = paste0("Percentage of singleton live births that were ", input$tob)
+         "assisted births" ~ paste0("Percentage of singleton live births at any gestation that were ",
+                                    input$tob, 
+                                    " (includes forceps, ventouse and vaginal breech births)"),
+         "all caesarean births" ~ "Percentage of singleton live births at any gestation that were
+         caesarean births",
+         .default = paste0("Percentage of singleton live births at any gestation that were ",
+                           input$tob)
          )
   })
 

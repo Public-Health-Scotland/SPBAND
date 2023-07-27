@@ -6,24 +6,24 @@ gest_at_termination_runchart_data <- reactive({
   #req(input$period)
   
   data <- gest_at_termination_data %>%
-    filter(HBNAME == Selected$HBName &
-             HBTYPE == Selected$HBType) %>%
+    filter(hbname == Selected$HBName &
+             hbtype == Selected$HBType) %>%
     set_variable_labels(
-      MEASURE = "Average gestation at termination",
-      MEDIAN = " average gestation to end Feb 2020",
-      EXTENDED = " projected average gestation from Mar 2020"
+      measure = "Average gestation at termination",
+      median = " average gestation to end Feb 2020",
+      extended = " projected average gestation from Mar 2020"
     ) %>% 
-    mutate(HBNAME2 = factor(HBNAME2, 
+    mutate(hbname2 = factor(hbname2, 
                             levels = c("NHS Ayrshire & Arran", "NHS Borders",
                                        "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
                                        "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
                                        "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")),
            mytext = paste0("Month: ", 
-                           format(DATE, "%b %Y"),
+                           format(date, "%b %Y"),
                            "<br>",
-                           var_label(MEASURE),
+                           var_label(measure),
                            ": ",
-                           format(MEASURE,
+                           format(measure,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks")
@@ -55,7 +55,7 @@ output$gest_at_termination_runcharts <- renderPlotly({
 creates_runcharts(plotdata = gest_at_termination_runchart_data(),
                   yaxislabel = "Average gestation at termination (weeks)") %>% 
   layout(xaxis = list(range = 
-                        range(gest_at_termination_runchart_data()$DATE) + c(months(-1), months(1)))
+                        range(gest_at_termination_runchart_data()$date) + c(months(-1), months(1)))
          )
     }
 })

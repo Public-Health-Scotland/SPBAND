@@ -9,6 +9,7 @@ library(shinymanager)
 library(shinydashboard)
 library(shinyWidgets)
 library(shinyjs)
+library(shinycssloaders)
 library(ggplot2)
 library(plotly)
 library(dplyr)
@@ -23,78 +24,141 @@ library(purrr)
 library(fresh)
 #library(fontawesome)
 
+# defining functions
+source("functions.R")
+
 # username and password for PRA
 
 credentials <- readRDS("admin/credentials.rds")
 
 # tells PRA dashboard where to pick up the latest data from (change each month)
 
-extract_date <- as.Date("2023-05-18")
-NRS_extract_date <- as.Date("2023-05-18")
+# date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-nice_extract_date <- format(extract_date, "%d %B %Y") # used on each dashboard chart page - autopopulates them
+refresh_date <- as.Date("2023-06-21") 
 
-NRS_published_date <- "14 March 2023"
+pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
-# load latest mateneo data (from Wider Impacts Deliveries folder / local folder)
+# latest NRS publication date
+
+NRS_published_date <- "16 June 2023" 
+
+# load latest matneo data (from Wider Impacts Deliveries folder / local folder)
 
 # load(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
-#                       extract_date, " extract/matneodata.RData")
+#                       refresh_date, " extract/matneodata.RData")
 #      )
 
 load("data/matneodata.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
+# load latest extreme preterma data (from Wider Impacts Deliveries folder / local folder)
+
+# extremely_preterm_data <- readRDS(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
+#                                          refresh_date, " extract/extremely_preterm_data.rds")
+#      )
+
+# for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+
+extremely_preterm_data <- readRDS("data/extremely_preterm_data.rds") 
+
 # load latest NRS data (from Wider Impacts Deliveries folder / local folder)
 
-# load(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
-#                       extract_date, " extract/NRS_data.rds")
+# NRS_timeseries <- readRDS(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
+#                                   refresh_date, " extract/NRS_data.rds")
 # )
 
-load("data/NRS_data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+NRS_timeseries <- readRDS("data/NRS_data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 # split runchart_dataframe into individual indicator dataframes
 
-bookings_data <- filter(runchart_dataframe, INDICATOR == "BOOKINGS")
-gest_at_booking_data <- filter(runchart_dataframe, INDICATOR == "GESTATION AT BOOKING")
-terminations_data <- filter(runchart_dataframe, INDICATOR == "TERMINATIONS")
-gest_at_termination_data <- filter(runchart_dataframe, INDICATOR == "GESTATION AT TERMINATION")
-inductions_data <- filter(runchart_dataframe, INDICATOR == "INDUCTIONS")
-type_of_birth_data <- filter(runchart_dataframe, INDICATOR == "TYPE OF BIRTH")
-tears_data <- filter(runchart_dataframe, INDICATOR == "TEARS")
-gest_at_birth_data <- filter(runchart_dataframe, INDICATOR == "GESTATION AT BIRTH")
-apgar5_data <- filter(runchart_dataframe, INDICATOR == "APGAR5")
+bookings_data <- load_and_split_dataframe("BOOKINGS")
+gest_at_booking_data <- load_and_split_dataframe("GESTATION AT BOOKING")
+terminations_data <- load_and_split_dataframe("TERMINATIONS")
+gest_at_termination_data <- load_and_split_dataframe("GESTATION AT TERMINATION")
+inductions_data <- load_and_split_dataframe("INDUCTIONS")
+type_of_birth_data <- load_and_split_dataframe("TYPE OF BIRTH")
+tears_data <- load_and_split_dataframe("TEARS")
+gest_at_birth_data <- load_and_split_dataframe("GESTATION AT BIRTH")
+apgar5_data <- load_and_split_dataframe("APGAR5")
 
 # set up x-axis chart labels
 
-bookings_date_range <- unique(bookings_data$DATE)
+bookings_date_range <- unique(bookings_data$date)
 bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
 
-terminations_date_range <- unique(terminations_data$DATE)
+terminations_date_range <- unique(terminations_data$date)
 terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
 
-SMR02_date_range <- unique(inductions_data$DATE)
+SMR02_date_range <- unique(inductions_data$date)
 SMR02_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 2)]
 SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 
-SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 3)]
+# SMR02_date_ticktext <- paste0(substr(SMR02_date_ticktext, 1,7),
+#                               "<br>",
+#                               substr(SMR02_date_ticktext, 9, 13))
+
+
+SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-y_max_type_of_birth <- max(type_of_birth_data$MEASURE, na.rm = TRUE) # not sure this is still needed
+# SMR02_multiples_date_ticktext <- paste0(substr(SMR02_multiples_date_ticktext, 1,7),
+#                                         "<br>",
+#                                         substr(SMR02_multiples_date_ticktext, 9, 13))
 
-date_range_NRS <- as.character(unique(NRS_timeseries$DATE))
+y_max_type_of_birth <- max(type_of_birth_data$measure, na.rm = TRUE) # not sure this is still needed
 
-NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], " ", "2020", " ", " ",
-                       date_range_NRS[seq(21, length(date_range_NRS), 2)])
+# STLLBIRTHS SPECIFIC
+
+date_range_NRS <- as.character(unique(NRS_timeseries$quarter_label))
+
+NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
+                       date_range_NRS[seq(22, length(date_range_NRS), 2)])
 
 NRS_date_ticktext <- NRS_date_tickvals
 
 stillbirths_download <- NRS_timeseries %>% 
-  select("DATASET", "HBTYPE", "HBNAME", "PERIOD", "DATE", "INDICATOR", "INDICATOR_CAT", 
-         "MEASURE", "MEAN", "EXTENDED", "SUFFIX", "MEASURE_DESCRIPTION")
+  select("dataset", "hbtype", "hbname", "period", "date", "indicator", "indicator_cat", "num", "den", 
+         "measure", "mean", "extended", "suffix", "num_description", "den_description",
+         "measure_description")
 
-y_max_NRS <- max(NRS_timeseries$MEASURE, na.rm = TRUE) # allows a margin to be set around y-axis
+y_max_NRS <- max(NRS_timeseries$measure, na.rm = TRUE) # allows a margin to be set around y-axis
+
+# GESTATION AT BIRTH SPECIFIC
+
+# create a tibble with "nice" (superscript text) gestations for gestation at birth indicator
+
+# indicator_order
+
+indicator_order <- c("all known gestations (18-44 weeks)",
+                     "between 37 and 41 weeks",
+                     "between 32 and 36 weeks",
+                     "42 weeks and over",
+                     "under 32 weeks",
+                     "under 37 weeks"
+)
+
+# formatted_name is the factor which controls the order in which the context charts legends should appear
+
+formatted_name <- c(paste0("all known gestations (18", "<sup>+0</sup>", " to 44", "<sup>+6</sup>", " weeks)"),
+                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks"),
+                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks"),
+                    paste0("42", "<sup>+0</sup>", " weeks and over"),
+                    "under 32 weeks",
+                    "under 37 weeks"
+                    )
+
+nicename <- tibble(indicator_order, formatted_name)
+
+nicename$formatted_name <- factor(nicename$formatted_name, levels = formatted_name)
+
+rm(indicator_order)
+
+gest_at_birth_data <- left_join(gest_at_birth_data,
+                                nicename,
+                                by = c("indicator_cat" = "indicator_order")
+                                )
 
 # create static labels for the runchart legends
 
@@ -102,9 +166,6 @@ orig_trend_label <-
   paste0("trends: 5 or more consistently increasing", "<br>", "or decreasing points")
 orig_shift_label <-  
   paste0("shifts: 6 or more consecutive points", "<br>", "above or below average")
-
-# defining functions
-source("functions.R")
 
 # useful groupings for telling Shiny when to show the different drop-down filters
 
@@ -152,27 +213,13 @@ HBnames2 <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries &
              "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside"
              )
 
-# not sure if this will be used
+# sets colour palette to the PHS colour scheme
 
 selected_colours <-
   as.character(c(phs_colours()[1:8],
                  phs_colours(str_subset(
                    names(phs_colours()), "-80"
                  ))))
-
-# sets "clean" theme for charts
-
-new = theme_minimal() + 
-  theme(text = element_text(size = 14),
-        plot.title = element_text(size = 16),
-        plot.caption = element_text(size = 14, hjust = -0, vjust = 0),
-        axis.title = element_text(size = 16),
-        axis.text.x = element_text(size = 14, angle = 45, vjust = 1, hjust = 1),
-        axis.text.y = element_text(size = 14),
-        strip.text = element_text(size = 14),
-        legend.text = element_text(size = 14))
-
-theme_set(new)
 
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 
 # reasons
@@ -207,17 +254,24 @@ bttn_remove <-  list('select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d',
 
 # sets default style of x and y axes
 
-orig_xaxis_plots <- list(title = "", tickfont = list(size = 12),
-                         titlefont = list(size = 16), showline = FALSE,
-                         fixedrange = FALSE,  rangemode = "tozero", zeroline = TRUE, 
-                         zerolinecolor = "#F2F2F2", tickangle = -45, standoff = 30,
-                         #tickmode = "linear", 
-                         #type = "date", dtick = "M3", #tick0 = "2017-01-01",
-                         showticklabels = TRUE) #ticklabelstep = 4, 
-
-orig_yaxis_plots <- list(title = "", rangemode = "tozero", fixedrange = FALSE,
-                         size = 4, tickfont = list(size = 12), standoff = 30,
-                         titlefont = list(size = 14), zeroline = TRUE,
-                         zerolinecolor = "#F2F2F2")
+orig_xaxis_plots <- list(
+  title = "",
+  showticklabels = TRUE,
+  tickfont = list(size = 12),                         
+  fixedrange = FALSE, # allows zoom
+  rangemode = "tozero", # show all non-negative values
+  zeroline = FALSE, 
+  tickangle = -45 # angles the tick labels
+  )
+                         
+orig_yaxis_plots <- list(
+  title = list(text = "", font = list(size = 14), standoff = 30),
+  showticklabels = TRUE,
+  tickfont = list(size = 12),
+  tickformat = ",d", # formats numbers with thousand separator if needed
+  fixedrange = FALSE, # allows zoom
+  rangemode = "tozero", # show all non-negative values
+  zeroline = FALSE  
+  )
 
 ### END OF SCRIPT ###

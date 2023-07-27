@@ -1,8 +1,8 @@
 # Multi indicator overview download data
 
 multi_indicator_download_data <- annual_dataframe %>% 
-  arrange(KEY_INDICATOR_REF, HBTYPE, PERIOD, DATE, HBNAME) %>% 
-  select(-c(KEY_INDICATOR_REF, INDICATOR_CAT, MIN:PLOTLYLABEL)) %>% 
+  arrange(key_measure_ref, hbtype, period, date, hbname) %>% 
+  select(-c(key_measure_ref, indicator_cat, MIN:plotlylabel)) %>% 
   janitor::remove_empty(., which = c("cols"), quiet = TRUE)
 
 output$multi_indicator_download_data1 <- output$multi_indicator_download_data2 <- 
@@ -10,7 +10,7 @@ output$multi_indicator_download_data1 <- output$multi_indicator_download_data2 <
   downloadHandler(
   
   filename = function() {
-      paste0("MULTI_INDICATOR_OVERVIEW_", extract_date, ".csv", sep = "")
+      paste0("MULTI_INDICATOR_OVERVIEW_", refresh_date, ".csv", sep = "")
     },
   
   content = function(file) {
