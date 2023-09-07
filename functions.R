@@ -359,6 +359,7 @@ creates_overview_charts_without_median <- function(plotdata,
         %>% 
           layout(annotations = a) %>%
           layout(
+            font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
             showlegend = FALSE,
@@ -394,6 +395,7 @@ creates_overview_charts_without_median <- function(plotdata,
             hoverinfo = "text"
           ) %>%
           layout(
+            font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
             showlegend = FALSE,
@@ -419,9 +421,12 @@ creates_overview_charts_without_median <- function(plotdata,
             shareY = TRUE) %>%
     layout(
       annotations = list(
-        text = ~ if_else(first(plotdata$indicator) == "TEARS",
-                         "Percentage of women (%)",
-                         yaxislabel),
+        text = ~ case_match(
+          first(plotdata$indicator),
+          "TEARS" ~ "Percentage of women (%)",
+          c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
+          .default = yaxislabel
+          ),
         font = list(size = 14),
         x = 0,
         y = 0.5,
@@ -454,11 +459,19 @@ creates_runcharts <- function(plotdata,
                               hover = "mytext",
                               centreline = "median",
                               dottedline = "extended",
-                              trend = "orig_trend",
-                              shift = "orig_shift",
+                              #trend = "orig_trend",
+                              #shift = "orig_shift",
                               yaxislabel = "Percentage of births (%)"){
   
   y_max <- max(plotdata$measure, na.rm = TRUE) # allows a margin to be set around y-axis
+  
+  # temp fix
+  
+  # plotdata <-  
+  #   plotdata %>% 
+  #   mutate(shift = if_else(orig_shift == TRUE, measure, NA),
+  #          trend = if_else(orig_trend == TRUE, measure, NA)
+  #   )
   
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
   # need to see if a different method can utilise the subgroup function (will need to reformat the
@@ -514,9 +527,12 @@ creates_runcharts <- function(plotdata,
 
   yaxis_plots <- orig_yaxis_plots
   yaxis_plots[["title"]] <- list(
-    text = ~ if_else(first(plotdata$indicator) == "TEARS",
-                     "Number of women",
-                     yaxislabel),
+    text = ~ case_match(
+      first(plotdata$indicator),
+      "TEARS" ~ "Percentage of women (%)",
+      c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
+      .default = yaxislabel
+      ),
     standoff = 30) # distance between axis and chart
   yaxis_plots[["tickformat"]] <- 
     if_else(first(plotdata$indicator) %in% c("APGAR5", "TEARS"),
@@ -524,40 +540,59 @@ creates_runcharts <- function(plotdata,
             ",d")
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
-runcharts <-
+  runcharts <-
     plot_ly(
-      data = plotdata,
-      x = ~ date,
+    data = plotdata,
+    x = ~ date,
+    y = ~ trend, # green trend line needs to be plotted first or it obliterates the others
+    type = "scatter",
+    mode = "lines",
+    line = list(
+      color = "lightgreen",
+      width = 10
+    ),
+    name = orig_trend_label,
+    legendgroup = "trend",
+    legendrank = 1003,
+    showlegend = ~ include_trend_shift_legend,
+    hovertext = "",
+    hoverinfo = "none"
+  ) %>% 
+    add_trace(
       y = ~ measure,
-      type = "scatter",
       mode = "lines+markers",
-      line = list(color = "black", # black dots
-                  width = 1),
-      marker = list(color = "black", # black lines
-                    size = 5),
-      name = ~ if_else(first(plotdata$indicator) %in% c("TYPE OF BIRTH", "GESTATION AT BIRTH"),
-                     "percentage of births (%)",
-                     str_to_lower(var_label(measure))
-                     ),
-      #legendgroup = "measure"
-      #legendrank = 100,
+      line = list(
+        color = "black", # black lines
+        width = 1),
+      marker = list(
+        color = "black", # black dots
+        size = 5),
+      name = ~ case_match(
+        first(plotdata$indicator),
+        "TYPE OF BIRTH" ~ "percentage of births (%)",
+        "GESTATION AT BIRTH" ~ "percentage of babies (%)",
+        .default = str_to_lower(var_label(measure))
+        ),
+      legendgroup = "measure",
+      legendrank = 100,
       showlegend = include_legend,
-      hovertext = ~ get(hover),
+      hovertext = ~ mytext,
       hoverinfo = "text"
-      # height = plot_height
-    ) %>%
-     add_trace(
+    ) %>% 
+    add_trace(
       y = ~ get(centreline), # solid blue line
       type = "scatter",
       mode = "lines",
-      line = list(color = phs_colours("phs-blue"),
-                  width = 1),
+      line = list(
+        color = phs_colours("phs-blue"),
+        width = 1),
       marker = NULL,
       name = ~ paste0(var_label(get(centreline))), # retrieves label of variable
-      #legendgroup = "median"
-      #legendrank = 200,
+      legendgroup = "median",
+      legendrank = 200,
       showlegend = ~ include_legend,
-      hovertext = ""
+      hovertext = "",
+      hoverinfo = "none"
     ) %>%
     add_trace(
       y = ~ get(dottedline), # dotted blue line
@@ -570,58 +605,37 @@ runcharts <-
       ),
       marker = NULL,
       name = ~ paste0(var_label(get(dottedline))), # retrieves label of variable
-      #legendgroup = "extended"
-      #legendrank = 300,
+      legendgroup = "extended",
+      legendrank = 300,
       showlegend = ~ include_legend,
-      hovertext = ""
+      hovertext = "",
+      hoverinfo = "none"
     ) %>%
-    add_trace(
-      data = plotdata %>% filter_at(trend,
-                                    all_vars(. == TRUE)), # green squares
-      mode = "markers",
-      marker = list(
-        color = "green",
-        size = 7.5,
-        symbol = "square"
-      ),
-      name = orig_trend_label,
-      legendgroup = "trend",
-      legendrank = 1003,
-      showlegend = ~ include_trend_shift_legend,
-      line = NULL,
-      hovertext = ""
-    ) %>%
-    add_trace(
-      data = plotdata %>% filter_at(shift,
-                                    all_vars(. == TRUE)), # orange circles
-      mode = "markers",
-      marker = list(
-        color = "orange",
-        size = 6.5,
-        symbol = "circle"
-      ),
+      add_trace(
+      y = ~ shift, # orange lines
+      mode = "lines",
+      line = list(
+        color = "orange", # orange lines (prevents missing data warning)
+        width = 2),
+      marker = NULL,
+      # marker = list(
+      #   color = "orange", # orange dots
+      #   size = 6,
+      #   symbol = "circle"
+      # ),
       name = orig_shift_label,
       legendgroup = "shift",
       legendrank = 1004,
       showlegend = ~ include_trend_shift_legend,
-      line = NULL,
-      hovertext = ""
+      hovertext = "",
+      hoverinfo = "none"
     ) %>%
     layout(
-#       annotations = list(
-#         x = 0,
-#         y = 0.5,
-#         text = ~ if_else(first(plotdata$indicator) == "TEARS", 
-#                                "Percentage of women (%)", yaxislabel),
-#         xshift = -50,
-#         textangle = 270,
-#         showarrow = FALSE,
-#         xref = "paper",
-#         yref = "paper"
-#         ),
+      font = plotly_global_font,
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
       legend = list(title = list(text = paste0(plotdata$hbname, "<br>")),
+                    tracegroupgap = 15,
                     orientation = "v",
                     x = 1.0,
                     y = 0.5,
@@ -629,8 +643,8 @@ runcharts <-
                     yref = "paper",
                     xanchor = "left",
                     itemclick = FALSE)
-                    # groupclick = "togglegroup")
     ) %>%
+    #config(modeBarButtons = list(list("zoomIn2d"), list("zoomOut2d"), list("pan3d")))
     config(displaylogo = F, displayModeBar = FALSE)
 
 # adds "dummy" traces for multiple runcharts to force shift and trend legends to appear even if there
@@ -643,35 +657,41 @@ if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
     data = plotdata,
     x = ~ min(date), # fake trend to show legend even when no trend exists on chart
     y = ~ -5,
-    mode = "markers",
-    marker = list(
-      color = "green",
-      size = 7.5,
-      symbol = "square"
+    mode = "lines",
+    line = list(
+      color = "lightgreen",
+      width = 10
     ),
+    #marker = NULL,
     name = orig_trend_label, # retrieves label of variable
     legendgroup = "trend",
-    #legendrank = 600,
+    legendrank = 600,
     showlegend = TRUE,
-    line = NULL,
-    hovertext = ""
+    #line = NULL,
+    hovertext = "",
+    hoverinfo = "none"
     ) %>%
     add_trace(
       data = plotdata,
-      x = ~ max(date), # fake shift to show legend even when no trend exists on chart
+      x = ~ max(date), # fake shift to show legend even when no shift exists on chart
       y = ~ -5,
-      mode = "markers",
-      marker = list(
-        color = "orange",
-        size = 6.5,
-        symbol = "circle"
-      ),
+      mode = "lines",
+      marker = NULL,
+      line = list(
+        color = "orange", # orange lines (prevents missing data warning)
+        width = 2),
+      # marker = list(
+      #   color = "orange", # orange dots
+      #   size = 6,
+      #   symbol = "circle"
+      # ),
       name = orig_shift_label, # retrieves label of variable
       legendgroup = "shift",
-      #legendrank = 700,
+      legendrank = 700,
       showlegend = TRUE,
-      line = NULL,
-      hovertext = ""
+      #line = NULL,
+      hovertext = "",
+      hoverinfo = "none"
     )
 }
 
@@ -767,7 +787,7 @@ creates_context_charts <- function(plotdata,
    "GESTATION AT BOOKING" = bookings_date_tickvals,
    "TERMINATIONS" = terminations_date_tickvals,
    "GESTATION AT TERMINATION" = terminations_date_tickvals,
-   "EXTREMELY PRETERM" = SMR02_date_tickvals,
+   "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_tickvals,
    "INDUCTIONS" = SMR02_date_tickvals,
    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
    "TEARS" = SMR02_date_tickvals,
@@ -781,7 +801,7 @@ creates_context_charts <- function(plotdata,
    "GESTATION AT BOOKING" = bookings_date_ticktext,
    "TERMINATIONS" = terminations_date_ticktext,
    "GESTATION AT TERMINATION" = terminations_date_ticktext,
-   "EXTREMELY PRETERM" = SMR02_date_ticktext,
+   "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_ticktext,
    "INDUCTIONS" = SMR02_date_ticktext,
    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
    "TEARS" = SMR02_date_ticktext,
@@ -797,9 +817,12 @@ creates_context_charts <- function(plotdata,
   yaxis_plots <- orig_yaxis_plots
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   yaxis_plots[["title"]] <- list(
-    text = ~ if_else(first(plotdata$indicator) == "TEARS",
-                     "Number of women",
-                     yaxislabel),
+    text = ~ case_match(
+      first(plotdata$indicator),
+      "TEARS" ~ "Number of women",
+      "APGAR5" ~ "Number of babies",
+      .default = yaxislabel
+      ),
     standoff = 30) # distance between axis and chart
 
 context_charts <-
@@ -817,7 +840,7 @@ context_charts <-
         first(plotdata$indicator),
         c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
         "APGAR5" ~ "babies with an Apgar5 score less than 7",
-        "EXTREMELY PRETERM" ~ "births at 22-26 weeks in a hospital with a NICU",
+        "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
       .default = str_to_lower(var_label(num))
       ),
       #legendgroup = "measure"
@@ -846,6 +869,7 @@ context_charts <-
       hovertext = "text"
     ) %>%
     layout(
+      font = plotly_global_font,
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
       legend = list(

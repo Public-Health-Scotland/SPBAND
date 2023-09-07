@@ -22,7 +22,7 @@ gest_at_birth_runchart_data <- reactive ({
            measure_label = paste0("Percentage of babies born at ", formatted_name, " (%)"),
     ) %>% 
     set_variable_labels(
-      den = "Total number of births: ",
+      den = "Total number of babies: ",
       median = " average to Oct-Dec 2019",
       extended = " projected average from Jan-Mar 2020") %>% 
       droplevels()
@@ -54,7 +54,7 @@ gest_at_birth_runchart_data <- reactive ({
                                var_label(data[[i]]$den),
                                prettyNum(data[[i]]$den, big.mark = ","), #data[[i]]$den,
                                "<br>",
-                               "Percentage of births: ", # not MEASURE_LABEL - too long
+                               "Percentage of babies: ", # not MEASURE_LABEL - too long
                                format(data[[i]]$measure,
                                       digits = 2,
                                       nsmall = 2),

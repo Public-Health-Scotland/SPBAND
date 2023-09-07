@@ -10,9 +10,9 @@ data <- apgar5_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Number of births that have a 5 minute Apgar score of <7: ",
-    den = "Total number of births: ",
-    measure = "percentage of births (%)",
+    num = "Number of babies that have a 5 minute Apgar score of <7: ",
+    den = "Total number of babies: ",
+    measure = "percentage of babies (%)",
     median = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020"
   ) %>% 
@@ -25,7 +25,7 @@ data <- apgar5_data %>%
                          var_label(den),
                          prettyNum(den, big.mark = ","),
                          "<br>",
-                         "Percentage of births",
+                         "Percentage of babies",
                          ": ",
                          format(measure,
                                 digits = 1,

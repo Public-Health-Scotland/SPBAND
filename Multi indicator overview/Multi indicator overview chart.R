@@ -77,7 +77,7 @@ fig <- plot_ly(
                               line = list(color = "#000000", width = 1) ),
                 size = I(50)) %>%
     layout(
-      font = list(size = 14),
+      font = plotly_global_font,
       margin = list(pad = 60, r = 90), # makes min (pad) and max (r) values stand clear of lines
       xaxis = list(title = "",
                    showgrid = FALSE,
@@ -87,10 +87,12 @@ fig <- plot_ly(
                    ticks = "",
                    showgrid = TRUE,
                    showticklabels = TRUE,
+                   tickfont = list(size = 14),
                    zeroline = TRUE,
                    categoryorder = "trace"), # plots traces in key_measure_ref order
       legend = list(orientation = "h",
                     xanchor = "auto",
+                    font = list(size = 14),
                     x = 0.5,
                     y = 1.2) # moves legend clear of top of chart
     ) %>%
@@ -104,7 +106,8 @@ fig <- plot_ly(
                                                       digits = 1, nsmall = 1)),
                                  #data_multi_indicator_chart$suffix),
                                  font = list(
-                                   color = "#CAC6D1"),
+                                   color = "#CAC6D1",
+                                   size = 14),
                                  showarrow = FALSE,
                                  xref = "paper",
                                  yref = "y"
@@ -117,7 +120,8 @@ fig <- plot_ly(
                                                 multi_indicator_chart_data()$suffix),
                                   xanchor = 'left',
                                   font = list(
-                                    color = "#CAC6D1"),
+                                    color = "#CAC6D1",
+                                    size = 14),
                                   showarrow = FALSE,
                                   xref = "paper",
                                   yref = "y"

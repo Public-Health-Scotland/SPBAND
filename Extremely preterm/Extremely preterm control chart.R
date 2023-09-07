@@ -15,11 +15,11 @@ extremely_preterm_control_chart <-
     type = "scatter",
     mode = "lines+markers",
     line = list(
-      color = selected_colours[1], # phs-purple line
+      color = "black", # black line
       width = 2
     ),
     marker = list(
-      color = selected_colours[1], # phs-purple line
+      color = "black", # black dots
       size = 5
     ),
     name = ~ "percentage",
@@ -38,7 +38,7 @@ extremely_preterm_control_chart <-
   add_lines(
     y = ~ `mean`, # mean (centreline)
     line = list(
-      color = selected_colours[2], # phs-magenta line
+      color = phs_colours("phs-blue"), # dotted blue line
       dash = "4",
       width = 2
     ),
@@ -49,7 +49,7 @@ extremely_preterm_control_chart <-
   add_lines(
     y = ~ lower_warning_limit, # lower warning limit
     line = list(
-      color = selected_colours[3], # phs-blue line
+      color = selected_colours[11], # phs-blue-80 line
       dash = "1",
       width = 2
     ),
@@ -62,7 +62,7 @@ extremely_preterm_control_chart <-
   add_lines(
     y = ~ upper_warning_limit, # upper warning limit
     line = list(
-      color = selected_colours[3], # phs-blue line
+      color = selected_colours[11], # phs-blue-80 line
       dash = "1",
       width = 2
     ),
@@ -75,7 +75,7 @@ extremely_preterm_control_chart <-
   add_lines(
     y = ~ lower_control_limit, # lower control limit
     line = list(
-      color = selected_colours[4], # phs-green line
+      color = "red", # red line
       dash = "2",
       width = 2
     ),
@@ -88,7 +88,7 @@ extremely_preterm_control_chart <-
   add_lines(
     y = ~ upper_control_limit, # upper control limit
     line = list(
-      color = selected_colours[4], # phs-green line
+      color = "red", # red line
       dash = "2",
       width = 2
     ),
@@ -98,8 +98,10 @@ extremely_preterm_control_chart <-
     showlegend = FALSE,
     hoverinfo = "none"
   ) %>%  
-  layout(xaxis = orig_xaxis_plots,
-         yaxis = orig_yaxis_plots)
+  layout(
+    font = plotly_global_font,
+    xaxis = orig_xaxis_plots,
+    yaxis = orig_yaxis_plots)
 
 
 output$extremely_preterm_control_chart <- renderPlotly({
@@ -118,4 +120,3 @@ extremely_preterm_control_chart <- extremely_preterm_control_chart %>%
 output$extremely_preterm_control_chart_title <- renderText({
   "Scotland"
 })
-

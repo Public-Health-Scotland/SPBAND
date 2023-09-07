@@ -35,7 +35,7 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-06-21") 
+refresh_date <- as.Date("2023-08-22") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -131,7 +131,7 @@ y_max_NRS <- max(NRS_timeseries$measure, na.rm = TRUE) # allows a margin to be s
 
 # indicator_order
 
-indicator_order <- c("all known gestations (18-44 weeks)",
+indicator_order <- c("between 18 and 44 weeks",
                      "between 37 and 41 weeks",
                      "between 32 and 36 weeks",
                      "42 weeks and over",
@@ -224,6 +224,29 @@ selected_colours <-
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 
 # reasons
 
+# mytheme <- create_theme(
+#   adminlte_color(
+#     light_blue = "#3F3685" # header bar = PHS-purple
+#   ),
+#   adminlte_sidebar( # sidebar colours
+#     width = "290px",
+#     dark_bg = "#655E9D", # background colour (not selected) = PHS-purple-80
+#     dark_hover_bg = "#3F3685", # background colour (when hovering) = PHS-purple
+#     dark_color = "#ECEBF3", # text colour (not selected) = PHS-purple-10
+#     dark_submenu_bg = "#9B4393", # sub-menu background colour = PHS-magenta
+#     dark_submenu_color = "#ECEBF3", # sub-menu text colour (not selected) = PHS-purple-10
+#     dark_submenu_hover_color = "#FFFFFF", # text colour (when hovering) = white
+#   ),
+#   adminlte_global(
+#     content_bg = "#FFF",
+#     box_bg = "#FFF",
+#     info_box_bg = "#FFF"
+#   )
+#   #adminlte_vars(
+#   #box_border_color = "#FFF"
+#   #)
+# )
+
 mytheme <- create_theme(
   adminlte_color(
     light_blue = "#3F3685" # header bar = PHS-purple
@@ -273,5 +296,29 @@ orig_yaxis_plots <- list(
   rangemode = "tozero", # show all non-negative values
   zeroline = FALSE  
   )
+
+plotly_global_font <- list(
+  color = "#3F3685" # phs-purple
+  )
+
+# customise features and interactivity of DT table:
+# create a list of options used to format the DT table
+
+my.options <- list(
+  dom = "t",
+  scrollY = TRUE,
+  autoWidth = FALSE, # smart width handling
+  searching = FALSE, # search box above table
+  ordering = FALSE, # whether columns can be sorted
+  lengthChange = FALSE, # ability to change number rows shown on page in table
+  lengthMenu = FALSE, # options lengthChange can be changed to
+  pageLength = 10, # initial number of rows per page of table
+  paging = FALSE, # whether to do pagination
+  info = FALSE) # notes whether or not table is filtered
+
+# create HTML formatting code for header and overall table HTML container
+# create header style HTML code
+
+header.style <- "th { font-family: 'Arial'; font-weight: bold; color: #3F3685; background-color: white;}"
 
 ### END OF SCRIPT ###

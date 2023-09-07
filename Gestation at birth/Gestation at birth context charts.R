@@ -1,6 +1,6 @@
 # a) data ----
 
-term <- c("all known gestations (18-44 weeks)", "between 37 and 41 weeks")
+term <- c("between 18 and 44 weeks", "between 37 and 41 weeks")
 
 not_term <- c("under 32 weeks", "between 32 and 36 weeks", "42 weeks and over")
 
@@ -9,19 +9,13 @@ gest_at_birth_context_data <- reactive({
   
   #req(input$period)
 
-data <- gest_at_birth_data %>%
+  data <- gest_at_birth_data %>%
   filter(hbname == Selected$HBName &
            period == "Q" &
            hbtype == Selected$HBType &
            indicator_cat != "under 37 weeks"
-         ) %>% 
-
-# den_data <- filter(data, indicator_cat == "under 32 weeks") %>% 
-#   mutate(indicator_cat = "all known gestations (18-44 weeks)",
-#          num = den)
-
-# data <- bind_rows(den_data, data) %>% 
-  mutate(mytext = if_else(indicator_cat == "all known gestations (18-44 weeks)",
+  ) %>% 
+  mutate(mytext = if_else(indicator_cat == "between 18 and 44 weeks",
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
@@ -38,17 +32,18 @@ data <- gest_at_birth_data %>%
                                  prettyNum(num, big.mark = ",")
                           )
   )
-         ) %>% 
+  ) %>% 
+  
   droplevels()
 
-  if (is.null(data()))
-  {
-    return()
-  }
+if (is.null(data()))
+{
+  return()
+}
 
-  else {
-    data
-  }
+else {
+  data
+}
 })
 
 # b) chart ---- 
@@ -66,7 +61,7 @@ xaxis_plots[["tickvals"]] <- select_date_tickvals
 xaxis_plots[["ticktext"]] <- select_date_ticktext
 
 yaxis_plots <- orig_yaxis_plots
-yaxis_plots[["title"]] <- list(text = "Number of births",
+yaxis_plots[["title"]] <- list(text = "Number of babies",
                                standoff = 30) # distance between axis and chart
 
 term_chart <- plot_ly(

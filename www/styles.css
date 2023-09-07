@@ -24,7 +24,7 @@
   max-height: 54px;
   text-align: center;
   color: white;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 20px;
 }
 
@@ -44,6 +44,7 @@
   max-height: 54px;
 }
 
+
 .sidebar {
     position: fixed;
     width: 290px;
@@ -61,7 +62,7 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 1.42857143;
-    color: #333;
+    color: #3F3685;
     background-color: #fff;
   /*  font-size: 0.875em;  14px/16=0.875em */
   /*  overflow-x: hidden;
@@ -83,14 +84,16 @@ body {
   border-style: solid;
   border-bottom-color: #ffffff;
   border-width: 0 0 1px 0;
-  /*width: 100%;*/
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #3F3685;
+  /*width: 100%;
+  font-family: 'Source Sans Pro', sans-serif, "Helvetica Neue", Helvetica, Arial;*/
   font-size: 20px !important;
   font-weight: bold;
   text-align: left;
   background-color: white;
   padding: 0 10px;
   }
+  
   
 /*.sticky_footer {
   position:fixed;
@@ -108,4 +111,56 @@ ul li {
  padding: 0 0 4px 23px;
 }
 
-                  
+/* to make h1 title smaller */  
+
+.smaller--h1 {
+  font-size: 30px;
+  text-align: center;
+    }
+    
+/* formats titles in each tab (textOutput) */
+
+.shiny-text-output {
+  font-size: 26px;
+  text-align: center;
+}
+
+/* formats tabtitles - phs-purple? no - black when selected, phs-magenta when unselected */
+.nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a {
+    background-color: #fff;
+    color: #444;
+}
+.nav-tabs-custom >.nav-tabs > li> a {
+    color: #9B4393; /* phs-magenta */
+    border-radius: 0;
+    font-weight: bold;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active: hover > a {
+    background-color: #fff;
+    color: #3F3685; /* phs-purple - doesn't work - is black */
+}
+
+/* formats text top right in tabPanel */
+
+.nav-tabs-custom > .nav-tabs > li.header { /* ignore warning triangle - doesn't work without li. */
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #3F3685; /* phs-purple */
+}
+
+/* formats the left-hand title in About this measure tab */
+
+.about-this-measure-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* notes (source, caveats, data of refresh) - style */
+.notes-style {
+  font-size: 14px;
+}

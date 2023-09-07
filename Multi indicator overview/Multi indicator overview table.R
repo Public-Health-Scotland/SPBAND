@@ -2,6 +2,7 @@
 
 # a) data ----
 
+
 multi_indicator_table_data_scot <- reactive({
 
   # selects data
@@ -33,7 +34,7 @@ multi_indicator_table_data_scot <- reactive({
   }
 })
 
-multi_indicator_table_data_hb<- reactive({
+multi_indicator_table_data_hb <- reactive({
   
   # selects data
   
@@ -53,7 +54,7 @@ multi_indicator_table_data_hb<- reactive({
     ungroup() %>% 
     left_join(., multi_indicator_table_data_scot()) %>% # joins Scotland data
     select(label, measure, SCOT_MEASURE, suffix)
-  
+
   if (is.null(data()))
   {
     return()
@@ -66,14 +67,53 @@ multi_indicator_table_data_hb<- reactive({
 
 # b) data table
 
+# pull header names from the table
+header.names <- reactive ({
+  c("", Selected$HBName, "Scotland", "")
+ })
+
+# the container parameter allows us to design the header of the table using CSS
+
+my.container <- reactive({
+  withTags(
+    table(
+      style(type = "text/css", header.style),
+      thead(
+        tr(
+          lapply(header.names(), th) #, style = "text-align: center; border-right-width: 1px; border-right-style: solid; border-right-color: white; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: white")
+          )
+        )
+      )
+    )
+})
+
 output$mytable <- 
-  renderDT({datatable(multi_indicator_table_data_hb(),
-                      options = list(dom = 't'),
-                      selection = "single",
-                      rownames = FALSE,
-                      colnames = c("", Selected$HBName, "Scotland", "")) %>%
-      formatRound(
-        c('measure', 'SCOT_MEASURE'), 1) 
+  renderDT({
+    my.table <- datatable(
+      multi_indicator_table_data_hb(),
+      container = my.container(),
+      options = my.options,
+      caption = htmltools::tags$caption("View indicators by Board: select a Board in the filter to compare against Scotland",
+                  style = "color: #3F3685; margin-bottom: 0px;"
+                  ),
+      rownames = FALSE, # do not treat table row names as separate column
+      width = '100%', # ensure table remains within the dimensions of the container
+      height = '100%' # ensure table remains within the dimensions of the container
+    )
+    
+    # create specific table formatting customizations for table (round numbers to 1 d.p., font)
+    
+    my.table <- 
+      formatStyle(
+        my.table,
+        columns = colnames(multi_indicator_table_data_hb()),
+        color = "#3F3685",
+        fontFamily = "Arial",
+        fontSize = "16px")
+    
+    my.table <- formatRound(
+      my.table,
+      columns = c("measure", "SCOT_MEASURE"), 1)
   })
 
 # c) title

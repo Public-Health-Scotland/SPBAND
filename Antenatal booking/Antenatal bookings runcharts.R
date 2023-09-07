@@ -19,9 +19,10 @@ bookings_runchart_data <- reactive({
                          var_label(measure),
                          ": ",
                          prettyNum(measure, big.mark = ",")),
-         orig_trend = FALSE, # to prevent this line being plotted
-         orig_shift = FALSE # ditto
+         trend = NA, # to prevent this line being plotted
+         shift = NA # ditto
          )
+  
   
   if (is.null(data()))
   {

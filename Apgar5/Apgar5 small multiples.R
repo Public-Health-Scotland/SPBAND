@@ -7,17 +7,17 @@ apgar5_small_multiples_data <- reactive({
   
   data <- apgar5_data %>%
     filter(hbtype == Selected$HBType & period == "Q") %>%
-    set_variable_labels(
-      measure = "Percentage of singleton live births at 37-42 weeks gestation that have a 5 minute Apgar score of <7 (%)",
-      median = " average to Oct-Dec 2019",
-      extended = " projected average from Jan-Mar 2020"
-    ) %>% 
+    # set_variable_labels(
+    #   measure = "Percentage of singleton live births at 37-42 weeks gestation that have a 5 minute Apgar score of <7 (%)",
+    #   median = " average to Oct-Dec 2019",
+    #   extended = " projected average from Jan-Mar 2020"
+    # ) %>% 
   mutate(mytext = paste0(hbname,
                            "<br>",
                          "Quarter: ", 
                          quarter_label,
                          "<br>",
-                         "Percentage of births",
+                         "Percentage of babies", # babies have apgar scores not births
                          ": ",
                          format(measure,
                                 digits = 1,

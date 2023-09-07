@@ -39,7 +39,7 @@ gest_at_birth_small_multiples_data <- reactive({
                            "Quarter: ",
                            quarter_label,
                            "<br>",
-                           "Percentage of births",
+                           "Percentage of babies",
                            ": ",
                            format(measure,
                                   digits = 1,

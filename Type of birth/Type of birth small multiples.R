@@ -65,15 +65,14 @@ output$type_of_birth_small_multiples_title <- renderText({
 })
 
 output$type_of_birth_small_multiples_sub_title <- renderText({
-  
+
   case_match(Selected$Indicator_cat,
-         "assisted births" ~ paste0("Percentage of singleton live births at any gestation that were ",
+         "assisted births" ~ HTML(paste0("Percentage of singleton live births at any gestation that were ",
                                     input$tob, 
-                                    " (includes forceps, ventouse and vaginal breech births)"),
-         "all caesarean births" ~ "Percentage of singleton live births at any gestation that were
-         caesarean births",
-         .default = paste0("Percentage of singleton live births at any gestation that were ",
-                           input$tob)
+                                    " (includes forceps, ventouse and vaginal breech births)")),
+         "all caesarean births" ~ HTML("Percentage of singleton live births at any gestation that were
+         caesarean births"),
+         .default = HTML(paste0("Percentage of singleton live births at any gestation that were ",
+                           input$tob))
          )
   })
-
