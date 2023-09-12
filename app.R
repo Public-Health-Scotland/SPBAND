@@ -274,7 +274,7 @@ multi_indicator_overview <- tabItem(
                       
                       column(12,
                              loading(plotlyOutput("multi_indicator_chart",
-                                                  height = "33em"
+                                                  height = "40em"
                                                   )
                                      ),
                              
@@ -2978,7 +2978,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3004,7 +3004,7 @@ ui <-
     
     ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
