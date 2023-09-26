@@ -10,7 +10,7 @@ data <- apgar5_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Number of babies that have a 5 minute Apgar score of <7: ",
+    num = "Number of babies that have a 5 minute Apgar score of <7: ",  # babies have apgar scores not births
     den = "Total number of babies: ",
     measure = "percentage of babies (%)",
     median = " average to Oct-Dec 2019",

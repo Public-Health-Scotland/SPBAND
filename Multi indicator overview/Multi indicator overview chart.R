@@ -73,8 +73,8 @@ fig <- plot_ly(
                 y = ~ label,
                 name = ~ hbname,
                 opacity = 1,
-                marker = list(color = "#83BB26", # phs-green want #0078D4 phs-blue?
-                              line = list(color = "#000000", width = 1) ),
+                marker = list(color = selected_colours[4], # phs-green want #0078D4 phs-blue?
+                              line = list(color = "#000000", width = 1)),
                 size = I(50)) %>%
     layout(
       font = plotly_global_font,
@@ -106,8 +106,8 @@ fig <- plot_ly(
                                                       digits = 1, nsmall = 1)),
                                  #data_multi_indicator_chart$suffix),
                                  font = list(
-                                   color = "#CAC6D1",
-                                   size = 14),
+                                    color = selected_colours[7], # phs-liberty
+                                    size = 14),
                                  showarrow = FALSE,
                                  xref = "paper",
                                  yref = "y"
@@ -120,7 +120,7 @@ fig <- plot_ly(
                                                 multi_indicator_chart_data()$suffix),
                                   xanchor = 'left',
                                   font = list(
-                                    color = "#CAC6D1",
+                                    color = selected_colours[7], # phs-liberty
                                     size = 14),
                                   showarrow = FALSE,
                                   xref = "paper",

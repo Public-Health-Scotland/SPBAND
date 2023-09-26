@@ -120,3 +120,4 @@ extremely_preterm_control_chart <- extremely_preterm_control_chart %>%
 output$extremely_preterm_control_chart_title <- renderText({
   "Scotland"
 })
+

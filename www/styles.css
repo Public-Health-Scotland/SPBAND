@@ -21,6 +21,7 @@
 
 .navbar-custom-menu {
   padding: 10px;
+  min-height: 54px;
   max-height: 54px;
   text-align: center;
   color: white;
@@ -31,25 +32,44 @@
 /* to force phs logo to have a white background */
 .skin-blue .main-header .logo {
   background-color: white;
+  min-height: 54px;
   max-height: 54px;
 }
 
 .skin-blue .main-header .logo:hover {
   background-color: white; 
+  min-height: 54px;
   max-height: 54px;
 }
 
 .skin-blue .main-header .nav-bar-static-top {
   background-color: white; 
+  min-height: 54px;
   max-height: 54px;
 }
 
+/* makes sidebar scroll appear when needed */
 
+.sidebar {
+  height: 90vh;
+  overflow-y: auto;
+}
+
+/*
 .sidebar {
     position: fixed;
     width: 290px;
     white-space: nowrap;
     overflow-y: scroll;
+}
+*/
+
+/*to format and indent sub-menu */
+
+.sidebar-menu .treeview-menu>li>a {
+  /*padding: 5px 5px 5px 30px;
+    display: block; */
+    font-size: 15px;
 }
 
 /* to wrap sidebarMenu text */
@@ -94,6 +114,13 @@ body {
   padding: 0 10px;
   }
   
+  /* removes line from foot of box */
+  
+.box {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  }
   
 /*.sticky_footer {
   position:fixed;
@@ -105,10 +132,16 @@ body {
   opacity: 0.9;
   }*/
   
-/* to pad bullet points*/  
+/* to pad bullet points - doesn't just pad bullet points!important any element with li is padded 
+including tabBoxes and menu items!important*/
   
-ul li {
+/*  ul li {
  padding: 0 0 4px 23px;
+}*/
+
+.li-class {
+  padding-left: 20px;
+  padding-bottom: 4px;
 }
 
 /* to make h1 title smaller */  
@@ -126,6 +159,7 @@ ul li {
 }
 
 /* formats tabtitles - phs-purple? no - black when selected, phs-magenta when unselected */
+
 .nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a {
     background-color: #fff;
     color: #444;
@@ -151,6 +185,12 @@ ul li {
   color: #3F3685; /* phs-purple */
 }
 
+/* removes lines round boxes */
+
+.nav-tabs-custom {
+  box-shadow: none;
+  }
+
 /* formats the left-hand title in About this measure tab */
 
 .about-this-measure-title {
@@ -164,3 +204,4 @@ ul li {
 .notes-style {
   font-size: 14px;
 }
+

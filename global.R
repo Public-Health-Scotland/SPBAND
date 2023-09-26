@@ -15,14 +15,11 @@ library(plotly)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-# library(ggrepel)
-# library(gginnards)
 library(stringr)
 library(phsstyles)
 library(phsmethods)
 library(purrr)
 library(fresh)
-#library(fontawesome)
 
 # defining functions
 source("functions.R")
@@ -35,37 +32,25 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-08-22") 
+refresh_date <- as.Date("2023-09-19") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "16 June 2023" 
+NRS_published_date <- "12 September 2023" 
 
-# load latest matneo data (from Wider Impacts Deliveries folder / local folder)
-
-# load(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
-#                       refresh_date, " extract/matneodata.RData")
-#      )
+# load latest matneo data
 
 load("data/matneodata.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
-# load latest extreme preterma data (from Wider Impacts Deliveries folder / local folder)
-
-# extremely_preterm_data <- readRDS(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
-#                                          refresh_date, " extract/extremely_preterm_data.rds")
-#      )
+# load latest extreme pre-term data
 
 # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 extremely_preterm_data <- readRDS("data/extremely_preterm_data.rds") 
 
-# load latest NRS data (from Wider Impacts Deliveries folder / local folder)
-
-# NRS_timeseries <- readRDS(paste0("/PHI_conf/MaternityBirths/Topics/MaternityHospitalSubmissions/Projects/20201028-WiderImpactsDashboardDeliveries/WI deliveries/data/output/",
-#                                   refresh_date, " extract/NRS_data.rds")
-# )
+# load latest NRS data
 
 NRS_timeseries <- readRDS("data/NRS_data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
@@ -171,29 +156,20 @@ orig_shift_label <-
 
 tabnames <- 1:13
 
-names(tabnames) <- c("home", "multi_indicator_overview", "pregnancies_booked", "terminations", 
-                     "gestation_at_booking", "gestation_at_termination",
-                     "location_of_ex_pre_term", "inductions", "type_of_birth",
-                     "perineal_tears", "gestation_at_birth", "stillbirths",
-                     "apgar_scores")
-
-tabpanels <- 1:2
-
-names(tabpanels) <- c("Board comparison", "Runcharts")
-
-tabsets <- 1:13
-
-names(tabsets) <- c("input$tabset00", "input$tabset01", "input$tabset10", 
-                    "input$tabset11", "input$tabset12", "input$tabset13",
-                    "input$tabset20", "input$tabset21", "input$tabset22",
-                    "input$tabset23", "input$tabset24", "input$tabset25",
-                    "input$tabset26")
+names(tabnames) <- 
+  c("home", "multi_indicator_overview", "pregnancies_booked",
+    "terminations", "gestation_at_booking", "gestation_at_termination",
+    "location_of_ex_pre_term", "inductions", "type_of_birth",
+    "perineal_tears", "gestation_at_birth", "stillbirths",
+    "apgar_scores")
 
 show_org <- names(tabnames[!tabnames %in% c(1, 7, 12)]) # don't show organisation selection in "home",
                                                      # "location_of_ex_pre_term", "stillbirths" 
 
 show_HBname <- names(tabnames[tabnames %in% c(2, 3, 4)]) # show HB selection in "multi_indicator_overview",
                                                         # "pregnancies_booked", "terminations"
+
+show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12)]) # the remaining indicators
 
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
@@ -224,50 +200,50 @@ selected_colours <-
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 
 # reasons
 
-# mytheme <- create_theme(
-#   adminlte_color(
-#     light_blue = "#3F3685" # header bar = PHS-purple
-#   ),
-#   adminlte_sidebar( # sidebar colours
-#     width = "290px",
-#     dark_bg = "#655E9D", # background colour (not selected) = PHS-purple-80
-#     dark_hover_bg = "#3F3685", # background colour (when hovering) = PHS-purple
-#     dark_color = "#ECEBF3", # text colour (not selected) = PHS-purple-10
-#     dark_submenu_bg = "#9B4393", # sub-menu background colour = PHS-magenta
-#     dark_submenu_color = "#ECEBF3", # sub-menu text colour (not selected) = PHS-purple-10
-#     dark_submenu_hover_color = "#FFFFFF", # text colour (when hovering) = white
-#   ),
-#   adminlte_global(
-#     content_bg = "#FFF",
-#     box_bg = "#FFF",
-#     info_box_bg = "#FFF"
-#   )
-#   #adminlte_vars(
-#   #box_border_color = "#FFF"
-#   #)
-# )
-
 mytheme <- create_theme(
   adminlte_color(
     light_blue = "#3F3685" # header bar = PHS-purple
-    ),
+  ),
   adminlte_sidebar( # sidebar colours
     width = "290px",
-    dark_bg = "#9F9BC2", # background colour (not selected) = PHS-purple-50
-    dark_hover_bg = "#655E9D", # background colour (when hovering) = PHS-purple-80
-    dark_color = "#3F3685", # text colour (not selected) = PHS-purple
-    dark_submenu_color = "#3F3685", # sub-menu text colour (not selected) = PHS-purple
-    dark_submenu_hover_color = "#FFFFFF" # text colour (when hovering) = white
-    ),
+    dark_bg = "#655E9D", # background colour (not selected) = PHS-purple-80
+    dark_hover_bg = "#3F3685", # background colour (when hovering) = PHS-purple
+    dark_color = "#ECEBF3", # text colour (not selected) = PHS-purple-10
+    dark_submenu_bg = "#9B4393", # sub-menu background colour = PHS-magenta
+    dark_submenu_color = "#ECEBF3", # sub-menu text colour (not selected) = PHS-purple-10
+    dark_submenu_hover_color = "#FFFFFF", # text colour (when hovering) = white
+  ),
   adminlte_global(
     content_bg = "#FFF",
     box_bg = "#FFF",
     info_box_bg = "#FFF"
-    )
+  )
   #adminlte_vars(
-    #box_border_color = "#FFF"
-    #)
+  #box_border_color = "#FFF"
+  #)
 )
+
+# mytheme <- create_theme(
+#   adminlte_color(
+#     light_blue = "#3F3685" # header bar = PHS-purple
+#     ),
+#   adminlte_sidebar( # sidebar colours
+#     width = "290px",
+#     dark_bg = "#9F9BC2", # background colour (not selected) = PHS-purple-50
+#     dark_hover_bg = "#655E9D", # background colour (when hovering) = PHS-purple-80
+#     dark_color = "#3F3685", # text colour (not selected) = PHS-purple
+#     dark_submenu_color = "#3F3685", # sub-menu text colour (not selected) = PHS-purple
+#     dark_submenu_hover_color = "#FFFFFF" # text colour (when hovering) = white
+#     ),
+#   adminlte_global(
+#     content_bg = "#FFF",
+#     box_bg = "#FFF",
+#     info_box_bg = "#FFF"
+#     )
+#   #adminlte_vars(
+#     #box_border_color = "#FFF"
+#     #)
+# )
 
 # buttons to remove (from plotly menu)
 
@@ -307,7 +283,8 @@ plotly_global_font <- list(
 my.options <- list(
   dom = "t",
   scrollY = TRUE,
-  autoWidth = FALSE, # smart width handling
+  scrollX = FALSE,
+  autoWidth = TRUE, # smart width handling
   searching = FALSE, # search box above table
   ordering = FALSE, # whether columns can be sorted
   lengthChange = FALSE, # ability to change number rows shown on page in table

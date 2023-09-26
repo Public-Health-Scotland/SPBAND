@@ -98,20 +98,22 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         showlegend = ~ unique(indicator_cat) == "infant deaths",
         hovertext = ""
         ) %>%
-      layout(xaxis = xaxis_plots,
-             yaxis = yaxis_plots,
-             annotations = list(
-               x = 0.5,
-               y = 1.0,
-               text = ~ unique(indicator_cat),
-               font = list(size = 16),
-               xref = "paper",
-               yref = "paper",
-               xanchor = "center",
-               yanchor = "bottom",
-               showarrow = FALSE
-               )
-             )
+      layout(
+        font = plotly_global_font,
+        xaxis = xaxis_plots,
+        yaxis = yaxis_plots,
+        annotations = list(
+          x = 0.5,
+          y = 1.0,
+          text = ~ unique(indicator_cat),
+          font = list(size = 16),
+          xref = "paper",
+          yref = "paper",
+          xanchor = "center",
+          yanchor = "bottom",
+          showarrow = FALSE
+          )
+        )
     )
 
 stillbirth_charts <- stillbirth_charts %>% 

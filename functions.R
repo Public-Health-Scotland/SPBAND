@@ -57,6 +57,29 @@ plot_nodata <- function(height_plot = 450, text_nodata) {
     config(displayModeBar = FALSE) # taking out plotly logo and collaborate button
 }
 
+# function to make the sidebar menu accessible (copied from Kit who copied it from the internet!)
+
+accessible_menu = function(bad_menu) {
+  tab_input = tags$script(
+    "
+function customMenuHandleClick(e) {
+  let n = $(e.target).parents('ul.sidebar-menu').find('li.active:not(.treeview)').children('a')[0].dataset.value;
+  doSomethingWith(n);
+}
+function doSomethingWith(val) {
+  Shiny.setInputValue('sidebarMenu', val);
+}
+$(document).ready(
+  function() {
+    $('ul.sidebar-menu li').click(customMenuHandleClick)
+  });
+"
+  )
+  bad_menu$children[[length(bad_menu$children)]] = NULL
+  real_menu = tagList(bad_menu, tab_input)
+  real_menu
+}
+
 # Function to create the small multiple charts with a blue median line
 # Parameters:
 # plotdata: dataframe with data to be plotted

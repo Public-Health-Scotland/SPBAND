@@ -76,3 +76,4 @@ output$type_of_birth_small_multiples_sub_title <- renderText({
                            input$tob))
          )
   })
+
