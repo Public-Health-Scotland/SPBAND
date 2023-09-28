@@ -12,7 +12,7 @@ data <- inductions_data %>%
   set_variable_labels(
     num = "Number of births following induction: ",
     den = "Total number of births: ",
-    measure = "percentage of births following induction (%)",
+    measure = "percentage of births (%)",
     median = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020"
   ) %>% 

@@ -53,16 +53,9 @@
 .sidebar {
   height: 90vh;
   overflow-y: auto;
+  /*width: 290px;
+  white-space: nowrap;*/
 }
-
-/*
-.sidebar {
-    position: fixed;
-    width: 290px;
-    white-space: nowrap;
-    overflow-y: scroll;
-}
-*/
 
 /*to format and indent sub-menu */
 
@@ -105,8 +98,8 @@ body {
   border-bottom-color: #ffffff;
   border-width: 0 0 1px 0;
   color: #3F3685;
-  /*width: 100%;
-  font-family: 'Source Sans Pro', sans-serif, "Helvetica Neue", Helvetica, Arial;*/
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px !important;
   font-weight: bold;
   text-align: left;
@@ -114,12 +107,13 @@ body {
   padding: 0 10px;
   }
   
-  /* removes line from foot of box */
+  /* removes line from foot of box and sets bottom margin */
   
 .box {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  margin-bottom: 10px;
   }
   
 /*.sticky_footer {
@@ -147,6 +141,7 @@ including tabBoxes and menu items!important*/
 /* to make h1 title smaller */  
 
 .smaller--h1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 30px;
   text-align: center;
     }
@@ -158,31 +153,36 @@ including tabBoxes and menu items!important*/
   text-align: center;
 }
 
-/* formats tabtitles - phs-purple? no - black when selected, phs-magenta when unselected */
+/* formats top border of selected tab */
 
-.nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a {
-    background-color: #fff;
-    color: #444;
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #9B4393;
 }
+
+/* formats "selected" tabtitles - phs-magenta */
+
+.nav-tabs-custom>.nav-tabs>li.active>a,
+.nav-tabs-custom>.nav-tabs>li.active:hover>a {
+  color: #9B4393;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+/* formats "unselected" tabtitles - phs-purple */
+
 .nav-tabs-custom >.nav-tabs > li> a {
-    color: #9B4393; /* phs-magenta */
+    color: #3F3685; 
     border-radius: 0;
     font-weight: bold;
 }
 
-.nav-tabs-custom > .nav-tabs > li.active > a,
-.nav-tabs-custom > .nav-tabs > li.active: hover > a {
-    background-color: #fff;
-    color: #3F3685; /* phs-purple - doesn't work - is black */
-}
+/* formats title text top right in tabPanel */
 
-/* formats text top right in tabPanel */
-
-.nav-tabs-custom > .nav-tabs > li.header { /* ignore warning triangle - doesn't work without li. */
-  line-height: 35px;
-  padding: 0 10px;
-  font-size: 20px;
-  color: #3F3685; /* phs-purple */
+.nav-tabs-custom>.nav-tabs>li.header {
+    line-height: 35px;
+    padding: 0 10px;
+    font-size: 20px;
+    color: #3F3685;
 }
 
 /* removes lines round boxes */
@@ -190,6 +190,12 @@ including tabBoxes and menu items!important*/
 .nav-tabs-custom {
   box-shadow: none;
   }
+
+/* formats top border of box - phs-purple-30 */
+
+.box.box-primary {
+    border-top-color: #C5C3DA; 
+}
 
 /* formats the left-hand title in About this measure tab */
 
@@ -204,4 +210,3 @@ including tabBoxes and menu items!important*/
 .notes-style {
   font-size: 14px;
 }
-

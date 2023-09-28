@@ -80,9 +80,12 @@ instructions <-
   tabPanel(title = "How to use this dashboard",
            value = "instructions",
            
-           fluidPage(
+           fluidRow(
              
              br(),
+             
+             box(solidHeader = TRUE,
+                 width = 12,
              
              fluidRow(
                p(strong("Navigation and filtering")
@@ -207,7 +210,10 @@ instructions <-
                       p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
                       )
                ) # column
+               
              ) # fluidRow
+             
+             ) # box
              
            ) # fluidPage
            
@@ -220,69 +226,79 @@ patterns <-
   tabPanel(title = "How do we identify patterns in the data?",
            value = "patterns",
            
-           br(),
-           
-           p(strong("Run charts"), "have been used to show time series data for many of the measures in this dashboard. Run charts use a series of rules to help identify important change in the data. These are the ones we used for these charts:"
-           ),
-           
-           tags$ul(
-             tags$li(class= "li-class",
-                     strong("Shifts:"), " Six or more consecutive data points above or below the centreline. Points on the centreline neither break nor contribute to a shift (marked as a yellow line on charts)."
-                     ),
+           fluidRow(
              
-             tags$li(class= "li-class",
-                     strong("Trends:"), " Five or more consecutive data points which are increasing or decreasing. An observation that is the same as the preceding value does not count towards a trend (marked as green highlights on charts)."
-                     ),
+             br(),
              
-             tags$li(class= "li-class",
-               strong("Too many or too few runs:"), " A run is a sequence of one or more consecutive observations on the same side of the centreline. Any observations falling directly on the centreline can be ignored. If there are too many or too few runs (i.e. the median is crossed too many or too few times) that is a sign of something more than random chance."
-                     ),
+             box(solidHeader = TRUE,
+                 width = 12,
+                 
+                 p(strong("Run charts"), "have been used to show time series data for many of the measures in this dashboard. Run charts use a series of rules to help identify important change in the data. These are the ones we used for these charts:"
+                 ),
+                 
+                 tags$ul(
+                   tags$li(class= "li-class",
+                           strong("Shifts:"), " Six or more consecutive data points above or below the centreline. Points on the centreline neither break nor contribute to a shift (marked as a yellow line on charts)."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Trends:"), " Five or more consecutive data points which are increasing or decreasing. An observation that is the same as the preceding value does not count towards a trend (marked as green highlights on charts)."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Too many or too few runs:"), " A run is a sequence of one or more consecutive observations on the same side of the centreline. Any observations falling directly on the centreline can be ignored. If there are too many or too few runs (i.e. the median is crossed too many or too few times) that is a sign of something more than random chance."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Astronomical data point:"), " A data point which is distinctly different from the rest. Different people looking at the same graph would be expected to recognise the same data point as astronomical (or not)."
+                   )
+                 ),
+                 
+                 br(),
+                 
+                 p("The", strong("Location of extremely pre-term births"), "charts are ", strong("control charts."), "These charts have additional ‘control limits’ to indicate how much random variation we would expect to see by chance. They also use slightly different rules for", strong("shifts"), "and", strong("trends."), "The five rules we use are:"
+                 ),
+                 
+                 tags$ul(
+                   tags$li(class= "li-class",
+                           strong("Outliers:"), " Data points outside the limits marked by the control limits."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Shifts:"), " Eight or more consecutive data points above or below the centreline.",
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Trends:"), " Six or more consecutive data points which are increasing or decreasing."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Outer one–third:"), " Two out of three consecutive data points which sit between the control and warning limits."
+                   ),
+                   
+                   tags$li(class= "li-class",
+                           strong("Inner one-third:"), " 15 or more consecutive data points that lie close to the centreline."
+                   )
+                 ),
+                 
+                 p("The type of chart used depends on the type of data involved (which statistical distribution we think it follows). For the ", strong("Location of extremely pre-term births"), " measure P charts are presented."
+                 ),
+                 
+                 br(),
+                 
+                 p("Further information on these methods of presenting data can be found in this ",
+                   
+                   tags$a(
+                     href =  "https://www.isdscotland.org/health-topics/quality-indicators/statistical-process-control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
+                     tags$u("guide to statistical process control charts."),
+                     class = "externallink",
+                     target = "_blank"
+                   )
+                 )
+                 
+             ) # box
              
-             tags$li(class= "li-class",
-                     strong("Astronomical data point:"), " A data point which is distinctly different from the rest. Different people looking at the same graph would be expected to recognise the same data point as astronomical (or not)."
-                     )
-           ),
-           
-           br(),
-           
-           p("The", strong("Location of extremely pre-term births"), "charts are ", strong("control charts."), "These charts have additional ‘control limits’ to indicate how much random variation we would expect to see by chance. They also use slightly different rules for", strong("shifts"), "and", strong("trends."), "The five rules we use are:"
-           ),
-           
-           tags$ul(
-             tags$li(class= "li-class",
-                     strong("Outliers:"), " Data points outside the limits marked by the control limits."
-                     ),
-             
-             tags$li(class= "li-class",
-                     strong("Shifts:"), " Eight or more consecutive data points above or below the centreline.",
-                     ),
-             
-             tags$li(class= "li-class",
-                     strong("Trends:"), " Six or more consecutive data points which are increasing or decreasing."
-                     ),
-             
-             tags$li(class= "li-class",
-                     strong("Outer one–third:"), " Two out of three consecutive data points which sit between the control and warning limits."
-                     ),
-             
-             tags$li(class= "li-class",
-                     strong("Inner one-third:"), " 15 or more consecutive data points that lie close to the centreline."
-                     )
-             ),
-
-           p("The type of chart used depends on the type of data involved (which statistical distribution we think it follows). For the ", strong("Location of extremely pre-term births"), " measure P charts are presented."
-           ),
-           
-           br(),
-           
-           p("Further information on these methods of presenting data can be found in this ",
-             
-             tags$a(
-               href =  "https://www.isdscotland.org/health-topics/quality-indicators/statistical-process-control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
-               tags$u("guide to statistical process control charts."),
-               class = "externallink", target = "_blank"
-             )
-           )
+           ) # fluidRow
            
   ) # tabPanel("How do we identify patterns in the data?")
 
@@ -293,58 +309,103 @@ background <-
   tabPanel(title = "Background",
            value = "background",
            
-           br(),
-           
-           p("The data displays on this ", strong("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"), " have been developed in response to commitment 67 in ",
+           fluidRow(
              
-             tags$a(
-               href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
-               tags$u("The Best Start: five year plan for maternity and neonatal care"),
-               class = "externallink", target = "_blank"
-             ),
+             br(),
              
-             " that:  ‘national level maternity and neonatal dashboards should be developed to facilitate benchmarking and reduce variations in care’."
-           ),
-           
-           p("During 2019 the ",
+             box(solidHeader = TRUE,
+                 width = 12,
+                 
+                 br(),
+                 
+                 p("The data displays on this ", strong("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"), " have been developed in response to commitment 67 in ",
+                   
+                   tags$a(
+                     href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
+                     tags$u("The Best Start: five year plan for maternity and neonatal care"),
+                     class = "externallink",
+                     target = "_blank"
+                   ),
+                   
+                   " that:  ‘national level maternity and neonatal dashboards should be developed to facilitate benchmarking and reduce variations in care’."
+                 ),
+                 
+                 p("During 2019 the ",
+                   
+                   tags$a(
+                     href = "https://www.perinatalnetwork.scot/data/",
+                     tags$u("MatNeo Data Hub"),
+                     class = "externallink",
+                     target = "_blank"
+                   ),
+                   
+                   " compiled an initial list of CORE maternity measures by exploring what measures are used in a variety of local and national dashboards."
+                 ),
+                 
+                 p("Given the extensive work done in England through a Delphi process to derive 14 monthly Clinical Quality Improvement Metrics or ", strong("CQIMS,"), " the concepts included in the CQIMs measures were used as a starting point for further engagement on establishing core measures of pregnancy, births, and neonatal care quality relevant to multiple audiences (policy makers, planners, clinical staff, the public) and suitable for a publicly accessible dashboard."
+                 ),
+                 
+                 p("A longer list of potential measures was discussed in November 2019 with a short life working group. This working group contained representation from Heads of Midwifery, Clinical Directors of Obstetrics, the Scottish Perinatal Network, and the Best Start Implementation Programme. Through a voting exercise, we selected a set of measures to concentrate on initially. These CORE measures are listed in the ",
+                   
+                   tags$a(
+                     href = "https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=747368373",
+                     tags$u("Topics Index"),
+                     class = "externallink", 
+                     target = "_blank"
+                   ),
+                   
+                   " produced by the MatNeo Data Hub."
+                 ),
+                 
+                 p("During 2020, in response to concerns about the Wider Impacts of COVID-19, many of these CORE measures were made available on a dashboard showing ",
+                   
+                   tags$a(
+                     href =  "https://scotland.shinyapps.io/phs-covid-wider-impact/",
+                     tags$u("COVID-19 wider impacts on the health care system."),
+                     class = "externallink",
+                     target = "_blank"
+                   )
+                 ),
+                 
+                 p("The ‘Pregnancy’ and ‘Births and babies’ sections of the Wider Impacts dashboard were updated for the last time in September 2023, so this post-COVID ", strong("Pregnancy, Births and Neonatal Data"), " dashboard for Scotland is now the primary source of PHS Maternity and Neonatal data visualisations. It offers alternative data views, including small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi indicator overview to display several indicators simultaneously for all Health Board areas."
+                 )
+                 
+             ) # box
              
-             tags$a(
-               href = "https://www.perinatalnetwork.scot/data/",
-               tags$u("MatNeo Data Hub"),
-               class = "externallink", target = "_blank"
-             ),
-             
-             " compiled an initial list of CORE maternity measures by exploring what measures are used in a variety of local and national dashboards."
-           ),
-           
-           p("Given the extensive work done in England through a Delphi process to derive 14 monthly Clinical Quality Improvement Metrics or ", strong("CQIMS,"), " the concepts included in the CQIMs measures were used as a starting point for further engagement on establishing core measures of pregnancy, births, and neonatal care quality relevant to multiple audiences (policy makers, planners, clinical staff, the public) and suitable for a publicly accessible dashboard."
-           ),
-           
-           p("A longer list of potential measures was discussed in November 2019 with a short life working group. This working group contained representation from Heads of Midwifery, Clinical Directors of Obstetrics, the Scottish Perinatal Network, and the Best Start Implementation Programme. Through a voting exercise, we selected a set of measures to concentrate on initially. These CORE measures are listed in the ",
-             
-             tags$a(
-               href = "https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=747368373",
-               tags$u("Topics Index"),
-               class = "externallink", 
-               target = "_blank"
-             ),
-             
-             " produced by the MatNeo Data Hub."
-           ),
-           
-           p("During 2020, in response to concerns about the Wider Impacts of COVID-19, many of these CORE measures were made available on a dashboard showing ",
-             
-             tags$a(
-               href =  "https://scotland.shinyapps.io/phs-covid-wider-impact/",
-               tags$u("COVID-19 wider impacts on the health care system."),
-               class = "externallink", target = "_blank"
-             )
-           ),
-
-           p("The ‘Pregnancy’ and ‘Births and babies’ sections of the Wider Impacts dashboard were updated for the last time in September 2023, so this post-COVID ", strong("Pregnancy, Births and Neonatal Data"), " dashboard for Scotland is now the primary source of PHS Maternity and Neonatal data visualisations. It offers alternative data views, including small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi indicator overview to display several indicators simultaneously for all Health Board areas."
-           )
+           ) # fluidRow
            
   ) # tabPanel("Background")
+
+# VERSION ----
+
+version <- 
+  
+  tabPanel(title = "Version",
+           value = "version",
+           
+           fluidRow(
+             
+             br(),
+             
+             box(solidHeader = TRUE,
+                 width = 12,
+                 
+                 br(),
+                 
+                 column(12,
+                        #strong(
+                        tags$ul(
+                          tags$li(class= "li-class", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
+                        )
+                        #)
+                 )
+                 
+             ) # box
+             
+           ) # fluidRow
+           
+  ) # tabPanel("Version")
+
 
 # TOPIC MENU ----
 
@@ -369,58 +430,47 @@ sidebar <- dashboardSidebar(#width = 280,
 
 home <- tabItem(
   tabName = "home",
+  
   fluidRow(
+    
+    h1("Welcome to the Scottish Pregnancy, Births and Neonatal Data dashboard",
+       class = "smaller--h1"
+    ),
+    
+    hr(),
+    
     tabBox(title = "Home",
            
            # The id lets us use input$tabset00 on the server to find the current tab
            id = "tabset00",
            width = 12,
-           height = "25px"
-    ) # tabBox ("Home")
-  ), # fluidRow,
-  
-  fluidRow(
-    box(width = 12,
-        solidHeader = TRUE,
-        
-        p("Welcome to the Scottish Pregnancy, Births and Neonatal Data dashboard",
-          class = "smaller--h1"
-        ),
-        
-        hr(),
-        
-        tabBox(
-          
-          title = "",
-          
-          # The id lets us use input$tabset1 on the server to find the current tab
-          id = "tabset1",
-          width = 12,
-          
-          instructions,
-          
-          patterns,
-          
-          background
-          
-        ) # tabBox
-    ) # box
+           
+           instructions,
+           
+           patterns,
+           
+           background,
+           
+           version
+           
+    ) # tabBox
     
   ) # fluidRow
+  
 ) # tabItem ("home")
 
 # MULTI INDICATOR OVERVIEW ----
 
 multi_indicator_overview <- tabItem(
   tabName = "multi_indicator_overview",
+  
   fluidRow(
     tabBox(title = "Multiple indicator overview",
            
            # The id lets us use input$tabset01 on the server to find the current tab
            id = "tabset01",
            width = 12,
-           height = "25px",
-           
+
            # "bullet" chart tab
            
            tabPanel(title = "Board comparison",
@@ -472,6 +522,7 @@ multi_indicator_overview <- tabItem(
                                class = "notes-style"
                              )
                       )
+                      
                     ) # fluidRow
                     
            ), # tabPanel("Board comparison")
@@ -489,16 +540,11 @@ multi_indicator_overview <- tabItem(
                              br()
                              
                       ),
-                      
-                      # column(10,
-                      #        p("View indicators by Board: select a Board to compare against Scotland"
-                      #          )
-                      #        ),
-                      
+
                       column(1, offset = 10,
                              downloadButton("multi_indicator_download_data2", "Download data"
                              )
-                      ),
+                      )
                     ), # fluidRow
                     
                     br(),
@@ -529,6 +575,7 @@ multi_indicator_overview <- tabItem(
                                class = "notes-style"
                              )
                       )
+                      
                     ) # fluidRow
                     
            ) # tabPanel ("Individual board")
@@ -543,14 +590,14 @@ multi_indicator_overview <- tabItem(
 
 pregnancies_booked <- tabItem(
   tabName = "pregnancies_booked",
+  
   fluidRow(
     tabBox(title = "Number of pregnancies booked",
            
            # The id lets us use input$tabset10 on the server to find the current tab
            id = "tabset10",
            width = 12,
-           height = "25px",
-           
+
            # Timeseries
            
            tabPanel(title = "Individual board", #value = "bookings_board",
@@ -607,6 +654,7 @@ pregnancies_booked <- tabItem(
                              p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of pregnancies booked for antenatal care each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              )
                       ) # column
+                      
                     ) # fluidRow
                     
            ), # tabPanel("bookings_board")
@@ -619,16 +667,15 @@ pregnancies_booked <- tabItem(
                       column(12,
                              p("Number of pregnancies booked for antenatal care",
                                class = "about-this-measure-title"
-                             )                             
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()                          
+                      ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
-                          
+
                           p("The ",
                             
                             tags$a(
@@ -661,6 +708,7 @@ pregnancies_booked <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection"
@@ -683,7 +731,7 @@ pregnancies_booked <- tabItem(
            
     ) # tabBox ("Average gestation at booking")
     
-  ) #fluidRow
+  ) # fluidRow
   
 ) # tabItem("pregnancies_booked")
 
@@ -691,13 +739,13 @@ pregnancies_booked <- tabItem(
 
 terminations <- tabItem(
   tabName = "terminations",
+  
   fluidRow(
     tabBox(title = "Number of terminations",
            
            # The id lets us use input$tabset11 on the server to find the current tab
            id = "tabset11",
            width = 12,
-           height = "25px",
            
            # Timeseries
            
@@ -768,14 +816,13 @@ terminations <- tabItem(
                       column(12,
                              p("Number of terminations",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()                          
+                      ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("Monitoring the number of terminations of pregnancy is useful for service planners to understand changes in demand and need for termination services."
@@ -799,6 +846,7 @@ terminations <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)"
@@ -829,14 +877,14 @@ terminations <- tabItem(
 
 gestation_at_booking <- tabItem(
   tabName = "gestation_at_booking",
+  
   fluidRow(
     tabBox(title = "Average gestation at booking",
            
            # The id lets us use input$tabset12 on the server to find the current tab
            id = "tabset12",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "gest_at_booking_overview",
@@ -951,6 +999,7 @@ gestation_at_booking <- tabItem(
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              )
                       )
+                      
                     ) # fluidRow
                     
            ), # tabPanel("gest_at_booking_board")
@@ -963,14 +1012,14 @@ gestation_at_booking <- tabItem(
                       column(12,
                              p("Average gestation at booking",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("The ",
@@ -1006,6 +1055,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection"
@@ -1021,6 +1071,7 @@ gestation_at_booking <- tabItem(
                           )
                           
                       ) # box
+                    
                     ) # fluidRow
                     
            ) # tabPanel("gest_at_booking_datasource")
@@ -1035,14 +1086,14 @@ gestation_at_booking <- tabItem(
 
 gestation_at_termination <- tabItem(
   tabName = "gestation_at_termination",
+  
   fluidRow(
     tabBox(title = "Average gestation at termination",
            
            # The id lets us use input$tabset13 on the server to find the current tab
            id = "tabset13",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "gest_at_termination_overview",
@@ -1171,14 +1222,14 @@ gestation_at_termination <- tabItem(
                       column(12,
                              p("Average gestation at termination",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("Standard 10 of Healthcare Improvement Scotland’s current ",
@@ -1212,6 +1263,7 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)"
@@ -1248,14 +1300,14 @@ gestation_at_termination <- tabItem(
 
 location_of_ex_pre_term <- tabItem(
   tabName = "location_of_ex_pre_term",
+  
   fluidRow(
     tabBox(title = "Location of extremely pre-term births",
            
            # The id lets us use input$tabset20 on the server to find the current tab
            id = "tabset20",
            width = 12,
-           height = "25px",
-           
+
            # Control chart and context chart
            
            tabPanel(title = "Scotland", #value = "pre-term_births_control_chart",
@@ -1386,14 +1438,14 @@ location_of_ex_pre_term <- tabItem(
                       column(12,
                              p("Location of extremely pre-term births",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("Babies born pre-term (at least 3 weeks before their due date) are at increased risk of health problems compared to babies born at term (around their due date). The earlier in pregnancy a baby is born, the higher the risk."
@@ -1464,6 +1516,7 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -1555,14 +1608,14 @@ location_of_ex_pre_term <- tabItem(
 
 inductions <- tabItem(
   tabName = "inductions",
+  
   fluidRow(
     tabBox(title = "Induction of labour",
            
            # The id lets us use input$tabset21 on the server to find the current tab
            id = "tabset21",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "induction_of_labour_overview",
@@ -1728,14 +1781,14 @@ inductions <- tabItem(
                       column(12,
                              p("Induction of labour",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p(
@@ -1791,6 +1844,7 @@ inductions <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -1831,14 +1885,14 @@ inductions <- tabItem(
 
 type_of_birth <- tabItem(
   tabName = "type_of_birth",
+  
   fluidRow(
     tabBox(title = "Type of birth",
            
            # The id lets us use input$tabset22 on the server to find the current tab
            id = "tabset22",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "type_of_birth_overview",
@@ -2003,14 +2057,14 @@ type_of_birth <- tabItem(
                       column(12,
                              p("Type of birth",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+                      
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("The ",
@@ -2063,6 +2117,7 @@ type_of_birth <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -2105,14 +2160,14 @@ type_of_birth <- tabItem(
 
 perineal_tears <- tabItem(
   tabName = "perineal_tears",
+  
   fluidRow(
     tabBox(title = "Perineal tears",
            
            # The id lets us use input$tabset23 on the server to find the current tab
            id = "tabset23",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "tears_overview",
@@ -2276,14 +2331,14 @@ perineal_tears <- tabItem(
                       column(12,
                              p("Third- and fourth-degree perineal tears",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("When a woman is giving birth, the baby stretches the mother’s vagina and perineum. Occasionally, the tissues cannot stretch enough, and a tear (called a ",
@@ -2329,6 +2384,7 @@ perineal_tears <- tabItem(
                                     href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
                                     tags$u("Clinical Report 2021 - version 1.1 (external website)"),
                                     class = "externallink",
+                                    target = "_blank"
                                   ),
                                   
                                   " notes (on page 18) that ‘Rates of third- and fourth-degree tears in Scotland and Wales remain steady with minimal fluctuation in rates since the first NMPA report time point.’ However, the overall proportion of women who give birth vaginally to a singleton baby in the cephalic position between 37", tags$sup("+0"), " and 42", tags$sup("+6")
@@ -2345,6 +2401,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -2386,14 +2443,14 @@ perineal_tears <- tabItem(
 
 gestation_at_birth <- tabItem(
   tabName = "gestation_at_birth",
+  
   fluidRow(
     tabBox(title = "Gestation at birth",
            
            # The id lets us use input$tabset24 on the server to find the current tab
            id = "tabset24",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", # value = "gest_at_birth_overview",
@@ -2563,14 +2620,14 @@ gestation_at_birth <- tabItem(
                       column(12,
                              p("Gestation at birth: pre- and post-term births",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("Gestation at birth strongly influences babies’ health. Babies born preterm can have complications following their birth and the consequences of being born too early can continue to affect health and development throughout childhood and adult life. The ",
@@ -2616,6 +2673,7 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -2694,14 +2752,14 @@ gestation_at_birth <- tabItem(
 
 stillbirths <- tabItem(
   tabName = "stillbirths",
+  
   fluidRow(
     tabBox(title = "Stillbirths and infant deaths",
            
            # The id lets us use input$tabset25 on the server to find the current tab
            id = "tabset25",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Scotland", # value = "stillbirths_overview",
@@ -2788,14 +2846,14 @@ stillbirths <- tabItem(
                       column(12,
                              p("Stillbirths and infant deaths",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("Monitoring rates of stillbirth, neonatal and infant mortality allows us to understand the distribution of need for prevention across different populations, review change over time and evaluate the impact of prevention efforts."
@@ -2807,6 +2865,7 @@ stillbirths <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: National Records of Scotland (NRS) vital event registrations"
@@ -2818,6 +2877,7 @@ stillbirths <- tabItem(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
                               tags$u("National Records for Scotland (NRS) (external website)"),
                               class = "externallink",
+                              target = "_blank"
                             ),
                             
                             "from the statutory registration of deaths and births. NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
@@ -2910,14 +2970,14 @@ stillbirths <- tabItem(
 
 apgar_scores <- tabItem(
   tabName = "apgar_scores",
+  
   fluidRow(
     tabBox(title = "Low Apgar5 scores",
            
            # The id lets us use input$tabset26 on the server to find the current tab
            id = "tabset26",
            width = 12,
-           height = "25px",
-           
+
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "apgar5_overview",
@@ -3084,14 +3144,14 @@ apgar_scores <- tabItem(
                       column(12,
                              p("Low Apgar 5 scores",
                                class = "about-this-measure-title"
-                             )
-                      )
-                    ), # fluidRow
-                    
-                    br(),
-                    
-                    fluidRow(
+                             ),
+                             
+                             br()
+                             
+                             ),
+
                       box(title = "Why measure this?",
+                          status = "primary",
                           width = 5,
                           
                           p("The Apgar score was developed by Dr Virginia Apgar in 1952 to measure the condition of newborn babies. Scoring allows health professionals to quickly identify babies needing resuscitation after birth. Babies are scored 0, 1, or 2 for each of their heart rate, respiratory effort, muscle tone, response to stimulation, and skin colour. Scores therefore range from 0 to 10, with higher scores indicating a better condition. Scores of 7 or over are generally interpreted as ‘reassuring’, with scores of 4-6 considered moderately low, and scores of 0-3 considered very low. The Apgar score is measured at 1 and 5 minutes after birth for all babies in Scotland."
@@ -3109,6 +3169,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       box(title = "Data source and definitions",
+                          status = "primary",
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
@@ -3178,7 +3239,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3204,7 +3265,7 @@ ui <-
     
   ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -3221,7 +3282,7 @@ server <- function(input, output, session) {
                              Indicator_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
                              Nicename = "under 32 weeks")
-
+  
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
   observeEvent(input$hbname, Selected$HBName <- input$hbname)
@@ -3232,69 +3293,68 @@ server <- function(input, output, session) {
   
   # this observeEvent sets the current tabset back to the first tabPanel when a new tabset is selected from the
   # menu - this is needed to trigger the filter selections correctly
-
+  
   observeEvent(input$topics,
-
+               
                if (input$topics %in% names(tabnames)) {
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset1", # home
+                                   "tabset00", # home
                                    "instructions")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset01", # multi_indicator_overview
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset10", # pregnancies_booked
                                    "Individual board")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset11", # terminations
                                    "Individual board")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset12", # gestation_at_booking
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset13", # gestation_at_termination
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset20", # location_of_ex_pre_term
                                    "Scotland")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset21", # inductions
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset22", # type_of_birth
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset23", # perineal_tears
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset24", # gestation_at_birth
                                    "Board comparison")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset25", # stillbirths
                                    "Scotland")
-
+                 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset26", # apgar_scores
                                    "Board comparison")
-
+                 
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
   )
   
   observeEvent(input$tabset00, Selected$Tabset <- input$tabset00)
-  observeEvent(input$tabset1, Selected$Tabset <- input$tabset1)
   observeEvent(input$tabset01, Selected$Tabset <- input$tabset01)
   observeEvent(input$tabset10, Selected$Tabset <- input$tabset10)
   observeEvent(input$tabset11, Selected$Tabset <- input$tabset11)
@@ -3343,7 +3403,7 @@ server <- function(input, output, session) {
         label = "Select Board",
         choices = HBnames,
         selected = "Scotland",
-        options = pickerOptions(size = "false"), # forces dropdown to show all boards
+        options = pickerOptions(size = 10), # shows 10 boards and a scroll bar - will drop up and not get hidden?
         choicesOpt = list(
           style = rep("color: #3F3685;", 15) # PHS-purple text
         )
@@ -3357,10 +3417,10 @@ server <- function(input, output, session) {
                         condition = ((input$topics %in% show_HBname &
                                         Selected$Tabset != "About this measure") |
                                        (input$topics %in% show_HBname2 &
-                                       !Selected$Tabset %in% c("Board comparison", "About this measure"))
+                                          !Selected$Tabset %in% c("Board comparison", "About this measure"))
                         )
-                        )
-          )
+  )
+  )
   
   # select date (financial year or calendar year)
   
