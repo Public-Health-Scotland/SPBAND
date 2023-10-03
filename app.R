@@ -20,9 +20,10 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.0") # this is the LIVE dashboard
+          tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          # tags$p("SPBAND_PRA v 0.1") # this is the PRA dashboard
+          )
   )
-)
 
 # MENUS ----
 
@@ -406,19 +407,10 @@ version <-
            
   ) # tabPanel("Version")
 
-
-# TOPIC MENU ----
-
-topicmenu <- sidebarMenu(
-  id = "topics",
-  menu1,
-  menu2
-)
-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
-                            topicmenu,
+                            accessible_menu(menu1), accessible_menu(menu2),
                             useShinyjs(),
                             uiOutput("organisationControl"), # Board of Residence/Treatment
                             uiOutput("hbnameControl"), # Board name
@@ -3252,7 +3244,7 @@ ui <-
     ),
     # Including Google analytics
     # includeScript("google-analytics.js")),
-    
+
     dashboardPage(
       
       header,
