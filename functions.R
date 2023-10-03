@@ -742,7 +742,7 @@ if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
           TRUE ~ ""
         ),
         legendrank = 1001,
-        #legendgroup = "additional median"
+        legendgroup = "additional median",
         hovertext = ""
       ) %>%
       add_trace(
@@ -763,7 +763,7 @@ if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
         )
         ),
         legendrank = 1002,
-        # legendgroup = "additional extended"
+        legendgroup = "additional extended",
         hovertext = ""
       )
   }
