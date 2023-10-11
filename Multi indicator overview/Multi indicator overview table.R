@@ -93,7 +93,7 @@ output$mytable <-
       multi_indicator_table_data_hb(),
       container = my.container(),
       options = my.options,
-      caption = htmltools::tags$caption("View indicators by Board: select a Board in the filter to compare against Scotland",
+      caption = htmltools::tags$caption("View measures by Board: select a Board in the filter to compare against Scotland",
                   style = "color: #3F3685; margin-bottom: 0px;"
                   ),
       rownames = FALSE, # do not treat table row names as separate column
@@ -119,7 +119,7 @@ output$mytable <-
 # c) title
 
 output$multi_indicator_table_title <- renderText({
-  paste0("Core Maternity Indicators, by Board of ",
+  paste0("Core measures, by Board of ",
          str_to_sentence(input$organisation),
          ", for ",
          if_else(input$date %like% "/", "financial year ",
