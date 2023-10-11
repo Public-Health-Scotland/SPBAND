@@ -57,7 +57,7 @@ plot_nodata <- function(height_plot = 450, text_nodata) {
     config(displayModeBar = FALSE) # taking out plotly logo and collaborate button
 }
 
-# function to make the sidebar menu accessible (copied from Kit who copied it from the internet!)
+# function to make the sidebar menu accessible (https://www.jumpingrivers.com/blog/accessible-shiny-standards-wcag/)
 
 accessible_menu = function(bad_menu) {
   tab_input = tags$script(
@@ -78,6 +78,18 @@ $(document).ready(
   bad_menu$children[[length(bad_menu$children)]] = NULL
   real_menu = tagList(bad_menu, tab_input)
   real_menu
+}
+
+# functions to remove aria labels where they are not needed
+
+rem_aria_label <- function(icon) {
+  icon[["attribs"]][["aria-label"]] = NULL
+  return(icon)
+  }
+
+rem_menu_aria_label <- function(menu) {
+  menu[["children"]][[1]][["children"]][[3]][["attribs"]][["aria-label"]] = NULL
+  return(menu)
 }
 
 # Function to create the small multiple charts with a blue median line

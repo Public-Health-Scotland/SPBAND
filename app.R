@@ -22,56 +22,73 @@ header <- dashboardHeader(
   tags$li(class = "dropdown",
           tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
           # tags$p("SPBAND_PRA v 0.1") # this is the PRA dashboard
-          )
-  )
-
-# MENUS ----
-
-# I split the menu into two in case any additional indicators get added - helps me number the tabsets more easily
-
-menu1 <- sidebarMenu(
-  id = "menu1",
-  menuItem("Home",
-           tabName = "home",
-           icon = icon("info-circle", verify_fa = FALSE),
-           selected = TRUE),
-  menuItem("Multi indicator overview",
-           tabName = "multi_indicator_overview",
-           icon = icon("tachometer-alt", verify_fa = FALSE)
   )
 )
 
-menu2 <- sidebarMenu(
-  id = "menu2",
-  menuItem("Pregnancy",
-           icon = icon ("person-pregnant", verify_fa = FALSE),
-           menuSubItem("Number of pregnancies booked", 
-                       tabName = "pregnancies_booked"),
-           menuSubItem("Number of terminations",
-                       tabName = "terminations"),
-           menuSubItem("Gestation at booking",
-                       tabName = "gestation_at_booking"),
-           #selected = TRUE), # only used whilst checking a particular indicator - forces this tab open
-           menuSubItem("Gestation at termination",
-                       tabName = "gestation_at_termination")
+# MENU ----
+
+topicmenu <- sidebarMenu(
+  id = "topics",
+  menuItem("Home",
+           tabName = "home",
+           icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label()
+           ),
+           #selected = TRUE),
+  menuItem("Multi indicator overview",
+           tabName = "multi_indicator_overview",
+           icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
   ),
+  menuItem("Pregnancy",
+           icon = icon("person-pregnant", verify_fa = FALSE) %>% rem_aria_label(),
+           menuSubItem("Number of pregnancies booked", 
+                       tabName = "pregnancies_booked",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           menuSubItem("Number of terminations",
+                       tabName = "terminations",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           menuSubItem("Gestation at booking",
+                       tabName = "gestation_at_booking",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           #selected = TRUE), # only used whilst checking a particular measure - forces this tab open
+           menuSubItem("Gestation at termination",
+                       tabName = "gestation_at_termination",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           )
+  ) %>% rem_menu_aria_label(),
   menuItem("Births and babies",
-           icon = icon("baby", verify_fa = FALSE),
+           icon = icon("baby", verify_fa = FALSE) %>% rem_aria_label(),
            menuSubItem("Location of extremely pre-term births",
-                       tabName = "location_of_ex_pre_term"),
+                       tabName = "location_of_ex_pre_term",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Induction of labour",
-                       tabName = "inductions"),
+                       tabName = "inductions",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Type of birth",
-                       tabName = "type_of_birth"),
+                       tabName = "type_of_birth",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Third- and fourth-degree perineal tears",
-                       tabName = "perineal_tears"),
+                       tabName = "perineal_tears",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Gestation at birth: pre- and post-term births",
-                       tabName = "gestation_at_birth"),
+                       tabName = "gestation_at_birth",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Stillbirths and infant deaths",
-                       tabName = "stillbirths"),
+                       tabName = "stillbirths",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
            menuSubItem("Apgar scores",
-                       tabName = "apgar_scores")
-  )
+                       tabName = "apgar_scores",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           )
+  ) %>% rem_menu_aria_label()
 )
 
 # HOW TO USE THIS DASHBOARD ----
@@ -87,133 +104,133 @@ instructions <-
              
              box(solidHeader = TRUE,
                  width = 12,
-             
-             fluidRow(
-               p(strong("Navigation and filtering")
-               ),
-               
-               column(10,
-                      p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
-                      ),
-                      
-                      p("The left-hand menu can also be hidden (or revealed) by clicking on ",
-                        img(src = "toggle.png", alt = "A snip of the toggle button"),
-                        " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
-                        ),
-                      
-                      p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
-                      ),
-                      
-                      p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
-                      )
-               ),
-               
-               column(2,
-                      img(src = "nav_menu.png", alt = "A snip of the navigation menu which appears in the left-hand panel of the SPBAND dashboard. This menu allows the user to access content in the dashboard.", width = "70%", height = "70%"
-                      )
-               )
-             ), # fluidRow
-             
-             br(),
-             
-             br(),
-             
-             fluidRow(
-               column(10,
-                      p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
-                      ),
-                      
-                      p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
-                      ),
-                      
-                      p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
-                      )
-               ),
-               
-               column(2,
-                      img(src = "filter.png", alt = "A snip of the filter panel which appears in the left-hand panel of the SPBAND dashboard. The filters allow the user to tailor content in the dashboard.", width = "70%", height = "70%"
-                      )
-               )
-             ), # fluidRow
-             
-             br(),
-             
-             fluidRow(
-               p(strong("There are three ways to view data")
-               ),
-               column(12,
-                      #strong(
-                      tags$ol(
-                        tags$li(class= "li-class", "Multi indicator overview"), 
-                        tags$li(class= "li-class", "Board comparison"), 
-                        tags$li(class= "li-class", "Individual board")
-                      )
-                      #)
-               )
-             ), #fluidRow
-             
-             fluidRow(
-               column(12,
-                      p("The ", strong("Multi indicator overview"), " shows a selection of the Core Maternity Indicators. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
-                      ),
-                      
-                      p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
-                      ),
-                      
-                      p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
-                      ),
-                      
-                      p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
-                      )
-               )
-             ), #fluidRow
-             
-             br(),
-             
-             fluidRow(
-               p(strong("Notes on particular measures")
-               ),
-               
-               column(12,
-                      p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
-                      ),
-                      
-                      p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
-                      )
-               )
-             ), # fluidRow
-             
-             br(),
-             
-             fluidRow(
-               p(strong("Copying charts and downloading data")
-               ),
-               
-               column(12,
-                      p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
-                      ),
-                      
-                      p("All measures, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = "This is an image of the data download button which is used to download the related data for each measure."     
-                      ),
-                      
-                      "Data are currently available in a comma separated file format. The same data are available from either download button within an indicator."
-                      )
-               )
-             ), # fluidRow
-             
-             br(),
-             
-             fluidRow(
-               p(strong("Tell us what you think")
-               ),
-               
-               column(12,
-                      p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
-                      )
-               ) # column
-               
-             ) # fluidRow
-             
+                 
+                 fluidRow(
+                   p(strong("Navigation and filtering")
+                   ),
+                   
+                   column(10,
+                          p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
+                          ),
+                          
+                          p("The left-hand menu can also be hidden (or revealed) by clicking on this toggle button",
+                            img(src = "toggle.png", alt = ""),
+                            " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
+                          ),
+                          
+                          p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
+                          ),
+                          
+                          p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
+                          )
+                   ),
+                   
+                   column(2,
+                          img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
+                          )
+                   )
+                 ), # fluidRow
+                 
+                 br(),
+                 
+                 br(),
+                 
+                 fluidRow(
+                   column(10,
+                          p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
+                          ),
+                          
+                          p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
+                          ),
+                          
+                          p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
+                          )
+                   ),
+                   
+                   column(2,
+                          img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
+                          )
+                   )
+                 ), # fluidRow
+                 
+                 br(),
+                 
+                 fluidRow(
+                   p(strong("There are three ways to view data")
+                   ),
+                   column(12,
+                          #strong(
+                          tags$ol(
+                            tags$li(class= "bullet-points", "Multi indicator overview"), 
+                            tags$li(class= "bullet-points", "Board comparison"), 
+                            tags$li(class= "bullet-points", "Individual board")
+                          )
+                          #)
+                   )
+                 ), #fluidRow
+                 
+                 fluidRow(
+                   column(12,
+                          p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
+                          ),
+                          
+                          p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
+                          ),
+                          
+                          p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
+                          ),
+                          
+                          p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
+                          )
+                   )
+                 ), #fluidRow
+                 
+                 br(),
+                 
+                 fluidRow(
+                   p(strong("Notes on particular measures")
+                   ),
+                   
+                   column(12,
+                          p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
+                          ),
+                          
+                          p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
+                          )
+                   )
+                 ), # fluidRow
+                 
+                 br(),
+                 
+                 fluidRow(
+                   p(strong("Copying charts and downloading data")
+                   ),
+                   
+                   column(12,
+                          p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
+                          ),
+                          
+                          p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
+                          ),
+                          
+                          "Data are currently available in a comma separated file format. The same data are available from either download button within an measure."
+                          )
+                   )
+                 ), # fluidRow
+                 
+                 br(),
+                 
+                 fluidRow(
+                   p(strong("Tell us what you think")
+                   ),
+                   
+                   column(12,
+                          p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
+                          )
+                   ) # column
+                   
+                 ) # fluidRow
+                 
              ) # box
              
            ) # fluidPage
@@ -238,19 +255,19 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Shifts:"), " Six or more consecutive data points above or below the centreline. Points on the centreline neither break nor contribute to a shift (marked as a yellow line on charts)."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Trends:"), " Five or more consecutive data points which are increasing or decreasing. An observation that is the same as the preceding value does not count towards a trend (marked as green highlights on charts)."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Too many or too few runs:"), " A run is a sequence of one or more consecutive observations on the same side of the centreline. Any observations falling directly on the centreline can be ignored. If there are too many or too few runs (i.e. the median is crossed too many or too few times) that is a sign of something more than random chance."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Astronomical data point:"), " A data point which is distinctly different from the rest. Different people looking at the same graph would be expected to recognise the same data point as astronomical (or not)."
                    )
                  ),
@@ -261,23 +278,23 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Outliers:"), " Data points outside the limits marked by the control limits."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Shifts:"), " Eight or more consecutive data points above or below the centreline.",
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Trends:"), " Six or more consecutive data points which are increasing or decreasing."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Outer one–third:"), " Two out of three consecutive data points which sit between the control and warning limits."
                    ),
                    
-                   tags$li(class= "li-class",
+                   tags$li(class= "bullet-points",
                            strong("Inner one-third:"), " 15 or more consecutive data points that lie close to the centreline."
                    )
                  ),
@@ -291,7 +308,7 @@ patterns <-
                    
                    tags$a(
                      href =  "https://www.isdscotland.org/health-topics/quality-indicators/statistical-process-control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
-                     tags$u("guide to statistical process control charts."),
+                     tags$u("guide to statistical process control charts (PDF)."),
                      class = "externallink",
                      target = "_blank"
                    )
@@ -368,7 +385,7 @@ background <-
                    )
                  ),
                  
-                 p("The ‘Pregnancy’ and ‘Births and babies’ sections of the Wider Impacts dashboard were updated for the last time in September 2023, so this post-COVID ", strong("Pregnancy, Births and Neonatal Data"), " dashboard for Scotland is now the primary source of PHS Maternity and Neonatal data visualisations. It offers alternative data views, including small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi indicator overview to display several indicators simultaneously for all Health Board areas."
+                 p("The ‘Pregnancy’ and ‘Births and babies’ sections of the Wider Impacts dashboard were updated for the last time in September 2023, so this post-COVID ", strong("Pregnancy, Births and Neonatal Data"), " dashboard for Scotland is now the primary source of PHS Maternity and Neonatal data visualisations. It offers alternative data views, including small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi indicator overview to display multiple measures simultaneously for all Health Board areas."
                  )
                  
              ) # box
@@ -396,7 +413,7 @@ version <-
                  column(12,
                         #strong(
                         tags$ul(
-                          tags$li(class= "li-class", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
+                          tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
                         )
                         #)
                  )
@@ -410,12 +427,13 @@ version <-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
-                            accessible_menu(menu1), accessible_menu(menu2),
-                            useShinyjs(),
-                            uiOutput("organisationControl"), # Board of Residence/Treatment
-                            uiOutput("hbnameControl"), # Board name
-                            uiOutput("dateControl") # FY/CY
-                            #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
+  topicmenu,
+  #textOutput("mytext"),
+  useShinyjs(),
+  uiOutput("organisationControl"), # Board of Residence/Treatment
+  uiOutput("hbnameControl"), # Board name
+  uiOutput("dateControl") # FY/CY
+  #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
 )
 
 # HOME ----
@@ -462,7 +480,7 @@ multi_indicator_overview <- tabItem(
            # The id lets us use input$tabset01 on the server to find the current tab
            id = "tabset01",
            width = 12,
-
+           
            # "bullet" chart tab
            
            tabPanel(title = "Board comparison",
@@ -478,12 +496,13 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(10,
-                             p("Compare Boards by indicator: hover your mouse over the dots to see individual Board values"
+                             p("Compare Boards by measure: hover your mouse over the dots to see individual Board values"
                              )
                       ),
                       
                       column(1, 
-                             downloadButton("multi_indicator_download_data1", "Download data"
+                             downloadButton("multi_indicator_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -532,9 +551,10 @@ multi_indicator_overview <- tabItem(
                              br()
                              
                       ),
-
+                      
                       column(1, offset = 10,
-                             downloadButton("multi_indicator_download_data2", "Download data"
+                             downloadButton("multi_indicator_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       )
                     ), # fluidRow
@@ -589,7 +609,7 @@ pregnancies_booked <- tabItem(
            # The id lets us use input$tabset10 on the server to find the current tab
            id = "tabset10",
            width = 12,
-
+           
            # Timeseries
            
            tabPanel(title = "Individual board", #value = "bookings_board",
@@ -610,7 +630,8 @@ pregnancies_booked <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("bookings_download_data", "Download data"
+                             downloadButton("bookings_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -667,7 +688,7 @@ pregnancies_booked <- tabItem(
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
-
+                          
                           p("The ",
                             
                             tags$a(
@@ -759,7 +780,8 @@ terminations <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("terminations_download_data", "Download data"
+                             downloadButton("terminations_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -876,7 +898,7 @@ gestation_at_booking <- tabItem(
            # The id lets us use input$tabset12 on the server to find the current tab
            id = "tabset12",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "gest_at_booking_overview",
@@ -897,7 +919,8 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("gest_at_booking_download_data1", "Download data"
+                             downloadButton("gest_at_booking_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -948,7 +971,8 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("gest_at_booking_download_data2", "Download data"
+                             downloadButton("gest_at_booking_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1008,7 +1032,7 @@ gestation_at_booking <- tabItem(
                              
                              br()
                              
-                             ),
+                      ),
                       
                       box(title = "Why measure this?",
                           status = "primary",
@@ -1021,7 +1045,7 @@ gestation_at_booking <- tabItem(
                               tags$u("‘booking’ appointment (external website)"),
                               class = "externallink",
                               target = "_blank"
-                          ),
+                            ),
                             
                             " is the first main appointment a woman has with her local maternity service once she knows she is pregnant. At the booking appointment, women are assessed by a midwife who can then tailor the subsequent care they receive during their pregnancy to their particular preferences and needs. Women are encouraged to book before they are 13 weeks pregnant, and ideally before they are 10 weeks pregnant. Early access to antenatal care supports promotion of healthier pregnancies and identification and optimal management of risks for poorer maternal and infant health outcomes."
                           ),
@@ -1029,18 +1053,18 @@ gestation_at_booking <- tabItem(
                           p("Measuring the average gestation at booking helps service providers consider and, where required, improve service accessibility."
                           ),
                           
-                      p("Further information based on Antenatal Booking Collection (ABC) data is also available from the annual ",
-                        tags$a(
-                          href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
-                          tags$u("Antenatal Booking in Scotland"),
-                          class = "externallink",
-                          target = "_blank"
-                        ),
-                        
-                        " publication."
-                      )
-                      
-                    ), # box
+                          p("Further information based on Antenatal Booking Collection (ABC) data is also available from the annual ",
+                            tags$a(
+                              href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                              tags$u("Antenatal Booking in Scotland"),
+                              class = "externallink",
+                              target = "_blank"
+                            ),
+                            
+                            " publication."
+                          )
+                          
+                      ), # box
                       
                       box(width = 1,
                           solidHeader = TRUE
@@ -1063,7 +1087,7 @@ gestation_at_booking <- tabItem(
                           )
                           
                       ) # box
-                    
+                      
                     ) # fluidRow
                     
            ) # tabPanel("gest_at_booking_datasource")
@@ -1085,7 +1109,7 @@ gestation_at_termination <- tabItem(
            # The id lets us use input$tabset13 on the server to find the current tab
            id = "tabset13",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "gest_at_termination_overview",
@@ -1106,7 +1130,8 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("gest_at_termination_download_data1", "Download data"
+                             downloadButton("gest_at_termination_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1159,7 +1184,8 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("gest_at_termination_download_data2", "Download data"
+                             downloadButton("gest_at_termination_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1232,7 +1258,7 @@ gestation_at_termination <- tabItem(
                               class = "externallink",
                               target = "_blank"
                             ),
-
+                            
                             " states that ‘Women, trans and non-binary people who become pregnant can access safe, timely and person-centred abortion care services’. Monitoring average gestation at termination supports assessment of access to timely service provision."
                           ),
                           
@@ -1299,7 +1325,7 @@ location_of_ex_pre_term <- tabItem(
            # The id lets us use input$tabset20 on the server to find the current tab
            id = "tabset20",
            width = 12,
-
+           
            # Control chart and context chart
            
            tabPanel(title = "Scotland", #value = "pre-term_births_control_chart",
@@ -1320,7 +1346,8 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("extremely_preterm_download_data", "Download data"
+                             downloadButton("extremely_preterm_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1336,7 +1363,7 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p("* Note that this indicator differs from the Wider Impacts dashboard indicator as it includes babies born at 22 weeks gestation",
+                             p("* Note that this measure differs from the Wider Impacts dashboard measure as it includes babies born at 22 weeks gestation",
                                class = "notes-style"
                              )
                       ),
@@ -1434,7 +1461,7 @@ location_of_ex_pre_term <- tabItem(
                              
                              br()
                              
-                             ),
+                      ),
                       
                       box(title = "Why measure this?",
                           status = "primary",
@@ -1469,7 +1496,7 @@ location_of_ex_pre_term <- tabItem(
                             ),
                             
                             "(also known as level III units, that is, those able to provide the most complex, specialist care) is reducing over time in line with ",
-
+                            
                             tags$a(
                               href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
                               tags$u("national policy (external website)"),
@@ -1537,27 +1564,27 @@ location_of_ex_pre_term <- tabItem(
                             "For the purpose of this measure, since January 2018, the following hospitals in Scotland have been considered to have a NICU on site for the period specified:",
                             
                             tags$ul(
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "A111H University Hospital Crosshouse (up until end September 2019 only) (Best Start early adopter since Oct 2019)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "F704H Victoria Hospital, Kirkcaldy (up until end September 2019 only) (Best Start early adopter since Oct 2019)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "F705H Victoria Maternity Unit, Kirkcaldy (up until end September 2019 only) (same location as F704H)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "G108H The Princess Royal Maternity Unit"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "G405H Queen Elizabeth University Hospital"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "G513H Royal Hospital for Children (same location as G405H)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "L308H University Hospital Wishaw"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "N101H Aberdeen Royal Infirmary"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "N161H Aberdeen Maternity Hospital (same location as N101H)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "S314H Royal Infirmary of Edinburgh at Little France"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "T101H Ninewells Hospital")
                             )
                           ),
@@ -1574,7 +1601,7 @@ location_of_ex_pre_term <- tabItem(
                                      
                                      tags$a(
                                        href = "https://www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
-                                       tags$u("Data Quality Assessment Report"),
+                                       tags$u("Data Quality Assessment Report (PDF)"),
                                        class = "externallink",
                                        target = "_blank"
                                      ),
@@ -1607,7 +1634,7 @@ inductions <- tabItem(
            # The id lets us use input$tabset21 on the server to find the current tab
            id = "tabset21",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "induction_of_labour_overview",
@@ -1628,7 +1655,8 @@ inductions <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("inductions_download_data1", "Download data"
+                             downloadButton("inductions_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1680,7 +1708,8 @@ inductions <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("inductions_download_data2", "Download data"
+                             downloadButton("inductions_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1777,8 +1806,8 @@ inductions <- tabItem(
                              
                              br()
                              
-                             ),
-
+                      ),
+                      
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
@@ -1787,11 +1816,11 @@ inductions <- tabItem(
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/getting-ready-for-the-birth/induced-labour",
                               tags$u("‘Induction of labour’ (external website)"),
-                                     class = "externallink",
-                                     target = "_blank"
-                              ),
-                          
-                          " is when a woman is given a medical intervention to start her labour, when medically indicated, rather than waiting for labour to start spontaneously."
+                              class = "externallink",
+                              target = "_blank"
+                            ),
+                            
+                            " is when a woman is given a medical intervention to start her labour, when medically indicated, rather than waiting for labour to start spontaneously."
                           ),
                           
                           p("The majority of women will spontaneously go into labour between 37 and 42 weeks of pregnancy, in the period known as ‘term’."
@@ -1884,7 +1913,7 @@ type_of_birth <- tabItem(
            # The id lets us use input$tabset22 on the server to find the current tab
            id = "tabset22",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "type_of_birth_overview",
@@ -1906,7 +1935,8 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("type_of_birth_download_data1", "Download data"
+                             downloadButton("type_of_birth_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -1962,7 +1992,8 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("type_of_birth_download_data2", "Download data"
+                             downloadButton("type_of_birth_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2053,7 +2084,7 @@ type_of_birth <- tabItem(
                              
                              br()
                              
-                             ),
+                      ),
                       
                       box(title = "Why measure this?",
                           status = "primary",
@@ -2085,7 +2116,7 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                              tags$u("Clinical Report 2021 - version 1.1 (external website)."),
+                              tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)."),
                               class = "externallink",
                               target = "_blank"
                             ),
@@ -2094,7 +2125,7 @@ type_of_birth <- tabItem(
                           ),
                           
                           p("It is because of these variations in practice, and the potential health consequences for both mother and baby, that the type of birth is recorded, and the numbers of operative interventions are measured and published as national statistics in the annual",
-
+                            
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland report."),
@@ -2121,13 +2152,13 @@ type_of_birth <- tabItem(
                           p("For ‘type of birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive at any gestation have been used. Type of birth has been categorised as",
                             
                             tags$ul(
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "spontaneous vaginal"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "assisted (including forceps, ventouse, and vaginal breech)"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "planned (i.e. elective) caesarean"),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "unplanned (i.e. emergency) caesarean")
                             )
                           ),
@@ -2159,7 +2190,7 @@ perineal_tears <- tabItem(
            # The id lets us use input$tabset23 on the server to find the current tab
            id = "tabset23",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "tears_overview",
@@ -2180,7 +2211,8 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("tears_download_data1", "Download data"
+                             downloadButton("tears_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2230,7 +2262,8 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("tears_download_data2", "Download data"
+                             downloadButton("tears_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2327,14 +2360,14 @@ perineal_tears <- tabItem(
                              
                              br()
                              
-                             ),
-
+                      ),
+                      
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
                           
                           p("When a woman is giving birth, the baby stretches the mother’s vagina and perineum. Occasionally, the tissues cannot stretch enough, and a tear (called a ",
-
+                            
                             tags$a(
                               href = "https://www.rcog.org.uk/en/patients/patient-leaflets/third--or-fourth-degree-tear-during-childbirth/",
                               tags$u("‘perineal tear’ (external website)"),
@@ -2374,7 +2407,7 @@ perineal_tears <- tabItem(
                                   
                                   tags$a(
                                     href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                                    tags$u("Clinical Report 2021 - version 1.1 (external website)"),
+                                    tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)"),
                                     class = "externallink",
                                     target = "_blank"
                                   ),
@@ -2418,10 +2451,10 @@ perineal_tears <- tabItem(
                           p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2022, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS) and stillbirths on SMR02 represented 97.2% of stillbirths registered with NRS. In addition, the recording of specific data items allowing identification of the birth of a singleton live or stillborn baby at 37-42 weeks gestation is very complete."
                           ),
                           
-                          p("SMR02 birth records allow the recording of both type of birth (i.e. mode of delivery: spontaneous or assisted vaginal, caesarean, etc) and the presentation of the baby at birth prior to any operative manipulation (i.e. which part of the baby was lowest in the maternal pelvis: cephalic [‘head first’], breech, etc). The completeness and accuracy of type of birth recording is very high whereas the completeness and accuracy of presentation recording is slightly less good, in particular from some hospitals. For the period 1 April 2017 to 31 December 2022, 99.9% of records relating to a singleton live or stillbirth had a meaningful value (not unknown or missing) recorded for ‘Mode of Delivery’. When producing this indicator, we have therefore relied on the ‘Mode of delivery’ (type of birth) variable alone to identify vaginal births of babies with a cephalic presentation. Records with type of birth coded as spontaneous cephalic or assisted vaginal (forceps or ventouse) have been assumed to identify vaginal births of babies with a cephalic presentation. Babies with other (breech, caesarean or unknown) types of birth recorded have been excluded. As this indicator only includes births of singleton babies at 37-42 weeks gestation, this is considered a reasonable assumption. It is unlikely that these babies will have been manipulated from a non-cephalic to a cephalic presentation prior to an assisted vaginal birth, as may happen for preterm babies or second twins."
+                          p("SMR02 birth records allow the recording of both type of birth (i.e. mode of delivery: spontaneous or assisted vaginal, caesarean, etc) and the presentation of the baby at birth prior to any operative manipulation (i.e. which part of the baby was lowest in the maternal pelvis: cephalic [‘head first’], breech, etc). The completeness and accuracy of type of birth recording is very high whereas the completeness and accuracy of presentation recording is slightly less good, in particular from some hospitals. For the period 1 April 2017 to 31 December 2022, 99.9% of records relating to a singleton live or stillbirth had a meaningful value (not unknown or missing) recorded for ‘Mode of Delivery’. When producing this measure, we have therefore relied on the ‘Mode of delivery’ (type of birth) variable alone to identify vaginal births of babies with a cephalic presentation. Records with type of birth coded as spontaneous cephalic or assisted vaginal (forceps or ventouse) have been assumed to identify vaginal births of babies with a cephalic presentation. Babies with other (breech, caesarean or unknown) types of birth recorded have been excluded. As this measure only includes births of singleton babies at 37-42 weeks gestation, this is considered a reasonable assumption. It is unlikely that these babies will have been manipulated from a non-cephalic to a cephalic presentation prior to an assisted vaginal birth, as may happen for preterm babies or second twins."
                           ),
                           
-                          p("Perineal tears are classified as first- to fourth-degree, with fourth-degree tears being the most serious. On SMR02 birth records, a specific data item captures information on whether a woman had a perineal tear. This item is coded as 0 (no tear), 1-4 (first- to fourth-degree tear respectively), 8 (tear of unspecified degree), or 9 (unknown whether there was a tear or not). The completeness of tear recording is very high. For the period 1 April 2021 to 31 December 2020, 99.7% of records relating to a singleton live or stillbirth had a meaningful value (not unknown or missing) recorded for ‘Perineal Tears’. Other forms of injury to the birth canal, for example isolated high  vaginal tears, or cervical tears, are less common than perineal tears. These other injuries are recorded separately on SMR02 and have not been considered as part of this indicator."
+                          p("Perineal tears are classified as first- to fourth-degree, with fourth-degree tears being the most serious. On SMR02 birth records, a specific data item captures information on whether a woman had a perineal tear. This item is coded as 0 (no tear), 1-4 (first- to fourth-degree tear respectively), 8 (tear of unspecified degree), or 9 (unknown whether there was a tear or not). The completeness of tear recording is very high. For the period 1 April 2021 to 31 December 2020, 99.7% of records relating to a singleton live or stillbirth had a meaningful value (not unknown or missing) recorded for ‘Perineal Tears’. Other forms of injury to the birth canal, for example isolated high  vaginal tears, or cervical tears, are less common than perineal tears. These other injuries are recorded separately on SMR02 and have not been considered as part of this measure."
                           )
                       ) # box
                     ) # fluidRow
@@ -2442,7 +2475,7 @@ gestation_at_birth <- tabItem(
            # The id lets us use input$tabset24 on the server to find the current tab
            id = "tabset24",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", # value = "gest_at_birth_overview",
@@ -2464,7 +2497,8 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("gest_at_birth_download_data1", "Download data"
+                             downloadButton("gest_at_birth_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2523,7 +2557,8 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("gest_at_birth_download_data2", "Download data"
+                             downloadButton("gest_at_birth_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2616,14 +2651,14 @@ gestation_at_birth <- tabItem(
                              
                              br()
                              
-                             ),
-
+                      ),
+                      
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
                           
                           p("Gestation at birth strongly influences babies’ health. Babies born preterm can have complications following their birth and the consequences of being born too early can continue to affect health and development throughout childhood and adult life. The ",
-
+                            
                             tags$a(
                               href = "https://www.tommys.org/pregnancy-information/premature-birth/how-long-do-you-stay-in-hospital-after-birth/gestational-age-and-medical-needs",
                               tags$u("risk increases the earlier a baby is born (external website)"),
@@ -2692,31 +2727,31 @@ gestation_at_birth <- tabItem(
                           p("For ‘gestation at birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive with a known gestation (between 18-44 weeks inclusive) have been used. Gestation at birth has been categorised as ",
                             
                             tags$ul(
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "under 32 weeks (very pre-term)"),
-                              tags$li(class= "li-class",
-                                tags$div(
-                                  HTML(
-                                    paste0("32", tags$sup("+0"), " to 36", tags$sup("+6"), " weeks (moderately pre-term)")
-                                  )
-                                )
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("32", tags$sup("+0"), " to 36", tags$sup("+6"), " weeks (moderately pre-term)")
+                                        )
+                                      )
                               ),
-                              tags$li(class= "li-class",
+                              tags$li(class= "bullet-points",
                                       "under 37 weeks (pre-term)"),
                               
-                              tags$li(class= "li-class",
-                                tags$div(
-                                  HTML(
-                                    paste0("37", tags$sup("+0"), " to 41", tags$sup("+6"), " weeks (term)")
-                                  )
-                                )
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("37", tags$sup("+0"), " to 41", tags$sup("+6"), " weeks (term)")
+                                        )
+                                      )
                               ),
-                              tags$li(class= "li-class",
-                                tags$div(
-                                  HTML(
-                                    paste0("42", tags$sup("+0"), " weeks or over (post-term)")
-                                  )
-                                )
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("42", tags$sup("+0"), " weeks or over (post-term)")
+                                        )
+                                      )
                               )
                             ),
                             
@@ -2751,7 +2786,7 @@ stillbirths <- tabItem(
            # The id lets us use input$tabset25 on the server to find the current tab
            id = "tabset25",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Scotland", # value = "stillbirths_overview",
@@ -2772,7 +2807,8 @@ stillbirths <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("stillbirths_download_data", "Download data"
+                             downloadButton("stillbirths_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -2842,8 +2878,8 @@ stillbirths <- tabItem(
                              
                              br()
                              
-                             ),
-
+                      ),
+                      
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
@@ -2863,8 +2899,8 @@ stillbirths <- tabItem(
                           p("Data source: National Records of Scotland (NRS) vital event registrations"
                           ),
                           
-                          p("The quarterly stillbirth and infant mortality rates shown in this indicator have been generated using data provided by ", 
-
+                          p("The quarterly stillbirth and infant mortality rates shown have been generated using data provided by ", 
+                            
                             tags$a(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
                               tags$u("National Records for Scotland (NRS) (external website)"),
@@ -2873,7 +2909,7 @@ stillbirths <- tabItem(
                             ),
                             
                             "from the statutory registration of deaths and births. NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
-
+                            
                             tags$a(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables",
                               tags$u("annual data"),
@@ -2909,7 +2945,7 @@ stillbirths <- tabItem(
                           ),
                           
                           p("Across the UK, surveillance of perinatal deaths is undertaken by MBRRACE-UK (Mothers and Babies: Reducing Risk through Audits and Confidential Enquiries across the UK). Each year MBRRACE-UK publish a ",
-
+                            
                             tags$a(
                               href = "https://www.npeu.ox.ac.uk/mbrrace-uk#mbrrace-uk-perinatal-mortality-surveillance-report",
                               tags$u("perinatal mortality report (external website)"),
@@ -2921,7 +2957,7 @@ stillbirths <- tabItem(
                           ),
                           
                           p("Within Scotland, the ",
-
+                            
                             tags$a(
                               href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/maternity-and-children-quality-improvement-collaborative-mcqic/",
                               tags$u("Maternal and Children Quality Improvement Collaborative (MCQIC) (external website)"),
@@ -2969,7 +3005,7 @@ apgar_scores <- tabItem(
            # The id lets us use input$tabset26 on the server to find the current tab
            id = "tabset26",
            width = 12,
-
+           
            # Small multiples tab
            
            tabPanel(title = "Board comparison", #value = "apgar5_overview",
@@ -2990,7 +3026,8 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("apgar5_download_data1", "Download data"
+                             downloadButton("apgar5_download_data1", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -3041,7 +3078,8 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(1,
-                             downloadButton("apgar5_download_data2", "Download data"
+                             downloadButton("apgar5_download_data2", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
                       
@@ -3140,8 +3178,8 @@ apgar_scores <- tabItem(
                              
                              br()
                              
-                             ),
-
+                      ),
+                      
                       box(title = "Why measure this?",
                           status = "primary",
                           width = 5,
@@ -3207,9 +3245,10 @@ apgar_scores <- tabItem(
 # BODY ----
 
 body <- dashboardBody(
+  
   use_theme(mytheme), # <-- use the theme to change colours
   tags$head(includeCSS("www/styles.css")),
-
+  
   tabItems(
     home,
     multi_indicator_overview,
@@ -3244,7 +3283,7 @@ ui <-
     ),
     # Including Google analytics
     # includeScript("google-analytics.js")),
-
+    
     dashboardPage(
       
       header,
@@ -3273,7 +3312,8 @@ server <- function(input, output, session) {
                              Subgroup = "Age group",
                              Indicator_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
-                             Nicename = "under 32 weeks")
+                             Nicename = "under 32 weeks",
+                             Topic = "home")
   
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
@@ -3282,6 +3322,8 @@ server <- function(input, output, session) {
   observeEvent(input$date, Selected$Date <- input$date)
   
   observeEvent(input$gestation, Selected$Gestation <- input$gestation)
+  
+  observeEvent(input$topics, Selected$Topic <- input$topics)
   
   # this observeEvent sets the current tabset back to the first tabPanel when a new tabset is selected from the
   # menu - this is needed to trigger the filter selections correctly
@@ -3479,6 +3521,27 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
+  
+  # output$mytext <- renderText({
+  #   paste0("Topic = ", input$topics)
+  # })
+  # 
+  # observe(print(paste0("Topic = ", input$topics)))
+  # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
+  # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
+  # observe(print(paste0("Home: ", input$tabset00)))
+  # observe(print(paste0("MIO: ", input$tabset01)))
+  # observe(print(paste0("Pregnancies booked: ", input$tabset10)))
+  # observe(print(paste0("Terminations: ", input$tabset11)))
+  # observe(print(paste0("Gestation at booking: ", input$tabset12)))
+  # observe(print(paste0("Gestation at termination: ", input$tabset13)))
+  # observe(print(paste0("Location of extremely pre-term births: ", input$tabset20)))
+  # observe(print(paste0("Induction of labour: ", input$tabset21)))
+  # observe(print(paste0("Type of birth: ", input$tabset22)))
+  # observe(print(paste0("Perineal tears: ", input$tabset23)))
+  # observe(print(paste0("Gestation at birth: ", input$tabset24)))
+  # observe(print(paste0("Stillbirths: ", input$tabset25)))
+  # observe(print(paste0("Apgar scores: ", input$tabset26)))
   
   # this section tells the app where to find the code for each tab
   

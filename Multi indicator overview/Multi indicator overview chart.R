@@ -131,7 +131,7 @@ fig <- plot_ly(
 # c) title
 
 output$multi_indicator_chart_title <- output$multi_indicator_chart_title2 <- renderText({
-  paste0("Core Maternity Indicators, by Board of ",
+  paste0("Core measures, by Board of ",
          str_to_sentence(input$organisation),
          ", for ",
          if_else(input$date %like% "/", "financial year ",
