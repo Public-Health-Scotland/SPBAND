@@ -4,11 +4,11 @@ library(shinya11y)
 
 # function to make the sidebar menu accessible 
 
-accessible_menu = function(bad_menu) {
+accessible_menu1 = function(bad_menu) {
   tab_input = tags$script(
     "
     function customMenuHandleClick(e) {
-    let n = $(e.target).parents('ul.sidebar-menu').find('li.active:not(.treeview)').children('a')[0].dataset.value;
+    let n = $(e.currentTarget).find('a')[0].dataset.value;
     doSomethingWith(n);
     }
     function doSomethingWith(val) {
@@ -25,12 +25,12 @@ accessible_menu = function(bad_menu) {
   real_menu
 }
 
-rem_aria_label <- function(icon) {
+rem_aria_label1 <- function(icon) {
   icon[["attribs"]][["aria-label"]] = NULL
   return(icon)
   }
 
-rem_menu_aria_label <- function(menu) {
+rem_menu_aria_label1 <- function(menu) {
   menu[["children"]][[1]][["children"]][[3]][["attribs"]][["aria-label"]] = NULL
   return(menu)
 }
@@ -99,31 +99,31 @@ x = sidebarMenu(
   id = "sidebarMenu",
   menuItem("Home",
            tabName = "home",
-           icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label(),
-           selected = TRUE),
+           icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label1()
+           ),
   menuItem("Overview",
            tabName = "overview",
-           icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
-  ),
+           icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label1()
+           ),
   menuItem("Information",
-           icon = icon("person-pregnant", verify_fa = FALSE) %>% rem_aria_label(),
+           icon = icon("person-pregnant", verify_fa = FALSE) %>% rem_aria_label1(),
            menuSubItem("Number of bookings", 
                        tabName = "bookings",
-                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label1()
                        ),
            menuSubItem("Number of cancellations",
                        tabName = "cancellations",
-                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label1()
                        )
-           ) %>% rem_menu_aria_label
+           ) %>% rem_menu_aria_label1()
   )
 
 ui =
 dashboardPage(
-  use_tota11y(),
+  #use_tota11y(),
   skin = "purple",
   header = dashboardHeader(title = "My App"),
-  sidebar = dashboardSidebar(x, br(), textOutput("mytext")), #accessible_menu
+  sidebar = dashboardSidebar(accessible_menu(x), br(), textOutput("mytext")),
   body = dashboardBody(
     id = "dashboardBody",
     tabItems(

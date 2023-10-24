@@ -21,7 +21,7 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          # tags$p("SPBAND_PRA v 0.1") # this is the PRA dashboard
+          # tags$p("SPBAND_PRA v 1.0") # this is the PRA dashboard
   )
 )
 
@@ -33,7 +33,6 @@ topicmenu <- sidebarMenu(
            tabName = "home",
            icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label()
            ),
-           #selected = TRUE),
   menuItem("Multi indicator overview",
            tabName = "multi_indicator_overview",
            icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
@@ -52,7 +51,6 @@ topicmenu <- sidebarMenu(
                        tabName = "gestation_at_booking",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            ),
-           #selected = TRUE), # only used whilst checking a particular measure - forces this tab open
            menuSubItem("Gestation at termination",
                        tabName = "gestation_at_termination",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
@@ -427,7 +425,7 @@ version <-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
-  topicmenu,
+  accessible_menu(topicmenu),
   #textOutput("mytext"),
   useShinyjs(),
   uiOutput("organisationControl"), # Board of Residence/Treatment

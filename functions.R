@@ -63,7 +63,7 @@ accessible_menu = function(bad_menu) {
   tab_input = tags$script(
     "
 function customMenuHandleClick(e) {
-  let n = $(e.target).parents('ul.sidebar-menu').find('li.active:not(.treeview)').children('a')[0].dataset.value;
+  let n = $(e.currentTarget).find('a')[0].dataset.value;
   doSomethingWith(n);
 }
 function doSomethingWith(val) {

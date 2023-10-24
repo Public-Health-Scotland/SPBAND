@@ -14,7 +14,7 @@ renv/
 renv.lock
 
 # rsconnect folder
-shiny_app/rsconnect/
+rsconnect/
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
