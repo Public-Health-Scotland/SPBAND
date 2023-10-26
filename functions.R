@@ -58,12 +58,13 @@ plot_nodata <- function(height_plot = 450, text_nodata) {
 }
 
 # function to make the sidebar menu accessible (https://www.jumpingrivers.com/blog/accessible-shiny-standards-wcag/)
+# modified because it was causing a lag in the inputId updating (caused problems with filters)
 
 accessible_menu = function(bad_menu) {
   tab_input = tags$script(
     "
 function customMenuHandleClick(e) {
-  let n = $(e.currentTarget).find('a')[0].dataset.value;
+  let n = $(e.currentTarget).find('a')[0].dataset.value; 
   doSomethingWith(n);
 }
 function doSomethingWith(val) {
@@ -80,16 +81,26 @@ $(document).ready(
   real_menu
 }
 
-# functions to remove aria labels where they are not needed
+# removes aria label from left-hand menu icon "fas fa-angles-right" to satisfy accessibility check
 
 rem_aria_label <- function(icon) {
   icon[["attribs"]][["aria-label"]] = NULL
   return(icon)
   }
 
+# removes aria label from expanded (right-hand) menu icon "fas fa-angle-left pull-right" to satisfy accessibility check
+
 rem_menu_aria_label <- function(menu) {
   menu[["children"]][[1]][["children"]][[3]][["attribs"]][["aria-label"]] = NULL
   return(menu)
+}
+
+# removes aria label from icon "fas fa-plus" "fas fa-minus" and adds title to "button" to satisfy accessibility check
+
+rem_button_aria_label <- function(box) {
+  box[["children"]][[1]][["children"]][[1]][["children"]][[2]][["children"]][[1]][["children"]][[1]][["attribs"]][["aria-label"]] = NULL
+  box[["children"]][[1]][["children"]][[1]][["children"]][[2]][["children"]][[1]][["attribs"]][["title"]] = "open and close button" 
+  return(box)
 }
 
 # Function to create the small multiple charts with a blue median line
@@ -934,4 +945,4 @@ builds_download_data <- function(indicator) {
     
   return(downloaddata)
   
-  }
+}

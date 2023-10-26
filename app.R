@@ -100,138 +100,147 @@ instructions <-
              
              br(),
              
-             box(solidHeader = TRUE,
-                 width = 12,
-                 
-                 fluidRow(
-                   p(strong("Navigation and filtering")
-                   ),
-                   
-                   column(10,
-                          p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
-                          ),
-                          
-                          p("The left-hand menu can also be hidden (or revealed) by clicking on this toggle button",
-                            img(src = "toggle.png", alt = ""),
-                            " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
-                          ),
-                          
-                          p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
-                          ),
-                          
-                          p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
-                          )
-                   ),
-                   
-                   column(2,
-                          img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 br(),
-                 
-                 fluidRow(
-                   column(10,
-                          p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
-                          ),
-                          
-                          p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
-                          ),
-                          
-                          p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
-                          )
-                   ),
-                   
-                   column(2,
-                          img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("There are three ways to view data")
-                   ),
-                   column(12,
-                          #strong(
-                          tags$ol(
-                            tags$li(class= "bullet-points", "Multi indicator overview"), 
-                            tags$li(class= "bullet-points", "Board comparison"), 
-                            tags$li(class= "bullet-points", "Individual board")
-                          )
-                          #)
-                   )
-                 ), #fluidRow
-                 
-                 fluidRow(
-                   column(12,
-                          p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
-                          ),
-                          
-                          p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
-                          ),
-                          
-                          p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
-                          ),
-                          
-                          p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
-                          )
-                   )
-                 ), #fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Notes on particular measures")
-                   ),
-                   
-                   column(12,
-                          p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
-                          ),
-                          
-                          p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Copying charts and downloading data")
-                   ),
-                   
-                   column(12,
-                          p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
-                          ),
-                          
-                          p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
-                          ),
-                          
-                          "Data are currently available in a comma separated file format. The same data are available from either download button within an measure."
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Tell us what you think")
-                   ),
-                   
-                   column(12,
-                          p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
-                          )
-                   ) # column
-                   
-                 ) # fluidRow
-                 
-             ) # box
+             br(),
              
-           ) # fluidPage
+             p("Click the + to open the sections below for help", 
+               style = "text-align: right;"),
+             
+             box(title = p(strong("Navigation and filtering")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(10,
+                        p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
+                        ),
+                        
+                        p("The left-hand menu can also be hidden (or revealed) by clicking on this toggle button", img(src = "toggle.png", alt = ""), " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
+                        ),
+                        
+                        p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
+                        ),
+                        
+                        p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
+                        )
+                 ),
+                 
+                 column(2,
+                        img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
+                        )
+                 ),
+                 
+                 br(),
+                 
+                 br(),
+                 
+                 column(10,
+                        p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
+                        ),
+                        
+                        p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
+                        ),
+                        
+                        p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
+                        )
+                 ),
+                 
+                 column(2,
+                        img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
+                        )
+                 )
+                 
+             ) # box "Navigation and filtering"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("There are three ways to view data")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        tags$ol(
+                          tags$li(class= "bullet-points", "Multi indicator overview"), 
+                          tags$li(class= "bullet-points", "Board comparison"), 
+                          tags$li(class= "bullet-points", "Individual board")
+                        )
+                 ),
+                 
+                 column(12,
+                        p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
+                        ),
+                        
+                        p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
+                        ),
+                        
+                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
+                        ),
+                        
+                        p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
+                        )
+                 )
+                 
+             ) # box "There are three ways to view data"
+             
+             %>% rem_button_aria_label(),
+             
+             box(title = p(strong("Notes on particular measures")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
+                        ),
+                        
+                        p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
+                        )
+                 )
+                 
+             ) # box "Notes on particular measures"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("Copying charts and downloading data")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
+                        ),
+                        
+                        p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
+                        ),
+                        
+                        "Data are currently available in a comma separated file format. The same data are available from either download button within an measure."
+                        )
+                 )
+                 
+             ) # box "Copying charts and downloading data"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("Tell us what you think")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = FALSE,
+                 
+                 column(12,
+                        p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
+                        )
+                 )
+                 
+             ) # box "Tell us what you think"
+             
+             %>% rem_button_aria_label()
+             
+           ) # fluidRow
            
   ) # tabPanel("How to use this dashboard")
 
@@ -425,13 +434,13 @@ version <-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
-  accessible_menu(topicmenu),
-  #textOutput("mytext"),
   useShinyjs(),
+  topicmenu,
   uiOutput("organisationControl"), # Board of Residence/Treatment
   uiOutput("hbnameControl"), # Board name
-  uiOutput("dateControl") # FY/CY
+  uiOutput("dateControl"), # FY/CY
   #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
+  textOutput("mytext")
 )
 
 # HOME ----
@@ -452,7 +461,7 @@ home <- tabItem(
            # The id lets us use input$tabset00 on the server to find the current tab
            id = "tabset00",
            width = 12,
-           
+
            instructions,
            
            patterns,
@@ -3270,7 +3279,7 @@ body <- dashboardBody(
 ui <- 
   #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
-    useShinyjs(),  # Include shinyjs
+    #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
     tags$head(
       HTML(
@@ -3288,7 +3297,7 @@ ui <-
       
       sidebar,
       
-      body
+      body,
       
     ) # dashboardPage
     
@@ -3310,8 +3319,7 @@ server <- function(input, output, session) {
                              Subgroup = "Age group",
                              Indicator_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
-                             Nicename = "under 32 weeks",
-                             Topic = "home")
+                             Nicename = "under 32 weeks")
   
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
@@ -3321,67 +3329,65 @@ server <- function(input, output, session) {
   
   observeEvent(input$gestation, Selected$Gestation <- input$gestation)
   
-  observeEvent(input$topics, Selected$Topic <- input$topics)
-  
   # this observeEvent sets the current tabset back to the first tabPanel when a new tabset is selected from the
   # menu - this is needed to trigger the filter selections correctly
   
   observeEvent(input$topics,
-               
+
                if (input$topics %in% names(tabnames)) {
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset00", # home
                                    "instructions")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset01", # multi_indicator_overview
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset10", # pregnancies_booked
                                    "Individual board")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset11", # terminations
                                    "Individual board")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset12", # gestation_at_booking
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset13", # gestation_at_termination
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset20", # location_of_ex_pre_term
                                    "Scotland")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset21", # inductions
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset22", # type_of_birth
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset23", # perineal_tears
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset24", # gestation_at_birth
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset25", # stillbirths
                                    "Scotland")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset26", # apgar_scores
                                    "Board comparison")
-                 
+
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
   )
@@ -3520,11 +3526,11 @@ server <- function(input, output, session) {
     )
   })
   
-  # output$mytext <- renderText({
-  #   paste0("Topic = ", input$topics)
-  # })
-  # 
-  # observe(print(paste0("Topic = ", input$topics)))
+  output$mytext <- renderText({
+    paste0("Topic = ", input$topics)
+  })
+
+  observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
   # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
   # observe(print(paste0("Home: ", input$tabset00)))

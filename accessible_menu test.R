@@ -99,8 +99,8 @@ x = sidebarMenu(
   id = "sidebarMenu",
   menuItem("Home",
            tabName = "home",
-           icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label1()
-           ),
+           icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label1(),
+           selected = TRUE),
   menuItem("Overview",
            tabName = "overview",
            icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label1()
@@ -116,14 +116,21 @@ x = sidebarMenu(
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label1()
                        )
            ) %>% rem_menu_aria_label1()
-  )
+) 
 
 ui =
 dashboardPage(
   #use_tota11y(),
   skin = "purple",
   header = dashboardHeader(title = "My App"),
-  sidebar = dashboardSidebar(accessible_menu(x), br(), textOutput("mytext")),
+  sidebar = dashboardSidebar(accessible_menu(x),
+                             useShinyjs(),
+                             br(),
+                             textOutput("mytext"),
+                             br(),
+                             uiOutput("organisationControl"), # Board of Residence/Treatment)
+                             uiOutput("hbnameControl") # Board name
+  ),
   body = dashboardBody(
     id = "dashboardBody",
     tabItems(
@@ -136,6 +143,61 @@ dashboardPage(
 )
 
 server = function(input, output, session){
+  
+  # select ORGANISATION (RESIDENCE or TREATMENT)
+  
+  output$organisationControl <- renderUI({ 
+    hidden(
+      radioButtons(
+        inputId = "organisation",
+        label = "View analyses by Board of",
+        choiceNames = list("Residence", "Treatment"),
+        choiceValues = list("RESIDENCE", "TREATMENT"),
+        selected = "RESIDENCE",
+        inline = FALSE
+      )
+    )
+  })
+  
+  # determines whether the ORGANISATION filter should show or not
+  
+  observe({
+    toggleElement(id = "organisation",
+                  condition = (input$sidebarMenu %in% c("bookings", "cancellations")
+                  )
+                  )
+  })
+  
+   # select hbname
+  
+  output$hbnameControl <- renderUI({
+    hidden(
+      pickerInput(
+        #session = session,
+        inputId = "hbname",
+        label = "Select Board",
+        choices = c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
+             "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
+             "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "NHS Orkney",
+             "NHS Shetland", "NHS Western Isles"
+             ),
+        selected = "Scotland",
+        options = pickerOptions(size = 10), # shows 10 boards and a scroll bar - will drop up and not get hidden?
+        choicesOpt = list(
+          style = rep("color: #3F3685;", 15) # PHS-purple text
+        )
+      )
+    )
+  })
+  
+  # determines whether the hbname filter should show or not
+  
+  observe(
+    toggleElement(id = "hbname",
+                  condition = (input$sidebarMenu %in% c("home", "overview")
+                  )
+    )
+  )
   
   output$mytext <- renderText({
     paste0("Topic = ", input$sidebarMenu)
