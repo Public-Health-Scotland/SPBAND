@@ -59,6 +59,7 @@ plot_nodata <- function(height_plot = 450, text_nodata) {
 
 # function to make the sidebar menu accessible (https://www.jumpingrivers.com/blog/accessible-shiny-standards-wcag/)
 # modified because it was causing a lag in the inputId updating (caused problems with filters)
+# now there is no lag but it doesn't initialise with the value 'home' - have queried this  witn jumping rivers
 
 accessible_menu = function(bad_menu) {
   tab_input = tags$script(
@@ -68,7 +69,7 @@ function customMenuHandleClick(e) {
   doSomethingWith(n);
 }
 function doSomethingWith(val) {
-  Shiny.setInputValue('sidebarMenu', val);
+  Shiny.setInputValue('topics', val);
 }
 $(document).ready(
   function() {
