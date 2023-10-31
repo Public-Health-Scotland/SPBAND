@@ -438,9 +438,9 @@ sidebar <- dashboardSidebar(#width = 280,
   topicmenu,
   uiOutput("organisationControl"), # Board of Residence/Treatment
   uiOutput("hbnameControl"), # Board name
-  uiOutput("dateControl"), # FY/CY
+  uiOutput("dateControl") # FY/CY
   #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
-  textOutput("mytext")
+  #textOutput("mytext") # for testing
 )
 
 # HOME ----
@@ -3526,11 +3526,11 @@ server <- function(input, output, session) {
     )
   })
   
-  output$mytext <- renderText({
-    paste0("Topic = ", input$topics)
-  })
+  # output$mytext <- renderText({ # for testing
+  #   paste0("Topic = ", input$topics) 
+  # })
 
-  observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
+  # observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
   # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
   # observe(print(paste0("Home: ", input$tabset00)))
