@@ -59,7 +59,7 @@ plot_nodata <- function(height_plot = 450, text_nodata) {
 
 # function to make the sidebar menu accessible (https://www.jumpingrivers.com/blog/accessible-shiny-standards-wcag/)
 # modified because it was causing a lag in the inputId updating (caused problems with filters)
-# now there is no lag but it doesn't initialise with the value 'home' - have queried this  witn jumping rivers
+# now there is no lag but it doesn't initialise with the value 'home' - have queried this with jumping rivers
 
 accessible_menu = function(bad_menu) {
   tab_input = tags$script(
@@ -358,6 +358,14 @@ creates_overview_charts_without_median <- function(plotdata,
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   # yaxis_plots[["title"]] <- list(
   #   standoff = 30) # distance between axis title and tick labels
+  
+  # sorts plots in correct order (Scotland first)
+  # average gestation at termination has hbname2 defined already, the other measures have 
+  # hbname2 defined here
+  
+  if(!"hbname2" %in% names(plotdata)) {
+    plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
+  }
   
   # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only

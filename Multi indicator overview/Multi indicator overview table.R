@@ -42,11 +42,15 @@ multi_indicator_table_data_hb <- reactive({
   req(input$hbname)
   req(input$organisation)
   req(multi_indicator_table_data_scot())
-  
+
   data <- filter(annual_dataframe,
                  date == Selected$Date &
-                   hbname == Selected$HBName &
-                   hbtype == Selected$HBType
+                   hbtype == Selected$HBType &
+                   if(Selected$HBName %in% island_names) {
+                     hbname == HBName_terminations | 
+                       hbname == Selected$HBName} 
+                 else {hbname == Selected$HBName
+                 } 
   ) %>%
     arrange(key_measure_ref) %>%
     mutate(label = sub("Percentage", "%", key_measure_label)) %>% 
@@ -69,7 +73,10 @@ multi_indicator_table_data_hb <- reactive({
 
 # pull header names from the table
 header.names <- reactive ({
-  c("", Selected$HBName, "Scotland", "")
+  c("", if_else(input$hbname %in% island_names,
+                paste0(Selected$HBName, "*"),
+                Selected$HBName),
+    "Scotland", "")
  })
 
 # the container parameter allows us to design the header of the table using CSS

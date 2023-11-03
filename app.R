@@ -169,13 +169,13 @@ instructions <-
                  ),
                  
                  column(12,
-                        p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
+                        p("The ", strong("Multi indicator overview"), " shows a selection of Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
                         ),
                         
                         p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
                         ),
                         
-                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
+                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no individual charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. If an Island Board is selected in the filter panel the values relating to this measure will be aggregated values for NHS Orkney, NHS Shetland and NHS Western Isles combined. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
                         ),
                         
                         p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
@@ -421,7 +421,9 @@ version <-
                         #strong(
                         tags$ul(
                           tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
-                        )
+                          # tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amendment to ‘How to use this dashboard’: sections are now collapsible"
+                          #         )
+                          )
                         #)
                  )
                  
@@ -524,7 +526,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("* No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for  ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
                              )
                       ),
@@ -578,7 +580,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("* No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
                              )
                       ),
@@ -1151,7 +1153,7 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p("No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
                              )
                       ),
@@ -1205,6 +1207,12 @@ gestation_at_termination <- tabItem(
                              
                              br()
                              
+                      ),
+                      
+                      column(12,
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
+                               class = "notes-style"
+                             )
                       ),
                       
                       column(12,
@@ -3302,7 +3310,7 @@ ui <-
     ) # dashboardPage
     
   ) # tagList
-
+  
 #) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
@@ -3311,7 +3319,7 @@ server <- function(input, output, session) {
     check_credentials = check_credentials(credentials)
   )
   
-  cdata <- session$clientData
+  #cdata <- session$clientData
   
   Selected <- reactiveValues(HBType = "RESIDENCE",
                              HBName = "Scotland",
@@ -3425,6 +3433,9 @@ server <- function(input, output, session) {
   # determines whether the ORGANISATION filter should show or not
   
   observe({
+    req(input$organisation)
+    req(input$topics)
+    req(Selected$Tabset)
     toggleElement(id = "organisation",
                   condition = (input$topics %in% show_org &
                                  Selected$Tabset != "About this measure")
@@ -3451,14 +3462,18 @@ server <- function(input, output, session) {
   
   # determines whether the hbname filter should show or not
   
-  observe(toggleElement(id = "hbname",
-                        condition = ((input$topics %in% show_HBname &
-                                        Selected$Tabset != "About this measure") |
-                                       (input$topics %in% show_HBname2 &
-                                          !Selected$Tabset %in% c("Board comparison", "About this measure"))
-                        )
-  )
-  )
+  observe({
+    req(input$hbname)
+    req(input$topics)
+    req(Selected$Tabset)
+    toggleElement(id = "hbname",
+                  condition = ((input$topics %in% show_HBname &
+                                  Selected$Tabset != "About this measure") |
+                                 (input$topics %in% show_HBname2 &
+                                    !Selected$Tabset %in% c("Board comparison", "About this measure"))
+                  )
+    )
+  })
   
   # select date (financial year or calendar year)
   
@@ -3480,11 +3495,13 @@ server <- function(input, output, session) {
   
   # determines whether the date filter should show or not
   
-  observe(
+  observe({
+    req(input$date)
+    req(input$topics)
     toggleElement(id = "date",
                   condition = (input$topics == "multi_indicator_overview")
     )
-  )
+  })
   
   # select TYPEOFBIRTH - appears on Type of Birth "Board comparison" view only
   
@@ -3530,7 +3547,9 @@ server <- function(input, output, session) {
   #   paste0("Topic = ", input$topics) 
   # })
 
-  # observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
+  # observe(print(paste0("input$topics = ", input$topics)))
+  # observe(print(paste0("input$hbname = ", input$hbname)))
+  # observe(print(paste0("Selected$HBname = ", Selected$HBName)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
   # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
   # observe(print(paste0("Home: ", input$tabset00)))

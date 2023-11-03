@@ -4,7 +4,7 @@ terminations_runchart_data <- reactive({
   # selects data
   
   req(input$hbname)
-  
+
   data <- terminations_data %>%
   filter(hbname == Selected$HBName &
            hbtype == Selected$HBType) %>%
@@ -20,12 +20,12 @@ terminations_runchart_data <- reactive({
                          ": ",
                          prettyNum(measure, big.mark = ",")),
          trend = NA, # to prevent this line being plotted
-         shift = NA, # ditto
-         hbname2 = factor(hbname2, 
-                          levels = c("NHS Ayrshire & Arran", "NHS Borders",
-                                     "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
-                                     "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
-                                     "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")))
+         shift = NA) # ditto
+         # hbname2 = factor(hbname2, 
+         #                  levels = c("NHS Ayrshire & Arran", "NHS Borders",
+         #                             "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
+         #                             "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
+         #                             "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")))
   
   if (is.null(data()))
   {
@@ -42,12 +42,12 @@ terminations_runchart_data <- reactive({
 output$terminations_runcharts <- renderPlotly({
 
   if (input$hbname %in% island_names){
-    
+
     plot_nodata(height = 450,
                 text_nodata = paste("This chart is not shown due to small numbers.", "<br>",
                 "Data for the Island Boards are included in the Scotland total.")
                 )
-    
+
     } else {
 
   creates_runcharts(plotdata = terminations_runchart_data(),
