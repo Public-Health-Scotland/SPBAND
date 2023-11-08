@@ -123,13 +123,18 @@ dashboardPage(
   #use_tota11y(),
   skin = "purple",
   header = dashboardHeader(title = "My App"),
-  sidebar = dashboardSidebar(accessible_menu(x),
-                             useShinyjs(),
+  sidebar = dashboardSidebar(useShinyjs(),
+                             accessible_menu1(x),
                              br(),
                              textOutput("mytext"),
                              br(),
                              uiOutput("organisationControl"), # Board of Residence/Treatment)
-                             uiOutput("hbnameControl") # Board name
+                             uiOutput("hbnameControl"), # Board name
+                             hidden(
+                               textInput(inputId = "sidebarMenu",
+                                         label = "",
+                                         value = "home")
+      )
   ),
   body = dashboardBody(
     id = "dashboardBody",
@@ -139,8 +144,8 @@ dashboardPage(
         bookings,
         cancellations
     )
+    )
   )
-)
 
 server = function(input, output, session){
   

@@ -435,10 +435,15 @@ version <-
 
 sidebar <- dashboardSidebar(#width = 280,
   useShinyjs(),
-  topicmenu,
+  accessible_menu(topicmenu),
   uiOutput("organisationControl"), # Board of Residence/Treatment
   uiOutput("hbnameControl"), # Board name
-  uiOutput("dateControl") # FY/CY
+  uiOutput("dateControl"), # FY/CY
+  hidden(
+    textInput(inputId = "topics",
+              label = "",
+              value = "home") # forces input$topics to initialise as "home" to make filters appear correctly
+  )
   #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
   #textOutput("mytext") # for testing
 )
@@ -3311,7 +3316,7 @@ server <- function(input, output, session) {
     check_credentials = check_credentials(credentials)
   )
   
-  cdata <- session$clientData
+  #cdata <- session$clientData
   
   Selected <- reactiveValues(HBType = "RESIDENCE",
                              HBName = "Scotland",
@@ -3336,9 +3341,10 @@ server <- function(input, output, session) {
 
                if (input$topics %in% names(tabnames)) {
 
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset00", # home
-                                   "instructions")
+                 # updateTabsetPanel(getDefaultReactiveDomain(),
+                 #                   "tabset00", # home
+                 #                   "instructions") 
+                 # removed as this was switching back to "instructions" if you clicked on another tab too soon after opening the dashboard - should not affect the workings as filters are not dependent on the tab selected here
 
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset01", # multi_indicator_overview
@@ -3532,7 +3538,7 @@ server <- function(input, output, session) {
 
   # observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
-  # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
+  # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
   # observe(print(paste0("Home: ", input$tabset00)))
   # observe(print(paste0("MIO: ", input$tabset01)))
   # observe(print(paste0("Pregnancies booked: ", input$tabset10)))
