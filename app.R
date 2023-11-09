@@ -20,7 +20,7 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
           # tags$p("SPBAND_PRA v 1.0") # this is the PRA dashboard
   )
 )
@@ -102,14 +102,14 @@ instructions <-
              
              br(),
              
-             p("Click the + to open the sections below for help", 
+             p("Click +/- to open and close the sections below", 
                style = "text-align: right;"),
              
              box(title = p(strong("Navigation and filtering")),
                  status = "primary",
                  width = 12,
                  collapsible = TRUE,
-                 collapsed = TRUE,
+                 collapsed = FALSE,
                  
                  column(10,
                         p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
@@ -228,7 +228,7 @@ instructions <-
              box(title = p(strong("Tell us what you think")),
                  status = "primary",
                  width = 12,
-                 collapsible = TRUE,
+                 collapsible = FALSE,
                  collapsed = FALSE,
                  
                  column(12,
@@ -238,7 +238,7 @@ instructions <-
                  
              ) # box "Tell us what you think"
              
-             %>% rem_button_aria_label()
+             #%>% rem_button_aria_label()
              
            ) # fluidRow
            
@@ -421,10 +421,9 @@ version <-
                         #strong(
                         tags$ul(
                           tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
-                          # tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amendment to ‘How to use this dashboard’: sections are now collapsible"
-                          #         )
+                          tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard"
+                                  )
                           )
-                        #)
                  )
                  
              ) # box
@@ -3285,7 +3284,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3311,7 +3310,7 @@ ui <-
     
   ) # tagList
   
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
