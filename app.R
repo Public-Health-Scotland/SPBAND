@@ -20,7 +20,7 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
           # tags$p("SPBAND_PRA v 1.0") # this is the PRA dashboard
   )
 )
@@ -102,14 +102,14 @@ instructions <-
              
              br(),
              
-             p("Click the + to open the sections below for help", 
+             p("Click +/- to open and close the sections below", 
                style = "text-align: right;"),
              
              box(title = p(strong("Navigation and filtering")),
                  status = "primary",
                  width = 12,
                  collapsible = TRUE,
-                 collapsed = TRUE,
+                 collapsed = FALSE,
                  
                  column(10,
                         p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
@@ -228,7 +228,7 @@ instructions <-
              box(title = p(strong("Tell us what you think")),
                  status = "primary",
                  width = 12,
-                 collapsible = TRUE,
+                 collapsible = FALSE,
                  collapsed = FALSE,
                  
                  column(12,
@@ -238,7 +238,7 @@ instructions <-
                  
              ) # box "Tell us what you think"
              
-             %>% rem_button_aria_label()
+             #%>% rem_button_aria_label()
              
            ) # fluidRow
            
@@ -418,11 +418,10 @@ version <-
                  br(),
                  
                  column(12,
-                        #strong(
                         tags$ul(
                           tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
+                          tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard")
                         )
-                        #)
                  )
                  
              ) # box
@@ -1016,8 +1015,8 @@ gestation_at_booking <- tabItem(
                       
                       column(12,
                              p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
-                             ),
-                             
+                               ),
+
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which women booked for their antenatal care (based on gestation at booking measured in completed weeks of pregnancy), for each month, from Apr 2019 onwards."
                              ),
                              
@@ -3302,11 +3301,12 @@ ui <-
       
       sidebar,
       
-      body,
+      body
       
     ) # dashboardPage
+  
     
-  ) # tagList
+   ) # tagList
 
 #) # secure_app # uncomment if want password protection
 
@@ -3334,6 +3334,12 @@ server <- function(input, output, session) {
   
   observeEvent(input$gestation, Selected$Gestation <- input$gestation)
   
+  # observeEvent(input$link_to_patterns, {
+  #   updateTabsetPanel(getDefaultReactiveDomain(),
+  #                     "tabset00",
+  #                     "patterns")
+  # })
+  
   # this observeEvent sets the current tabset back to the first tabPanel when a new tabset is selected from the
   # menu - this is needed to trigger the filter selections correctly
   
@@ -3344,6 +3350,7 @@ server <- function(input, output, session) {
                  # updateTabsetPanel(getDefaultReactiveDomain(),
                  #                   "tabset00", # home
                  #                   "instructions") 
+                 
                  # removed as this was switching back to "instructions" if you clicked on another tab too soon after opening the dashboard - should not affect the workings as filters are not dependent on the tab selected here
 
                  updateTabsetPanel(getDefaultReactiveDomain(),
@@ -3536,6 +3543,7 @@ server <- function(input, output, session) {
   #   paste0("Topic = ", input$topics) 
   # })
 
+  # observeEvent(input$link_to_patterns, print(input$link_to_patterns))
   # observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
   # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
