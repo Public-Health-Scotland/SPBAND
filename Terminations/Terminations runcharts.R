@@ -9,19 +9,19 @@ terminations_runchart_data <- reactive({
   filter(hbname == Selected$HBName &
            hbtype == Selected$HBType) %>%
     set_variable_labels(
-    measure = "Number of terminations",
+    measure_value = "Number of terminations",
     median = " average to end Feb 2020",
     extended = " projected average from Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Month: ", 
                          format(date, "%b %Y"),
                          "<br>",
-                         var_label(measure),
+                         var_label(measure_value),
                          ": ",
-                         prettyNum(measure, big.mark = ",")),
+                         prettyNum(measure_value, big.mark = ",")),
          trend = NA, # to prevent this line being plotted
          shift = NA, # ditto
-         hbname2 = factor(hbname2, 
+         hbname2 = factor(hbname, 
                           levels = c("NHS Ayrshire & Arran", "NHS Borders",
                                      "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
                                      "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
@@ -78,7 +78,7 @@ terminations_download <- builds_download_data("TERMINATIONS")
 output$terminations_download_data <- downloadHandler(
   
   filename = function() {
-      paste0(first(terminations_download$indicator), "_", refresh_date, ".csv", sep = "")
+      paste0(first(terminations_download$measure), "_", refresh_date, ".csv", sep = "")
     },
   
   content = function(file) {

@@ -7,7 +7,7 @@ output$extremely_preterm_download_data <- #output$extremely_preterm_download_dat
   downloadHandler(
   
   filename = function() {
-      paste0(first(extremely_preterm_download_data$indicator), "_", refresh_date, ".csv", sep = "")
+      paste0(first(extremely_preterm_download_data$measure), "_", refresh_date, ".csv", sep = "")
     },
   
   content = function(file) {

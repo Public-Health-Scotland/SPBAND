@@ -13,11 +13,11 @@ loading <- function(whats_loading){
  withSpinner(whats_loading, type = 5, color = "#3F3685", size = 0.5)
 }
 
-# Function to read in data and split by indicator, remove redundant columns
+# Function to read in data and split by measure, remove redundant columns
 
-load_and_split_dataframe <- function(indicator) {
+load_and_split_dataframe <- function(measure) {
   
-  data <- filter(runchart_dataframe, indicator == {{indicator}}) %>% 
+  data <- filter(runchart_dataframe, measure == {{measure}}) %>% 
   janitor::remove_empty(., which = c("cols"), quiet = TRUE)
   
   return(data)
@@ -107,8 +107,8 @@ rem_button_aria_label <- function(box) {
 # Function to create the small multiple charts with a blue median line
 # Parameters:
 # plotdata: dataframe with data to be plotted
-# measure: variable to be plotted as black dots/lines
-# hover: hovertext for the measure
+# measure_value: variable to be plotted as black dots/lines
+# hover: hovertext for the measure_value
 # centreline: variable to be plotted as a solid blue line
 # dottedline: variable to be plotted as a dotted blue line
 # yaxislabel: text to appear on y axis
@@ -116,13 +116,13 @@ rem_button_aria_label <- function(box) {
 # This function is not as up-to-date as the next one as it was deemed not required
 
 creates_overview_charts_with_median <- function(plotdata,
-                                                measure,
+                                                measure_value,
                                                 hover = "mytext",
                                                 centreline = "median",
                                                 dottedline = "extended",
                                                 yaxislabel = yaxislabel){
   
-  y_max <- max(plotdata$measure)
+  y_max <- max(plotdata$measure_value)
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["showticklabels"]] <- if_else(plotdata$hbname %in% island_names, TRUE, FALSE)
@@ -146,7 +146,7 @@ creates_overview_charts_with_median <- function(plotdata,
     showarrow = FALSE
   )
   
-  if(first(plotdata$indicator) == "GESTATION AT BOOKING"){
+  if(first(plotdata$measure) == "GESTATION AT BOOKING"){
     
     overview <- plotdata %>%
       split(.$hbname2) %>% 
@@ -174,7 +174,7 @@ creates_overview_charts_with_median <- function(plotdata,
             hovertext = ""
           ) %>%
           add_trace(
-            y = ~ measure,
+            y = ~ measure_value,
             type = "scatter",
             mode = "lines+markers",
             line = list(color = "black", # black lines
@@ -283,7 +283,7 @@ creates_overview_charts_with_median <- function(plotdata,
             hovertext = ""
           ) %>%
           add_trace(
-            y = ~ measure,
+            y = ~ measure_value,
             type = "scatter",
             mode = "lines+markers",
             line = list(color = "black", # black dots
@@ -338,16 +338,16 @@ creates_overview_charts_with_median <- function(plotdata,
 # Function to create the small multiple charts without a blue median line
 # Parameters:
 # plotdata: dataframe with data to be plotted
-# measure: variable to be plotted as black dots/lines
-# hover: hovertext for the measure
+# measure_value: variable to be plotted as black dots/lines
+# hover: hovertext for the measure_value
 # yaxislabel: text to appear on y axis
 
 creates_overview_charts_without_median <- function(plotdata,
-                                                   measure,
+                                                   measure_value,
                                                    hover = "mytext",
                                                    yaxislabel = "Percentage of births (%)"){
   
-  y_max <- max(plotdata$measure) # allows a margin to be set around y-axis
+  y_max <- max(plotdata$measure_value) # allows a margin to be set around y-axis
   
   xaxis_plots <- orig_xaxis_plots
 
@@ -378,7 +378,7 @@ creates_overview_charts_without_median <- function(plotdata,
     showarrow = FALSE
   )
   
-  if(first(plotdata$indicator) == "GESTATION AT BOOKING"){ # adds annotation at 10 weeks
+  if(first(plotdata$measure) == "GESTATION AT BOOKING"){ # adds annotation at 10 weeks
     
     overview <- plotdata %>%
       split(.$hbname2) %>% 
@@ -387,7 +387,7 @@ creates_overview_charts_without_median <- function(plotdata,
           plot_ly(
             d,
             x = ~ date,
-            y = ~ measure,
+            y = ~ measure_value,
             type = "scatter",
             mode = "lines+markers",
             line = list(color = "black", # black lines
@@ -435,7 +435,7 @@ creates_overview_charts_without_median <- function(plotdata,
           plot_ly(
             d,
             x = ~ date,
-            y = ~ measure,
+            y = ~ measure_value,
             type = "scatter",
             mode = "lines+markers",
             line = list(color = "black", # black lines
@@ -473,7 +473,7 @@ creates_overview_charts_without_median <- function(plotdata,
     layout(
       annotations = list(
         text = ~ case_match(
-          first(plotdata$indicator),
+          first(plotdata$measure),
           "TEARS" ~ "Percentage of women (%)",
           c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
           .default = yaxislabel
@@ -497,8 +497,8 @@ creates_overview_charts_without_median <- function(plotdata,
 # Function to create the runcharts/timeseries charts
 # Parameters:
 # plotdata: dataframe with data to be plotted
-# measure: variable to be plotted as black dots/lines
-# hover: hovertext for the measure
+# measure_value: variable to be plotted as black dots/lines
+# hover: hovertext for the measure_value
 # centreline: variable to be plotted as a solid blue line
 # dottedline: variable to be plotted as a dotted blue line
 # trend: green squares for 5 or more points going up or going down
@@ -506,7 +506,7 @@ creates_overview_charts_without_median <- function(plotdata,
 # yaxislabel: text to appear on y axis
 
 creates_runcharts <- function(plotdata,
-                              measure,
+                              measure_value,
                               hover = "mytext",
                               centreline = "median",
                               dottedline = "extended",
@@ -514,14 +514,14 @@ creates_runcharts <- function(plotdata,
                               #shift = "orig_shift",
                               yaxislabel = "Percentage of births (%)"){
   
-  y_max <- max(plotdata$measure, na.rm = TRUE) # allows a margin to be set around y-axis
+  y_max <- max(plotdata$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
   
   # temp fix
   
   # plotdata <-  
   #   plotdata %>% 
-  #   mutate(shift = if_else(orig_shift == TRUE, measure, NA),
-  #          trend = if_else(orig_trend == TRUE, measure, NA)
+  #   mutate(shift = if_else(orig_shift == TRUE, measure_value, NA),
+  #          trend = if_else(orig_trend == TRUE, measure_value, NA)
   #   )
   
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
@@ -529,24 +529,24 @@ creates_runcharts <- function(plotdata,
   # dataframe fed into plotly)
 
   include_legend <- case_when(
-    first(plotdata$indicator) == "TYPE OF BIRTH" &
-      first(plotdata$indicator_cat) != "spontaneous vaginal births" ~ FALSE,
-    first(plotdata$indicator) == "GESTATION AT BIRTH" &
-      first(plotdata$indicator_cat) != "between 32 and 36 weeks" ~ FALSE,
+    first(plotdata$measure) == "TYPE OF BIRTH" &
+      first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
+    first(plotdata$measure) == "GESTATION AT BIRTH" &
+      first(plotdata$measure_cat) != "between 32 and 36 weeks" ~ FALSE,
     TRUE ~ TRUE)
   
   # include_trend_shift_legend = TRUE ensures that the shift and trend legends appear even when the 
   # chart "linked" to the legend doesn't have any shifts or trends 
   
   include_trend_shift_legend <- case_when(
-    first(plotdata$indicator_cat) == "spontaneous vaginal births" ~ FALSE,
-          first(plotdata$indicator_cat) == "between 32 and 36 weeks" ~ FALSE,
+    first(plotdata$measure_cat) == "spontaneous vaginal births" ~ FALSE,
+          first(plotdata$measure_cat) == "between 32 and 36 weeks" ~ FALSE,
     TRUE ~ include_legend)
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
    select_date_tickvals <- switch( # tells plotly where ticks will show
-   first(plotdata$indicator), 
+   first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
    "GESTATION AT BOOKING" = bookings_date_tickvals,
    "TERMINATIONS" = terminations_date_tickvals,
@@ -559,7 +559,7 @@ creates_runcharts <- function(plotdata,
    ) 
   
   select_date_ticktext <- switch( # telss plotly what text to show on ticks
-   first(plotdata$indicator), 
+   first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
    "GESTATION AT BOOKING" = bookings_date_ticktext,
    "TERMINATIONS" = terminations_date_ticktext,
@@ -579,14 +579,14 @@ creates_runcharts <- function(plotdata,
   yaxis_plots <- orig_yaxis_plots
   yaxis_plots[["title"]] <- list(
     text = ~ case_match(
-      first(plotdata$indicator),
+      first(plotdata$measure),
       "TEARS" ~ "Percentage of women (%)",
       c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
       .default = yaxislabel
       ),
     standoff = 30) # distance between axis and chart
   yaxis_plots[["tickformat"]] <- 
-    if_else(first(plotdata$indicator) %in% c("APGAR5", "TEARS"),
+    if_else(first(plotdata$measure) %in% c("APGAR5", "TEARS"),
             ".1f",
             ",d")
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
@@ -610,7 +610,7 @@ creates_runcharts <- function(plotdata,
     hoverinfo = "none"
   ) %>% 
     add_trace(
-      y = ~ measure,
+      y = ~ measure_value,
       mode = "lines+markers",
       line = list(
         color = "black", # black lines
@@ -619,12 +619,12 @@ creates_runcharts <- function(plotdata,
         color = "black", # black dots
         size = 5),
       name = ~ case_match(
-        first(plotdata$indicator),
+        first(plotdata$measure),
         "TYPE OF BIRTH" ~ "percentage of births (%)",
         "GESTATION AT BIRTH" ~ "percentage of babies (%)",
-        .default = str_to_lower(var_label(measure))
+        .default = str_to_lower(var_label(measure_value))
         ),
-      legendgroup = "measure",
+      legendgroup = "measure_value",
       legendrank = 100,
       showlegend = include_legend,
       hovertext = ~ mytext,
@@ -701,7 +701,7 @@ creates_runcharts <- function(plotdata,
 # adds "dummy" traces for multiple runcharts to force shift and trend legends to appear even if there
 # are none in these charts
 
-if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
+if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
                                         "between 32 and 36 weeks")) {
   runcharts <- runcharts %>%
     add_trace(
@@ -746,9 +746,9 @@ if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
     )
 }
 
-# additional traces for the "special" Boards in GESTATION AT BOOKING indicator
+# additional traces for the "special" Boards in GESTATION AT BOOKING measure
 
-  if(first(plotdata$indicator) == "GESTATION AT BOOKING" &
+  if(first(plotdata$measure) == "GESTATION AT BOOKING" &
      first(plotdata$hbname) %in% c("NHS Forth Valley", "NHS Tayside")) {
 
     runcharts <- runcharts %>%
@@ -799,13 +799,13 @@ if(first(plotdata$indicator_cat) %in% c("spontaneous vaginal births",
   return(runcharts)
 }
 
-# Function to create the context charts (overall numbers relevant to the indicator)
+# Function to create the context charts (overall numbers relevant to the measure)
 # Parameters:
 # plotdata: dataframe with data to be plotted
 # date: name of the "date" variable (may be "QUARTER" rather than "date")
-# num: main indicator variable to be plotted as line (e.g. number of Apgar5 scores < 7)
+# num: main measure variable to be plotted as line (e.g. number of Apgar5 scores < 7)
 # num_hover: hovertext for the num
-# den: "total" indicator variable to be plotted as a line (e.g. the total number of Apgar5 scores recorded)
+# den: "total" measure variable to be plotted as a line (e.g. the total number of Apgar5 scores recorded)
 # den_hover: hovertext for the den
 # yaxislabel: text to appear on y axis
 
@@ -824,16 +824,16 @@ creates_context_charts <- function(plotdata,
   # dataframe fed into plotly)
 
   include_legend <- case_when(
-    first(plotdata$indicator) == "TYPE OF BIRTH" &
-      first(plotdata$indicator_cat) != "spontaneous vaginal births" ~ FALSE,
-    first(plotdata$indicator) == "GESTATION AT BIRTH" &
-      first(plotdata$indicator_cat) != ">= 32 and <= 36 weeks" ~ FALSE,
+    first(plotdata$measure) == "TYPE OF BIRTH" &
+      first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
+    first(plotdata$measure) == "GESTATION AT BIRTH" &
+      first(plotdata$measure_cat) != ">= 32 and <= 36 weeks" ~ FALSE,
     TRUE ~ TRUE)
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
    select_date_tickvals <- switch( # tells plotly where ticks will show
-   first(plotdata$indicator), 
+   first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
    "GESTATION AT BOOKING" = bookings_date_tickvals,
    "TERMINATIONS" = terminations_date_tickvals,
@@ -847,7 +847,7 @@ creates_context_charts <- function(plotdata,
    ) 
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
-   first(plotdata$indicator), 
+   first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
    "GESTATION AT BOOKING" = bookings_date_ticktext,
    "TERMINATIONS" = terminations_date_ticktext,
@@ -869,7 +869,7 @@ creates_context_charts <- function(plotdata,
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   yaxis_plots[["title"]] <- list(
     text = ~ case_match(
-      first(plotdata$indicator),
+      first(plotdata$measure),
       "TEARS" ~ "Number of women",
       "APGAR5" ~ "Number of babies",
       .default = yaxislabel
@@ -888,13 +888,13 @@ context_charts <-
       marker = list(color = selected_colours[2],
                     symbol = "square-x-open"),
       name = ~ case_match( # retrieves label of variable
-        first(plotdata$indicator),
+        first(plotdata$measure),
         c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
         "APGAR5" ~ "babies with an Apgar5 score less than 7",
         "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
       .default = str_to_lower(var_label(num))
       ),
-      #legendgroup = "measure"
+      #legendgroup = "measure_value"
       legendrank = 200,
       showlegend = include_legend,
       hovertext = ~ get(num_hover),
@@ -909,7 +909,7 @@ context_charts <-
       marker = list(color = selected_colours[1],
                     symbol = "circle"),
       name = ~ case_match( # retrieves label of variable
-        first(plotdata$indicator),
+        first(plotdata$measure),
         "APGAR5" ~ "babies with a known Apgar5 score",
         .default = str_to_lower(var_label(den))
         ), 
@@ -942,11 +942,11 @@ context_charts <-
 
 # Function to build download data
 # Parameter: 
-# indicator: dataframe to be downloaded
+# measure: dataframe to be downloaded
 
-builds_download_data <- function(indicator) {
+builds_download_data <- function(measure) {
   
-  downloaddata <- download_dataframe[[{{indicator}}]] 
+  downloaddata <- download_dataframe[[{{measure}}]] 
     
   return(downloaddata)
   

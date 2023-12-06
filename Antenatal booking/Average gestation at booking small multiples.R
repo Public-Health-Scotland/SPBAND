@@ -8,7 +8,7 @@ gest_at_booking_small_multiples_data <- reactive({
   data <- gest_at_booking_data %>%
     filter(hbtype == Selected$HBType) %>%
     set_variable_labels(
-      measure = "Average gestation at booking",
+      measure_value = "Average gestation at booking",
       median = " average gestation to end Feb 2020",
       extended = " projected average gestation from Mar 2020 to end Jul 2020"
     ) %>% 
@@ -17,9 +17,9 @@ gest_at_booking_small_multiples_data <- reactive({
                            "Month: ", 
                            format(date, "%b %Y"),
                            "<br>",
-                           var_label(measure),
+                           var_label(measure_value),
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks")

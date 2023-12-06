@@ -3,7 +3,7 @@
 extremely_preterm_context_data <- 
   
   extremely_preterm_data %>% 
-  filter(indicator_cat == "NICU_22_26"
+  filter(measure_cat == "NICU_22_26"
          ) %>% 
   set_variable_labels(
     num = "Births at 22-26 weeks in a hospital with a NICU",

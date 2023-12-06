@@ -13,27 +13,27 @@ data <- type_of_birth_data %>%
   filter(hbname == Selected$HBName &
            period == "Q" &
            hbtype == Selected$HBType & 
-           indicator_cat != "all caesarean births") %>%
-  mutate(indicator_cat = if_else(indicator_cat == "assisted births",
+           measure_cat != "all caesarean births") %>%
+  mutate(measure_cat = if_else(measure_cat == "assisted births",
                              "assisted births including breech births",
-                             indicator_cat
+                             measure_cat
                              )
          )
 
 # pick one category to get den (all live births)
 
-den_data <- filter(data, indicator_cat == "assisted births including breech births") %>% # pick one category to get den (all live births)
-  mutate(indicator_cat = "all live births",
+den_data <- filter(data, measure_cat == "assisted births including breech births") %>% # pick one category to get den (all live births)
+  mutate(measure_cat = "all live births",
          num = den
          )
 
 data <- bind_rows(den_data, data) %>%
-    mutate(indicator_cat = factor(indicator_cat,
+    mutate(measure_cat = factor(measure_cat,
                                   levels = type_of_birthNames),
            mytext1 = paste0("Quarter: ",
                             quarter_label, 
                             "<br>",
-                            str_to_sentence(indicator_cat),
+                            str_to_sentence(measure_cat),
                             ": ",
                             prettyNum(num, big.mark = ",")
                             )
@@ -76,9 +76,9 @@ output$type_of_birth_context_charts <- renderPlotly({
       y = ~ num,
       type = "scatter",
       mode = "lines+markers",
-      color = ~ indicator_cat,
+      color = ~ measure_cat,
       colors = selected_colours[1:5],
-      symbol = ~ indicator_cat,
+      symbol = ~ measure_cat,
       symbols = ~ c("circle", "square-x-open", "diamond", "star", "circle-open"),
       line = list(width = 2),
       hovertext = ~ mytext1,

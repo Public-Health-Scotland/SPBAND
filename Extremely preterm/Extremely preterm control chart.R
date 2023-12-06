@@ -1,7 +1,7 @@
 # a) data ----
 
 extremely_preterm_control_chart_data <- filter(extremely_preterm_data,
-                                               indicator_cat == "NICU_22_26"
+                                               measure_cat == "NICU_22_26"
                                                )
 
 # b) chart ---- 
@@ -11,7 +11,7 @@ extremely_preterm_control_chart <-
   plot_ly(
     data = extremely_preterm_control_chart_data,
     x = ~ quarter_label,
-    y = ~ measure, # percentage
+    y = ~ measure_value, # percentage
     type = "scatter",
     mode = "lines+markers",
     line = list(
@@ -28,7 +28,7 @@ extremely_preterm_control_chart <-
                          "<br>",
                          "Percentage",
                          ": ",
-                         format(measure,
+                         format(measure_value,
                                 digits = 1,
                                 nsmall = 1),
                          "%"

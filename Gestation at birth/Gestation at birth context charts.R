@@ -13,9 +13,9 @@ gest_at_birth_context_data <- reactive({
   filter(hbname == Selected$HBName &
            period == "Q" &
            hbtype == Selected$HBType &
-           indicator_cat != "under 37 weeks"
+           measure_cat != "under 37 weeks"
   ) %>% 
-  mutate(mytext = if_else(indicator_cat == "between 18 and 44 weeks",
+  mutate(mytext = if_else(measure_cat == "between 18 and 44 weeks",
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
@@ -66,7 +66,7 @@ yaxis_plots[["title"]] <- list(text = "Number of babies",
 
 term_chart <- plot_ly(
   data = filter(gest_at_birth_context_data(),
-                indicator_cat %in% term),
+                measure_cat %in% term),
   x = ~ date,
   y = ~ num,
   type = "scatter",
@@ -86,7 +86,7 @@ term_chart <- plot_ly(
 
 not_term_chart <- plot_ly(
   data = filter(gest_at_birth_context_data(),
-                indicator_cat %in% not_term),
+                measure_cat %in% not_term),
   x = ~ date,
   y = ~ num,
   type = "scatter",

@@ -287,7 +287,7 @@ server <- function(input, output, session) {
                              HBName = "Scotland",
                              Date = "2020/21",
                              Subgroup = "Age group",
-                             Indicator_cat = "all caesarean births",
+                             Measure_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
                              Nicename = "under 32 weeks")
   
@@ -373,7 +373,7 @@ server <- function(input, output, session) {
   observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
   observeEvent(input$link_to_patterns, print(Selected$Tabset))
 
-  # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
+  # observe(print(paste0("Measure_cat = ", Selected$Measure_cat)))
   observe(print(paste0("Home: ", input$tabset00)))
   
   observeEvent(input$tabset00, Selected$Tabset <- input$tabset00)

@@ -24,9 +24,9 @@ gest_at_birth_small_multiples_data <- reactive({
   data <- gest_at_birth_data %>%
   filter(hbtype == Selected$HBType &
            period == "Q" &
-           indicator_cat == Selected$Gestation) %>%
+           measure_cat == Selected$Gestation) %>%
     set_variable_labels(
-    measure = paste0("Percentage of births at ",
+    measure_value = paste0("Percentage of births at ",
                      HTML(Selected$Nicename),
                      " (%)"),
     median = " average to Oct-Dec 2019",
@@ -41,7 +41,7 @@ gest_at_birth_small_multiples_data <- reactive({
                            "<br>",
                            "Percentage of babies",
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 2),
                            "%"),
