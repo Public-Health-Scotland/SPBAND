@@ -359,6 +359,10 @@ creates_overview_charts_without_median <- function(plotdata,
   # yaxis_plots[["title"]] <- list(
   #   standoff = 30) # distance between axis title and tick labels
   
+  if(!"hbname2" %in% names(plotdata)) {
+    plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
+  }
+  
   # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
   
