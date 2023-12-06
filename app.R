@@ -1352,7 +1352,7 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit (NICU) on site*"
+                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit (NICU) on site"
                              )
                       ),
                       
@@ -1371,12 +1371,6 @@ location_of_ex_pre_term <- tabItem(
                              
                              br()
                              
-                      ),
-                      
-                      column(12,
-                             p("* Note that this measure differs from the Wider Impacts dashboard measure as it includes babies born at 22 weeks gestation",
-                               class = "notes-style"
-                             )
                       ),
                       
                       column(12,
