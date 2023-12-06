@@ -1,8 +1,8 @@
-# Multi indicator overview download data
+# Multi measure overview download data
 
 multi_indicator_download_data <- annual_dataframe %>% 
   arrange(key_measure_ref, hbtype, period, date, hbname) %>% 
-  select(-c(key_measure_ref, indicator_cat, MIN:plotlylabel)) %>% 
+  select(-c(key_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
   janitor::remove_empty(., which = c("cols"), quiet = TRUE)
 
 output$multi_indicator_download_data1 <- output$multi_indicator_download_data2 <- 

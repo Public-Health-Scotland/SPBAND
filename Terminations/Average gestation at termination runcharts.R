@@ -9,21 +9,22 @@ gest_at_termination_runchart_data <- reactive({
     filter(hbname == Selected$HBName &
              hbtype == Selected$HBType) %>%
     set_variable_labels(
-      measure = "Average gestation at termination",
+      measure_value = "Average gestation at termination",
       median = " average gestation to end Feb 2020",
       extended = " projected average gestation from Mar 2020"
     ) %>% 
-    mutate(hbname2 = factor(hbname2, 
-                            levels = c("NHS Ayrshire & Arran", "NHS Borders",
-                                       "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
-                                       "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
-                                       "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")),
+    mutate(
+      # hbname2 = factor(hbname,
+      #                       levels = c("NHS Ayrshire & Arran", "NHS Borders",
+      #                                  "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
+      #                                  "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
+      #                                  "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")),
            mytext = paste0("Month: ", 
                            format(date, "%b %Y"),
                            "<br>",
-                           var_label(measure),
+                           var_label(measure_value),
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks")

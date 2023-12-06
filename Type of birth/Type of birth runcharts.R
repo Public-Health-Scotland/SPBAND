@@ -15,10 +15,10 @@ type_of_birth_runchart_data <- reactive({
     filter(hbname == Selected$HBName &
              period == "Q" &
              hbtype == Selected$HBType) %>% 
-    mutate(num_label = if_else(indicator_cat == "all caesarean births",
+    mutate(num_label = if_else(measure_cat == "all caesarean births",
                                paste0("Number of births that were caesarean births: "),
-                               paste0("Number of births that were ", indicator_cat, ": ")),
-           measure_label = paste0("Percentage of births that were ", indicator_cat, " (%)"),
+                               paste0("Number of births that were ", measure_cat, ": ")),
+           measure_label = paste0("Percentage of births that were ", measure_cat, " (%)"),
     ) %>% 
     set_variable_labels(
       den = "Total number of births: ",
@@ -28,11 +28,11 @@ type_of_birth_runchart_data <- reactive({
   new_labels = unique(c(data$num_label, data$measure_label))
   
   data <- data %>% 
-    split(.$indicator_cat)
+    split(.$measure_cat)
   
   for (i in seq_along(data)){
     var_label(data[[i]]$num) <- new_labels[[i]]
-    var_label(data[[i]]$measure) <- new_labels[[i+5]]
+    var_label(data[[i]]$measure_value) <- new_labels[[i+5]]
   }
   
   for (i in seq_along(data)){
@@ -46,7 +46,7 @@ type_of_birth_runchart_data <- reactive({
                                prettyNum(data[[i]]$den, big.mark = ","), # data[[i]]$den,
                                "<br>",
                                "Percentage of births: ", # not MEASURE_LABEL - too long
-                               format(data[[i]]$measure,
+                               format(data[[i]]$measure_value,
                                       digits = 1,
                                       nsmall = 1),
                                "%")

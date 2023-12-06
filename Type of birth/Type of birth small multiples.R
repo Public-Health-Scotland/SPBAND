@@ -1,8 +1,8 @@
 # a) data ----
 
-# map input$tob to the values in indicator_cat to enable filtering of the data frame
+# map input$tob to the values in measure_cat to enable filtering of the data frame
 
-observeEvent(input$tob, Selected$Indicator_cat <- input$tob)
+observeEvent(input$tob, Selected$Measure_cat <- input$tob)
 
 type_of_birth_small_multiples_data <- reactive({
   # selects data
@@ -12,22 +12,22 @@ type_of_birth_small_multiples_data <- reactive({
   data <- type_of_birth_data %>%
   filter(hbtype == Selected$HBType &
            period == "Q" &
-           indicator_cat == Selected$Indicator_cat) %>%
+           measure_cat == Selected$Measure_cat) %>%
     set_variable_labels(
-    measure = paste0("Percentage of births that were ",
-                     Selected$Indicator_cat, " (%)"),
+    measure_value = paste0("Percentage of births that were ",
+                     Selected$Measure_cat, " (%)"),
     median = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020") %>% 
     mutate(mytext = paste0(hbname,
                            ": ",
-                           indicator_cat,
+                           measure_cat,
                            "<br>",
                            "Quarter: ", 
                            quarter_label,
                            "<br>",
                            "Percentage of births",
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
                          "%"),
@@ -66,7 +66,7 @@ output$type_of_birth_small_multiples_title <- renderText({
 
 output$type_of_birth_small_multiples_sub_title <- renderText({
 
-  case_match(Selected$Indicator_cat,
+  case_match(Selected$Measure_cat,
          "assisted births" ~ HTML(paste0("Percentage of singleton live births at any gestation that were ",
                                     input$tob, 
                                     " (includes forceps, ventouse and vaginal breech births)")),

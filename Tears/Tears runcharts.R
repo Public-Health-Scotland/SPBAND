@@ -12,7 +12,7 @@ data <- tears_data %>%
   set_variable_labels(
     num = "Number of women who have a third or fourth degree perineal tear: ",
     den = "Total number of women: ",
-    measure = "percentage of women (%)",
+    measure_value = "percentage of women (%)",
     median = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020"
   ) %>% 
@@ -27,7 +27,7 @@ data <- tears_data %>%
                          "<br>",
                          "Percentage of women",
                          ": ",
-                         format(measure,
+                         format(measure_value,
                                 digits = 1,
                                 nsmall = 1),
                          "%")
