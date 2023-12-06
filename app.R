@@ -534,13 +534,43 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               "and ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " reports.",
                                class = "notes-style"
                              )
                       )
@@ -588,13 +618,43 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               "and ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " reports.",
                                class = "notes-style"
                              )
                       )
@@ -657,7 +717,7 @@ pregnancies_booked <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -666,6 +726,18 @@ pregnancies_booked <- tabItem(
                              p("Source: Public Health Scotland - Antenatal Booking Collection",
                                class = "notes-style"
                              ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                            
+                            " publication.",
+                            class = "notes-style"),
                              
                              hr()
                              
@@ -718,7 +790,7 @@ pregnancies_booked <- tabItem(
                           p("Further information based on Antenatal Booking Collection (ABC) data is available from the annual ",
                             tags$a(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
-                              tags$u("Antenatal Booking in Scotland"),
+                              tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
                               target = "_blank"
                             ),
@@ -743,6 +815,9 @@ pregnancies_booked <- tabItem(
                           
                           p("Historic data from April 2019 were also collected as a ‘catch-up’ extract in order to identify all women who were currently pregnant during the COVID-19 period. This was either from the same source or, in NHS Ayrshire & Arran, NHS Tayside and NHS Highland, from the systems in use before the introduction of BadgerNet Maternity."
                           ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                            ),
                           
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
@@ -807,7 +882,7 @@ terminations <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"                             
                              )
                       ),
@@ -816,6 +891,17 @@ terminations <- tabItem(
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
                                class = "notes-style"
                              ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
+                               class = "notes-style"),
                              
                              hr()
                              
@@ -883,6 +969,9 @@ terminations <- tabItem(
                           p("Data regarding each termination should also be provided directly to PHS for the collation of termination statistics.  In addition to an aggregate notification to the CMO, local service providers record details about the termination on the PHS web-based Termination of Pregnancy Submissions Scotland (ToPSS) system. These details should be saved on the system within 30 days of a termination taking place."
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
                           
@@ -947,7 +1036,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -955,7 +1044,19 @@ gestation_at_booking <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection",
                                class = "notes-style"
-                             )
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " publication.",
+                               class = "notes-style")
                       )
                     ) # fluidRow
                     
@@ -999,7 +1100,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -1008,6 +1109,18 @@ gestation_at_booking <- tabItem(
                              p("Source: Public Health Scotland - Antenatal Booking Collection",
                                class = "notes-style"
                              ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " publication.",
+                               class = "notes-style"),
                              
                              hr()
                              
@@ -1067,7 +1180,7 @@ gestation_at_booking <- tabItem(
                           p("Further information based on Antenatal Booking Collection (ABC) data is also available from the annual ",
                             tags$a(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
-                              tags$u("Antenatal Booking in Scotland"),
+                              tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
                               target = "_blank"
                             ),
@@ -1092,6 +1205,9 @@ gestation_at_booking <- tabItem(
                           ),
                           
                           p("Historic data from April 2019 were also collected as a ‘catch-up’ extract in order to identify all women who were currently pregnant during the COVID-19 period. This was either from the same source or, in NHS Ayrshire & Arran, NHS Tayside and NHS Highland, from the systems in use before the introduction of BadgerNet Maternity."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
@@ -1161,13 +1277,25 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
                                class = "notes-style"
                              )
                       )
@@ -1212,13 +1340,25 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
                                class = "notes-style"
                              ),
                              
@@ -1310,6 +1450,9 @@ gestation_at_termination <- tabItem(
                           p("Data regarding each termination should also be provided directly to PHS for the collation of termination statistics. In addition to an aggregate notification to the CMO, local service providers record details about the termination on the PHS web-based Termination of Pregnancy Submissions Scotland (ToPSS) system. These details should be saved on the system within 30 days of a termination taking place."
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
                           
@@ -1374,13 +1517,25 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -1439,13 +1594,25 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1516,10 +1683,11 @@ location_of_ex_pre_term <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           ),
                           
                           p("The ",
@@ -1555,6 +1723,9 @@ location_of_ex_pre_term <- tabItem(
                               )
                             ) # HTML
                           ) # div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Information on which hospitals have had a neonatal intensive care unit on site over the time period of interest (from January 2018), and associated dates, has been provided by the ",
@@ -1677,13 +1848,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                                                          p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1730,13 +1913,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -1785,13 +1980,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1861,7 +2068,7 @@ inductions <- tabItem(
                               target = "_blank"
                             ),
                             
-                            "where other data tables and charts are available."
+                            "report where other data tables and charts are available."
                           )
                       ), # box
                       
@@ -1887,6 +2094,9 @@ inductions <- tabItem(
                                 )
                               ) # HTML
                             ) # div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters is likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -1963,13 +2173,25 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2013,13 +2235,25 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2063,7 +2297,7 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -2071,6 +2305,18 @@ type_of_birth <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
                                class = "notes-style" 
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
+                               class = "notes-style"
                              )
                       )
                     ) # fluidRow
@@ -2133,10 +2379,11 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ), # box
                       
@@ -2169,6 +2416,9 @@ type_of_birth <- tabItem(
                           ),
                           
                           p("A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change sightly as additional SMR02 records are submitted to PHS."
@@ -2233,13 +2483,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2284,13 +2546,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2339,13 +2613,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2450,6 +2736,9 @@ perineal_tears <- tabItem(
                             ) #div
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional  SMR02 records are submitted to PHS."
                           ),
                           
@@ -2525,13 +2814,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2578,13 +2879,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2629,13 +2942,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2693,10 +3018,11 @@ gestation_at_birth <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ), # box
                       
@@ -2761,6 +3087,9 @@ gestation_at_birth <- tabItem(
                             ),
                             
                             "A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -3048,13 +3377,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -3100,13 +3441,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -3156,13 +3509,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -3221,6 +3586,9 @@ apgar_scores <- tabItem(
                           ) # div
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional SMR02 records are submitted to PHS."
                           ),
                           
@@ -3231,10 +3599,11 @@ apgar_scores <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ) # box
                     ) # fluidRow

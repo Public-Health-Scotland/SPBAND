@@ -9,12 +9,11 @@ admin/
 # 'data' folder #
 data/
 
-# 'renv' folder #
-renv/
-renv.lock
-
 # rsconnect folder
 rsconnect/
+
+# Bev's test folder
+Bev testing these/
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
