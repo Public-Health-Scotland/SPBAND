@@ -31,7 +31,7 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-12-05") 
+refresh_date <- as.Date("2023-12-07") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
