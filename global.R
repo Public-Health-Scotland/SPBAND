@@ -31,7 +31,7 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-12-07") 
+refresh_date <- as.Date("2023-09-19") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -41,17 +41,17 @@ NRS_published_date <- "12 September 2023"
 
 # load latest SMR02 ABC Terminations data
 
-load("data/SMR02_ABC_Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 # load latest extreme pre-term data
 
 # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
-extremely_preterm_data <- readRDS("data/extremely_preterm_data.rds") 
+extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds") 
 
 # load latest NRS stillbirths & infant deaths data
 
-NRS_timeseries <- readRDS("data/stillbirths_infant_deaths_data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 # split runchart_dataframe into individual measure dataframes
 
