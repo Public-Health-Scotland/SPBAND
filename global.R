@@ -31,13 +31,13 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-09-19") 
+refresh_date <- as.Date("2023-12-15") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "12 September 2023" 
+NRS_published_date <- "12 December 2023" 
 
 # load latest SMR02 ABC Terminations data
 
