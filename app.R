@@ -911,7 +911,7 @@ terminations <- tabItem(
                              p("The black dots connected by a line in the chart above show the number of terminations of pregnancy, for each month, from Jan 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of terminations of pregnancy over the period Jan 2017 to Feb 2020 inclusive. The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of terminations of pregnancy each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              )
                       )
                       
@@ -1561,7 +1561,7 @@ location_of_ex_pre_term <- tabItem(
                              p("The other lines - centreline, and control and warning limits - are there to help show how unexpected any observed changes are."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the average (mean) of the mean percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site, over the entire time period."
+                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site, over the entire time period."
                              ),
                              
                              p("Control and warning limits take into consideration the random variation that would be expected by chance, and help us decide when values are unexpectedly low or high and require further investigation."
@@ -3192,7 +3192,7 @@ stillbirths <- tabItem(
                              p("The black dots connected by a line in the charts above show the mortality rate for each particular measure, for each quarter, from Jan-Mar 2016 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (mean) rate each quarter over the period Jan-Mar 2016 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (mean) rate over the period Jan-Mar 2016 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              )
                       )
                       
@@ -3644,7 +3644,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3671,7 +3671,7 @@ ui <-
     
    ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
