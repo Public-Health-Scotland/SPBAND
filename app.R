@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.1") # this is the PRA dashboard
+          tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          #tags$p("SPBAND_PRA v 1.1") # this is the PRA dashboard
   )
 )
 
@@ -3644,7 +3644,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3671,7 +3671,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
