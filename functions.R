@@ -944,10 +944,34 @@ context_charts <-
 # Parameter: 
 # measure: dataframe to be downloaded
 
-builds_download_data <- function(measure) {
+# builds_download_data <- function(measure) {
+#   
+#   downloaddata <- download_dataframe[[{{measure}}]] 
+#     
+#   return(downloaddata)
+#   
+# }
+
+# Function to select Excel download file
+# Parameter: 
+# this_excel_measure_name: name of the measure (as seen in the Excel filenames)
+
+download_excel_file <- function(this_excel_measure_name) {
   
-  downloaddata <- download_dataframe[[{{measure}}]] 
-    
-  return(downloaddata)
+  this_excel_filename <- excel_filenames[excel_filenames %like% this_excel_measure_name]
   
+  this_excel_filepath <- excel_filepaths[excel_filepaths %like% this_excel_measure_name]
+  
+  downloadHandler(
+
+  filename = this_excel_filename,
+  
+  content = function(file) {
+    file.copy(this_excel_filepath, file)
+  }
+  )
 }
+
+
+
+

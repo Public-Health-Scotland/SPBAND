@@ -27,17 +27,33 @@ source("functions.R")
 
 credentials <- readRDS("admin/credentials.rds")
 
-# tells PRA dashboard where to pick up the latest data from (change each month)
+# change these dates each quarter
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-12-15") 
+refresh_date <- as.Date("2024-01-25") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
 NRS_published_date <- "12 December 2023" 
+
+# folder for Excel downloads
+
+excel_download_folder <- "data/excel downloads/"
+
+# get Excel filenames
+
+excel_filenames <- list.files(excel_download_folder)
+
+# set Excel measure names
+
+excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".xlsx"))
+
+# set Excel filepaths
+
+excel_filepaths <- paste0(excel_download_folder, excel_filenames)
 
 # load latest SMR02 ABC Terminations data
 
@@ -51,7 +67,7 @@ extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds")
 
 # load latest NRS stillbirths & infant deaths data
 
-NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset##
 
 # split runchart_dataframe into individual measure dataframes
 
