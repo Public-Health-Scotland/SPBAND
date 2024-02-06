@@ -4,18 +4,18 @@ stillbirths_runchart_data <-
 
 NRS_timeseries %>%
   filter(!measure_cat %like% "total" & # don't want the "total" values
-           quarter_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
+           date_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
   mutate(measure_label = paste0("Rate per 1,000 ", den_description),
-         date_label = if_else(quarter_label == "2020",
-                              paste0("Year: ", quarter_label),
-                              paste0("Quarter: ", quarter_label)
+         hover_date_label = if_else(date_label == "2020",
+                              paste0("Year: ", date_label),
+                              paste0("Quarter: ", date_label)
          )
          ) %>% 
   set_variable_labels(
     mean = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020"
     ) %>% 
-    mutate(mytext = paste0(date_label,
+    mutate(mytext = paste0(hover_date_label,
                            "<br>",
                            str_to_sentence(measure_cat),
                            "<br>",
@@ -54,7 +54,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
   lapply(
     function(d)
       plot_ly(d, 
-              x = ~ quarter_label,
+              x = ~ date_label,
               y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
               type = "scatter",
               mode = "lines",

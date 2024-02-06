@@ -10,7 +10,7 @@ multi_indicator_chart_data <- reactive({
   data <- filter(annual_dataframe,
                  date == Selected$Date
                  & hbtype == Selected$HBType) %>% 
-    arrange(desc(key_measure_ref)) %>% 
+    arrange(desc(MIO_measure_ref)) %>% 
     mutate(label = sub("Percentage", "%", plotlylabel)) %>% 
     select(- plotlylabel) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) # updates the factor levels
@@ -91,7 +91,7 @@ fig <- plot_ly(
                    showticklabels = TRUE,
                    tickfont = list(size = 14),
                    zeroline = TRUE,
-                   categoryorder = "trace"), # plots traces in key_measure_ref order
+                   categoryorder = "trace"), # plots traces in MIO_measure_ref order
       legend = list(orientation = "h",
                     xanchor = "auto",
                     font = list(size = 14),

@@ -41,11 +41,11 @@ NRS_published_date <- "12 December 2023"
 
 # folder for Excel downloads
 
-excel_download_folder <- "data/excel downloads/"
+excel_downloads_folder <- "data/excel downloads/"
 
 # get Excel filenames
 
-excel_filenames <- list.files(excel_download_folder)
+excel_filenames <- list.files(excel_downloads_folder)
 
 # set Excel measure names
 
@@ -53,7 +53,7 @@ excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".x
 
 # set Excel filepaths
 
-excel_filepaths <- paste0(excel_download_folder, excel_filenames)
+excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
 
 # load latest SMR02 ABC Terminations data
 
@@ -111,7 +111,7 @@ y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not
 
 # STLLBIRTHS SPECIFIC
 
-date_range_NRS <- as.character(unique(NRS_timeseries$quarter_label))
+date_range_NRS <- as.character(unique(NRS_timeseries$date_label))
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
                        date_range_NRS[seq(22, length(date_range_NRS), 2)])

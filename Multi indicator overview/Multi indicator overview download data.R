@@ -1,8 +1,8 @@
 # Multi measure overview download data
 
 # multi_indicator_download_data <- annual_dataframe %>% 
-#   arrange(key_measure_ref, hbtype, period, date, hbname) %>% 
-#   select(-c(key_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
+#   arrange(MIO_measure_ref, hbtype, period, date, hbname) %>% 
+#   select(-c(MIO_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
 #   janitor::remove_empty(., which = c("cols"), quiet = TRUE)
 # 
 # output$multi_indicator_download_data1 <- output$multi_indicator_download_data2 <- 
@@ -19,8 +19,8 @@
 #   )
 
 # multi_indicator_download_data <- paste0(excel_download_folder, "multi_indicator_overview_", refresh_date, ".xlsx") 
-#   # arrange(key_measure_ref, hbtype, period, date, hbname) %>% 
-#   # select(-c(key_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
+#   # arrange(MIO_measure_ref, hbtype, period, date, hbname) %>% 
+#   # select(-c(MIO_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
 #   # janitor::remove_empty(., which = c("cols"), quiet = TRUE)
 # 
 # output$multi_indicator_download_data1 <- output$multi_indicator_download_data2 <- 
