@@ -8,7 +8,7 @@ inductions_small_multiples_data <- reactive({
   data <- inductions_data %>%
     filter(hbtype == Selected$HBType & period == "Q") %>%
     set_variable_labels(
-      measure_value = "Percentage of births following induction (%)",
+      measure_value = "Percentage of births that followed induction (%)",
       median = " average to Oct-Dec 2019",
       extended = " projected average from Jan-Mar 2020"
     ) %>% 

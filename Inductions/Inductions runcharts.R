@@ -10,7 +10,7 @@ data <- inductions_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Number of births following induction: ",
+    num = "Number of births that followed induction: ",
     den = "Total number of births: ",
     measure_value = "percentage of births (%)",
     median = " average to Oct-Dec 2019",
