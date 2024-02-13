@@ -19,14 +19,14 @@ gest_at_birth_context_data <- reactive({
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
-                                 "Number of babies born with a known gestation (18-44 weeks)",
+                                 "Number of singleton live births with a known gestation (18-44 weeks)",
                                  ": ",
                                  prettyNum(num, big.mark = ",")
                           ),
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
-                                 "Number of babies born at ",
+                                 "Number of singleton live births at ",
                                  formatted_name,
                                  ": ",
                                  prettyNum(num, big.mark = ",")
@@ -61,7 +61,7 @@ xaxis_plots[["tickvals"]] <- select_date_tickvals
 xaxis_plots[["ticktext"]] <- select_date_ticktext
 
 yaxis_plots <- orig_yaxis_plots
-yaxis_plots[["title"]] <- list(text = "Number of babies",
+yaxis_plots[["title"]] <- list(text = "Number of births",
                                standoff = 30) # distance between axis and chart
 
 term_chart <- plot_ly(

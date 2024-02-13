@@ -1,7 +1,7 @@
 # Multi measure overview download data
 
 multi_indicator_download_data <- annual_dataframe %>% 
-  arrange(key_measure_ref, hbtype, period, date, hbname) %>% 
+  arrange(dataset, hbtype, hbname, measure, period, date) %>% 
   select(-c(key_measure_ref, measure_cat, MIN:plotlylabel)) %>% 
   janitor::remove_empty(., which = c("cols"), quiet = TRUE)
 
