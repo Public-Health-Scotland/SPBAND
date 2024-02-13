@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.1") # this is the PRA dashboard
+          tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          #tags$p("SPBAND_PRA v 1.1") # this is the PRA dashboard
   )
 )
 
@@ -314,7 +314,7 @@ patterns <-
                  p("Further information on these methods of presenting data can be found in this ",
                    
                    tags$a(
-                     href =  "https://www.isdscotland.org/health-topics/quality-indicators/statistical-process-control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
+                     href = "https://webarchive.nrscotland.gov.uk/20231129152542mp_/https://www.isdscotland.org/Health-Topics/Quality-Indicators/Statistical-Process-Control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
                      tags$u("guide to statistical process control charts (PDF)."),
                      class = "externallink",
                      target = "_blank"
@@ -533,6 +533,12 @@ multi_indicator_overview <- tabItem(
                              )
                       ),
                       
+                      column(12,
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear.",
+                               class = "notes-style"
+                             )
+                      ),
+                      
                       column(12, 
                              p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
@@ -613,6 +619,12 @@ multi_indicator_overview <- tabItem(
                       
                       column(12,
                              p("* No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                               class = "notes-style"
+                             )
+                      ),
+                      
+                      column(12,
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear.",
                                class = "notes-style"
                              )
                       ),
@@ -1561,7 +1573,7 @@ location_of_ex_pre_term <- tabItem(
                              p("The other lines - centreline, and control and warning limits - are there to help show how unexpected any observed changes are."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site, over the entire time period."
+                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site over the entire time period."
                              ),
                              
                              p("Control and warning limits take into consideration the random variation that would be expected by chance, and help us decide when values are unexpectedly low or high and require further investigation."
@@ -1661,16 +1673,16 @@ location_of_ex_pre_term <- tabItem(
                             " that when a woman is thought to be at imminent risk of extremely pre-term delivery she should be transferred to a maternity unit in a hospital with an on-site neonatal intensive care unit to allow her baby (or babies in the case of a multiple pregnancy of twins or more) to be born in the safest place. In addition, whilst the overall number of neonatal units is not changing in Scotland, the number of units that are classed as ",
                             
                             tags$a(
-                              href = "https://www.bapm.org/resources/296-draft-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk",
+                              href = "https://www.bapm.org/resources/296-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk-2021",
                               tags$u("neonatal intensive care units (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
                             
-                            "(also known as level III units, that is, those able to provide the most complex, specialist care) is reducing over time in line with ",
+                            "(also known as level III units, that is those able to provide the most complex, specialist care) is reducing over time in line with ",
                             
                             tags$a(
-                              href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
+                              href = "https://www.gov.scot/publications/five-year-forward-plan-maternity-neonatal-services-neonatal-intensive-care-options-appraisal-report/",
                               tags$u("national policy (external website)"),
                               class = "externallink",
                               target = "_blank"
@@ -1826,7 +1838,7 @@ inductions <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton live births at 37-42 weeks gestation following induction of labour"
+                             p("Percentage of singleton live births at 37-42 weeks gestation that followed induction of labour"
                              )
                       ),
                       
@@ -1891,7 +1903,7 @@ inductions <- tabItem(
                       
                       column(10,
                              p("Percentage of singleton live births at 37-42 weeks gestation
-                                following induction of labour"
+                                that followed induction of labour"
                              )
                       ),
                       
@@ -2461,7 +2473,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2524,7 +2536,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2578,7 +2590,7 @@ perineal_tears <- tabItem(
                              
                              p(tags$div(
                                HTML(
-                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who have a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
+                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation at between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who have a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
                                  )
                                ) # HTML
                              ) # div
@@ -2597,7 +2609,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(10,
-                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation"
+                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation"
                              )
                       ),
                       
@@ -2856,7 +2868,7 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton live babies born at the stated gestation",
+                             p("Percentage of singleton live births that were at the stated gestation",
                                style = "font-weight: normal;
                                          text-align: left;"
                              )
@@ -2909,10 +2921,10 @@ gestation_at_birth <- tabItem(
                              p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
                              ),
                              
-                             p("The black dots connected by a line in the chart above show the percentage of singleton babies born alive (with known gestation; 18-44 weeks) that were born at the stated gestation, for each quarter, from Jan-Mar 2017 onwards."
+                             p("The black dots connected by a line in the chart above show the percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive (with known gestation; 18-44 weeks) that were born at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -2926,7 +2938,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(10,
-                             p("Number of singleton live babies born at the stated gestation"
+                             p("Number of singleton live births that were at the stated gestation"
                              )
                       ),
                       

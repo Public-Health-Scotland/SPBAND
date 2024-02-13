@@ -126,11 +126,11 @@ measure_cat_order <- c("between 18 and 44 weeks",
 # formatted_name is the factor which controls the order in which the context charts legends should appear
 
 formatted_name <- c(paste0("all known gestations (18", "<sup>+0</sup>", " to 44", "<sup>+6</sup>", " weeks)"),
-                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks"),
-                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks"),
-                    paste0("42", "<sup>+0</sup>", " weeks and over"),
-                    "under 32 weeks",
-                    "under 37 weeks"
+                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks gestation"),
+                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks gestation"),
+                    paste0("42", "<sup>+0</sup>", " weeks gestation and over"),
+                    "under 32 weeks gestation",
+                    "under 37 weeks gestation"
                     )
 
 nicename <- tibble(measure_cat_order, formatted_name)

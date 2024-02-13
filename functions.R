@@ -475,7 +475,7 @@ creates_overview_charts_without_median <- function(plotdata,
         text = ~ case_match(
           first(plotdata$measure),
           "TEARS" ~ "Percentage of women (%)",
-          c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
+          "APGAR5" ~ "Percentage of babies (%)",
           .default = yaxislabel
           ),
         font = list(size = 14),
@@ -581,7 +581,7 @@ creates_runcharts <- function(plotdata,
     text = ~ case_match(
       first(plotdata$measure),
       "TEARS" ~ "Percentage of women (%)",
-      c("GESTATION AT BIRTH", "APGAR5") ~ "Percentage of babies (%)",
+      "APGAR5" ~ "Percentage of babies (%)",
       .default = yaxislabel
       ),
     standoff = 30) # distance between axis and chart
@@ -621,7 +621,7 @@ creates_runcharts <- function(plotdata,
       name = ~ case_match(
         first(plotdata$measure),
         "TYPE OF BIRTH" ~ "percentage of births (%)",
-        "GESTATION AT BIRTH" ~ "percentage of babies (%)",
+        "GESTATION AT BIRTH" ~ "percentage of births (%)",
         .default = str_to_lower(var_label(measure_value))
         ),
       legendgroup = "measure_value",
