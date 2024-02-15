@@ -1154,13 +1154,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.17.3",
+      "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
         "utils"
       ],
-      "Hash": "4543b8cd233ae25c6aba8548be9e747e"
+      "Hash": "41b847654f567341725473431dd0d5ab"
     },
     "rlang": {
       "Package": "rlang",
@@ -1199,21 +1199,25 @@
     },
     "rsconnect": {
       "Package": "rsconnect",
-      "Version": "0.8.29",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
         "R",
+        "cli",
         "curl",
         "digest",
         "jsonlite",
+        "lifecycle",
         "openssl",
         "packrat",
+        "renv",
+        "rlang",
         "rstudioapi",
         "tools",
         "yaml"
       ],
-      "Hash": "fe178fc15af80952f546aafedf655b36"
+      "Hash": "94bb3a2125b01b13dd2e4a784c2a9639"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
