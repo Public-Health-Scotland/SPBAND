@@ -433,7 +433,7 @@ version <-
                         
                         br(),
                         
-                        p("More structural changes are noted with new version numbers as detailed below:"),
+                        p("Small changes to the format of the dashboard are noted with new version numbers as detailed below:"),
                         
                         br(),
                         
@@ -3666,60 +3666,61 @@ infant_feeding <- tabItem(
                p("Infant Feeding Information",
                  style = "padding: 20px 0 14px 0;"
                )
-               )
            )
-    ),
-    
-    fluidRow(
+    )
+  ),
+  
+  box(solidHeader = TRUE,
+      width = 12,
       
-      box(solidHeader = TRUE,
-          width = 12,
-          
-          p("Infant feeding information is available in our sister dashboard",
-            
-            tags$a(
-              href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
-              tags$u("Health in the Early Years in Scotland (HEYS) Dashboard"),
-              class = "externallink",
-              target = "_blank"
-            )
+      p("Infant feeding information is available in a ",
+        
+        tags$a(
+          href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+          tags$u("Health in the Early Years in Scotland (HEYS) Dashboard"),
+          class = "externallink",
+          target = "_blank"
+        ),
+        
+        "also published by Public Health Scotland"
+      ),
+      
+      br(),
+      
+      p("HEYS is a sister dashboard that presents data on measures related to breastfeeding and early child development in Scotland."
+      ),
+      
+      p("This includes: ",
+        
+        tags$ul(
+          tags$li(class = "bullet-points",
+                  strong("Infant feeding:"), " exclusive breastfeeding; overall breastfeeding; and 'ever breastfed', based on data collected at Health Visitor reviews at 10-14 days and 6-8 weeks;"
           ),
           
-          br(),
-          
-          box(solidHeader = TRUE,
-              width = 12,
-          
-          p("The Health in the Early Years in Scotland (HEYS) Dashboard by Public Health Scotland (PHS) presents data on measures related to breastfeeding and early child development in Scotland. This includes: exclusive breastfeeding; overall breastfeeding; and 'ever breastfed', based on data collected at Health Visitor reviews at 10-14 days and 6-8 weeks; and developmental concerns based on data collected at reviews at 13-15 months, 27-30 months and 4-5 years. For all measures data are presented for each Health Board and Council Area of Residence (based on home postcode)."
-          ),
-          
-          br(),
-          
-          #), # box
-          
-          # box(solidHeader = TRUE,
-          #     width = 1,
-          # ),
-          
-          # box(solidHeader = TRUE,
-          #     width = 6,
-              
-          img(src = "HEYS.png", alt = "Health in the Early Years in Scotland (HEYS) Dashboard landing page", width = "90%", height = "90%"
-          ),
-
-          br(),
-          
-          br(),
-          
-          br(),
-          
-          img(src = "HEYS2.png", alt = "Health in the Early Years in Scotland (HEYS) Dashboard Infant feeding page", width = "90%", height = "90%"
+          tags$li(class = "bullet-points",
+                  strong("Child development:"), " developmental concerns based on data collected at reviews at 13-15 months, 27-30 months and 4-5 years."
           )
-          ) # box
           
-      ) # box
+        )
+      ),
       
-    ) # fluidRow 
+      p("For all measures data are presented for each Health Board and Council Area of Residence (based on home postcode)."
+      ),
+      
+      br(),
+
+      tags$a(
+        href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+        class = "externallink",
+        target = "_blank",
+        tags$img(src = "HEYS.png",
+                 alt = "Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 title = "Typical representation of the Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 width = "90%",
+                 height = "90%")
+      )
+
+  ) # box
   
 ) # tabItem ("infant_feeding")
 
@@ -3752,7 +3753,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3779,7 +3780,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
