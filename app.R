@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.1") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          #tags$p("SPBAND_PRA v 1.1") # this is the PRA dashboard
+          tags$p("SPBAND v 1.2") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          #tags$p("SPBAND_PRA v 1.2") # this is the PRA dashboard
   )
 )
 
@@ -86,7 +86,12 @@ topicmenu <- sidebarMenu(
                        tabName = "apgar_scores",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
+  ) %>% rem_menu_aria_label(),
+  menuItem("Infant feeding",
+           tabName = "infant_feeding",
+           icon = icon("person-breastfeeding", verify_fa = FALSE) |> rem_aria_label()
   ) %>% rem_menu_aria_label()
+
 )
 
 # HOW TO USE THIS DASHBOARD ----
@@ -162,9 +167,9 @@ instructions <-
                  
                  column(12,
                         tags$ol(
-                          tags$li(class= "bullet-points", "Multi indicator overview"), 
-                          tags$li(class= "bullet-points", "Board comparison"), 
-                          tags$li(class= "bullet-points", "Individual board")
+                          tags$li(class = "bullet-points", "Multi indicator overview"), 
+                          tags$li(class = "bullet-points", "Board comparison"), 
+                          tags$li(class = "bullet-points", "Individual board")
                         )
                  ),
                  
@@ -262,19 +267,19 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Shifts:"), " Six or more consecutive data points above or below the centreline. Points on the centreline neither break nor contribute to a shift (marked as a yellow line on charts)."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Trends:"), " Five or more consecutive data points which are increasing or decreasing. An observation that is the same as the preceding value does not count towards a trend (marked as green highlights on charts)."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Too many or too few runs:"), " A run is a sequence of one or more consecutive observations on the same side of the centreline. Any observations falling directly on the centreline can be ignored. If there are too many or too few runs (i.e. the median is crossed too many or too few times) that is a sign of something more than random chance."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Astronomical data point:"), " A data point which is distinctly different from the rest. Different people looking at the same graph would be expected to recognise the same data point as astronomical (or not)."
                    )
                  ),
@@ -285,23 +290,23 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Outliers:"), " Data points outside the limits marked by the control limits."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Shifts:"), " Eight or more consecutive data points above or below the centreline.",
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Trends:"), " Six or more consecutive data points which are increasing or decreasing."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Outer one–third:"), " Two out of three consecutive data points which sit between the control and warning limits."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Inner one-third:"), " 15 or more consecutive data points that lie close to the centreline."
                    )
                  ),
@@ -410,7 +415,7 @@ version <-
            
            fluidRow(
              
-             br(),
+            # br(),
              
              box(solidHeader = TRUE,
                  width = 12,
@@ -418,10 +423,26 @@ version <-
                  br(),
                  
                  column(12,
-                        tags$ul(
-                          tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
-                          tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard")
-                        )
+                        
+                        p("This dashboard is scheduled to be updated each quarter, generally by the first Tuesday in the months of January, April, July and October."),
+                        
+                        br(),
+                        
+                        p(paste0("The data was last refreshed on ", pretty_refresh_date, ".")
+                          ),
+                        
+                        br(),
+                        
+                        p("Small changes to the format of the dashboard are noted with new version numbers as detailed below:"),
+                        
+                        br(),
+                        
+                        tableOutput('version_tbl')
+                        
+                        # tags$ul(
+                        #   tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
+                        #   tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard")
+                        # )
                  )
                  
              ) # box
@@ -3628,6 +3649,81 @@ apgar_scores <- tabItem(
   
 ) # tabItem ("apgar_scores")
 
+# INFANT FEEDING ----
+
+infant_feeding <- tabItem(
+  tabName = "infant_feeding",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("Infant feeding"
+        )
+    )
+  ),
+  
+  fluidRow(
+    column(12,
+           div(class = "shiny-text-output",
+               p("Infant Feeding Information",
+                 style = "padding: 20px 0 14px 0;"
+               )
+           )
+    )
+  ),
+  
+  box(solidHeader = TRUE,
+      width = 12,
+      
+      p("Infant feeding information is available in a ",
+        
+        tags$a(
+          href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+          tags$u("Health in the Early Years in Scotland (HEYS) Dashboard"),
+          class = "externallink",
+          target = "_blank"
+        ),
+        
+        "also published by Public Health Scotland"
+      ),
+      
+      br(),
+      
+      p("HEYS is a sister dashboard that presents data on measures related to breastfeeding and early child development in Scotland."
+      ),
+      
+      p("This includes: ",
+        
+        tags$ul(
+          tags$li(class = "bullet-points",
+                  strong("Infant feeding:"), " exclusive breastfeeding; overall breastfeeding; and 'ever breastfed', based on data collected at Health Visitor reviews at 10-14 days and 6-8 weeks;"
+          ),
+          
+          tags$li(class = "bullet-points",
+                  strong("Child development:"), " developmental concerns based on data collected at reviews at 13-15 months, 27-30 months and 4-5 years."
+          )
+          
+        )
+      ),
+      
+      p("For all measures data are presented for each Health Board and Council Area of Residence (based on home postcode)."
+      ),
+      
+      br(),
+
+      tags$a(
+        href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+        class = "externallink",
+        target = "_blank",
+        tags$img(src = "HEYS.png",
+                 alt = "Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 title = "Typical representation of the Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 width = "90%",
+                 height = "90%")
+      )
+
+  ) # box
+  
+) # tabItem ("infant_feeding")
+
 # BODY ----
 
 body <- dashboardBody(
@@ -3648,7 +3744,8 @@ body <- dashboardBody(
     perineal_tears,
     gestation_at_birth,
     stillbirths,
-    apgar_scores
+    apgar_scores,
+    infant_feeding
   ) # tabItems
   
 ) # dashboardBody
@@ -3665,13 +3762,13 @@ ui <-
         "<html lang='en'>"),
       tags$link(rel="shortcut icon",
                 href="favicon_phs.ico"), # Icon for browser tab
-      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard")
+      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"),
     ),
     # Including Google analytics
     # includeScript("google-analytics.js")),
     
     dashboardPage(
-      
+
       header,
       
       sidebar,
@@ -3793,7 +3890,8 @@ server <- function(input, output, session) {
   observeEvent(input$tabset24, Selected$Tabset <- input$tabset24)
   observeEvent(input$tabset25, Selected$Tabset <- input$tabset25)
   observeEvent(input$tabset26, Selected$Tabset <- input$tabset26)
-  # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
+
+    # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
   
   # select ORGANISATION (RESIDENCE or TREATMENT)
   
@@ -3913,6 +4011,18 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
+
+`Version` <- c("1.0", "1.1", "1.2")
+`Date` <- c("3 Oct 2023", "9 Nov 2023", "20 Feb 2024")
+`Change` <- c("First public release of SPBAND",
+                    "Amended Home - How to use this dashboard",
+                    "Updated links and standardised titles, labels and metadata")
+
+version_info <- tibble(`Version`, `Date`, `Change`)
+
+output$version_tbl <- renderTable(version_info, 
+                          striped = TRUE,
+                          bordered = TRUE)
   
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
@@ -4009,6 +4119,7 @@ server <- function(input, output, session) {
   source("Apgar5/Apgar5 context charts.R", local = TRUE)
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
+  
 }
 
 shinyApp(ui, server)  

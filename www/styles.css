@@ -91,7 +91,22 @@ body {
      padding-top: 10px;
 }*/
 
-/* to force box title to appear the same as the tabBox title */
+/* to force tab with no tabBox title to appear the same as the tabBox title */
+
+.no-tabbox-title {
+  border-style: solid;
+  border-bottom-color: #f4f4f4;
+  border-width: 0 0 1px 0;
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px !important;
+  text-align: right;
+  background-color: white;
+  padding: 3px 10px 5px 0;
+  margin: 0 0 0 -20px;
+  }
+
+/* styles box titles - in concertina on Home page */
 
 .box-title {
   border-style: solid;
