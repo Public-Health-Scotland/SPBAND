@@ -4013,7 +4013,7 @@ server <- function(input, output, session) {
   })
 
 `Version` <- c("1.0", "1.1", "1.2")
-`Date` <- c("3 Oct 2023", "9 Nov 2023", "20 Feb 2024")
+`Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024")
 `Change` <- c("First public release of SPBAND",
                     "Amended Home - How to use this dashboard",
                     "Updated links and standardised titles, labels and metadata")
