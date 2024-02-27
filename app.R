@@ -1809,7 +1809,7 @@ location_of_ex_pre_term <- tabItem(
                               paste0("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2019 to 31 March 2020, live births recorded on SMR02 represented 98.8% of the live births registered by law with National Records of Scotland. In addition, the recording of specific data items allowing identification of births between 22", tags$sup("+0"), " and 26", tags$sup("+6"), " weeks gestation, and the location of these births, is very complete. Since January 2018, the recording of gestation at birth on SMR02 was known and within the range 18-44 weeks in 99.7% of births. Location of birth was recorded in 100% of episodes. The latest ",
                                      
                                      tags$a(
-                                       href = "https://www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
+                                       href = "https://webarchive.nrscotland.gov.uk/20231129152352/http:/www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
                                        tags$u("Data Quality Assessment Report (PDF)"),
                                        class = "externallink",
                                        target = "_blank"
