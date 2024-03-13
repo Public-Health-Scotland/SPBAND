@@ -748,7 +748,9 @@ pregnancies_booked <- tabItem(
                              ),
                              
                              p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of pregnancies booked for antenatal care each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file.")
                       ) # column
                       
                     ) # fluidRow
@@ -1137,7 +1139,9 @@ gestation_at_booking <- tabItem(
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file available for the ‘Number of pregnancies booked’ measure.")
                       )
                       
                     ) # fluidRow
@@ -3355,7 +3359,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3419,7 +3423,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3479,7 +3483,12 @@ apgar_scores <- tabItem(
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                             p(tags$div(
+                               HTML(
+                                 paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                             )
+                             ) # HTML
+                             ) # div
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."

@@ -49,6 +49,5 @@ creates_overview_charts_without_median(plotdata = apgar5_small_multiples_data()
 # c) chart title ----
 
 output$apgar5_small_multiples_title <- renderText({
-  #paste0("Percentage of singleton live births at 37-42 weeks gestation that have a 5 minute Apgar score of <7 by Board of ",
   paste0("Board of ", str_to_sentence(input$organisation))
 })

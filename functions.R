@@ -890,7 +890,7 @@ context_charts <-
       name = ~ case_match( # retrieves label of variable
         first(plotdata$measure),
         c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
-        "APGAR5" ~ "babies with an Apgar5 score less than 7",
+        "APGAR5" ~ "babies that had an Apgar5 score less than 7",
         "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
       .default = str_to_lower(var_label(num))
       ),
@@ -910,7 +910,7 @@ context_charts <-
                     symbol = "circle"),
       name = ~ case_match( # retrieves label of variable
         first(plotdata$measure),
-        "APGAR5" ~ "babies with a known Apgar5 score",
+        "APGAR5" ~ "babies that had a known Apgar5 score",
         .default = str_to_lower(var_label(den))
         ), 
       #legendgroup = "median"
