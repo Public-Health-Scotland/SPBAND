@@ -16,13 +16,13 @@ multi_indicator_table_data_scot <- reactive({
                    hbname == "Scotland" &
                    hbtype == Selected$HBType
                  ) %>%
-    arrange(key_measure_ref) %>%
-    mutate(label = sub("Percentage", "%", key_measure_label)) %>% 
+    arrange(MIO_measure_ref) %>%
+    mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
     pivot_wider(names_from = hbname, values_from = measure_value, values_fill = 0) %>%
     ungroup() %>% 
     rename(SCOT_MEASURE = Scotland) %>% 
-    select(period, hbtype, key_measure_ref, measure, label, suffix, date, SCOT_MEASURE)
+    select(period, hbtype, MIO_measure_ref, measure, label, suffix, date, SCOT_MEASURE)
   
   if (is.null(data()))
   {
@@ -48,8 +48,8 @@ multi_indicator_table_data_hb <- reactive({
                    hbname == Selected$HBName &
                    hbtype == Selected$HBType
   ) %>%
-    arrange(key_measure_ref) %>%
-    mutate(label = sub("Percentage", "%", key_measure_label)) %>% 
+    arrange(MIO_measure_ref) %>%
+    mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
     ungroup() %>% 
     left_join(., multi_indicator_table_data_scot()) %>% # joins Scotland data

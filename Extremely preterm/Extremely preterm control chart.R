@@ -10,7 +10,7 @@ extremely_preterm_control_chart <-
   
   plot_ly(
     data = extremely_preterm_control_chart_data,
-    x = ~ quarter_label,
+    x = ~ date_label,
     y = ~ measure_value, # percentage
     type = "scatter",
     mode = "lines+markers",
@@ -24,7 +24,7 @@ extremely_preterm_control_chart <-
     ),
     name = ~ "percentage",
     hovertext = ~ paste0("Quarter: ",
-                         quarter_label,
+                         date_label,
                          "<br>",
                          "Percentage",
                          ": ",

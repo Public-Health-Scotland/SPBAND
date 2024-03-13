@@ -10,7 +10,7 @@ data <- tears_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Number of women who have a third or fourth degree perineal tear: ",
+    num = "Number of women who had a third or fourth degree perineal tear: ",
     den = "Total number of women: ",
     measure_value = "percentage of women (%)",
     median = " average to Oct-Dec 2019",

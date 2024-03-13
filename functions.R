@@ -532,7 +532,7 @@ creates_runcharts <- function(plotdata,
     first(plotdata$measure) == "TYPE OF BIRTH" &
       first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
     first(plotdata$measure) == "GESTATION AT BIRTH" &
-      first(plotdata$measure_cat) != "between 32 and 36 weeks" ~ FALSE,
+      first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
     TRUE ~ TRUE)
   
   # include_trend_shift_legend = TRUE ensures that the shift and trend legends appear even when the 
@@ -540,7 +540,7 @@ creates_runcharts <- function(plotdata,
   
   include_trend_shift_legend <- case_when(
     first(plotdata$measure_cat) == "spontaneous vaginal births" ~ FALSE,
-          first(plotdata$measure_cat) == "between 32 and 36 weeks" ~ FALSE,
+          first(plotdata$measure_cat) == "between 32 and 36 weeks (inclusive)" ~ FALSE,
     TRUE ~ include_legend)
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
@@ -702,7 +702,7 @@ creates_runcharts <- function(plotdata,
 # are none in these charts
 
 if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
-                                        "between 32 and 36 weeks")) {
+                                        "between 32 and 36 weeks (inclusive)")) {
   runcharts <- runcharts %>%
     add_trace(
     data = plotdata,
@@ -827,7 +827,7 @@ creates_context_charts <- function(plotdata,
     first(plotdata$measure) == "TYPE OF BIRTH" &
       first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
     first(plotdata$measure) == "GESTATION AT BIRTH" &
-      first(plotdata$measure_cat) != ">= 32 and <= 36 weeks" ~ FALSE,
+      first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
     TRUE ~ TRUE)
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
@@ -890,7 +890,7 @@ context_charts <-
       name = ~ case_match( # retrieves label of variable
         first(plotdata$measure),
         c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
-        "APGAR5" ~ "babies with an Apgar5 score less than 7",
+        "APGAR5" ~ "babies that had an Apgar5 score less than 7",
         "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
       .default = str_to_lower(var_label(num))
       ),
@@ -910,7 +910,7 @@ context_charts <-
                     symbol = "circle"),
       name = ~ case_match( # retrieves label of variable
         first(plotdata$measure),
-        "APGAR5" ~ "babies with a known Apgar5 score",
+        "APGAR5" ~ "babies that had a known Apgar5 score",
         .default = str_to_lower(var_label(den))
         ), 
       #legendgroup = "median"
@@ -940,14 +940,34 @@ context_charts <-
   return(context_charts)
 }
 
-# Function to build download data
-# Parameter: 
-# measure: dataframe to be downloaded
+# # Function to build download data
+# # Parameter: 
+# # measure: dataframe to be downloaded
+# 
+# builds_download_data <- function(measure) {
+#   
+#   downloaddata <- download_dataframe[[{{measure}}]] 
+#     
+#   return(downloaddata)
+#   
+# }
 
-builds_download_data <- function(measure) {
+# Function to select Excel download file
+# Parameter: 
+# this_excel_measure_name: name of the measure (as seen in the Excel filenames)
+
+download_excel_file <- function(this_excel_measure_name) {
   
-  downloaddata <- download_dataframe[[{{measure}}]] 
-    
-  return(downloaddata)
+  this_excel_filename <- excel_filenames[excel_filenames %like% this_excel_measure_name]
   
+  this_excel_filepath <- excel_filepaths[excel_filepaths %like% this_excel_measure_name]
+  
+  downloadHandler(
+
+  filename = this_excel_filename,
+  
+  content = function(file) {
+    file.copy(this_excel_filepath, file)
+  }
+  )
 }

@@ -57,8 +57,6 @@ creates_overview_charts_without_median(
 # c) chart title ----
 
 output$type_of_birth_small_multiples_title <- renderText({
-  #paste0("Percentage of singleton live births following ", input$tob, " by Board of ", 
-  #paste0("Percentage of singleton live babies ", input$tob, " by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )
@@ -67,7 +65,7 @@ output$type_of_birth_small_multiples_title <- renderText({
 output$type_of_birth_small_multiples_sub_title <- renderText({
 
   case_match(Selected$Measure_cat,
-         "assisted births" ~ HTML(paste0("Percentage of singleton live births at any gestation that were ",
+         "assisted vaginal births" ~ HTML(paste0("Percentage of singleton live births at any gestation that were ",
                                     input$tob, 
                                     " (includes forceps, ventouse and vaginal breech births)")),
          "all caesarean births" ~ HTML("Percentage of singleton live births at any gestation that were

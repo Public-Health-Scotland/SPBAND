@@ -72,17 +72,23 @@ output$terminations_runcharts_title <- renderText({
 
 # d) download runchartdata
 
-terminations_download <- builds_download_data("TERMINATIONS")
+# terminations_download <- builds_download_data("TERMINATIONS")
+# 
+# 
+# output$terminations_download_data <- downloadHandler(
+#   
+#   filename = function() {
+#       paste0(first(terminations_download$measure), "_", refresh_date, ".csv", sep = "")
+#     },
+#   
+#   content = function(file) {
+#     write.csv(terminations_download, file, row.names = FALSE)
+#     }
+#   )
 
+this_excel_measure_name <- "terminations"
 
-output$terminations_download_data <- downloadHandler(
+output$terminations_download_data <-
   
-  filename = function() {
-      paste0(first(terminations_download$measure), "_", refresh_date, ".csv", sep = "")
-    },
-  
-  content = function(file) {
-    write.csv(terminations_download, file, row.names = FALSE)
-    }
-  )
+  download_excel_file(this_excel_measure_name)
   

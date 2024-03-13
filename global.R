@@ -31,13 +31,34 @@ credentials <- readRDS("admin/credentials.rds")
 
 # date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2023-12-15") 
+refresh_date <- as.Date("2024-03-12") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "12 December 2023" 
+NRS_published_date <- "12 December 2023"
+
+# folder for Excel downloads
+
+excel_downloads_folder <- "data/excel downloads/"
+
+# unzip Excel download files and place them in the 
+
+unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
+      setTimes = TRUE)
+
+# get Excel filenames
+
+excel_filenames <- list.files(excel_downloads_folder)
+
+# set Excel measure names
+
+excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".xlsx"))
+
+# set Excel filepaths
+
+excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
 
 # load latest SMR02 ABC Terminations data
 
@@ -95,7 +116,7 @@ y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not
 
 # STLLBIRTHS SPECIFIC
 
-date_range_NRS <- as.character(unique(NRS_timeseries$quarter_label))
+date_range_NRS <- as.character(unique(NRS_timeseries$date_label))
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
                        date_range_NRS[seq(22, length(date_range_NRS), 2)])
@@ -115,10 +136,10 @@ y_max_NRS <- max(NRS_timeseries$measure_value, na.rm = TRUE) # allows a margin t
 
 # measure_cat_order
 
-measure_cat_order <- c("between 18 and 44 weeks",
-                     "between 37 and 41 weeks",
-                     "between 32 and 36 weeks",
-                     "42 weeks and over",
+measure_cat_order <- c("between 18 and 44 weeks (inclusive)",
+                     "between 37 and 41 weeks (inclusive)",
+                     "between 32 and 36 weeks (inclusive)",
+                     "42 weeks and over (inclusive)",
                      "under 32 weeks",
                      "under 37 weeks"
 )

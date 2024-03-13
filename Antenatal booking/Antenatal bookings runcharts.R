@@ -55,16 +55,21 @@ output$bookings_runcharts_title <- renderText({
 
 # d) download data
 
-bookings_download <- builds_download_data("BOOKINGS")
-
-output$bookings_download_data <- downloadHandler(
-
-  filename = function() {
-      paste0(first(bookings_download$measure), "_", refresh_date, ".csv", sep = "")
-    },
-
-  content = function(file) {
-    write.csv(bookings_download, file, row.names = FALSE)
-    }
-  )
+# bookings_download <- builds_download_data("BOOKINGS")
+# 
+# output$bookings_download_data <- downloadHandler(
+# 
+#   filename = function() {
+#       paste0(first(bookings_download$measure), "_", refresh_date, ".csv", sep = "")
+#     },
+# 
+#   content = function(file) {
+#     write.csv(bookings_download, file, row.names = FALSE)
+#     }
+#   )
   
+this_excel_measure_name <- "bookings"
+
+output$bookings_download_data <-
+  
+  download_excel_file(this_excel_measure_name)

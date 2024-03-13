@@ -16,8 +16,8 @@ type_of_birth_runchart_data <- reactive({
              period == "Q" &
              hbtype == Selected$HBType) %>% 
     mutate(num_label = if_else(measure_cat == "all caesarean births",
-                               paste0("Number of births that were caesarean births: "),
-                               paste0("Number of births that were ", measure_cat, ": ")),
+                               paste0("Number of caesarean births: "),
+                               paste0("Number of ", measure_cat, ": ")),
            measure_label = paste0("Percentage of births that were ", measure_cat, " (%)"),
     ) %>% 
     set_variable_labels(
@@ -83,7 +83,7 @@ output$type_of_birth_runcharts <- renderUI({
     
     fluidRow(
       column(4,
-             h4( "assisted births (includes forceps, ventouse and vaginal breech births)"),
+             h4( "assisted vaginal births (includes forceps, ventouse and vaginal breech births)"),
              plotlyOutput(type_of_birthplotListNames[2])
              ),
       column(7,

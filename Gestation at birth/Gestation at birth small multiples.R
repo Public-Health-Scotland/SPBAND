@@ -9,10 +9,10 @@ Selected$Gestation <- "under 32 weeks"
 
 observeEvent(input$gestation, Selected$Nicename <- case_when(
   input$gestation == "under 32 weeks" ~ "under 32 weeks gestation",
-  input$gestation == "between 32 and 36 weeks" ~ paste0("32", "<sup>+0</sup>",
+  input$gestation == "between 32 and 36 weeks (inclusive)" ~ paste0("32", "<sup>+0</sup>",
                                                          " to 36", "<sup>+6</sup>", " weeks gestation"),
   input$gestation == "under 37 weeks" ~ "under 37 weeks gestation",
-  input$gestation == "42 weeks and over" ~ paste0("42", "<sup>+0</sup>", " weeks gestation and over")
+  input$gestation == "42 weeks and over (inclusive)" ~ paste0("42", "<sup>+0</sup>", " weeks gestation and over")
   )
 )
 
@@ -71,8 +71,6 @@ creates_overview_charts_without_median(
 # c) chart title ----
 
 output$gest_at_birth_small_multiples_title <- renderText({
-  #paste0("Percentage of singleton live births following ", input$tob, " by Board of ",
-  #paste0("Percentage of singleton live babies ", input$tob, " by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )

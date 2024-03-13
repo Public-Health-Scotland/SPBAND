@@ -1,8 +1,11 @@
 # a) data ----
 
 type_of_birthNames = c("all live births", "spontaneous vaginal births",
-                                "unplanned caesarean births", "planned caesarean births",
-                                "assisted births including breech births")
+                       "unplanned caesarean births", "planned caesarean births",
+                       paste(
+                         strwrap(
+                           "assisted vaginal births (including forceps, ventouse, and vaginal breech births)",
+                           width = 50), collapse = "<br>"))
 
 type_of_birth_context_data <- reactive({ 
   # selects data
@@ -14,15 +17,18 @@ data <- type_of_birth_data %>%
            period == "Q" &
            hbtype == Selected$HBType & 
            measure_cat != "all caesarean births") %>%
-  mutate(measure_cat = if_else(measure_cat == "assisted births",
-                             "assisted births including breech births",
-                             measure_cat
-                             )
+  mutate(measure_cat = if_else(measure_cat == "assisted vaginal births",
+                               paste(
+                                 strwrap(
+                                   "assisted vaginal births (including forceps, ventouse, and vaginal breech births)",
+                                   width = 50), collapse = "<br>"),
+                               measure_cat
+                               )
          )
 
 # pick one category to get den (all live births)
 
-den_data <- filter(data, measure_cat == "assisted births including breech births") %>% # pick one category to get den (all live births)
+den_data <- filter(data, measure_cat == "spontaneous vaginal births") %>% # pick one category to get den (all live births)
   mutate(measure_cat = "all live births",
          num = den
          )

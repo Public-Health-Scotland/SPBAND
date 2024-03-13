@@ -1,8 +1,8 @@
 # a) data ----
 
-term <- c("between 18 and 44 weeks", "between 37 and 41 weeks")
+term <- c("between 18 and 44 weeks (inclusive)", "between 37 and 41 weeks (inclusive)")
 
-not_term <- c("under 32 weeks", "between 32 and 36 weeks", "42 weeks and over")
+not_term <- c("under 32 weeks", "between 32 and 36 weeks (inclusive)", "42 weeks and over (inclusive)")
 
 gest_at_birth_context_data <- reactive({ 
   # selects data
@@ -15,7 +15,7 @@ gest_at_birth_context_data <- reactive({
            hbtype == Selected$HBType &
            measure_cat != "under 37 weeks"
   ) %>% 
-  mutate(mytext = if_else(measure_cat == "between 18 and 44 weeks",
+  mutate(mytext = if_else(measure_cat == "between 18 and 44 weeks (inclusive)",
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",

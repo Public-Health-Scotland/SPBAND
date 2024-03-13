@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.2") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          #tags$p("SPBAND_PRA v 1.2") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.3") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND_PRA v 1.3") # this is the PRA dashboard
   )
 )
 
@@ -222,7 +222,7 @@ instructions <-
                         p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
                         ),
                         
-                        "Data are currently available in a comma separated file format. The same data are available from either download button within an measure."
+                        "Data are now available in an accessible Excel file format which contains metadata for the relevant variables. The same data are available from either download button within an measure."
                         )
                  )
                  
@@ -424,11 +424,15 @@ version <-
                  
                  column(12,
                         
-                        p("This dashboard is scheduled to be updated each quarter, generally by the first Tuesday in the months of January, April, July and October."),
+                        p("This dashboard is scheduled to be updated each quarter, generally by the first Tuesday in the months of January, April, July and October."
+                          ),
+                        
+                        p("Data are shown for up to and including the most recent period for which records are considered near complete. Data for the most recent period should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard updated, and data for the most recent periods are likely to change slightly as additional or updated records are added."
+                          ),
                         
                         br(),
                         
-                        p(paste0("The data was last refreshed on ", pretty_refresh_date, ".")
+                        p(paste0("The data were last refreshed on ", pretty_refresh_date, ".")
                           ),
                         
                         br(),
@@ -555,7 +559,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear.",
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear.",
                                class = "notes-style"
                              )
                       ),
@@ -645,7 +649,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear.",
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who had a third- or fourth-degree perineal tear.",
                                class = "notes-style"
                              )
                       ),
@@ -781,7 +785,10 @@ pregnancies_booked <- tabItem(
                              ),
                              
                              p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of pregnancies booked for antenatal care each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file."
+                               )
                       ) # column
                       
                     ) # fluidRow
@@ -861,7 +868,7 @@ pregnancies_booked <- tabItem(
                     
            ) # tabPanel("bookings_datasource")
            
-    ) # tabBox ("Average gestation at booking")
+    ) # tabBox ("Number of pregnancies booked")
     
   ) # fluidRow
   
@@ -1170,10 +1177,11 @@ gestation_at_booking <- tabItem(
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file for the ‘Number of pregnancies booked’ measure.")
                       )
-                      
-                    ) # fluidRow
+                      ) # fluidRow
                     
            ), # tabPanel("gest_at_booking_board")
            
@@ -1528,7 +1536,7 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit (NICU) on site"
+                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occurred in a hospital with a neonatal intensive care unit (NICU) on site"
                              )
                       ),
                       
@@ -1594,7 +1602,7 @@ location_of_ex_pre_term <- tabItem(
                              p("The other lines - centreline, and control and warning limits - are there to help show how unexpected any observed changes are."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site over the entire time period."
+                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occurred in a hospital with a neonatal intensive care unit on site over the entire time period."
                              ),
                              
                              p("Control and warning limits take into consideration the random variation that would be expected by chance, and help us decide when values are unexpectedly low or high and require further investigation."
@@ -2440,7 +2448,7 @@ type_of_birth <- tabItem(
                               tags$li(class= "bullet-points",
                                       "spontaneous vaginal"),
                               tags$li(class= "bullet-points",
-                                      "assisted (including forceps, ventouse, and vaginal breech)"),
+                                      "assisted vaginal (including forceps, ventouse, and vaginal breech)"),
                               tags$li(class= "bullet-points",
                                       "planned (i.e. elective) caesarean"),
                               tags$li(class= "bullet-points",
@@ -2494,7 +2502,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2557,7 +2565,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2611,13 +2619,13 @@ perineal_tears <- tabItem(
                              
                              p(tags$div(
                                HTML(
-                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation at between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who have a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
+                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation at between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
                                  )
                                ) # HTML
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who have a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who had a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -2630,7 +2638,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(10,
-                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation"
+                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation"
                              )
                       ),
                       
@@ -3296,7 +3304,7 @@ stillbirths <- tabItem(
                             " for Scotland, Council Areas and NHS Boards."
                           ),
                           
-                          p(strong("Stillbirths"), " refer to a child born after the 24th week of pregnancy which did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
+                          p(strong("Stillbirths"), " refer to children born after the 24th week of pregnancy (gestations of 24 weeks or longer) that did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
                           ),
                           
                           p(strong("Neonatal deaths"), " refer to deaths in the first four weeks of life. The neonatal death rate is the number of neonatal deaths per 1,000 live births."
@@ -3326,12 +3334,12 @@ stillbirths <- tabItem(
                           p("Within Scotland, the ",
                             
                             tags$a(
-                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/maternity-and-children-quality-improvement-collaborative-mcqic/",
-                              tags$u("Maternal and Children Quality Improvement Collaborative (MCQIC) (external website)"),
+                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/spsp-perinatal/",
+                              tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
-                            
+
                             " focuses on care quality to improve outcomes for babies, children and their mothers. One of the key outcomes they track is stillbirths."
                           ),
                           
@@ -3388,7 +3396,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3452,7 +3460,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3512,7 +3520,12 @@ apgar_scores <- tabItem(
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                             p(tags$div(
+                               HTML(
+                                 paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                                 )
+                               ) # HTML
+                             ) # div
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -3753,7 +3766,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
@@ -3780,7 +3793,7 @@ ui <-
     
    ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -3981,7 +3994,7 @@ server <- function(input, output, session) {
       choiceNames = list("all caesarean", "planned caesarean", "unplanned caesarean",
                          "assisted", "spontaneous vaginal"),
       choiceValues = list("all caesarean births", "planned caesarean births",
-                          "unplanned caesarean births", "assisted births",
+                          "unplanned caesarean births", "assisted vaginal births",
                           "spontaneous vaginal births"),
       selected = "all caesarean births",
       inline = FALSE
@@ -4005,18 +4018,22 @@ server <- function(input, output, session) {
                            )
                          )
       ),
-      choiceValues = list("under 32 weeks", "between 32 and 36 weeks", "under 37 weeks", "42 weeks and over"
+      choiceValues = list("under 32 weeks", "between 32 and 36 weeks (inclusive)", "under 37 weeks", "42 weeks and over (inclusive)"
       ),
       selected = "under 32 weeks",
       inline = FALSE
     )
   })
 
-`Version` <- c("1.0", "1.1", "1.2")
-`Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024")
+`Version` <- c("1.0", "1.1", "1.2", "1.3")
+`Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024")
 `Change` <- c("First public release of SPBAND",
-                    "Amended Home - How to use this dashboard",
-                    "Updated links and standardised titles, labels and metadata")
+              "Amended Home - How to use this dashboard",
+              "Updated links and standardised titles, labels and metadata",
+              "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
+              Replaced CSV download files with accessible Excel download files;
+              Updated links and standardised titles, labels and metadata"
+              )
 
 version_info <- tibble(`Version`, `Date`, `Change`)
 

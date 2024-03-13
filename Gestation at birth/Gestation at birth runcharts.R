@@ -2,7 +2,7 @@
 
 max_plots_gestation_at_birth <- 4
 
-gest_at_birthplotListNames = c("42 weeks and over", "between 32 and 36 weeks", 
+gest_at_birthplotListNames = c("42 weeks and over (inclusive)", "between 32 and 36 weeks (inclusive)", 
                                "under 32 weeks", "under 37 weeks")
 
 y_max_gestation <- reactiveVal(0) # initialise y_max_gestation
