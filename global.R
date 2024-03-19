@@ -27,17 +27,16 @@ source("functions.R")
 
 credentials <- readRDS("admin/credentials.rds")
 
-# tells PRA dashboard where to pick up the latest data from (change each month)
+# change each quarter:
+# refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-# date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
-
-refresh_date <- as.Date("2024-03-12") 
+refresh_date <- as.Date("2024-03-14") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "12 December 2023"
+NRS_published_date <- "12 March 2024"
 
 # folder for Excel downloads
 

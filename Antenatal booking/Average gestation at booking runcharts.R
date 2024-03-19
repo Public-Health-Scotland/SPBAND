@@ -51,11 +51,24 @@ gest_booking <- creates_runcharts(plotdata = gest_at_booking_runchart_data(),
 # c) chart title ----
 
 output$gest_at_booking_runcharts_title <- renderText({
+  if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"),
   paste0("Board of ",
          str_to_sentence(input$organisation),
          ": ",
-         input$hbname
+         input$hbname,
+         "*"),
+  paste0("Board of ",
+         str_to_sentence(input$organisation),
+         ": ",
+         input$hbname)
   )
-})
+  })
+
+# d) correction text for Forth Valley and Tayside
+
+gest_at_booking_correction_text <- 
+
+          "* Correction: We have detected errors in the way that revised medians for average gestation were calculated for NHS Forth Valley and NHS Tayside after changes in the process for recording booking. These errors, and separate errors affecting calculations of shifts relative to these medians, have now been corrected. Further details are given in the notes in the download file."
+  
 
 

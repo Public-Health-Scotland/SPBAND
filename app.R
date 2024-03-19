@@ -523,8 +523,7 @@ multi_indicator_overview <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("multi_indicator_chart_title"
-                             )
+                             textOutput("multi_indicator_chart_title"
                              ),
                              
                              br()
@@ -616,8 +615,7 @@ multi_indicator_overview <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("multi_indicator_table_title"
-                             )
+                             textOutput("multi_indicator_table_title"
                              ), 
                              
                              br()
@@ -724,8 +722,7 @@ pregnancies_booked <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("bookings_runcharts_title"
-                             )
+                             textOutput("bookings_runcharts_title"
                              ),
                              
                              br()
@@ -892,8 +889,7 @@ terminations <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("terminations_runcharts_title"
-                             )
+                             textOutput("terminations_runcharts_title"
                              ),
                              
                              br()
@@ -1045,8 +1041,7 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_booking_small_multiples_title"
-                             )
+                             textOutput("gest_at_booking_small_multiples_title"
                              ),
                              
                              br()
@@ -1108,8 +1103,7 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_booking_runcharts_title"
-                             )
+                             textOutput("gest_at_booking_runcharts_title"
                              ),
                              
                              br()
@@ -1162,6 +1156,10 @@ gestation_at_booking <- tabItem(
                                " publication.",
                                class = "notes-style"),
                              
+                             textOutput("correction") %>%
+                               tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;"),
+
                              hr()
                              
                       ),
@@ -1284,8 +1282,7 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_termination_small_multiples_title"
-                             )
+                             textOutput("gest_at_termination_small_multiples_title"
                              ),
                              
                              br()
@@ -1350,8 +1347,7 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_terminaton_runcharts_title"
-                             )
+                             textOutput("gest_at_terminaton_runcharts_title"
                              ),
                              
                              br()
@@ -1527,8 +1523,7 @@ location_of_ex_pre_term <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("extremely_preterm_control_chart_title"
-                             )
+                             textOutput("extremely_preterm_control_chart_title"
                              ),
                              
                              br()
@@ -1858,8 +1853,7 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("inductions_small_multiples_title"
-                             )
+                             textOutput("inductions_small_multiples_title"
                              ),
                              
                              br()
@@ -1922,8 +1916,7 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("inductions_runcharts_title"
-                             )
+                             textOutput("inductions_runcharts_title"
                              ),
                              
                              br()
@@ -2176,8 +2169,7 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("type_of_birth_small_multiples_title"
-                             )
+                             textOutput("type_of_birth_small_multiples_title"
                              ),
                              
                              br()
@@ -2246,8 +2238,7 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("type_of_birth_runcharts_title"
-                             )
+                             textOutput("type_of_birth_runcharts_title"
                              ),
                              
                              br()
@@ -2493,8 +2484,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("tears_small_multiples_title"
-                             )
+                             textOutput("tears_small_multiples_title"
                              ),
                              
                              br()
@@ -2556,8 +2546,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("tears_runcharts_title"
-                             )
+                             textOutput("tears_runcharts_title"
                              ),
                              
                              br()
@@ -2817,8 +2806,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_birth_small_multiples_title"
-                             )
+                             textOutput("gest_at_birth_small_multiples_title"
                              ),
                              
                              br()
@@ -2888,8 +2876,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_birth_runcharts_title"
-                             )
+                             textOutput("gest_at_birth_runcharts_title"
                              ),
                              
                              br()
@@ -3168,8 +3155,7 @@ stillbirths <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("stillbirths_runcharts_title"
-                             )
+                             textOutput("stillbirths_runcharts_title"
                              ),
                              
                              br()
@@ -3387,8 +3373,7 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("apgar5_small_multiples_title"
-                             )
+                             textOutput("apgar5_small_multiples_title"
                              ),
                              
                              br()
@@ -3451,8 +3436,7 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("apgar5_runcharts_title"
-                             )
+                             textOutput("apgar5_runcharts_title"
                              ),
                              
                              br()
@@ -3967,7 +3951,7 @@ server <- function(input, output, session) {
         inputId = "date",
         label = "Choose time period",
         choices = factor_labels_year,
-        selected = "2022",
+        selected = "2023",
         width = "fit",
         choicesOpt = list(
           style = rep("color: #3F3685;",
@@ -4024,22 +4008,33 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
+  
+  # builds Version table
 
-`Version` <- c("1.0", "1.1", "1.2", "1.3")
-`Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024")
-`Change` <- c("First public release of SPBAND",
-              "Amended Home - How to use this dashboard",
-              "Updated links and standardised titles, labels and metadata",
-              "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
-              Replaced CSV download files with accessible Excel download files;
-              Updated links and standardised titles, labels and metadata"
-              )
-
-version_info <- tibble(`Version`, `Date`, `Change`)
-
-output$version_tbl <- renderTable(version_info, 
-                          striped = TRUE,
-                          bordered = TRUE)
+  `Version` <- c("1.0", "1.1", "1.2", "1.3")
+  `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024")
+  `Change` <- c("First public release of SPBAND",
+                "Amended Home - How to use this dashboard",
+                "Updated links and standardised titles, labels and metadata",
+                "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
+              replaced CSV download files with accessible Excel download files;
+              updated links and standardised titles, labels, legends and metadata"
+  )
+  
+  version_info <- tibble(`Version`, `Date`, `Change`)
+  
+  output$version_tbl <- renderTable(version_info, 
+                                    striped = TRUE,
+                                    bordered = TRUE)
+  
+  # deals with correction to Gestation at Booking for FV and Tayside
+  
+  output$correction <- reactive({
+    
+    if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"), 
+            gest_at_booking_correction_text, "")
+    
+  })
   
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
