@@ -2124,7 +2124,7 @@ inductions <- tabItem(
                             
                             tags$div(
                               HTML(
-                                paste0("For ‘induction of labour’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                                paste0("For ‘induction of labour’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with a known induction status are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                                 )
                               ) # HTML
                             ) # div
@@ -2433,7 +2433,7 @@ type_of_birth <- tabItem(
                           p("The data used for the ‘type of birth’ measure come from the ‘Mode of Delivery’ field on the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
                           ),
                           
-                          p("For ‘type of birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive at any gestation have been used. Type of birth has been categorised as",
+                          p("For ‘type of birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive at any gestation have been used. Only records where type of birth is known are included in the denominator when calculating percentages. Type of birth has been categorised as",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -2760,7 +2760,7 @@ perineal_tears <- tabItem(
                             
                             tags$div(
                               HTML(
-                                paste0("For ‘perineal tears’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive or stillborn between 37",  tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation have been used. Only records with known perineal tear status are included. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                                paste0("For ‘perineal tears’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive or stillborn between 37",  tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation have been used. Only records with known perineal tear status are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                                 )
                               ) # HTML
                             ) #div
@@ -3083,7 +3083,7 @@ gestation_at_birth <- tabItem(
                           p("The data used for the ‘gestation at birth’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
                           ),
                           
-                          p("For ‘gestation at birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive with a known gestation (between 18-44 weeks inclusive) have been used. Gestation at birth has been categorised as ",
+                          p("For ‘gestation at birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive have been used. Only records with a known gestation (between 18-44 weeks inclusive) are included in the denominator when calculating percentages. Gestation at birth has been categorised as ",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -3610,7 +3610,7 @@ apgar_scores <- tabItem(
                           
                           p(tags$div(
                             HTML(
-                              paste0("Babies born pre-term can have lower scores due to their  overall immaturity rather than a specific problem. So, for ‘Apgar scores’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with known Apgar score at 5 minutes following birth are included. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                              paste0("Babies born pre-term can have lower scores due to their  overall immaturity rather than a specific problem. So, for ‘Apgar scores’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with known Apgar score at 5 minutes following birth are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                               )
                             ) # HTML
                           ) # div
