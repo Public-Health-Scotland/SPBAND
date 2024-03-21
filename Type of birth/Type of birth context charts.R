@@ -1,6 +1,6 @@
 # a) data ----
 
-type_of_birthNames = c("all live births", "spontaneous vaginal births",
+type_of_birthNames = c("all live births (where type is known)", "spontaneous vaginal births",
                        "unplanned caesarean births", "planned caesarean births",
                        paste(
                          strwrap(
@@ -29,7 +29,7 @@ data <- type_of_birth_data %>%
 # pick one category to get den (all live births)
 
 den_data <- filter(data, measure_cat == "spontaneous vaginal births") %>% # pick one category to get den (all live births)
-  mutate(measure_cat = "all live births",
+  mutate(measure_cat = "all live births (where type is known)",
          num = den
          )
 
