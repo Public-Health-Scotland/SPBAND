@@ -1,4 +1,4 @@
-# Multi indicator overview - chart ----
+# Multi measure overview - chart ----
 
 # a) data ----
 
@@ -10,7 +10,7 @@ multi_indicator_chart_data <- reactive({
   data <- filter(annual_dataframe,
                  date == Selected$Date
                  & hbtype == Selected$HBType) %>% 
-    arrange(desc(key_measure_ref)) %>% 
+    arrange(desc(MIO_measure_ref)) %>% 
     mutate(label = sub("Percentage", "%", plotlylabel)) %>% 
     select(- plotlylabel) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) # updates the factor levels
@@ -43,11 +43,10 @@ fig <- plot_ly(
     orientation = "h",
     name = "other Boards",
     visible = TRUE,
-    #showlegend = FALSE,
     hovertext = ~ paste0(hbname,
                          ": ",
                          format(
-                           measure,
+                           measure_value,
                            digits = 1, nsmall = 1
                          ),
                          suffix),
@@ -57,6 +56,7 @@ fig <- plot_ly(
                   line = list(color = "#000000", width = 1)), # phs-graphite-50
     size = I(20)
   ) %>% 
+  
     add_markers(data = filter(multi_indicator_chart_data(),
                               hbname == "Scotland"), # dots for Scotland
                 x = ~ RESCALED,
@@ -67,15 +67,17 @@ fig <- plot_ly(
                 marker = list(color = "#000000",
                               line = list(color = "#000000", width = 1) ),
                 size = I(50)) %>%
+  
     add_markers(data = filter(multi_indicator_chart_data(),
                               hbname == as.character(Selected$HBName)), # dots for selected Board
                 x = ~ RESCALED,
                 y = ~ label,
-                name = ~ hbname,
+                name = ~ if_else(hbname %in% island_names, paste0(hbname, "*"), hbname),
                 opacity = 1,
                 marker = list(color = selected_colours[4], # phs-green want #0078D4 phs-blue?
                               line = list(color = "#000000", width = 1)),
                 size = I(50)) %>%
+  
     layout(
       font = plotly_global_font,
       margin = list(pad = 60, r = 90), # makes min (pad) and max (r) values stand clear of lines
@@ -89,7 +91,7 @@ fig <- plot_ly(
                    showticklabels = TRUE,
                    tickfont = list(size = 14),
                    zeroline = TRUE,
-                   categoryorder = "trace"), # plots traces in key_measure_ref order
+                   categoryorder = "trace"), # plots traces in MIO_measure_ref order
       legend = list(orientation = "h",
                     xanchor = "auto",
                     font = list(size = 14),

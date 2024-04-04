@@ -1,7 +1,7 @@
 # a) data ----
 
 extremely_preterm_control_chart_data <- filter(extremely_preterm_data,
-                                               indicator_cat == "NICU_22_26"
+                                               measure_cat == "NICU_22_26"
                                                )
 
 # b) chart ---- 
@@ -10,8 +10,8 @@ extremely_preterm_control_chart <-
   
   plot_ly(
     data = extremely_preterm_control_chart_data,
-    x = ~ quarter_label,
-    y = ~ measure, # percentage
+    x = ~ date_label,
+    y = ~ measure_value, # percentage
     type = "scatter",
     mode = "lines+markers",
     line = list(
@@ -24,11 +24,11 @@ extremely_preterm_control_chart <-
     ),
     name = ~ "percentage",
     hovertext = ~ paste0("Quarter: ",
-                         quarter_label,
+                         date_label,
                          "<br>",
                          "Percentage",
                          ": ",
-                         format(measure,
+                         format(measure_value,
                                 digits = 1,
                                 nsmall = 1),
                          "%"
@@ -36,7 +36,7 @@ extremely_preterm_control_chart <-
     hoverinfo = "text"
   ) %>%
   add_lines(
-    y = ~ `mean`, # mean (centreline)
+    y = ~ centreline, # mean (centreline)
     line = list(
       color = phs_colours("phs-blue"), # dotted blue line
       dash = "4",

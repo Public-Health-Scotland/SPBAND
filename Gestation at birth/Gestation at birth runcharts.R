@@ -2,7 +2,7 @@
 
 max_plots_gestation_at_birth <- 4
 
-gest_at_birthplotListNames = c("42 weeks and over", "between 32 and 36 weeks", 
+gest_at_birthplotListNames = c("42 weeks and over (inclusive)", "between 32 and 36 weeks (inclusive)", 
                                "under 32 weeks", "under 37 weeks")
 
 y_max_gestation <- reactiveVal(0) # initialise y_max_gestation
@@ -16,32 +16,32 @@ gest_at_birth_runchart_data <- reactive ({
     filter(hbname == Selected$HBName &
              period == "Q" &
              hbtype == Selected$HBType &
-             indicator_cat %in% gest_at_birthplotListNames
+             measure_cat %in% gest_at_birthplotListNames
            ) %>% 
-    mutate(num_label = paste0("Number of babies born at ", formatted_name, ": "),
-           measure_label = paste0("Percentage of babies born at ", formatted_name, " (%)"),
+    mutate(num_label = paste0("Number of births that were at ", formatted_name, ": "),
+           measure_label = paste0("Percentage of births that were at ", formatted_name, " (%)"),
     ) %>% 
     set_variable_labels(
-      den = "Total number of babies: ",
+      den = "Total number of births with a known gestation: ",
       median = " average to Oct-Dec 2019",
       extended = " projected average from Jan-Mar 2020") %>% 
       droplevels()
   
   new_labels <- unique(c(data$num_label, data$measure_label))
   
-  new_max <- max(data$measure) # local maximum measure
+  new_max <- max(data$measure_value) # local maximum measure_value
   
-  observeEvent(new_max, {   # update local maximum measure when Board changes
+  observeEvent(new_max, {   # update local maximum measure_value when Board changes
     y_max_gestation(new_max)
   }
   )
   
   data <- data %>% 
-    split(.$indicator_cat)
+    split(.$measure_cat)
   
   for (i in seq_along(data)){
     var_label(data[[i]]$num) <- new_labels[[i]]
-    var_label(data[[i]]$measure) <- new_labels[[i+4]]
+    var_label(data[[i]]$measure_value) <- new_labels[[i+4]]
   }
   
   for (i in seq_along(data)){
@@ -54,8 +54,8 @@ gest_at_birth_runchart_data <- reactive ({
                                var_label(data[[i]]$den),
                                prettyNum(data[[i]]$den, big.mark = ","), #data[[i]]$den,
                                "<br>",
-                               "Percentage of babies: ", # not MEASURE_LABEL - too long
-                               format(data[[i]]$measure,
+                               "Percentage of births: ", # not MEASURE_LABEL - too long
+                               format(data[[i]]$measure_value,
                                       digits = 2,
                                       nsmall = 2),
                                "%")

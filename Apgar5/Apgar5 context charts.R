@@ -10,8 +10,8 @@ data <- apgar5_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Babies with an Apgar5 score less than 7",
-    den = "Babies with a known Apgar5 score"
+    num = "Babies that had an Apgar5 score less than 7",
+    den = "Babies that had a known Apgar5 score"
   ) %>% 
   mutate(mytext1 = paste0("Quarter: ", 
                          quarter_label,

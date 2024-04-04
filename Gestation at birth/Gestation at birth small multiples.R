@@ -4,15 +4,15 @@
 
 # initialise Selected$Nicename
 
-Selected$Nicename <- "under 32 weeks"
+Selected$Nicename <- "under 32 weeks gestation"
 Selected$Gestation <- "under 32 weeks"
 
 observeEvent(input$gestation, Selected$Nicename <- case_when(
-  input$gestation == "under 32 weeks" ~ "under 32 weeks",
-  input$gestation == "between 32 and 36 weeks" ~ paste0("32", "<sup>+0</sup>",
-                                                         " to 36", "<sup>+6</sup>", " weeks"),
-  input$gestation == "under 37 weeks" ~ "under 37 weeks",
-  input$gestation == "42 weeks and over" ~ paste0("42", "<sup>+0</sup>", " weeks and over")
+  input$gestation == "under 32 weeks" ~ "under 32 weeks gestation",
+  input$gestation == "between 32 and 36 weeks (inclusive)" ~ paste0("32", "<sup>+0</sup>",
+                                                         " to 36", "<sup>+6</sup>", " weeks gestation"),
+  input$gestation == "under 37 weeks" ~ "under 37 weeks gestation",
+  input$gestation == "42 weeks and over (inclusive)" ~ paste0("42", "<sup>+0</sup>", " weeks gestation and over")
   )
 )
 
@@ -24,11 +24,11 @@ gest_at_birth_small_multiples_data <- reactive({
   data <- gest_at_birth_data %>%
   filter(hbtype == Selected$HBType &
            period == "Q" &
-           indicator_cat == Selected$Gestation) %>%
+           measure_cat == Selected$Gestation) %>%
     set_variable_labels(
-    measure = paste0("Percentage of births at ",
-                     HTML(Selected$Nicename),
-                     " (%)"),
+    # measure_value = paste0("Percentage of births at ",
+    #                  HTML(Selected$Nicename),
+    #                  " (%)"),
     median = " average to Oct-Dec 2019",
     extended = " projected average from Jan-Mar 2020"
     ) %>% 
@@ -39,9 +39,9 @@ gest_at_birth_small_multiples_data <- reactive({
                            "Quarter: ",
                            quarter_label,
                            "<br>",
-                           "Percentage of babies",
+                           "Percentage of births",
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 2),
                            "%"),
@@ -71,14 +71,12 @@ creates_overview_charts_without_median(
 # c) chart title ----
 
 output$gest_at_birth_small_multiples_title <- renderText({
-  #paste0("Percentage of singleton live births following ", input$tob, " by Board of ",
-  #paste0("Percentage of singleton live babies ", input$tob, " by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )
 })
 
 output$gest_at_birth_small_multiples_sub_title <- renderText({
-  HTML(paste0("Percentage of singleton live babies born at ", Selected$Nicename))
+  HTML(paste0("Percentage of singleton live births that were at ", Selected$Nicename))
 })
 

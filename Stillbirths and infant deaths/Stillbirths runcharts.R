@@ -3,12 +3,12 @@
 stillbirths_runchart_data <-
 
 NRS_timeseries %>%
-  filter(!indicator_cat %like% "total" & # don't want the "total" values
-           quarter_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
+  filter(!measure_cat %like% "total" & # don't want the "total" values
+           date_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
   mutate(measure_label = paste0("Rate per 1,000 ", den_description),
-         date_label = if_else(quarter_label == "2020",
-                              paste0("Year: ", quarter_label),
-                              paste0("Quarter: ", quarter_label)
+         hover_date_label = if_else(date_label == "2020",
+                              paste0("Year: ", date_label),
+                              paste0("Quarter: ", date_label)
          )
          ) %>% 
   set_variable_labels(
@@ -17,11 +17,11 @@ NRS_timeseries %>%
     ) %>% 
     mutate(mytext = paste0(date_label,
                            "<br>",
-                           str_to_sentence(indicator_cat),
+                           str_to_sentence(measure_cat),
                            "<br>",
                            measure_label,
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 1)
                            )
@@ -50,11 +50,11 @@ yaxis_plots[["range"]] <- list(0, y_max_NRS * 1.05) # expands the y-axis range t
 # create plotly chart
 
 stillbirth_charts <- stillbirths_runchart_data %>%
-  split(.$indicator_cat2) %>% 
+  split(.$measure_cat2) %>% 
   lapply(
     function(d)
       plot_ly(d, 
-              x = ~ quarter_label,
+              x = ~ date_label,
               y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
               type = "scatter",
               mode = "lines",
@@ -66,12 +66,12 @@ stillbirth_charts <- stillbirths_runchart_data %>%
               name = "projected average from Jan-Mar 2020", # label of variable
               legendrank = 300, 
               legendgroup = "extended",
-              showlegend = ~ unique(indicator_cat) == "infant deaths",
+              showlegend = ~ unique(measure_cat) == "infant deaths",
               hovertext = "",
               hoverinfo = "none"
               ) %>%
       add_trace(
-        y = ~ measure,
+        y = ~ measure_value,
         type = "scatter",
         mode = "lines+markers",
         line = list(color = "black", # black lines
@@ -81,8 +81,8 @@ stillbirth_charts <- stillbirths_runchart_data %>%
                       size = 5),
         name = "rate per 1,000 related births", # retrieves label of variable
         legendrank = 100,
-        legendgroup = "measure",
-        showlegend = ~ unique(indicator_cat) == "infant deaths",
+        legendgroup = "measure_value",
+        showlegend = ~ unique(measure_cat) == "infant deaths",
         hovertext = ~ mytext,
         hoverinfo = "text"
         ) %>%
@@ -95,7 +95,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         name = "average to Oct-Dec 2019", # label of variable
         legendrank = 200,
         legendgroup = "mean",
-        showlegend = ~ unique(indicator_cat) == "infant deaths",
+        showlegend = ~ unique(measure_cat) == "infant deaths",
         hovertext = ""
         ) %>%
       layout(
@@ -105,7 +105,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         annotations = list(
           x = 0.5,
           y = 1.0,
-          text = ~ unique(indicator_cat),
+          text = ~ unique(measure_cat),
           font = list(size = 16),
           xref = "paper",
           yref = "paper",
@@ -155,14 +155,20 @@ output$stillbirths_runcharts_title <- renderText({
 
 # d) download data
 
-output$stillbirths_download_data <- downloadHandler(
+# output$stillbirths_download_data <- downloadHandler(
+# 
+#   filename = function() {
+#       paste0(first(stillbirths_download$measure), "_", refresh_date, ".csv", sep = "")
+#     },
+# 
+#   content = function(file) {
+#     write.csv(stillbirths_download, file, row.names = FALSE)
+#     }
+#   )
 
-  filename = function() {
-      paste0(first(stillbirths_download$indicator), "_", refresh_date, ".csv", sep = "")
-    },
+this_excel_measure_name <- "stillbirths_and_infant_deaths"
 
-  content = function(file) {
-    write.csv(stillbirths_download, file, row.names = FALSE)
-    }
-  )
+output$stillbirths_download_data <- 
+  
+  download_excel_file(this_excel_measure_name)
   

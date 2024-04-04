@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          tags$p("SPBAND v 1.0") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          # tags$p("SPBAND_PRA v 1.0") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.3") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND_PRA v 1.3") # this is the PRA dashboard
   )
 )
 
@@ -86,7 +86,12 @@ topicmenu <- sidebarMenu(
                        tabName = "apgar_scores",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
+  ) %>% rem_menu_aria_label(),
+  menuItem("Infant feeding",
+           tabName = "infant_feeding",
+           icon = icon("person-breastfeeding", verify_fa = FALSE) |> rem_aria_label()
   ) %>% rem_menu_aria_label()
+
 )
 
 # HOW TO USE THIS DASHBOARD ----
@@ -100,138 +105,147 @@ instructions <-
              
              br(),
              
-             box(solidHeader = TRUE,
-                 width = 12,
-                 
-                 fluidRow(
-                   p(strong("Navigation and filtering")
-                   ),
-                   
-                   column(10,
-                          p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
-                          ),
-                          
-                          p("The left-hand menu can also be hidden (or revealed) by clicking on this toggle button",
-                            img(src = "toggle.png", alt = ""),
-                            " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
-                          ),
-                          
-                          p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
-                          ),
-                          
-                          p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
-                          )
-                   ),
-                   
-                   column(2,
-                          img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 br(),
-                 
-                 fluidRow(
-                   column(10,
-                          p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
-                          ),
-                          
-                          p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
-                          ),
-                          
-                          p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
-                          )
-                   ),
-                   
-                   column(2,
-                          img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("There are three ways to view data")
-                   ),
-                   column(12,
-                          #strong(
-                          tags$ol(
-                            tags$li(class= "bullet-points", "Multi indicator overview"), 
-                            tags$li(class= "bullet-points", "Board comparison"), 
-                            tags$li(class= "bullet-points", "Individual board")
-                          )
-                          #)
-                   )
-                 ), #fluidRow
-                 
-                 fluidRow(
-                   column(12,
-                          p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
-                          ),
-                          
-                          p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
-                          ),
-                          
-                          p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
-                          ),
-                          
-                          p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
-                          )
-                   )
-                 ), #fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Notes on particular measures")
-                   ),
-                   
-                   column(12,
-                          p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
-                          ),
-                          
-                          p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Copying charts and downloading data")
-                   ),
-                   
-                   column(12,
-                          p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
-                          ),
-                          
-                          p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
-                          ),
-                          
-                          "Data are currently available in a comma separated file format. The same data are available from either download button within an measure."
-                          )
-                   )
-                 ), # fluidRow
-                 
-                 br(),
-                 
-                 fluidRow(
-                   p(strong("Tell us what you think")
-                   ),
-                   
-                   column(12,
-                          p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
-                          )
-                   ) # column
-                   
-                 ) # fluidRow
-                 
-             ) # box
+             br(),
              
-           ) # fluidPage
+             p("Click +/- to open and close the sections below", 
+               style = "text-align: right;"),
+             
+             box(title = p(strong("Navigation and filtering")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = FALSE,
+                 
+                 column(10,
+                        p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
+                        ),
+                        
+                        p("The left-hand menu can also be hidden (or revealed) by clicking on this toggle button", img(src = "toggle.png", alt = ""), " at the top of the screen. This can be useful if you are viewing charts on a small computer screen."
+                        ),
+                        
+                        p("Data for individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and  babies"), " sub-menus."
+                        ),
+                        
+                        p("Each measure has an ", strong("About this measure"), " tab which is visible when the measure is selected."
+                        )
+                 ),
+                 
+                 column(2,
+                        img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
+                        )
+                 ),
+                 
+                 br(),
+                 
+                 br(),
+                 
+                 column(10,
+                        p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
+                        ),
+                        
+                        p("Most measures are available by Health Board of Residence (based on home postcode) and by Health Board of Treatment (based on location of care). Individual Boards can be selected unless a measure is only available for Scotland."
+                        ),
+                        
+                        p("Where applicable, time periods can be selected (by calendar year – Jan-Dec, and by financial year – Apr-Mar). Time periods are only relevant to the ", strong("Multi indicator overview"), " and will not be visible when viewing other content."
+                        )
+                 ),
+                 
+                 column(2,
+                        img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
+                        )
+                 )
+                 
+             ) # box "Navigation and filtering"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("There are three ways to view data")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        tags$ol(
+                          tags$li(class = "bullet-points", "Multi indicator overview"), 
+                          tags$li(class = "bullet-points", "Board comparison"), 
+                          tags$li(class = "bullet-points", "Individual board")
+                        )
+                 ),
+                 
+                 column(12,
+                        p("The ", strong("Multi indicator overview"), " shows a selection of the Core measures. All NHS Boards can be compared at once in the ", strong("Board comparison"), " tab. When a Board is selected in the filter panel its values appear as green dots; Scotland values are shown as black dots; the remaining Boards values are shown as light grey dots. The selected Board values can be compared against Scotland in the table shown on the ", strong("Individual board"), " tab."
+                        ),
+                        
+                        p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
+                        ),
+                        
+                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
+                        ),
+                        
+                        p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
+                        )
+                 )
+                 
+             ) # box "There are three ways to view data"
+             
+             %>% rem_button_aria_label(),
+             
+             box(title = p(strong("Notes on particular measures")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
+                        ),
+                        
+                        p("The ", strong("Stillbirths and infant deaths"), " measure also has a ", strong("Scotland"), " tab. This shows simple time series of the relevant rates for stillbirths, neonatal deaths, extended perinatal deaths, post-natal deaths, and infant deaths. Please see the related ", strong("About this measure"), " for more information about these terms. There are no filters applicable to this chart."
+                        )
+                 )
+                 
+             ) # box "Notes on particular measures"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("Copying charts and downloading data")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = TRUE,
+                 collapsed = TRUE,
+                 
+                 column(12,
+                        p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
+                        ),
+                        
+                        p("All charts, including the ", strong("Multi indicator overview"), " have their associated data available to ", strong("download"), " by clicking this button", img(src = "download_button.png", alt = ""     
+                        ),
+                        
+                        "Data are now available in an accessible Excel file format which contains metadata for the relevant variables. The same data are available from either download button within an measure."
+                        )
+                 )
+                 
+             ) # box "Copying charts and downloading data"
+             
+             %>% rem_button_aria_label(), 
+             
+             box(title = p(strong("Tell us what you think")),
+                 status = "primary",
+                 width = 12,
+                 collapsible = FALSE,
+                 collapsed = FALSE,
+                 
+                 column(12,
+                        p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
+                        )
+                 )
+                 
+             ) # box "Tell us what you think"
+             
+             #%>% rem_button_aria_label()
+             
+           ) # fluidRow
            
   ) # tabPanel("How to use this dashboard")
 
@@ -253,19 +267,19 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Shifts:"), " Six or more consecutive data points above or below the centreline. Points on the centreline neither break nor contribute to a shift (marked as a yellow line on charts)."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Trends:"), " Five or more consecutive data points which are increasing or decreasing. An observation that is the same as the preceding value does not count towards a trend (marked as green highlights on charts)."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Too many or too few runs:"), " A run is a sequence of one or more consecutive observations on the same side of the centreline. Any observations falling directly on the centreline can be ignored. If there are too many or too few runs (i.e. the median is crossed too many or too few times) that is a sign of something more than random chance."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Astronomical data point:"), " A data point which is distinctly different from the rest. Different people looking at the same graph would be expected to recognise the same data point as astronomical (or not)."
                    )
                  ),
@@ -276,23 +290,23 @@ patterns <-
                  ),
                  
                  tags$ul(
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Outliers:"), " Data points outside the limits marked by the control limits."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Shifts:"), " Eight or more consecutive data points above or below the centreline.",
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Trends:"), " Six or more consecutive data points which are increasing or decreasing."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Outer one–third:"), " Two out of three consecutive data points which sit between the control and warning limits."
                    ),
                    
-                   tags$li(class= "bullet-points",
+                   tags$li(class = "bullet-points",
                            strong("Inner one-third:"), " 15 or more consecutive data points that lie close to the centreline."
                    )
                  ),
@@ -305,7 +319,7 @@ patterns <-
                  p("Further information on these methods of presenting data can be found in this ",
                    
                    tags$a(
-                     href =  "https://www.isdscotland.org/health-topics/quality-indicators/statistical-process-control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
+                     href = "https://webarchive.nrscotland.gov.uk/20231129152542mp_/https://www.isdscotland.org/Health-Topics/Quality-Indicators/Statistical-Process-Control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
                      tags$u("guide to statistical process control charts (PDF)."),
                      class = "externallink",
                      target = "_blank"
@@ -401,7 +415,7 @@ version <-
            
            fluidRow(
              
-             br(),
+            # br(),
              
              box(solidHeader = TRUE,
                  width = 12,
@@ -409,11 +423,30 @@ version <-
                  br(),
                  
                  column(12,
-                        #strong(
-                        tags$ul(
-                          tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
-                        )
-                        #)
+                        
+                        p("This dashboard is scheduled to be updated each quarter, generally by the first Tuesday in the months of January, April, July and October."
+                          ),
+                        
+                        p("Data are shown for up to and including the most recent period for which records are considered near complete. Data for the most recent period should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard updated, and data for the most recent periods are likely to change slightly as additional or updated records are added."
+                          ),
+                        
+                        br(),
+                        
+                        p(paste0("The data were last refreshed on ", pretty_refresh_date, ".")
+                          ),
+                        
+                        br(),
+                        
+                        p("Small changes to the format of the dashboard are noted with new version numbers as detailed below:"),
+                        
+                        br(),
+                        
+                        tableOutput('version_tbl')
+                        
+                        # tags$ul(
+                        #   tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
+                        #   tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard")
+                        # )
                  )
                  
              ) # box
@@ -425,13 +458,18 @@ version <-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
-  accessible_menu(topicmenu),
-  #textOutput("mytext"),
   useShinyjs(),
+  accessible_menu(topicmenu),
   uiOutput("organisationControl"), # Board of Residence/Treatment
   uiOutput("hbnameControl"), # Board name
-  uiOutput("dateControl") # FY/CY
+  uiOutput("dateControl"), # FY/CY
+  hidden(
+    textInput(inputId = "topics",
+              label = "",
+              value = "home") # forces input$topics to initialise as "home" to make filters appear correctly
+  )
   #uiOutput("subgroupControl") # Age group/SIMD/Ethnicity - not currently used
+  #textOutput("mytext") # for testing
 )
 
 # HOME ----
@@ -452,7 +490,7 @@ home <- tabItem(
            # The id lets us use input$tabset00 on the server to find the current tab
            id = "tabset00",
            width = 12,
-           
+
            instructions,
            
            patterns,
@@ -485,8 +523,7 @@ multi_indicator_overview <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("multi_indicator_chart_title"
-                             )
+                             textOutput("multi_indicator_chart_title"
                              ),
                              
                              br()
@@ -520,14 +557,50 @@ multi_indicator_overview <- tabItem(
                              )
                       ),
                       
+                      column(12,
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear.",
+                               class = "notes-style"
+                             )
+                      ),
+                      
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               "and ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " reports.",
                                class = "notes-style"
                              )
                       )
@@ -542,8 +615,7 @@ multi_indicator_overview <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("multi_indicator_table_title"
-                             )
+                             textOutput("multi_indicator_table_title"
                              ), 
                              
                              br()
@@ -574,14 +646,50 @@ multi_indicator_overview <- tabItem(
                              )
                       ),
                       
+                      column(12,
+                             p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who had a third- or fourth-degree perineal tear.",
+                               class = "notes-style"
+                             )
+                      ),
+                      
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               "and ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " reports.",
                                class = "notes-style"
                              )
                       )
@@ -614,8 +722,7 @@ pregnancies_booked <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("bookings_runcharts_title"
-                             )
+                             textOutput("bookings_runcharts_title"
                              ),
                              
                              br()
@@ -644,7 +751,7 @@ pregnancies_booked <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -653,6 +760,18 @@ pregnancies_booked <- tabItem(
                              p("Source: Public Health Scotland - Antenatal Booking Collection",
                                class = "notes-style"
                              ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                            
+                            " publication.",
+                            class = "notes-style"),
                              
                              hr()
                              
@@ -663,7 +782,10 @@ pregnancies_booked <- tabItem(
                              ),
                              
                              p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of pregnancies booked for antenatal care each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file."
+                               )
                       ) # column
                       
                     ) # fluidRow
@@ -705,7 +827,7 @@ pregnancies_booked <- tabItem(
                           p("Further information based on Antenatal Booking Collection (ABC) data is available from the annual ",
                             tags$a(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
-                              tags$u("Antenatal Booking in Scotland"),
+                              tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
                               target = "_blank"
                             ),
@@ -731,6 +853,9 @@ pregnancies_booked <- tabItem(
                           p("Historic data from April 2019 were also collected as a ‘catch-up’ extract in order to identify all women who were currently pregnant during the COVID-19 period. This was either from the same source or, in NHS Ayrshire & Arran, NHS Tayside and NHS Highland, from the systems in use before the introduction of BadgerNet Maternity."
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                            ),
+                          
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
                           
@@ -740,7 +865,7 @@ pregnancies_booked <- tabItem(
                     
            ) # tabPanel("bookings_datasource")
            
-    ) # tabBox ("Average gestation at booking")
+    ) # tabBox ("Number of pregnancies booked")
     
   ) # fluidRow
   
@@ -764,8 +889,7 @@ terminations <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("terminations_runcharts_title"
-                             )
+                             textOutput("terminations_runcharts_title"
                              ),
                              
                              br()
@@ -794,7 +918,7 @@ terminations <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"                             
                              )
                       ),
@@ -804,6 +928,17 @@ terminations <- tabItem(
                                class = "notes-style"
                              ),
                              
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
+                               class = "notes-style"),
+                             
                              hr()
                              
                       ),
@@ -812,7 +947,7 @@ terminations <- tabItem(
                              p("The black dots connected by a line in the chart above show the number of terminations of pregnancy, for each month, from Jan 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of terminations of pregnancy over the period Jan 2017 to Feb 2020 inclusive. The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) number of terminations of pregnancy each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              )
                       )
                       
@@ -870,6 +1005,9 @@ terminations <- tabItem(
                           p("Data regarding each termination should also be provided directly to PHS for the collation of termination statistics.  In addition to an aggregate notification to the CMO, local service providers record details about the termination on the PHS web-based Termination of Pregnancy Submissions Scotland (ToPSS) system. These details should be saved on the system within 30 days of a termination taking place."
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
                           
@@ -903,8 +1041,7 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_booking_small_multiples_title"
-                             )
+                             textOutput("gest_at_booking_small_multiples_title"
                              ),
                              
                              br()
@@ -934,7 +1071,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -942,7 +1079,19 @@ gestation_at_booking <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - Antenatal Booking Collection",
                                class = "notes-style"
-                             )
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " publication.",
+                               class = "notes-style")
                       )
                     ) # fluidRow
                     
@@ -954,8 +1103,7 @@ gestation_at_booking <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_booking_runcharts_title"
-                             )
+                             textOutput("gest_at_booking_runcharts_title"
                              ),
                              
                              br()
@@ -986,7 +1134,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -996,14 +1144,30 @@ gestation_at_booking <- tabItem(
                                class = "notes-style"
                              ),
                              
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
+                                 tags$u("Antenatal booking in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               " publication.",
+                               class = "notes-style"),
+                             
+                             textOutput("correction") %>%
+                               tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;"),
+
                              hr()
                              
                       ),
                       
                       column(12,
                              p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
-                             ),
-                             
+                               ),
+
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which women booked for their antenatal care (based on gestation at booking measured in completed weeks of pregnancy), for each month, from Apr 2019 onwards."
                              ),
                              
@@ -1011,10 +1175,11 @@ gestation_at_booking <- tabItem(
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
-                             )
+                             ),
+                             
+                             p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file for the ‘Number of pregnancies booked’ measure.")
                       )
-                      
-                    ) # fluidRow
+                      ) # fluidRow
                     
            ), # tabPanel("gest_at_booking_board")
            
@@ -1054,7 +1219,7 @@ gestation_at_booking <- tabItem(
                           p("Further information based on Antenatal Booking Collection (ABC) data is also available from the annual ",
                             tags$a(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
-                              tags$u("Antenatal Booking in Scotland"),
+                              tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
                               target = "_blank"
                             ),
@@ -1079,6 +1244,9 @@ gestation_at_booking <- tabItem(
                           ),
                           
                           p("Historic data from April 2019 were also collected as a ‘catch-up’ extract in order to identify all women who were currently pregnant during the COVID-19 period. This was either from the same source or, in NHS Ayrshire & Arran, NHS Tayside and NHS Highland, from the systems in use before the introduction of BadgerNet Maternity."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
@@ -1114,8 +1282,7 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_termination_small_multiples_title"
-                             )
+                             textOutput("gest_at_termination_small_multiples_title"
                              ),
                              
                              br()
@@ -1148,13 +1315,25 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
                                class = "notes-style"
                              )
                       )
@@ -1168,8 +1347,7 @@ gestation_at_termination <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_terminaton_runcharts_title"
-                             )
+                             textOutput("gest_at_terminaton_runcharts_title"
                              ),
                              
                              br()
@@ -1199,13 +1377,25 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the annual ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
+                                 tags$u("Termination of pregnancy statistics"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " publication.",
                                class = "notes-style"
                              ),
                              
@@ -1297,6 +1487,9 @@ gestation_at_termination <- tabItem(
                           p("Data regarding each termination should also be provided directly to PHS for the collation of termination statistics. In addition to an aggregate notification to the CMO, local service providers record details about the termination on the PHS web-based Termination of Pregnancy Submissions Scotland (ToPSS) system. These details should be saved on the system within 30 days of a termination taking place."
                           ),
                           
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
                           p("Data are shown for up to and including the most recent month for which records are considered near complete. Data for the most recent month should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard page is updated, and data for the most recent months are likely to change slightly as additional or updated records are added."
                           )
                           
@@ -1330,8 +1523,7 @@ location_of_ex_pre_term <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("extremely_preterm_control_chart_title"
-                             )
+                             textOutput("extremely_preterm_control_chart_title"
                              ),
                              
                              br()
@@ -1339,7 +1531,7 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit (NICU) on site*"
+                             p("Percentage of births at 22-26 weeks gestation resulting in a live born baby that occurred in a hospital with a neonatal intensive care unit (NICU) on site"
                              )
                       ),
                       
@@ -1361,19 +1553,25 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p("* Note that this measure differs from the Wider Impacts dashboard measure as it includes babies born at 22 weeks gestation",
-                               class = "notes-style"
-                             )
-                      ),
-                      
-                      column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -1399,7 +1597,7 @@ location_of_ex_pre_term <- tabItem(
                              p("The other lines - centreline, and control and warning limits - are there to help show how unexpected any observed changes are."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the average (mean) of the mean percentage of births at 22-26 weeks gestation resulting in a live born baby that occur in a hospital with a neonatal intensive care unit on site, over the entire time period."
+                             p("To provide a basis for identifying patterns in the data, a dashed  blue line shows the overall percentage of births at 22-26 weeks gestation resulting in a live born baby that occurred in a hospital with a neonatal intensive care unit on site over the entire time period."
                              ),
                              
                              p("Control and warning limits take into consideration the random variation that would be expected by chance, and help us decide when values are unexpectedly low or high and require further investigation."
@@ -1432,13 +1630,25 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1487,16 +1697,16 @@ location_of_ex_pre_term <- tabItem(
                             " that when a woman is thought to be at imminent risk of extremely pre-term delivery she should be transferred to a maternity unit in a hospital with an on-site neonatal intensive care unit to allow her baby (or babies in the case of a multiple pregnancy of twins or more) to be born in the safest place. In addition, whilst the overall number of neonatal units is not changing in Scotland, the number of units that are classed as ",
                             
                             tags$a(
-                              href = "https://www.bapm.org/resources/296-draft-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk",
+                              href = "https://www.bapm.org/resources/296-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk-2021",
                               tags$u("neonatal intensive care units (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
                             
-                            "(also known as level III units, that is, those able to provide the most complex, specialist care) is reducing over time in line with ",
+                            "(also known as level III units, that is those able to provide the most complex, specialist care) is reducing over time in line with ",
                             
                             tags$a(
-                              href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
+                              href = "https://www.gov.scot/publications/five-year-forward-plan-maternity-neonatal-services-neonatal-intensive-care-options-appraisal-report/",
                               tags$u("national policy (external website)"),
                               class = "externallink",
                               target = "_blank"
@@ -1509,10 +1719,11 @@ location_of_ex_pre_term <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           ),
                           
                           p("The ",
@@ -1548,6 +1759,9 @@ location_of_ex_pre_term <- tabItem(
                               )
                             ) # HTML
                           ) # div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Information on which hospitals have had a neonatal intensive care unit on site over the time period of interest (from January 2018), and associated dates, has been provided by the ",
@@ -1598,7 +1812,7 @@ location_of_ex_pre_term <- tabItem(
                               paste0("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2019 to 31 March 2020, live births recorded on SMR02 represented 98.8% of the live births registered by law with National Records of Scotland. In addition, the recording of specific data items allowing identification of births between 22", tags$sup("+0"), " and 26", tags$sup("+6"), " weeks gestation, and the location of these births, is very complete. Since January 2018, the recording of gestation at birth on SMR02 was known and within the range 18-44 weeks in 99.7% of births. Location of birth was recorded in 100% of episodes. The latest ",
                                      
                                      tags$a(
-                                       href = "https://www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
+                                       href = "https://webarchive.nrscotland.gov.uk/20231129152352/http:/www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
                                        tags$u("Data Quality Assessment Report (PDF)"),
                                        class = "externallink",
                                        target = "_blank"
@@ -1639,8 +1853,7 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("inductions_small_multiples_title"
-                             )
+                             textOutput("inductions_small_multiples_title"
                              ),
                              
                              br()
@@ -1648,7 +1861,7 @@ inductions <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton live births at 37-42 weeks gestation following induction of labour"
+                             p("Percentage of singleton live births at 37-42 weeks gestation that followed induction of labour"
                              )
                       ),
                       
@@ -1670,13 +1883,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                                                          p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1691,8 +1916,7 @@ inductions <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("inductions_runcharts_title"
-                             )
+                             textOutput("inductions_runcharts_title"
                              ),
                              
                              br()
@@ -1701,7 +1925,7 @@ inductions <- tabItem(
                       
                       column(10,
                              p("Percentage of singleton live births at 37-42 weeks gestation
-                                following induction of labour"
+                                that followed induction of labour"
                              )
                       ),
                       
@@ -1723,13 +1947,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -1778,13 +2014,25 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1854,7 +2102,7 @@ inductions <- tabItem(
                               target = "_blank"
                             ),
                             
-                            "where other data tables and charts are available."
+                            "report where other data tables and charts are available."
                           )
                       ), # box
                       
@@ -1876,10 +2124,13 @@ inductions <- tabItem(
                             
                             tags$div(
                               HTML(
-                                paste0("For ‘induction of labour’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                                paste0("For ‘induction of labour’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with a known induction status are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                                 )
                               ) # HTML
                             ) # div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters is likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -1918,8 +2169,7 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("type_of_birth_small_multiples_title"
-                             )
+                             textOutput("type_of_birth_small_multiples_title"
                              ),
                              
                              br()
@@ -1956,13 +2206,25 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -1976,8 +2238,7 @@ type_of_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("type_of_birth_runcharts_title"
-                             )
+                             textOutput("type_of_birth_runcharts_title"
                              ),
                              
                              br()
@@ -2006,13 +2267,25 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2056,7 +2329,7 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
@@ -2064,6 +2337,18 @@ type_of_birth <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
                                class = "notes-style" 
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
+                               class = "notes-style"
                              )
                       )
                     ) # fluidRow
@@ -2126,10 +2411,11 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ), # box
                       
@@ -2147,13 +2433,13 @@ type_of_birth <- tabItem(
                           p("The data used for the ‘type of birth’ measure come from the ‘Mode of Delivery’ field on the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
                           ),
                           
-                          p("For ‘type of birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive at any gestation have been used. Type of birth has been categorised as",
+                          p("For ‘type of birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive at any gestation have been used. Only records where type of birth is known are included in the denominator when calculating percentages. Type of birth has been categorised as",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
                                       "spontaneous vaginal"),
                               tags$li(class= "bullet-points",
-                                      "assisted (including forceps, ventouse, and vaginal breech)"),
+                                      "assisted vaginal (including forceps, ventouse, and vaginal breech)"),
                               tags$li(class= "bullet-points",
                                       "planned (i.e. elective) caesarean"),
                               tags$li(class= "bullet-points",
@@ -2162,6 +2448,9 @@ type_of_birth <- tabItem(
                           ),
                           
                           p("A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change sightly as additional SMR02 records are submitted to PHS."
@@ -2195,8 +2484,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("tears_small_multiples_title"
-                             )
+                             textOutput("tears_small_multiples_title"
                              ),
                              
                              br()
@@ -2204,7 +2492,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2226,13 +2514,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2246,8 +2546,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("tears_runcharts_title"
-                             )
+                             textOutput("tears_runcharts_title"
                              ),
                              
                              br()
@@ -2255,7 +2554,7 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation who have a third- or fourth-degree perineal tear"
+                             p("Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear"
                              )
                       ),
                       
@@ -2277,13 +2576,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2297,13 +2608,13 @@ perineal_tears <- tabItem(
                              
                              p(tags$div(
                                HTML(
-                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who have a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
+                                 paste0("The black dots connected by a line in the chart above show the percentage of women giving birth vaginally to a singleton baby (born alive or stillborn) with a cephalic presentation at between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards."
                                  )
                                ) # HTML
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who have a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who had a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -2316,7 +2627,7 @@ perineal_tears <- tabItem(
                     
                     fluidRow(
                       column(10,
-                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation between 37-42 weeks gestation"
+                             p("Number of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation"
                              )
                       ),
                       
@@ -2332,13 +2643,25 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2437,10 +2760,13 @@ perineal_tears <- tabItem(
                             
                             tags$div(
                               HTML(
-                                paste0("For ‘perineal tears’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive or stillborn between 37",  tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation have been used. Only records with known perineal tear status are included. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                                paste0("For ‘perineal tears’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive or stillborn between 37",  tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation have been used. Only records with known perineal tear status are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                                 )
                               ) # HTML
                             ) #div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional  SMR02 records are submitted to PHS."
@@ -2480,8 +2806,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_birth_small_multiples_title"
-                             )
+                             textOutput("gest_at_birth_small_multiples_title"
                              ),
                              
                              br()
@@ -2518,13 +2843,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2539,8 +2876,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("gest_at_birth_runcharts_title"
-                             )
+                             textOutput("gest_at_birth_runcharts_title"
                              ),
                              
                              br()
@@ -2548,7 +2884,7 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton live babies born at the stated gestation",
+                             p("Percentage of singleton live births that were at the stated gestation",
                                style = "font-weight: normal;
                                          text-align: left;"
                              )
@@ -2571,13 +2907,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -2589,10 +2937,10 @@ gestation_at_birth <- tabItem(
                              p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
                              ),
                              
-                             p("The black dots connected by a line in the chart above show the percentage of singleton babies born alive (with known gestation; 18-44 weeks) that were born at the stated gestation, for each quarter, from Jan-Mar 2017 onwards."
+                             p("The black dots connected by a line in the chart above show the percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive (with known gestation; 18-44 weeks) that were born at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -2606,7 +2954,7 @@ gestation_at_birth <- tabItem(
                     
                     fluidRow(
                       column(10,
-                             p("Number of singleton live babies born at the stated gestation"
+                             p("Number of singleton live births that were at the stated gestation"
                              )
                       ),
                       
@@ -2622,13 +2970,25 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information is available from the PHS annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -2686,10 +3046,11 @@ gestation_at_birth <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ), # box
                       
@@ -2722,7 +3083,7 @@ gestation_at_birth <- tabItem(
                           p("The data used for the ‘gestation at birth’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
                           ),
                           
-                          p("For ‘gestation at birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive with a known gestation (between 18-44 weeks inclusive) have been used. Gestation at birth has been categorised as ",
+                          p("For ‘gestation at birth’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive have been used. Only records with a known gestation (between 18-44 weeks inclusive) are included in the denominator when calculating percentages. Gestation at birth has been categorised as ",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -2754,6 +3115,9 @@ gestation_at_birth <- tabItem(
                             ),
                             
                             "A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -2791,8 +3155,7 @@ stillbirths <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("stillbirths_runcharts_title"
-                             )
+                             textOutput("stillbirths_runcharts_title"
                              ),
                              
                              br()
@@ -2856,7 +3219,7 @@ stillbirths <- tabItem(
                              p("The black dots connected by a line in the charts above show the mortality rate for each particular measure, for each quarter, from Jan-Mar 2016 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (mean) rate each quarter over the period Jan-Mar 2016 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (mean) rate over the period Jan-Mar 2016 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
                              )
                       )
                       
@@ -2927,7 +3290,7 @@ stillbirths <- tabItem(
                             " for Scotland, Council Areas and NHS Boards."
                           ),
                           
-                          p(strong("Stillbirths"), " refer to a child born after the 24th week of pregnancy which did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
+                          p(strong("Stillbirths"), " refer to children born after the 24th week of pregnancy (gestations of 24 weeks or longer) that did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
                           ),
                           
                           p(strong("Neonatal deaths"), " refer to deaths in the first four weeks of life. The neonatal death rate is the number of neonatal deaths per 1,000 live births."
@@ -2957,12 +3320,12 @@ stillbirths <- tabItem(
                           p("Within Scotland, the ",
                             
                             tags$a(
-                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/maternity-and-children-quality-improvement-collaborative-mcqic/",
-                              tags$u("Maternal and Children Quality Improvement Collaborative (MCQIC) (external website)"),
+                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/spsp-perinatal/",
+                              tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
-                            
+
                             " focuses on care quality to improve outcomes for babies, children and their mothers. One of the key outcomes they track is stillbirths."
                           ),
                           
@@ -3010,8 +3373,7 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("apgar5_small_multiples_title"
-                             )
+                             textOutput("apgar5_small_multiples_title"
                              ),
                              
                              br()
@@ -3019,7 +3381,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3041,13 +3403,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -3062,8 +3436,7 @@ apgar_scores <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p(textOutput("apgar5_runcharts_title"
-                             )
+                             textOutput("apgar5_runcharts_title"
                              ),
                              
                              br()
@@ -3071,7 +3444,7 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(10,
-                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that have a 5-minute Apgar score of less than 7"
+                             p("Percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7"
                              )
                       ),
                       
@@ -3093,13 +3466,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              ),
                              
@@ -3119,7 +3504,12 @@ apgar_scores <- tabItem(
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                             p(tags$div(
+                               HTML(
+                                 paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                                 )
+                               ) # HTML
+                             ) # div
                              ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
@@ -3149,13 +3539,25 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date),
+                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
                              p("Source: Public Health Scotland - SMR02",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information based on SMR02 data is available from the annual",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " report.",
                                class = "notes-style"
                              )
                       )
@@ -3208,10 +3610,13 @@ apgar_scores <- tabItem(
                           
                           p(tags$div(
                             HTML(
-                              paste0("Babies born pre-term can have lower scores due to their  overall immaturity rather than a specific problem. So, for ‘Apgar scores’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with known Apgar score at 5 minutes following birth are included. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                              paste0("Babies born pre-term can have lower scores due to their  overall immaturity rather than a specific problem. So, for ‘Apgar scores’, SMR02 records for episodes of care for singletons (i.e. one baby, not twins or more) born alive between 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation inclusive have been used. Only records with known Apgar score at 5 minutes following birth are included in the denominator when calculating percentages. A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
                               )
                             ) # HTML
                           ) # div
+                          ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -3224,10 +3629,11 @@ apgar_scores <- tabItem(
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland report."),
+                              tags$u("Births in Scotland"),
                               class = "externallink",
                               target = "_blank"
-                            )
+                            ),
+                            " report."
                           )
                       ) # box
                     ) # fluidRow
@@ -3239,6 +3645,81 @@ apgar_scores <- tabItem(
   ) # fluidRow
   
 ) # tabItem ("apgar_scores")
+
+# INFANT FEEDING ----
+
+infant_feeding <- tabItem(
+  tabName = "infant_feeding",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("Infant feeding"
+        )
+    )
+  ),
+  
+  fluidRow(
+    column(12,
+           div(class = "shiny-text-output",
+               p("Infant Feeding Information",
+                 style = "padding: 20px 0 14px 0;"
+               )
+           )
+    )
+  ),
+  
+  box(solidHeader = TRUE,
+      width = 12,
+      
+      p("Infant feeding information is available in a ",
+        
+        tags$a(
+          href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+          tags$u("Health in the Early Years in Scotland (HEYS) Dashboard"),
+          class = "externallink",
+          target = "_blank"
+        ),
+        
+        "also published by Public Health Scotland"
+      ),
+      
+      br(),
+      
+      p("HEYS is a sister dashboard that presents data on measures related to breastfeeding and early child development in Scotland."
+      ),
+      
+      p("This includes: ",
+        
+        tags$ul(
+          tags$li(class = "bullet-points",
+                  strong("Infant feeding:"), " exclusive breastfeeding; overall breastfeeding; and 'ever breastfed', based on data collected at Health Visitor reviews at 10-14 days and 6-8 weeks;"
+          ),
+          
+          tags$li(class = "bullet-points",
+                  strong("Child development:"), " developmental concerns based on data collected at reviews at 13-15 months, 27-30 months and 4-5 years."
+          )
+          
+        )
+      ),
+      
+      p("For all measures data are presented for each Health Board and Council Area of Residence (based on home postcode)."
+      ),
+      
+      br(),
+
+      tags$a(
+        href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
+        class = "externallink",
+        target = "_blank",
+        tags$img(src = "HEYS.png",
+                 alt = "Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 title = "Typical representation of the Health in the Early Years in Scotland (HEYS) Dashboard landing page",
+                 width = "90%",
+                 height = "90%")
+      )
+
+  ) # box
+  
+) # tabItem ("infant_feeding")
 
 # BODY ----
 
@@ -3260,7 +3741,8 @@ body <- dashboardBody(
     perineal_tears,
     gestation_at_birth,
     stillbirths,
-    apgar_scores
+    apgar_scores,
+    infant_feeding
   ) # tabItems
   
 ) # dashboardBody
@@ -3268,22 +3750,22 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
-    useShinyjs(),  # Include shinyjs
+    #useShinyjs(),  # Include shinyjs
     tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
     tags$head(
       HTML(
         "<html lang='en'>"),
       tags$link(rel="shortcut icon",
                 href="favicon_phs.ico"), # Icon for browser tab
-      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard")
+      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"),
     ),
     # Including Google analytics
     # includeScript("google-analytics.js")),
     
     dashboardPage(
-      
+
       header,
       
       sidebar,
@@ -3291,10 +3773,11 @@ ui <-
       body
       
     ) # dashboardPage
+  
     
-  ) # tagList
+   ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -3302,16 +3785,15 @@ server <- function(input, output, session) {
     check_credentials = check_credentials(credentials)
   )
   
-  cdata <- session$clientData
+  #cdata <- session$clientData
   
   Selected <- reactiveValues(HBType = "RESIDENCE",
                              HBName = "Scotland",
                              Date = "2020/21",
                              Subgroup = "Age group",
-                             Indicator_cat = "all caesarean births",
+                             Measure_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
-                             Nicename = "under 32 weeks",
-                             Topic = "home")
+                             Nicename = "under 32 weeks")
   
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
@@ -3321,67 +3803,73 @@ server <- function(input, output, session) {
   
   observeEvent(input$gestation, Selected$Gestation <- input$gestation)
   
-  observeEvent(input$topics, Selected$Topic <- input$topics)
+  # observeEvent(input$link_to_patterns, {
+  #   updateTabsetPanel(getDefaultReactiveDomain(),
+  #                     "tabset00",
+  #                     "patterns")
+  # })
   
   # this observeEvent sets the current tabset back to the first tabPanel when a new tabset is selected from the
   # menu - this is needed to trigger the filter selections correctly
   
   observeEvent(input$topics,
-               
+
                if (input$topics %in% names(tabnames)) {
+
+                 # updateTabsetPanel(getDefaultReactiveDomain(),
+                 #                   "tabset00", # home
+                 #                   "instructions") 
                  
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset00", # home
-                                   "instructions")
-                 
+                 # removed as this was switching back to "instructions" if you clicked on another tab too soon after opening the dashboard - should not affect the workings as filters are not dependent on the tab selected here
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset01", # multi_indicator_overview
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset10", # pregnancies_booked
                                    "Individual board")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset11", # terminations
                                    "Individual board")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset12", # gestation_at_booking
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset13", # gestation_at_termination
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset20", # location_of_ex_pre_term
                                    "Scotland")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset21", # inductions
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset22", # type_of_birth
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset23", # perineal_tears
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset24", # gestation_at_birth
                                    "Board comparison")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset25", # stillbirths
                                    "Scotland")
-                 
+
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset26", # apgar_scores
                                    "Board comparison")
-                 
+
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
   )
@@ -3399,7 +3887,8 @@ server <- function(input, output, session) {
   observeEvent(input$tabset24, Selected$Tabset <- input$tabset24)
   observeEvent(input$tabset25, Selected$Tabset <- input$tabset25)
   observeEvent(input$tabset26, Selected$Tabset <- input$tabset26)
-  # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
+
+    # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
   
   # select ORGANISATION (RESIDENCE or TREATMENT)
   
@@ -3462,7 +3951,7 @@ server <- function(input, output, session) {
         inputId = "date",
         label = "Choose time period",
         choices = factor_labels_year,
-        selected = "2022",
+        selected = "2023",
         width = "fit",
         choicesOpt = list(
           style = rep("color: #3F3685;",
@@ -3489,7 +3978,7 @@ server <- function(input, output, session) {
       choiceNames = list("all caesarean", "planned caesarean", "unplanned caesarean",
                          "assisted", "spontaneous vaginal"),
       choiceValues = list("all caesarean births", "planned caesarean births",
-                          "unplanned caesarean births", "assisted births",
+                          "unplanned caesarean births", "assisted vaginal births",
                           "spontaneous vaginal births"),
       selected = "all caesarean births",
       inline = FALSE
@@ -3513,20 +4002,48 @@ server <- function(input, output, session) {
                            )
                          )
       ),
-      choiceValues = list("under 32 weeks", "between 32 and 36 weeks", "under 37 weeks", "42 weeks and over"
+      choiceValues = list("under 32 weeks", "between 32 and 36 weeks (inclusive)", "under 37 weeks", "42 weeks and over (inclusive)"
       ),
       selected = "under 32 weeks",
       inline = FALSE
     )
   })
   
-  # output$mytext <- renderText({
-  #   paste0("Topic = ", input$topics)
+  # builds Version table
+
+  `Version` <- c("1.0", "1.1", "1.2", "1.3")
+  `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024")
+  `Change` <- c("First public release of SPBAND",
+                "Amended Home - How to use this dashboard",
+                "Updated links and standardised titles, labels and metadata",
+                "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
+              replaced CSV download files with accessible Excel download files;
+              updated links and standardised titles, labels, legends and metadata"
+  )
+  
+  version_info <- tibble(`Version`, `Date`, `Change`)
+  
+  output$version_tbl <- renderTable(version_info, 
+                                    striped = TRUE,
+                                    bordered = TRUE)
+  
+  # deals with correction to Gestation at Booking for FV and Tayside
+  
+  output$correction <- reactive({
+    
+    if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"), 
+            gest_at_booking_correction_text, "")
+    
+  })
+  
+  # output$mytext <- renderText({ # for testing
+  #   paste0("Topic = ", input$topics) 
   # })
-  # 
-  # observe(print(paste0("Topic = ", input$topics)))
+
+  # observeEvent(input$link_to_patterns, print(input$link_to_patterns))
+  # observeEvent(input$topics, print(paste0("Topic = ", input$topics)))
   # observe(print(paste0("Selected Tabset = ", Selected$Tabset)))
-  # # observe(print(paste0("Indicator_cat = ", Selected$Indicator_cat)))
+  # observe(print(paste0("Measure_cat = ", Selected$Measure_cat)))
   # observe(print(paste0("Home: ", input$tabset00)))
   # observe(print(paste0("MIO: ", input$tabset01)))
   # observe(print(paste0("Pregnancies booked: ", input$tabset10)))
@@ -3614,6 +4131,7 @@ server <- function(input, output, session) {
   source("Apgar5/Apgar5 context charts.R", local = TRUE)
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
+  
 }
 
 shinyApp(ui, server)  

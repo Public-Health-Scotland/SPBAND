@@ -9,12 +9,12 @@ admin/
 # 'data' folder #
 data/
 
-# 'renv' folder #
-renv/
-renv.lock
+# 'rsconnect' folder
 
-# rsconnect folder
 rsconnect/
+
+# Bev's test folder
+Bev testing these/
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
@@ -29,4 +29,3 @@ rsconnect/
 # R data files #
 *.[rR][dD][aA][tT][aA]
 *.[rR][dD][sS]
-packrat/lib*/

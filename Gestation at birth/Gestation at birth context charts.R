@@ -1,8 +1,8 @@
 # a) data ----
 
-term <- c("between 18 and 44 weeks", "between 37 and 41 weeks")
+term <- c("between 18 and 44 weeks (inclusive)", "between 37 and 41 weeks (inclusive)")
 
-not_term <- c("under 32 weeks", "between 32 and 36 weeks", "42 weeks and over")
+not_term <- c("under 32 weeks", "between 32 and 36 weeks (inclusive)", "42 weeks and over (inclusive)")
 
 gest_at_birth_context_data <- reactive({ 
   # selects data
@@ -13,20 +13,20 @@ gest_at_birth_context_data <- reactive({
   filter(hbname == Selected$HBName &
            period == "Q" &
            hbtype == Selected$HBType &
-           indicator_cat != "under 37 weeks"
+           measure_cat != "under 37 weeks"
   ) %>% 
-  mutate(mytext = if_else(indicator_cat == "between 18 and 44 weeks",
+  mutate(mytext = if_else(measure_cat == "between 18 and 44 weeks (inclusive)",
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
-                                 "Number of babies born with a known gestation (18-44 weeks)",
+                                 "Number of singleton live births with a known gestation (18-44 weeks)",
                                  ": ",
                                  prettyNum(num, big.mark = ",")
                           ),
                           paste0("Quarter: ",
                                  quarter_label,
                                  "<br>",
-                                 "Number of babies born at ",
+                                 "Number of singleton live births at ",
                                  formatted_name,
                                  ": ",
                                  prettyNum(num, big.mark = ",")
@@ -61,12 +61,12 @@ xaxis_plots[["tickvals"]] <- select_date_tickvals
 xaxis_plots[["ticktext"]] <- select_date_ticktext
 
 yaxis_plots <- orig_yaxis_plots
-yaxis_plots[["title"]] <- list(text = "Number of babies",
+yaxis_plots[["title"]] <- list(text = "Number of births",
                                standoff = 30) # distance between axis and chart
 
 term_chart <- plot_ly(
   data = filter(gest_at_birth_context_data(),
-                indicator_cat %in% term),
+                measure_cat %in% term),
   x = ~ date,
   y = ~ num,
   type = "scatter",
@@ -86,7 +86,7 @@ term_chart <- plot_ly(
 
 not_term_chart <- plot_ly(
   data = filter(gest_at_birth_context_data(),
-                indicator_cat %in% not_term),
+                measure_cat %in% not_term),
   x = ~ date,
   y = ~ num,
   type = "scatter",

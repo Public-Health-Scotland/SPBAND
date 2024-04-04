@@ -9,7 +9,7 @@ gest_at_booking_runchart_data <- reactive({
     filter(hbname == Selected$HBName &
              hbtype == Selected$HBType) %>%
     set_variable_labels(
-      measure = "Average gestation at booking",
+      measure_value = "Average gestation at booking",
       median = "average gestation to end Feb 2020",
       extended = 
         case_when(Selected$HBName == "NHS Forth Valley" ~ 
@@ -21,9 +21,9 @@ gest_at_booking_runchart_data <- reactive({
     mutate(mytext = paste0("Month: ", 
                            format(date, "%b %Y"),
                            "<br>",
-                           var_label(measure),
+                           var_label(measure_value),
                            ": ",
-                           format(measure,
+                           format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks")
@@ -51,11 +51,24 @@ gest_booking <- creates_runcharts(plotdata = gest_at_booking_runchart_data(),
 # c) chart title ----
 
 output$gest_at_booking_runcharts_title <- renderText({
+  if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"),
   paste0("Board of ",
          str_to_sentence(input$organisation),
          ": ",
-         input$hbname
+         input$hbname,
+         "*"),
+  paste0("Board of ",
+         str_to_sentence(input$organisation),
+         ": ",
+         input$hbname)
   )
-})
+  })
+
+# d) correction text for Forth Valley and Tayside
+
+gest_at_booking_correction_text <- 
+
+          "* Correction: We have detected errors in the way that revised medians for average gestation were calculated for NHS Forth Valley and NHS Tayside after changes in the process for recording booking. These errors, and separate errors affecting calculations of shifts relative to these medians, have now been corrected. Further details are given in the notes in the download file."
+  
 
 

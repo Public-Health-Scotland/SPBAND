@@ -1,4 +1,4 @@
-# Multi indicator overview - table ----
+# Multi measure overview - table ----
 
 # a) data ----
 
@@ -16,13 +16,13 @@ multi_indicator_table_data_scot <- reactive({
                    hbname == "Scotland" &
                    hbtype == Selected$HBType
                  ) %>%
-    arrange(key_measure_ref) %>%
-    mutate(label = sub("Percentage", "%", key_measure_label)) %>% 
+    arrange(MIO_measure_ref) %>%
+    mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
-    pivot_wider(names_from = hbname, values_from = measure, values_fill = 0) %>%
+    pivot_wider(names_from = hbname, values_from = measure_value, values_fill = 0) %>%
     ungroup() %>% 
     rename(SCOT_MEASURE = Scotland) %>% 
-    select(period, hbtype, key_measure_ref, indicator, label, suffix, date, SCOT_MEASURE)
+    select(period, hbtype, MIO_measure_ref, measure, label, suffix, date, SCOT_MEASURE)
   
   if (is.null(data()))
   {
@@ -48,12 +48,12 @@ multi_indicator_table_data_hb <- reactive({
                    hbname == Selected$HBName &
                    hbtype == Selected$HBType
   ) %>%
-    arrange(key_measure_ref) %>%
-    mutate(label = sub("Percentage", "%", key_measure_label)) %>% 
+    arrange(MIO_measure_ref) %>%
+    mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
     ungroup() %>% 
     left_join(., multi_indicator_table_data_scot()) %>% # joins Scotland data
-    select(label, measure, SCOT_MEASURE, suffix)
+    select(label, measure_value, SCOT_MEASURE, suffix)
 
   if (is.null(data()))
   {
@@ -69,7 +69,10 @@ multi_indicator_table_data_hb <- reactive({
 
 # pull header names from the table
 header.names <- reactive ({
-  c("", Selected$HBName, "Scotland", "")
+  c("", if_else(input$hbname %in% island_names,
+                paste0(Selected$HBName, "*"),
+                Selected$HBName),
+    "Scotland", "")
  })
 
 # the container parameter allows us to design the header of the table using CSS
@@ -113,7 +116,7 @@ output$mytable <-
     
     my.table <- formatRound(
       my.table,
-      columns = c("measure", "SCOT_MEASURE"), 1)
+      columns = c("measure_value", "SCOT_MEASURE"), 1)
   })
 
 # c) title

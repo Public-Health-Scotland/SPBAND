@@ -1,7 +1,6 @@
 # load packages - needs to be reviewed
 
 library(labelled)
-#library(Hmisc)
 library(data.table)
 library(DT)
 library(shiny)
@@ -28,33 +27,53 @@ source("functions.R")
 
 credentials <- readRDS("admin/credentials.rds")
 
-# tells PRA dashboard where to pick up the latest data from (change each month)
+# change each quarter:
+# refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-# date the MatNeo data are refreshed, used on each dashboard chart page - autopopulates them
-
-refresh_date <- as.Date("2023-09-19") 
+refresh_date <- as.Date("2024-03-14") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "12 September 2023" 
+NRS_published_date <- "12 March 2024"
 
-# load latest matneo data
+# folder for Excel downloads
 
-load("data/matneodata.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+excel_downloads_folder <- "data/excel downloads/"
+
+# unzip Excel download files and place them in the 
+
+unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
+      setTimes = TRUE)
+
+# get Excel filenames
+
+excel_filenames <- list.files(excel_downloads_folder)
+
+# set Excel measure names
+
+excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".xlsx"))
+
+# set Excel filepaths
+
+excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
+
+# load latest SMR02 ABC Terminations data
+
+load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 # load latest extreme pre-term data
 
 # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
-extremely_preterm_data <- readRDS("data/extremely_preterm_data.rds") 
+extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds") 
 
-# load latest NRS data
+# load latest NRS stillbirths & infant deaths data
 
-NRS_timeseries <- readRDS("data/NRS_data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
-# split runchart_dataframe into individual indicator dataframes
+# split runchart_dataframe into individual measure dataframes
 
 bookings_data <- load_and_split_dataframe("BOOKINGS")
 gest_at_booking_data <- load_and_split_dataframe("GESTATION AT BOOKING")
@@ -92,11 +111,11 @@ SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "sh
 #                                         "<br>",
 #                                         substr(SMR02_multiples_date_ticktext, 9, 13))
 
-y_max_type_of_birth <- max(type_of_birth_data$measure, na.rm = TRUE) # not sure this is still needed
+y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not sure this is still needed
 
 # STLLBIRTHS SPECIFIC
 
-date_range_NRS <- as.character(unique(NRS_timeseries$quarter_label))
+date_range_NRS <- as.character(unique(NRS_timeseries$date_label))
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
                        date_range_NRS[seq(22, length(date_range_NRS), 2)])
@@ -104,22 +123,22 @@ NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balanc
 NRS_date_ticktext <- NRS_date_tickvals
 
 stillbirths_download <- NRS_timeseries %>% 
-  select("dataset", "hbtype", "hbname", "period", "date", "indicator", "indicator_cat", "num", "den", 
-         "measure", "mean", "extended", "suffix", "num_description", "den_description",
-         "measure_description")
+  select("dataset", "hbtype", "hbname", "period", "date", "measure", "measure_cat", "num", "den", 
+         "measure_value", "mean", "extended", "suffix", "num_description", "den_description",
+         "measure_value_description")
 
-y_max_NRS <- max(NRS_timeseries$measure, na.rm = TRUE) # allows a margin to be set around y-axis
+y_max_NRS <- max(NRS_timeseries$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
 
 # GESTATION AT BIRTH SPECIFIC
 
-# create a tibble with "nice" (superscript text) gestations for gestation at birth indicator
+# create a tibble with "nice" (superscript text) gestations for gestation at birth measure
 
-# indicator_order
+# measure_cat_order
 
-indicator_order <- c("between 18 and 44 weeks",
-                     "between 37 and 41 weeks",
-                     "between 32 and 36 weeks",
-                     "42 weeks and over",
+measure_cat_order <- c("between 18 and 44 weeks (inclusive)",
+                     "between 37 and 41 weeks (inclusive)",
+                     "between 32 and 36 weeks (inclusive)",
+                     "42 weeks and over (inclusive)",
                      "under 32 weeks",
                      "under 37 weeks"
 )
@@ -127,22 +146,22 @@ indicator_order <- c("between 18 and 44 weeks",
 # formatted_name is the factor which controls the order in which the context charts legends should appear
 
 formatted_name <- c(paste0("all known gestations (18", "<sup>+0</sup>", " to 44", "<sup>+6</sup>", " weeks)"),
-                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks"),
-                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks"),
-                    paste0("42", "<sup>+0</sup>", " weeks and over"),
-                    "under 32 weeks",
-                    "under 37 weeks"
+                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks gestation"),
+                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks gestation"),
+                    paste0("42", "<sup>+0</sup>", " weeks gestation and over"),
+                    "under 32 weeks gestation",
+                    "under 37 weeks gestation"
                     )
 
-nicename <- tibble(indicator_order, formatted_name)
+nicename <- tibble(measure_cat_order, formatted_name)
 
 nicename$formatted_name <- factor(nicename$formatted_name, levels = formatted_name)
 
-rm(indicator_order)
+rm(measure_cat_order)
 
 gest_at_birth_data <- left_join(gest_at_birth_data,
                                 nicename,
-                                by = c("indicator_cat" = "indicator_order")
+                                by = c("measure_cat" = "measure_cat_order")
                                 )
 
 # create static labels for the runchart legends
@@ -154,22 +173,22 @@ orig_shift_label <-
 
 # useful groupings for telling Shiny when to show the different drop-down filters
 
-tabnames <- 1:13
+tabnames <- 1:14
 
 names(tabnames) <- 
   c("home", "multi_indicator_overview", "pregnancies_booked",
     "terminations", "gestation_at_booking", "gestation_at_termination",
     "location_of_ex_pre_term", "inductions", "type_of_birth",
     "perineal_tears", "gestation_at_birth", "stillbirths",
-    "apgar_scores")
+    "apgar_scores", "infant_feeding")
 
-show_org <- names(tabnames[!tabnames %in% c(1, 7, 12)]) # don't show organisation selection in "home",
-                                                     # "location_of_ex_pre_term", "stillbirths" 
+show_org <- names(tabnames[!tabnames %in% c(1, 7, 12, 14)]) # don't show organisation selection in "home",
+                                                     # "location_of_ex_pre_term", "stillbirths", "infant_feeding"
 
 show_HBname <- names(tabnames[tabnames %in% c(2, 3, 4)]) # show HB selection in "multi_indicator_overview",
                                                         # "pregnancies_booked", "terminations"
 
-show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12)]) # the remaining indicators
+show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the remaining measures
 
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )

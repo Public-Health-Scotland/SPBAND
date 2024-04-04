@@ -10,7 +10,7 @@ data <- tears_data %>%
            period == "Q" &
            hbtype == Selected$HBType) %>%
   set_variable_labels(
-    num = "Women who have a 3rd or 4th degree perineal tear",
+    num = "Women who had a 3rd or 4th degree perineal tear",
     den = "Women with a known perineal tear status"
   ) %>% 
   mutate(mytext1 = paste0("Quarter: ", 
