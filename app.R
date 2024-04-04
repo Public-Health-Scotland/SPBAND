@@ -641,14 +641,12 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             textOutput("gest_at_termination_runcharts_footnote1") %>%
-                               tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;"),
-                             # p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for  ‘Average gestation at termination’ are based on the data for those three boards combined.",
-                             #   class = "notes-style"
-                             # )
+                             p(textOutput("gest_at_termination_runcharts_footnote1") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             ),
                       ),
-
+                      
                       column(12,
                              p("^ Shortened label for clarity. Full label is: % of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at between 37-42 weeks gestation who had a third- or fourth-degree perineal tear.",
                                class = "notes-style"
@@ -1380,12 +1378,10 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             textOutput("gest_at_termination_runcharts_footnote2") %>%
+                             p(textOutput("gest_at_termination_runcharts_footnote2") %>%
                                tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;"),
-                             # p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
-                             #   class = "notes-style"
-                             # )
+                                                   text-align: left;")
+                               )
                       ),
                       
                       column(12,

@@ -223,10 +223,10 @@ HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & 
 
 # order for small multiple charts in average gestation at termination
 
-HBnames_alternative <- list("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
-                            "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
-                            "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside",	"NHS Orkney,
-                            NHS Shetland and NHS Western Isles*"
+HBnames_alternative <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
+                         "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
+                         "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside",
+                         "NHS Orkney, NHS Shetland and NHS Western Isles*"
 )
 
 # order for multiple charts
