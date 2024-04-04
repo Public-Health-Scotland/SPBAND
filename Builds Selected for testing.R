@@ -1,5 +1,5 @@
-Date <-  "Jun 2019"
+Date <-  "2019"
 HBType <- "RESIDENCE"
-HBName <- "Scotland"
+HBName <- "NHS Fife"
 
 Selected <- data.frame(Date, HBType, HBName)

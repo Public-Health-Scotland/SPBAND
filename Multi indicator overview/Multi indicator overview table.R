@@ -64,7 +64,7 @@ multi_indicator_table_data_hb <- reactive({
   {
     return()
   }
-  
+
   else {
     data
   }
