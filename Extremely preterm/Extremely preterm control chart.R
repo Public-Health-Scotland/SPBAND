@@ -36,7 +36,7 @@ extremely_preterm_control_chart <-
     hoverinfo = "text"
   ) %>%
   add_lines(
-    y = ~ `mean`, # mean (centreline)
+    y = ~ centreline, # mean (centreline)
     line = list(
       color = phs_colours("phs-blue"), # dotted blue line
       dash = "4",
