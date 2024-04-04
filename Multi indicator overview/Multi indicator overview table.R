@@ -45,8 +45,13 @@ multi_indicator_table_data_hb <- reactive({
   
   data <- filter(annual_dataframe,
                  date == Selected$Date &
-                   hbname == Selected$HBName &
-                   hbtype == Selected$HBType
+                   hbtype == Selected$HBType &
+                   if(Selected$HBName %in% island_names) {
+                     hbname == HBName_terminations | 
+                       hbname == Selected$HBName} 
+                 
+                 else {hbname == Selected$HBName
+                 } 
   ) %>%
     arrange(MIO_measure_ref) %>%
     mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 

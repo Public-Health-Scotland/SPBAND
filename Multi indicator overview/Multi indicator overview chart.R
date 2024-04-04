@@ -30,11 +30,17 @@ multi_indicator_chart_data <- reactive({
 output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
   # creates bullet chart
   
-fig <- plot_ly(
+  fig <- plot_ly(
     data = filter(
       multi_indicator_chart_data(),
-      !hbname %in% c("Scotland",
-                     as.character(Selected$HBName)) # dots for non-selected Boards exc. Scotland
+      if(Selected$HBName %in% island_names){ # Orkney, Shetland, Western Isles
+        !hbname %in% c("Scotland",
+                       as.character(Selected$HBName),
+                       HBName_terminations)
+      } else {
+        !hbname %in% c("Scotland",
+                       Selected$HBName)
+      } # dots for non-selected Boards exc. Scotland
     ),
     x = ~ RESCALED,
     y = ~ label,
@@ -128,7 +134,30 @@ fig <- plot_ly(
                                   xref = "paper",
                                   yref = "y"
   )
-})
+  
+  fig <- if(Selected$HBName %in% island_names) {
+    
+    fig %>% 
+      
+      add_markers(data = filter(multi_indicator_chart_data(),
+                                hbname == HBName_terminations # dots for Island Boards (av gest at termination)
+      ),
+      x = ~ RESCALED,
+      y = ~ label,
+      name = ~ hbname,
+      opacity = 1,
+      marker = list(color = selected_colours[4], # phs-green want #0078D4 phs-blue?
+                    line = list(color = "#000000", width = 1)),
+      size = I(50),
+      showlegend = FALSE
+      )
+    
+  } else {
+    
+    fig
+    
+  }
+  })
 
 # c) title
 
