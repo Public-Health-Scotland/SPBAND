@@ -9,6 +9,9 @@ admin/
 # 'data' folder #
 data/
 
+# 'rsconnect' folder #
+rsconnect/
+
 # Bev's test folder
 Bev testing these/
 

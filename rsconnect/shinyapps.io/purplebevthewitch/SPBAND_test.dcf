@@ -5,6 +5,8 @@ account: purplebevthewitch
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9881267
-bundleId: 8445925
+bundleId: 8454111
 url: https://purplebevthewitch.shinyapps.io/SPBAND_test/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE

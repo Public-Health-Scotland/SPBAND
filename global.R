@@ -65,12 +65,13 @@ load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connec
 
 # temporary test of combined Island board average gestation at termination data
 
-annual_dataframe <- annual_dataframe %>% 
-  mutate(hbname = if_else((dataset == "TERMINATIONS" & hbname == "NHS Fife"),
-    "NHS Orkney, NHS Shetland and NHS Western Isles",
-    hbname
-    )
-  )
+annual_dataframe_island <- 
+  filter(annual_dataframe, dataset == "TERMINATIONS" & hbname == "NHS Fife") %>% 
+  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
+
+annual_dataframe <- bind_rows(annual_dataframe, annual_dataframe_island)
+
+rm(annual_dataframe_island)
 
 # load latest extreme pre-term data
 
@@ -96,13 +97,13 @@ apgar5_data <- load_and_split_dataframe("APGAR5")
 
 # temporary test of combined Island board average gestation at termination data
 
-gest_at_termination_data <- gest_at_termination_data %>% 
-  mutate(hbname = if_else(
-    hbname == "NHS Fife",
-    "NHS Orkney, NHS Shetland and NHS Western Isles*",
-    hbname
-    )
-  )
+gest_at_termination_data_island <- 
+  filter(gest_at_termination_data, hbname == "NHS Fife") %>% 
+  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
+
+gest_at_termination_data <- bind_rows(gest_at_termination_data, gest_at_termination_data_island)
+
+rm(gest_at_termination_data_island)
 
 # set up x-axis chart labels
 
