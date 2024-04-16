@@ -13,10 +13,7 @@ gest_at_termination_small_multiples_data <- reactive({
       extended = " projected average gestation from Mar 2020 to end Jul 2020"
     ) %>% 
     mutate(hbname2 = factor(hbname, 
-                            levels = c("Scotland", "NHS Ayrshire & Arran", "NHS Borders",
-                                       "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
-                                       "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
-                                       "NHS Lanarkshire", "NHS Lothian", "NHS Tayside")),
+                            levels = HBnames_alternative), # includes grouped Island Boards),
            mytext = paste0(hbname,
                            "<br>",
                            "Month: ", 

@@ -9,12 +9,13 @@ admin/
 # 'data' folder #
 data/
 
-# 'rsconnect' folder
-
+# 'rsconnect' folder #
 rsconnect/
 
 # Bev's test folder
 Bev testing these/
+
+Builds Selected for testing.R
 
 # Common text files that may contain data #
 *.[cC][sS][vV]

@@ -20,12 +20,13 @@ terminations_runchart_data <- reactive({
                          ": ",
                          prettyNum(measure_value, big.mark = ",")),
          trend = NA, # to prevent this line being plotted
-         shift = NA, # ditto
-         hbname2 = factor(hbname, 
-                          levels = c("NHS Ayrshire & Arran", "NHS Borders",
-                                     "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
-                                     "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
-                                     "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland")))
+         shift = NA # ditto
+         # hbname2 = factor(hbname, 
+         #                  levels = c("NHS Ayrshire & Arran", "NHS Borders",
+         #                             "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
+         #                             "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
+         #                             "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland"))
+         )
   
   if (is.null(data()))
   {
