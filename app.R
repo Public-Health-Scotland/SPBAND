@@ -180,7 +180,7 @@ instructions <-
                         p("Individual measures are available in the ", strong("Pregnancy"), " and ", strong("Births and babies"), "sub-menus. Most measures will have ", strong("Board comparison"), " and ", strong("Individual board"), " tabs. Those that are only available for Scotland will have a ", strong("Scotland"), " tab instead."
                         ),
                         
-                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
+                        p("Where applicable, ", strong("Board comparison"), " tabs show simple time series charts for all NHS Boards in a grouped layout. These are usually shown on the same scale to allow easy comparison over the same time periods. Where necessary, Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) may have a different y-axis to allow the mainland Boards charts to be easier to read. Note there are no individual charts available for the Island Boards for the ‘Gestation at termination’ measure as small numbers are disclosive. If an Island Board is selected in the filter panel the values relating to this measure will be aggregated values for NHS Orkney, NHS Shetland and NHS Western Isles combined. The charts default to show data by NHS Board of Residence but the filter is available to switch to NHS Board of Treatment." 
                         ),
                         
                         p(strong("Individual board"), " tabs show a more detailed time series chart (‘Number of pregnancies booked’, ‘Number of terminations’) or run chart (all other measures excluding the ‘Location of extremely pre-term births’ and ‘Stillbirths and infant deaths’). The charts default to show data for Scotland but the filters are available to change the content. Some measures also have a ‘context’ chart below the run charts. These show time series of counts of the data, for example, singleton live births at any gestation by type of birth and all live births."
@@ -552,7 +552,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("* No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for  ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
                              )
                       ),
@@ -641,9 +641,10 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p("* No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
-                               class = "notes-style"
-                             )
+                             p(textOutput("gest_at_termination_runcharts_footnote1") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             ),
                       ),
                       
                       column(12,
@@ -1309,7 +1310,7 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p("No values are shown for ‘Average gestation at termination’ for the Island Boards due to small numbers.",
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
                              )
                       ),
@@ -1374,6 +1375,13 @@ gestation_at_termination <- tabItem(
                              
                              br()
                              
+                      ),
+                      
+                      column(12,
+                             p(textOutput("gest_at_termination_runcharts_footnote2") %>%
+                               tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                               )
                       ),
                       
                       column(12,
@@ -4035,6 +4043,15 @@ server <- function(input, output, session) {
             gest_at_booking_correction_text, "")
     
   })
+  
+  # footnote for MIO table and Av gestation at termination runcharts (Island Boards)
+
+  output$gest_at_termination_runcharts_footnote1 <- 
+    output$gest_at_termination_runcharts_footnote2 <- renderText({
+      if(input$hbname %in% island_names) {
+        "* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined."
+      }
+    })
   
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
