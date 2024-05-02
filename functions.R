@@ -413,7 +413,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
   
   a <- list(
     x = max(plotdata$date), 
-    y = 11,
+    y = 11.5,
     xref ="x",
     yref = "y",
     xanchor = 'right',
