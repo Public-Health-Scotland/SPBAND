@@ -3,6 +3,11 @@
 .RData
 .Ruserdata
 
+Builds Selected for testing.R
+
+# 'test' folder #
+test/
+
 # 'admin' folder #
 admin/
 
@@ -11,11 +16,6 @@ data/
 
 # 'rsconnect' folder #
 rsconnect/
-
-# Bev's test folder
-Bev testing these/
-
-Builds Selected for testing.R
 
 # Common text files that may contain data #
 *.[cC][sS][vV]
