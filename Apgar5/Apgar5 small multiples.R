@@ -3,28 +3,30 @@
 apgar5_small_multiples_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$organisation)
   
   data <- apgar5_data %>%
-    filter(hbtype == Selected$HBType & period == "Q") %>%
-    # set_variable_labels(
-    #   measure_value = "Percentage of singleton live births at 37-42 weeks gestation that had a 5 minute Apgar score of <7 (%)",
-    #   median = " average to Oct-Dec 2019",
-    #   extended = " projected average from Jan-Mar 2020"
-    # ) %>% 
-  mutate(mytext = paste0(hbname,
+    filter(hbtype == Selected$HBType) %>%
+    mutate(mytext = paste0(hbname,
                            "<br>",
-                         "Quarter: ", 
-                         quarter_label,
-                         "<br>",
-                         "Percentage of babies", # babies have apgar scores not births
-                         ": ",
-                         format(measure_value,
-                                digits = 1,
-                                nsmall = 2),
-                         "%"),
-        date = quarter_label
-  )
+                           "Quarter: ", 
+                           quarter_label,
+                           "<br>",
+                           "Percentage of babies", # babies have apgar scores not births
+                           ": ",
+                           format(measure_value,
+                                  digits = 1,
+                                  nsmall = 2),
+                           "%"),
+           date = quarter_label,
+           hbgroup = factor(if_else(hbname %in% island_names, "island", "mainland"),
+                            levels = c("mainland", "island"), ordered = TRUE)
+    ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+    ) %>%
+    ungroup()
+
   
   
   if (is.null(data()))
@@ -35,15 +37,16 @@ apgar5_small_multiples_data <- reactive({
   else {
     data
   }
+  
 })
 
 # b) chart ---- 
 
 output$apgar5_small_multiples <- renderPlotly({
 
-creates_overview_charts_without_median(plotdata = apgar5_small_multiples_data()
-                                       )
-  
+subplot_mainland_island_small_multiples(
+  plotdata = apgar5_small_multiples_data()
+  )
 })
 
 # c) chart title ----

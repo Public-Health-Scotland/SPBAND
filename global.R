@@ -119,17 +119,8 @@ SMR02_date_range <- unique(inductions_data$date)
 SMR02_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 2)]
 SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 
-# SMR02_date_ticktext <- paste0(substr(SMR02_date_ticktext, 1,7),
-#                               "<br>",
-#                               substr(SMR02_date_ticktext, 9, 13))
-
-
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
-
-# SMR02_multiples_date_ticktext <- paste0(substr(SMR02_multiples_date_ticktext, 1,7),
-#                                         "<br>",
-#                                         substr(SMR02_multiples_date_ticktext, 9, 13))
 
 y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not sure this is still needed
 
@@ -212,6 +203,8 @@ show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the r
 
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
+
+island_names_alternative <- "NHS Orkney, NHS Shetland and NHS Western Isles*"
 
 # order for HB dropdown filter and small multiple charts
 

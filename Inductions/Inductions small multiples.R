@@ -3,36 +3,46 @@
 inductions_small_multiples_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$organisation)
   
   data <- inductions_data %>%
-    filter(hbtype == Selected$HBType & period == "Q") %>%
-    set_variable_labels(
-      measure_value = "Percentage of births that followed induction (%)",
-      median = " average to Oct-Dec 2019",
-      extended = " projected average from Jan-Mar 2020"
-    ) %>% 
-  mutate(mytext = paste0(hbname,
+    filter(hbtype == Selected$HBType) %>%
+    mutate(mytext = paste0(hbname,
                            "<br>",
-                         "Quarter: ", 
-                         quarter_label,
-                         "<br>",
-                         "Percentage of births",
-                         ": ",
-                         format(measure_value,
-                                digits = 1,
-                                nsmall = 1),
-                         "%"),
-        date = quarter_label
-  )
-
-})
+                           "Quarter: ", 
+                           quarter_label,
+                           "<br>",
+                           "Percentage of births",
+                           ": ",
+                           format(measure_value,
+                                  digits = 1,
+                                  nsmall = 1),
+                           "%"),
+           date = quarter_label,
+           hbgroup = factor(if_else(hbname %in% island_names, "island", "mainland"),
+                            levels = c("mainland", "island"), ordered = TRUE)
+           ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+           ) %>%
+    ungroup()
+  
+  if (is.null(data()))
+  {
+    return()
+  }
+  
+  else {
+    data
+  }
+  
+  })
 
 # b) chart ---- 
 
 output$inductions_small_multiples <- renderPlotly({
 
-creates_overview_charts_without_median(
+subplot_mainland_island_small_multiples(
   plotdata = inductions_small_multiples_data()
   )
 })

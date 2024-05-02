@@ -18,20 +18,12 @@ observeEvent(input$gestation, Selected$Nicename <- case_when(
 
 gest_at_birth_small_multiples_data <- reactive({
   # selects data
-
-  #req(input$period)
-
+  
+  req(input$organisation)
+  
   data <- gest_at_birth_data %>%
-  filter(hbtype == Selected$HBType &
-           period == "Q" &
-           measure_cat == Selected$Gestation) %>%
-    set_variable_labels(
-    # measure_value = paste0("Percentage of births at ",
-    #                  HTML(Selected$Nicename),
-    #                  " (%)"),
-    median = " average to Oct-Dec 2019",
-    extended = " projected average from Jan-Mar 2020"
-    ) %>% 
+    filter(hbtype == Selected$HBType &
+             measure_cat == Selected$Gestation) %>%
     mutate(mytext = paste0(hbname,
                            ": ",
                            formatted_name,
@@ -45,25 +37,31 @@ gest_at_birth_small_multiples_data <- reactive({
                                   digits = 1,
                                   nsmall = 2),
                            "%"),
-           date = quarter_label
-           )
-
+           date = quarter_label,
+           hbgroup = factor(if_else(hbname %in% island_names, "island", "mainland"),
+                            levels = c("mainland", "island"), ordered = TRUE)
+    ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+    ) %>%
+    ungroup()
+  
   if (is.null(data))
   {
     return()
   }
-
+  
   else {
     data
   }
+  
 })
-
 
 # b) chart ---- 
 
 output$gest_at_birth_small_multiples <- renderPlotly({
 
-creates_overview_charts_without_median(
+subplot_mainland_island_small_multiples(
   plotdata = gest_at_birth_small_multiples_data()
   )
 })

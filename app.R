@@ -1063,7 +1063,7 @@ gestation_at_booking <- tabItem(
                       column(11,
                              loading(
                                plotlyOutput("gest_at_booking_small_multiples",
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
@@ -1303,25 +1303,33 @@ gestation_at_termination <- tabItem(
                       
                       column(11,
                              loading(
-                               plotlyOutput("gest_at_termination_small_multiples",  
-                                            height = "35em"
+                               plotlyOutput("gest_at_termination_small_multiples_mainland",  
+                                            height = "32em"
                                )
                              )
                       ),
                       
-                      column(12,
+                      br(),
+                      
+                      column(4,
+                             loading(
+                               plotlyOutput("gest_at_termination_small_multiples_island",  
+                                            height = "13em"
+                               )
+                             )
+                      ),
+                      
+                      column(8,
+                             br(),
+                             
                              p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three boards combined.",
                                class = "notes-style"
-                             )
-                      ),
-                      
-                      column(12, 
+                             ),
+                             
                              p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
-                             )
-                      ),
-                      
-                      column(12,
+                             ),
+                             
                              p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
                                class = "notes-style"
                              ),
@@ -1882,7 +1890,7 @@ inductions <- tabItem(
                       column(11,
                              loading(
                                plotlyOutput("inductions_small_multiples",
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
@@ -2199,7 +2207,7 @@ type_of_birth <- tabItem(
                       column(10,
                              loading(
                                plotlyOutput("type_of_birth_small_multiples",
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
@@ -2513,7 +2521,7 @@ perineal_tears <- tabItem(
                       column(11,
                              loading(
                                plotlyOutput("tears_small_multiples",  
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
@@ -2836,7 +2844,7 @@ gestation_at_birth <- tabItem(
                       column(10,
                              loading(
                                plotlyOutput("gest_at_birth_small_multiples",
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
@@ -3402,7 +3410,7 @@ apgar_scores <- tabItem(
                       column(11,
                              loading(
                                plotlyOutput("apgar5_small_multiples",
-                                            height = "35em"
+                                            height = "40em"
                                )
                              ),
                              
