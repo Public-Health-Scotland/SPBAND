@@ -4,6 +4,7 @@
 .Ruserdata
 
 Builds Selected for testing.R
+miniapp.R
 
 # 'test' folder #
 test/
