@@ -405,8 +405,9 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
   
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
-  # yaxis_plots[["title"]] <- list(
-  #   standoff = 30) # distance between axis title and tick labels
+  plot_heights = if(first(plotdata$hbgroup) == "mainland") {
+    
+    c(0.2, 0.25, 0.25, 0.2)} else {0.75}
   
   # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
@@ -458,7 +459,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
             font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
-            plot_bgcolor='#ecebf3', 
+            #plot_bgcolor='#ecebf3', 
             annotations = list(
               x = 0.5,
               y = 1.0,
@@ -495,7 +496,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
             font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
-            plot_bgcolor='#ecebf3',
+            #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
             annotations = list(
               x = 0.5,
@@ -534,7 +535,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
             font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
-            plot_bgcolor='#ecebf3',
+            #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
             annotations = list(
               x = 0.5,
@@ -552,7 +553,8 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
   
   overview <- overview %>%
     subplot(nrows = if_else(first(plotdata$hbgroup) == "mainland", 4, 1),
-            #margin = c(0.01, 0.01, 0.04, 0.04),
+            heights = plot_heights,
+            margin = c(0.01, 0.01, 0.05, 0.05), # gives more room between plots
             shareX = TRUE,
             shareY = TRUE) %>% 
     layout(annotations = list(text = ~ yaxislabelswitch,
@@ -585,7 +587,8 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
       plotdata %>% 
       split(.$hbgroup) %>% 
       map(\(df) creates_small_multiple_charts_without_median_test(df)) %>% 
-      subplot(nrows = 2, heights = c(0.8, 0.2))
+      subplot(nrows = 2, heights = c(0.8, 0.2), margin = c(0.01, 0.01, 0.05, 0.01)) # seems to give 
+    # separation between mainland and island plots
 
   } else {
 
@@ -615,8 +618,6 @@ creates_runcharts <- function(plotdata,
                               hover = "mytext",
                               centreline = "median",
                               dottedline = "extended",
-                              #trend = "orig_trend",
-                              #shift = "orig_shift",
                               yaxislabel = "Percentage of births (%)"){
   
   y_max <- max(plotdata$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
@@ -687,8 +688,8 @@ creates_runcharts <- function(plotdata,
       "TEARS" ~ "Percentage of women (%)",
       "APGAR5" ~ "Percentage of babies (%)",
       .default = yaxislabel
-      ),
-    standoff = 30) # distance between axis and chart
+      )
+    )
   
   yaxis_plots[["tickformat"]] <- 
     if_else(first(plotdata$measure) %in% c("APGAR5", "TEARS"),

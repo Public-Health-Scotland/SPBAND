@@ -27,7 +27,7 @@ multi_indicator_chart_data <- reactive({
 
 # b) bullet chart ----
 
-output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
+output$multi_indicator_chart <- renderPlotly({
   # creates bullet chart
   
   fig <- plot_ly(
@@ -36,7 +36,7 @@ output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
       if(Selected$HBName %in% island_names){ # Orkney, Shetland, Western Isles
         !hbname %in% c("Scotland",
                        as.character(Selected$HBName),
-                       HBName_terminations)
+                       "NHS Orkney, NHS Shetland and NHS Western Isles*")
       } else {
         !hbname %in% c("Scotland",
                        Selected$HBName)
@@ -140,7 +140,7 @@ output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
     fig %>% 
       
       add_markers(data = filter(multi_indicator_chart_data(),
-                                hbname == HBName_terminations # dots for Island Boards (av gest at termination)
+                                hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*" # dots for Island Boards (av gest at termination)
       ),
       x = ~ RESCALED,
       y = ~ label,
@@ -161,7 +161,7 @@ output$multi_indicator_chart <- output$multi_indicator_chart2 <- renderPlotly({
 
 # c) title
 
-output$multi_indicator_chart_title <- output$multi_indicator_chart_title2 <- renderText({
+output$multi_indicator_chart_title <- renderText({
   paste0("Core measures, by Board of ",
          str_to_sentence(input$organisation),
          ", for ",

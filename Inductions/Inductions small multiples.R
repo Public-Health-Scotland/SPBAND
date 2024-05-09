@@ -50,7 +50,6 @@ subplot_mainland_island_small_multiples(
 # c) chart title ----
 
 output$inductions_small_multiples_title <- renderText({
-  # paste0("Percentage of singleton live births at 37-42 weeks gestation following induction of labour by Board of ",
   paste0("Board of ", str_to_sentence(input$organisation)
   )
 })

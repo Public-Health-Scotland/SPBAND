@@ -2,7 +2,6 @@
 
 # a) data ----
 
-
 multi_indicator_table_data_scot <- reactive({
 
   # selects data
@@ -47,24 +46,27 @@ multi_indicator_table_data_hb <- reactive({
                  date == Selected$Date &
                    hbtype == Selected$HBType &
                    if(Selected$HBName %in% island_names) {
-                     hbname == HBName_terminations | 
+                     hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*" | 
                        hbname == Selected$HBName} 
                  
                  else {hbname == Selected$HBName
                  } 
   ) %>%
     arrange(MIO_measure_ref) %>%
+    mutate(MIO_measure_label = if_else(Selected$HBName %in% island_names & MIO_measure_label == "Average gestation at termination*",
+                                       paste0(MIO_measure_label, "*"),
+                                       MIO_measure_label)) %>% 
     mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
     ungroup() %>% 
     left_join(., multi_indicator_table_data_scot()) %>% # joins Scotland data
     select(label, measure_value, SCOT_MEASURE, suffix)
-
+  
   if (is.null(data()))
   {
     return()
   }
-
+  
   else {
     data
   }

@@ -204,8 +204,6 @@ show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the r
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
 
-island_names_alternative <- "NHS Orkney, NHS Shetland and NHS Western Isles*"
-
 # order for HB dropdown filter and small multiple charts
 
 HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
@@ -214,25 +212,13 @@ HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & 
              "NHS Shetland", "NHS Western Isles"
              )
 
-
-# order for small multiple charts in average gestation at termination
+# used for the plot titles for the small multiple charts in average gestation at termination
 
 HBnames_alternative <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
                          "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
                          "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside",
-                         "NHS Orkney, NHS Shetland and NHS Western Isles*"
+                         "NHS Orkney, NHS Shetland <br> and NHS Western Isles*"
 )
-
-# order for multiple charts
-
-HBnames2 <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
-             "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde", 
-             "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside"
-             )
-
-# grouped island board name
-
-HBName_terminations <- "NHS Orkney, NHS Shetland and NHS Western Isles*"
 
 # sets colour palette to the PHS colour scheme
 
