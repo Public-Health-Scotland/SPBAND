@@ -44,12 +44,12 @@ excel_downloads_folder <- "data/excel downloads/"
 
 # unzip Excel download files and place them in the 
 
-unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
-      setTimes = TRUE)
+# unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
+#       setTimes = TRUE)
 
 # get Excel filenames
 
-excel_filenames <- list.files(excel_downloads_folder)
+excel_filenames <- list.files(excel_downloads_folder, pattern = ".xlsx")
 
 # set Excel measure names
 
