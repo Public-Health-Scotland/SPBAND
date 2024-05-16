@@ -12,11 +12,6 @@ type_of_birth_small_multiples_data <- reactive({
   data <- type_of_birth_data %>%
     filter(hbtype == Selected$HBType &
              measure_cat == Selected$Measure_cat) %>%
-    # set_variable_labels(
-    # measure_value = paste0("Percentage of births that were ",
-    #                  Selected$Measure_cat, " (%)"),
-    # median = " average to Oct-Dec 2019",
-    # extended = " projected average from Jan-Mar 2020") %>% 
     mutate(mytext = paste0(hbname,
                            ": ",
                            measure_cat,
@@ -36,8 +31,6 @@ type_of_birth_small_multiples_data <- reactive({
     ) %>% 
     group_by(hbgroup, hbtype) %>% 
     mutate(y_max = max(measure_value)
-           # y_max = round_any(y_max, 10, f = ceiling),
-           # hbname2 = factor(hbname, levels = HBnames)
     ) %>%
     ungroup()
   

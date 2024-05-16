@@ -49,7 +49,6 @@ subplot_mainland_island_small_multiples(
 # c) chart title ----
 
 output$gest_at_booking_small_multiples_title <- renderText({
-  # paste0("Average (mean) gestation at booking by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )

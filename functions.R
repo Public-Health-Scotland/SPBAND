@@ -386,7 +386,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
 
   xaxis_plots <- orig_xaxis_plots
   
-  xaxis_plots[["range"]] <- unique(plotdata$date)
+  # xaxis_plots[["range"]] <- range(unique(plotdata$date))
 
   xaxis_plots[["dtick"]] <- case_when(plotdata$period == "Q" ~ "3",
                                       TRUE ~ "M6") # frequency of tick marks on x-axis
@@ -409,24 +409,24 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
     
     c(0.2, 0.25, 0.25, 0.2)} else {0.75}
   
-  # annotations - plots a single blue dot at 10 weeks on last data point for
+  if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks
+    
+    # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
   
   a <- list(
-    x = max(plotdata$date), 
-    y = 11.5,
+    x = max(plotdata$date) + months(1), 
+    y = 11.9,
     xref ="x",
     yref = "y",
     xanchor = 'right',
     yanchor = 'middle',
     text = "10 weeks ",
     font = list(family = 'Arial',
-                size = 14,
+                size = 12,
                 color = phs_colours("phs-blue")),
     showarrow = FALSE
   )
-  
-  if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks
     
     overview <- plotdata %>%
       split(.$hbname2) %>% 
@@ -434,7 +434,8 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
         function(d)
           plot_ly(
             d,
-            x = ~ date) %>% 
+            x = ~ date
+          ) %>% 
           add_lines(
             y = ~ measure_value,
             line = list(color = "black", # black lines
@@ -442,18 +443,16 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
             hovertext = ~ get(hover),
             hoverinfo = "text",
             color = I("black"),
-            showlegend = FALSE
+            showlegend = FALSE,
           ) %>%
           add_markers(
-            x = ~ max(plotdata$date),
+            x = ~ max(plotdata$date) + months(1),
             y = 10,
             marker = list(color = phs_colours("phs-blue"),
                           size = 6),
-            hovertext = "10 weeks",
-            hoverinfo = "text",
+            hoverinfo = "none",
             showlegend = FALSE
-          )
-        %>% 
+          ) %>% 
           layout(annotations = a) %>%
           layout(
             font = plotly_global_font,

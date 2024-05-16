@@ -3,7 +3,7 @@
 tears_runchart_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
   
 data <- tears_data %>%
   filter(hbname == Selected$HBName &

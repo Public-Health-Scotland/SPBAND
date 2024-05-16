@@ -21,11 +21,6 @@ terminations_runchart_data <- reactive({
                          prettyNum(measure_value, big.mark = ",")),
          trend = NA, # to prevent this line being plotted
          shift = NA # ditto
-         # hbname2 = factor(hbname, 
-         #                  levels = c("NHS Ayrshire & Arran", "NHS Borders",
-         #                             "NHS Dumfries & Galloway", "NHS Fife", "NHS Forth Valley",
-         #                             "NHS Grampian", "NHS Greater Glasgow & Clyde", "NHS Highland",
-         #                             "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "Scotland"))
          )
   
   if (is.null(data()))
@@ -72,20 +67,6 @@ output$terminations_runcharts_title <- renderText({
 })
 
 # d) download runchartdata
-
-# terminations_download <- builds_download_data("TERMINATIONS")
-# 
-# 
-# output$terminations_download_data <- downloadHandler(
-#   
-#   filename = function() {
-#       paste0(first(terminations_download$measure), "_", refresh_date, ".csv", sep = "")
-#     },
-#   
-#   content = function(file) {
-#     write.csv(terminations_download, file, row.names = FALSE)
-#     }
-#   )
 
 this_excel_measure_name <- "terminations"
 

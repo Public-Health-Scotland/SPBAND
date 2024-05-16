@@ -3,7 +3,7 @@
 tears_context_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
 
 data <- tears_data %>%
   filter(hbname == Selected$HBName &
@@ -43,15 +43,4 @@ output$tears_context_charts <- renderPlotly({
   creates_context_charts(plotdata = tears_context_data()
                     )
 })
-
-# # c) chart title ----
-# 
-# output$inductions_runcharts_title <- renderText({
-#   paste0("Board of ",
-#          str_to_sentence(input$organisation),
-#          ": ", 
-#          input$hbname
-#   )
-#   
-# })
 

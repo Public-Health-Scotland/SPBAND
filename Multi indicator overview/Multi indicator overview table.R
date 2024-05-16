@@ -53,9 +53,6 @@ multi_indicator_table_data_hb <- reactive({
                  } 
   ) %>%
     arrange(MIO_measure_ref) %>%
-    mutate(MIO_measure_label = if_else(Selected$HBName %in% island_names & MIO_measure_label == "Average gestation at termination*",
-                                       paste0(MIO_measure_label, "*"),
-                                       MIO_measure_label)) %>% 
     mutate(label = sub("Percentage", "%", MIO_measure_label)) %>% 
     mutate(label = factor(label, levels = as.character(unique(label)))) %>% # updates the factor levels
     ungroup() %>% 

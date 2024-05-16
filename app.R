@@ -132,12 +132,13 @@ instructions <-
                  
                  column(2,
                         img(src = "nav_menu.png", alt = "The left-hand navigation menu.", width = "70%", height = "70%"
-                        )
-                 ),
-                 
-                 br(),
-                 
-                 br(),
+                        ),
+                        
+                        br(),
+                        
+                        br()
+                        
+                        ),
                  
                  column(10,
                         p("The ", strong("selection filters"), " are under the navigation menu. Filter values are persistent, which means that the same selections will be in place regardless of the measure chosen."
@@ -153,6 +154,7 @@ instructions <-
                  column(2,
                         img(src = "filter.png", alt = "The selection filters.", width = "70%", height = "70%"
                         )
+                        
                  )
                  
              ) # box "Navigation and filtering"
@@ -641,10 +643,9 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12,
-                             p(textOutput("gest_at_termination_runcharts_footnote1") %>%
-                                 tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;")
-                             ),
+                             p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for  ‘Average gestation at termination’ are based on the data for those three Boards combined.",
+                               class = "notes-style"
+                             )
                       ),
                       
                       column(12,
@@ -1389,7 +1390,7 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p(textOutput("gest_at_termination_runcharts_footnote2") %>%
+                             p(textOutput("gest_at_termination_runcharts_footnote1") %>%
                                  tagAppendAttributes(style = "font-size:14px;
                                                    text-align: left;")
                              )
@@ -4055,10 +4056,9 @@ server <- function(input, output, session) {
     
   })
   
-  # footnote for MIO table and Av. gestation at termination runcharts (Island Boards)
+  # footnote Av. gestation at termination runcharts (when Island Boards are selected)
 
-  output$gest_at_termination_runcharts_footnote1 <- 
-    output$gest_at_termination_runcharts_footnote2 <- renderText({
+  output$gest_at_termination_runcharts_footnote1 <- renderText({
       if(input$hbname %in% island_names) {
         "* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three Boards combined."
       }
@@ -4095,8 +4095,6 @@ server <- function(input, output, session) {
   source("Multi indicator overview/Multi indicator overview download data.R", local = TRUE)
   
   source("Antenatal booking/Antenatal bookings runcharts.R", local = TRUE)
-  
-  #source("Antenatal booking/Antenatal bookings ui.R", local = TRUE)
   
   source("Terminations/Terminations runcharts.R", local = TRUE)
   

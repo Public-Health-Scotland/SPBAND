@@ -1,4 +1,4 @@
-# load packages - needs to be reviewed
+# load packages
 
 library(labelled)
 library(data.table)
@@ -63,16 +63,6 @@ excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
 
 load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
-# temporary test of combined Island board average gestation at termination data
-
-annual_dataframe_island <- 
-  filter(annual_dataframe, dataset == "TERMINATIONS" & hbname == "NHS Fife") %>% 
-  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
-
-annual_dataframe <- bind_rows(annual_dataframe, annual_dataframe_island)
-
-rm(annual_dataframe_island)
-
 # load latest extreme pre-term data
 
 # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
@@ -94,16 +84,6 @@ type_of_birth_data <- load_and_split_dataframe("TYPE OF BIRTH")
 tears_data <- load_and_split_dataframe("TEARS")
 gest_at_birth_data <- load_and_split_dataframe("GESTATION AT BIRTH")
 apgar5_data <- load_and_split_dataframe("APGAR5")
-
-# temporary test of combined Island board average gestation at termination data
-
-gest_at_termination_data_island <- 
-  filter(gest_at_termination_data, hbname == "NHS Fife") %>% 
-  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
-
-gest_at_termination_data <- bind_rows(gest_at_termination_data, gest_at_termination_data_island)
-
-rm(gest_at_termination_data_island)
 
 # set up x-axis chart labels
 
@@ -249,32 +229,7 @@ mytheme <- create_theme(
     box_bg = "#FFF",
     info_box_bg = "#FFF"
   )
-  #adminlte_vars(
-  #box_border_color = "#FFF"
-  #)
 )
-
-# mytheme <- create_theme(
-#   adminlte_color(
-#     light_blue = "#3F3685" # header bar = PHS-purple
-#     ),
-#   adminlte_sidebar( # sidebar colours
-#     width = "290px",
-#     dark_bg = "#9F9BC2", # background colour (not selected) = PHS-purple-50
-#     dark_hover_bg = "#655E9D", # background colour (when hovering) = PHS-purple-80
-#     dark_color = "#3F3685", # text colour (not selected) = PHS-purple
-#     dark_submenu_color = "#3F3685", # sub-menu text colour (not selected) = PHS-purple
-#     dark_submenu_hover_color = "#FFFFFF" # text colour (when hovering) = white
-#     ),
-#   adminlte_global(
-#     content_bg = "#FFF",
-#     box_bg = "#FFF",
-#     info_box_bg = "#FFF"
-#     )
-#   #adminlte_vars(
-#     #box_border_color = "#FFF"
-#     #)
-# )
 
 # buttons to remove (from plotly menu)
 

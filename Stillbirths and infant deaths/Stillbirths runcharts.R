@@ -155,17 +155,6 @@ output$stillbirths_runcharts_title <- renderText({
 
 # d) download data
 
-# output$stillbirths_download_data <- downloadHandler(
-# 
-#   filename = function() {
-#       paste0(first(stillbirths_download$measure), "_", refresh_date, ".csv", sep = "")
-#     },
-# 
-#   content = function(file) {
-#     write.csv(stillbirths_download, file, row.names = FALSE)
-#     }
-#   )
-
 this_excel_measure_name <- "stillbirths_and_infant_deaths"
 
 output$stillbirths_download_data <- 

@@ -4,11 +4,7 @@ gest_at_termination_small_multiples_data <- reactive({
   # selects data
   
   req(input$organisation)
-  
-  Selected$HBName_terminations <- if_else(input$hbname %in% island_names,
-                                          "NHS Orkney, NHS Shetland and NHS Western Isles*",
-                                          input$hbname)
-  
+
   data <- gest_at_termination_data %>%
     filter(hbtype == Selected$HBType) %>%
     mutate(hbname2 = if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*",
@@ -66,7 +62,6 @@ output$gest_at_termination_small_multiples_island <- renderPlotly({
 # c) chart title ----
 
 output$gest_at_termination_small_multiples_title <- renderText({
-  # paste0("Average gestation at termination by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )

@@ -7,7 +7,7 @@ not_term <- c("under 32 weeks", "between 32 and 36 weeks (inclusive)", "42 weeks
 gest_at_birth_context_data <- reactive({ 
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
 
   data <- gest_at_birth_data %>%
   filter(hbname == Selected$HBName &
@@ -126,14 +126,4 @@ config(displaylogo = F, displayModeBar = FALSE)
 
 })
 
-# # c) chart title ----
-# 
-# output$inductions_runcharts_title <- renderText({
-#   paste0("Board of ",
-#          str_to_sentence(input$organisation),
-#          ": ", 
-#          input$hbname
-#   )
-#   
-# })
 

@@ -9,7 +9,7 @@ type_of_birthplotListNames = c("Caesarean births", "Assisted births",
 type_of_birth_runchart_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
   
   data <- type_of_birth_data %>%
     filter(hbname == Selected$HBName &

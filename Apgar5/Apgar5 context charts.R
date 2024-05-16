@@ -3,7 +3,7 @@
 apgar5_context_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
 
 data <- apgar5_data %>%
   filter(hbname == Selected$HBName &
@@ -39,15 +39,3 @@ output$apgar5_context_charts <- renderPlotly({
   creates_context_charts(plotdata = apgar5_context_data()
                     )
 })
-
-# # c) chart title ----
-# 
-# output$inductions_runcharts_title <- renderText({
-#   paste0("Board of ",
-#          str_to_sentence(input$organisation),
-#          ": ", 
-#          input$hbname
-#   )
-#   
-# })
-
