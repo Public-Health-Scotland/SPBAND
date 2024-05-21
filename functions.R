@@ -1,9 +1,3 @@
-# define function "percentage"
-
-percentage = function(x, y, na.rm = TRUE) {
-  x / y * 100
-}
-
 # Function to show spinner when loading charts/tables
 # Parameter: whats_loading: 
 # e.g. plotlyOutput("multi_indicator_chart", height = "33em")
@@ -342,22 +336,13 @@ creates_overview_charts_with_median <- function(plotdata,
 # hover: hovertext for the measure_value
 # yaxislabel: text to appear on y axis
 
-creates_overview_charts_without_median <- function(plotdata,
+creates_small_multiple_charts_without_median_test <- function(plotdata,
                                                    measure_value,
-                                                   hover = "mytext",
-                                                   yaxislabel = "Percentage of births (%)"){
+                                                   hover = "mytext"){
   
-  y_max <- max(plotdata$measure_value) # allows a margin to be set around y-axis
-  
-  xaxis_plots <- orig_xaxis_plots
-
-  xaxis_plots[["dtick"]] <- case_when(plotdata$period == "Q" ~ "3",
-                                      TRUE ~ "M6") # frequency of tick marks on x-axis
-
-  yaxis_plots <- orig_yaxis_plots
-  yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
-  # yaxis_plots[["title"]] <- list(
-  #   standoff = 30) # distance between axis title and tick labels
+  # sorts plots in correct order (Scotland first)
+  # average gestation at termination has hbname2 defined already, the other measures have 
+  # hbname2 defined here
   
   # sorts plots in correct order (Scotland first)
   # average gestation at termination has hbname2 defined already, the other measures have 
@@ -367,22 +352,125 @@ creates_overview_charts_without_median <- function(plotdata,
     plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
   }
   
-  # annotations - plots a single blue dot at 10 weeks on last data point for
+  plotdata <- droplevels(plotdata) # drop unused factor levels in hbname2
+  
+  y_max <- max(plotdata$y_max) # allows a range to be set for y-axis
+  
+  # sets y-axis label
+  
+  yaxislabeltext  <- case_match(
+    first(plotdata$measure),
+    "GESTATION AT BOOKING" ~ "Average gestation at booking (weeks)",
+    "GESTATION AT TERMINATION" ~ paste(strwrap("Average gestation at termination (weeks)",
+                                               width = 25
+                                         ),
+                                       collapse = "\n"),
+    "TEARS" ~ "Percentage of women (%)",
+    "APGAR5" ~ "Percentage of babies (%)",
+    .default = "Percentage of births (%)"
+  )
+  
+  # sets whether y-axis label should be shown (prevents double-printing)
+  
+  yaxislabelswitch <- if_else(
+    (first(plotdata$measure) == "GESTATION AT TERMINATION" | first(plotdata$hbgroup) == "mainland"),
+    yaxislabeltext, "")
+  
+  # sets where y-axis label should be positioned
+  
+  yaxislabelposition <- if_else(
+    first(plotdata$measure) == "GESTATION AT TERMINATION",
+    0.5, 0.4)
+
+  xaxis_plots <- orig_xaxis_plots
+  
+  # xaxis_plots[["range"]] <- range(unique(plotdata$date))
+
+  xaxis_plots[["dtick"]] <- case_when(plotdata$period == "Q" ~ "3",
+                                      TRUE ~ "M6") # frequency of tick marks on x-axis
+  
+  # remove x-axis ticklabels from "mainland" charts except for Average Gestation at Termination
+  
+  xaxis_plots[["showticklabels"]] <- if_else(
+    first(plotdata$hbgroup) == "mainland" && first(plotdata$measure != "GESTATION AT TERMINATION"),
+    FALSE, TRUE)
+
+  yaxis_plots <- orig_yaxis_plots
+  
+  yaxis_plots[["tickmode"]] <- "auto"
+
+  #yaxis_plots[["nticks"]] <- 4
+  
+  yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
+  
+  plot_heights = if(first(plotdata$hbgroup) == "mainland") {
+    
+    c(0.2, 0.25, 0.25, 0.2)} else {0.75}
+  
+  if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks
+    
+    # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
   
   a <- list(
-    x = max(plotdata$date), 
-    y = 10,
-    xanchor = 'left',
+    x = max(plotdata$date) + months(1), 
+    y = 11.9,
+    xref ="x",
+    yref = "y",
+    xanchor = 'right',
     yanchor = 'middle',
-    text = " 10 weeks",
+    text = "10 weeks ",
     font = list(family = 'Arial',
-                size = 14,
+                size = 12,
                 color = phs_colours("phs-blue")),
     showarrow = FALSE
   )
-  
-  if(first(plotdata$measure) == "GESTATION AT BOOKING"){ # adds annotation at 10 weeks
+    
+    overview <- plotdata %>%
+      split(.$hbname2) %>% 
+      lapply(
+        function(d)
+          plot_ly(
+            d,
+            x = ~ date
+          ) %>% 
+          add_lines(
+            y = ~ measure_value,
+            line = list(color = "black", # black lines
+                        width = 1),
+            hovertext = ~ get(hover),
+            hoverinfo = "text",
+            color = I("black"),
+            showlegend = FALSE,
+          ) %>%
+          add_markers(
+            x = ~ max(plotdata$date) + months(1),
+            y = 10,
+            marker = list(color = phs_colours("phs-blue"),
+                          size = 6),
+            hoverinfo = "none",
+            showlegend = FALSE
+          ) %>% 
+          layout(annotations = a) %>%
+          layout(
+            font = plotly_global_font,
+            xaxis = xaxis_plots,
+            yaxis = yaxis_plots,
+            #plot_bgcolor='#ecebf3', 
+            annotations = list(
+              x = 0.5,
+              y = 1.0,
+              text = ~ unique(hbname2),
+              xref = "paper",
+              yref = "paper",
+              xanchor = "center",
+              yanchor = "bottom",
+              showarrow = FALSE
+            )
+          )
+      )
+    
+  } else if(first(plotdata$measure) == "GESTATION AT TERMINATION") { # no markers
     
     overview <- plotdata %>%
       split(.$hbname2) %>% 
@@ -396,27 +484,16 @@ creates_overview_charts_without_median <- function(plotdata,
             mode = "lines+markers",
             line = list(color = "black", # black lines
                         width = 1),
-            marker = list(color = "black", # black dots
-                          size = 5),
+            marker = list(opacity = 0),
             hovertext = ~ get(hover),
-            hoverinfo = "text"
+            hoverinfo = "text",
+            color = I("black")
           ) %>%
-          add_trace(
-            x = ~ max(plotdata$date),
-            y = 10,
-            type = 'scatter',
-            mode = "lines+markers",
-            line = list(opacity = 0),
-            marker = list(color = phs_colours("phs-blue"),
-                          size = 5),
-            hovertext = ""
-          )
-        %>% 
-          layout(annotations = a) %>%
           layout(
             font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
+            #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
             annotations = list(
               x = 0.5,
@@ -429,7 +506,8 @@ creates_overview_charts_without_median <- function(plotdata,
               showarrow = FALSE
             )
           )
-      )
+      ) 
+    
   } else {
     
     overview <- plotdata %>% 
@@ -447,12 +525,14 @@ creates_overview_charts_without_median <- function(plotdata,
             marker = list(color = "black", # black dots
                           size = 5),
             hovertext = ~ get(hover),
-            hoverinfo = "text"
+            hoverinfo = "text",
+            color = I("black")
           ) %>%
           layout(
             font = plotly_global_font,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
+            #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
             annotations = list(
               x = 0.5,
@@ -469,33 +549,54 @@ creates_overview_charts_without_median <- function(plotdata,
   }
   
   overview <- overview %>%
-    subplot(nrows = 5,
-            heights = c(0.15, 0.2, 0.2, 0.2, 0.18),
-            margin = c(0.01, 0.01, 0.05, 0.02), 
+    subplot(nrows = if_else(first(plotdata$hbgroup) == "mainland", 4, 1),
+            heights = plot_heights,
+            margin = c(0.01, 0.01, 0.05, 0.05), # gives more room between plots
             shareX = TRUE,
-            shareY = TRUE) %>%
-    layout(
-      annotations = list(
-        text = ~ case_match(
-          first(plotdata$measure),
-          "TEARS" ~ "Percentage of women (%)",
-          "APGAR5" ~ "Percentage of babies (%)",
-          .default = yaxislabel
-          ),
-        font = list(size = 14),
-        x = 0,
-        y = 0.5,
-        #standoff = 30, # distance between axis title and tick labels
-        xshift = -60,
-        textangle = 270,
-        showarrow = FALSE,
-        xref = "paper",
-        yref = "paper"
-      )
+            shareY = TRUE) %>% 
+    layout(annotations = list(text = ~ yaxislabelswitch,
+                              font = list(size = 14),
+                              x = 0,
+                              y = ~ yaxislabelposition,
+                              xshift = -60,
+                              textangle = 270,
+                              showarrow = FALSE,
+                              xref = "paper",
+                              yref = "paper"
+    )
     ) %>%
     config(displaylogo = F, displayModeBar = FALSE)
   
   return(overview)
+}
+
+# Function to run the small multiples charts code (for layout)
+# Parameters:
+# plotdata: dataframe with data to be plotted
+# calls creates_small_multiple_charts_without_median_test
+# produces either one chart or two charts in a list (GESTATION AT TERMINATION)
+
+subplot_mainland_island_small_multiples <- function(plotdata) {
+  
+  if(first(plotdata$measure != "GESTATION AT TERMINATION")) {
+    
+    small_multiple_subplot <- 
+      plotdata %>% 
+      split(.$hbgroup) %>% 
+      map(\(df) creates_small_multiple_charts_without_median_test(df)) %>% 
+      subplot(nrows = 2, heights = c(0.8, 0.2), margin = c(0.01, 0.01, 0.05, 0.01)) # seems to give 
+    # separation between mainland and island plots
+
+  } else {
+
+    small_multiple_subplot <-
+      plotdata %>%
+      split(.$hbgroup) %>%
+      map(\(df) creates_small_multiple_charts_without_median_test(df))
+
+  }
+  
+  return(small_multiple_subplot)
 }
 
 # Function to create the runcharts/timeseries charts
@@ -514,8 +615,6 @@ creates_runcharts <- function(plotdata,
                               hover = "mytext",
                               centreline = "median",
                               dottedline = "extended",
-                              #trend = "orig_trend",
-                              #shift = "orig_shift",
                               yaxislabel = "Percentage of births (%)"){
   
   y_max <- max(plotdata$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
@@ -547,9 +646,7 @@ creates_runcharts <- function(plotdata,
           first(plotdata$measure_cat) == "between 32 and 36 weeks (inclusive)" ~ FALSE,
     TRUE ~ include_legend)
   
-  # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
-  
-   select_date_tickvals <- switch( # tells plotly where ticks will show
+  select_date_tickvals <- switch( # tells plotly where ticks will show
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
    "GESTATION AT BOOKING" = bookings_date_tickvals,
@@ -581,18 +678,21 @@ creates_runcharts <- function(plotdata,
   xaxis_plots[["ticktext"]] <- select_date_ticktext
 
   yaxis_plots <- orig_yaxis_plots
+  
   yaxis_plots[["title"]] <- list(
     text = ~ case_match(
       first(plotdata$measure),
       "TEARS" ~ "Percentage of women (%)",
       "APGAR5" ~ "Percentage of babies (%)",
       .default = yaxislabel
-      ),
-    standoff = 30) # distance between axis and chart
+      )
+    )
+  
   yaxis_plots[["tickformat"]] <- 
     if_else(first(plotdata$measure) %in% c("APGAR5", "TEARS"),
             ".1f",
             ",d")
+  
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
   runcharts <-

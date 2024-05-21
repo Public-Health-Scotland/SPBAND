@@ -10,7 +10,7 @@ type_of_birthNames = c("all live births (where type is known)", "spontaneous vag
 type_of_birth_context_data <- reactive({ 
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
 
 data <- type_of_birth_data %>%
   filter(hbname == Selected$HBName &
@@ -108,15 +108,4 @@ output$type_of_birth_context_charts <- renderPlotly({
     config(displaylogo = F, displayModeBar = FALSE)
                     
 })
-
-# # c) chart title ----
-# 
-# output$inductions_runcharts_title <- renderText({
-#   paste0("Board of ",
-#          str_to_sentence(input$organisation),
-#          ": ", 
-#          input$hbname
-#   )
-#   
-# })
 

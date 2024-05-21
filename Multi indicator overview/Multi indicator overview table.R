@@ -2,7 +2,6 @@
 
 # a) data ----
 
-
 multi_indicator_table_data_scot <- reactive({
 
   # selects data
@@ -47,10 +46,9 @@ multi_indicator_table_data_hb <- reactive({
                  date == Selected$Date &
                    hbtype == Selected$HBType &
                    if(Selected$HBName %in% island_names) {
-                     hbname == HBName_terminations | 
-                       hbname == Selected$HBName} 
-                 
-                 else {hbname == Selected$HBName
+                     hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*" | 
+                       hbname == Selected$HBName
+                   } else { hbname == Selected$HBName
                  } 
   ) %>%
     arrange(MIO_measure_ref) %>%
@@ -59,7 +57,7 @@ multi_indicator_table_data_hb <- reactive({
     ungroup() %>% 
     left_join(., multi_indicator_table_data_scot()) %>% # joins Scotland data
     select(label, measure_value, SCOT_MEASURE, suffix)
-
+  
   if (is.null(data()))
   {
     return()

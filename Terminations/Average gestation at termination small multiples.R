@@ -3,31 +3,37 @@
 gest_at_termination_small_multiples_data <- reactive({
   # selects data
   
-  #req(input$period)
-  
+  req(input$organisation)
+
   data <- gest_at_termination_data %>%
     filter(hbtype == Selected$HBType) %>%
-    set_variable_labels(
-      measure_value = "Average gestation at termination",
-      median = " average gestation to end Feb 2020",
-      extended = " projected average gestation from Mar 2020 to end Jul 2020"
-    ) %>% 
-    mutate(hbname2 = factor(hbname, 
+    mutate(hbname2 = if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*",
+                             "NHS Orkney, NHS Shetland <br> and NHS Western Isles*",
+                             hbname),
+           hbname2 = factor(hbname2, 
                             levels = HBnames_alternative), # includes grouped Island Boards),
            mytext = paste0(hbname,
                            "<br>",
                            "Month: ", 
                            format(date, "%b %Y"),
                            "<br>",
-                           var_label(measure_value),
+                           "Average gestation at termination",
                            ": ",
                            format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
                            " weeks"
-           )
-    )
-
+           ),
+           hbgroup = factor(
+             if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*", "island", "mainland"),
+             levels = c("mainland", "island"), ordered = TRUE)
+    ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+    ) %>%
+    ungroup()
+  
+  
   if (is.null(data()))
   {
     return()
@@ -36,27 +42,26 @@ gest_at_termination_small_multiples_data <- reactive({
   else {
     data
   }
+  
 })
 
 # b) chart ---- 
 
-output$gest_at_termination_small_multiples <- renderPlotly({
-  
-  # validate(
-  #   need(nrow(gest_at_termination_small_multiples_data()) > 0,
-  #        message = "Data not shown for Island Boards due to small numbers.")
-  # )
+output$gest_at_termination_small_multiples_mainland <- renderPlotly({
+  subplot_mainland_island_small_multiples(
+  plotdata = gest_at_termination_small_multiples_data()
+  )$mainland
+})
 
-creates_overview_charts_without_median(
-  plotdata = gest_at_termination_small_multiples_data(),
-  yaxislabel = "Average gestation at termination (weeks)"
-)
+output$gest_at_termination_small_multiples_island <- renderPlotly({
+  subplot_mainland_island_small_multiples(
+  plotdata = gest_at_termination_small_multiples_data()
+  )$island
 })
 
 # c) chart title ----
 
 output$gest_at_termination_small_multiples_title <- renderText({
-  # paste0("Average gestation at termination by Board of ",
   paste0("Board of ",
          str_to_sentence(input$organisation)
   )

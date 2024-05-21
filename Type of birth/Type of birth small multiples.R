@@ -7,17 +7,11 @@ observeEvent(input$tob, Selected$Measure_cat <- input$tob)
 type_of_birth_small_multiples_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$organisation)
   
   data <- type_of_birth_data %>%
-  filter(hbtype == Selected$HBType &
-           period == "Q" &
-           measure_cat == Selected$Measure_cat) %>%
-    set_variable_labels(
-    measure_value = paste0("Percentage of births that were ",
-                     Selected$Measure_cat, " (%)"),
-    median = " average to Oct-Dec 2019",
-    extended = " projected average from Jan-Mar 2020") %>% 
+    filter(hbtype == Selected$HBType &
+             measure_cat == Selected$Measure_cat) %>%
     mutate(mytext = paste0(hbname,
                            ": ",
                            measure_cat,
@@ -30,9 +24,16 @@ type_of_birth_small_multiples_data <- reactive({
                            format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
-                         "%"),
-         date = quarter_label
-  )
+                           "%"),
+           date = quarter_label,
+           hbgroup = factor(if_else(hbname %in% island_names, "island", "mainland"),
+                            levels = c("mainland", "island"), ordered = TRUE)
+    ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+    ) %>%
+    ungroup()
+  
   
   if (is.null(data))
   {
@@ -42,6 +43,7 @@ type_of_birth_small_multiples_data <- reactive({
   else {
     data
   }
+  
 })
 
 
@@ -49,7 +51,7 @@ type_of_birth_small_multiples_data <- reactive({
 
 output$type_of_birth_small_multiples <- renderPlotly({
 
-creates_overview_charts_without_median(
+subplot_mainland_island_small_multiples(
   plotdata = type_of_birth_small_multiples_data()
   )
 })

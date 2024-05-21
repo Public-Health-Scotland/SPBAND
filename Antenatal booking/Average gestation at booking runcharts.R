@@ -3,7 +3,7 @@
 gest_at_booking_runchart_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$hbname)
 
   data <- gest_at_booking_data %>%
     filter(hbname == Selected$HBName &

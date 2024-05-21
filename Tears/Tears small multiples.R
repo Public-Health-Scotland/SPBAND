@@ -3,29 +3,30 @@
 tears_small_multiples_data <- reactive({
   # selects data
   
-  #req(input$period)
+  req(input$organisation)
   
   data <- tears_data %>%
-    filter(hbtype == Selected$HBType & period == "Q") %>%
-    set_variable_labels(
-      measure_value = "Percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third or fourth degree perineal tear (%)",
-      median = " average to Oct-Dec 2019",
-      extended = " projected average from Jan-Mar 2020"
-    ) %>% 
-  mutate(mytext = paste0(hbname,
+    filter(hbtype == Selected$HBType) %>%
+    mutate(mytext = paste0(hbname,
                            "<br>",
-                         "Quarter: ", 
-                         quarter_label,
-                         "<br>",
-                         "Percentage of women",
-                         ": ",
-                         format(measure_value,
-                                digits = 1,
-                                nsmall = 1),
-                         "%"),
-        date = quarter_label
-  )
-
+                           "Quarter: ", 
+                           quarter_label,
+                           "<br>",
+                           "Percentage of women",
+                           ": ",
+                           format(measure_value,
+                                  digits = 1,
+                                  nsmall = 1),
+                           "%"),
+           date = quarter_label,
+           hbgroup = factor(if_else(hbname %in% island_names, "island", "mainland"),
+                            levels = c("mainland", "island"), ordered = TRUE)
+    ) %>% 
+    group_by(hbgroup, hbtype) %>% 
+    mutate(y_max = max(measure_value)
+    ) %>%
+    ungroup()
+  
   
   if (is.null(data()))
   {
@@ -35,13 +36,14 @@ tears_small_multiples_data <- reactive({
   else {
     data
   }
+  
 })
 
 # b) chart ---- 
 
 output$tears_small_multiples <- renderPlotly({
 
-creates_overview_charts_without_median(
+subplot_mainland_island_small_multiples(
   plotdata = tears_small_multiples_data()
   ) 
 })

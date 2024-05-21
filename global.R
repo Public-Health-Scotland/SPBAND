@@ -1,4 +1,4 @@
-# load packages - needs to be reviewed
+# load packages
 
 library(labelled)
 library(data.table)
@@ -44,12 +44,12 @@ excel_downloads_folder <- "data/excel downloads/"
 
 # unzip Excel download files and place them in the 
 
-unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
-      setTimes = TRUE)
+# unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
+#       setTimes = TRUE)
 
 # get Excel filenames
 
-excel_filenames <- list.files(excel_downloads_folder)
+excel_filenames <- list.files(excel_downloads_folder, pattern = ".xlsx")
 
 # set Excel measure names
 
@@ -62,16 +62,6 @@ excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
 # load latest SMR02 ABC Terminations data
 
 load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
-
-# temporary test of combined Island board average gestation at termination data
-
-annual_dataframe_island <- 
-  filter(annual_dataframe, dataset == "TERMINATIONS" & hbname == "NHS Fife") %>% 
-  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
-
-annual_dataframe <- bind_rows(annual_dataframe, annual_dataframe_island)
-
-rm(annual_dataframe_island)
 
 # load latest extreme pre-term data
 
@@ -95,16 +85,6 @@ tears_data <- load_and_split_dataframe("TEARS")
 gest_at_birth_data <- load_and_split_dataframe("GESTATION AT BIRTH")
 apgar5_data <- load_and_split_dataframe("APGAR5")
 
-# temporary test of combined Island board average gestation at termination data
-
-gest_at_termination_data_island <- 
-  filter(gest_at_termination_data, hbname == "NHS Fife") %>% 
-  mutate(hbname = "NHS Orkney, NHS Shetland and NHS Western Isles*")
-
-gest_at_termination_data <- bind_rows(gest_at_termination_data, gest_at_termination_data_island)
-
-rm(gest_at_termination_data_island)
-
 # set up x-axis chart labels
 
 bookings_date_range <- unique(bookings_data$date)
@@ -119,17 +99,8 @@ SMR02_date_range <- unique(inductions_data$date)
 SMR02_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 2)]
 SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 
-# SMR02_date_ticktext <- paste0(substr(SMR02_date_ticktext, 1,7),
-#                               "<br>",
-#                               substr(SMR02_date_ticktext, 9, 13))
-
-
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
-
-# SMR02_multiples_date_ticktext <- paste0(substr(SMR02_multiples_date_ticktext, 1,7),
-#                                         "<br>",
-#                                         substr(SMR02_multiples_date_ticktext, 9, 13))
 
 y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not sure this is still needed
 
@@ -221,21 +192,13 @@ HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & 
              "NHS Shetland", "NHS Western Isles"
              )
 
-
-# order for small multiple charts in average gestation at termination
+# used for the plot titles for the small multiple charts in average gestation at termination
 
 HBnames_alternative <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
                          "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
                          "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside",
-                         "NHS Orkney, NHS Shetland and NHS Western Isles*"
+                         "NHS Orkney, NHS Shetland <br> and NHS Western Isles*"
 )
-
-# order for multiple charts
-
-HBnames2 <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
-             "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde", 
-             "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside"
-             )
 
 # grouped island board name
 
@@ -270,32 +233,7 @@ mytheme <- create_theme(
     box_bg = "#FFF",
     info_box_bg = "#FFF"
   )
-  #adminlte_vars(
-  #box_border_color = "#FFF"
-  #)
 )
-
-# mytheme <- create_theme(
-#   adminlte_color(
-#     light_blue = "#3F3685" # header bar = PHS-purple
-#     ),
-#   adminlte_sidebar( # sidebar colours
-#     width = "290px",
-#     dark_bg = "#9F9BC2", # background colour (not selected) = PHS-purple-50
-#     dark_hover_bg = "#655E9D", # background colour (when hovering) = PHS-purple-80
-#     dark_color = "#3F3685", # text colour (not selected) = PHS-purple
-#     dark_submenu_color = "#3F3685", # sub-menu text colour (not selected) = PHS-purple
-#     dark_submenu_hover_color = "#FFFFFF" # text colour (when hovering) = white
-#     ),
-#   adminlte_global(
-#     content_bg = "#FFF",
-#     box_bg = "#FFF",
-#     info_box_bg = "#FFF"
-#     )
-#   #adminlte_vars(
-#     #box_border_color = "#FFF"
-#     #)
-# )
 
 # buttons to remove (from plotly menu)
 
