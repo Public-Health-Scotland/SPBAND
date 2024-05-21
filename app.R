@@ -645,7 +645,7 @@ multi_indicator_overview <- tabItem(
                       column(12,
                              p("* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for  ‘Average gestation at termination’ are based on the data for those three Boards combined.",
                                class = "notes-style"
-                             )
+                             )                             
                       ),
                       
                       column(12,

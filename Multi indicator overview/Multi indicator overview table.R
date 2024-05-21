@@ -47,9 +47,8 @@ multi_indicator_table_data_hb <- reactive({
                    hbtype == Selected$HBType &
                    if(Selected$HBName %in% island_names) {
                      hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*" | 
-                       hbname == Selected$HBName} 
-                 
-                 else {hbname == Selected$HBName
+                       hbname == Selected$HBName
+                   } else { hbname == Selected$HBName
                  } 
   ) %>%
     arrange(MIO_measure_ref) %>%
@@ -63,7 +62,7 @@ multi_indicator_table_data_hb <- reactive({
   {
     return()
   }
-  
+
   else {
     data
   }

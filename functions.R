@@ -344,6 +344,10 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
   # average gestation at termination has hbname2 defined already, the other measures have 
   # hbname2 defined here
   
+  # sorts plots in correct order (Scotland first)
+  # average gestation at termination has hbname2 defined already, the other measures have 
+  # hbname2 defined here
+  
   if(!"hbname2" %in% names(plotdata)) {
     plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
   }

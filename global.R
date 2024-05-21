@@ -200,6 +200,10 @@ HBnames_alternative <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS
                          "NHS Orkney, NHS Shetland <br> and NHS Western Isles*"
 )
 
+# grouped island board name
+
+HBName_terminations <- "NHS Orkney, NHS Shetland and NHS Western Isles*"
+
 # sets colour palette to the PHS colour scheme
 
 selected_colours <-
