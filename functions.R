@@ -1,9 +1,3 @@
-# define function "percentage"
-
-percentage = function(x, y, na.rm = TRUE) {
-  x / y * 100
-}
-
 # Function to show spinner when loading charts/tables
 # Parameter: whats_loading: 
 # e.g. plotlyOutput("multi_indicator_chart", height = "33em")
