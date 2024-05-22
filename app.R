@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.3") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.3") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.4") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND_PRA v 1.4") # this is the PRA dashboard
   )
 )
 
@@ -444,11 +444,6 @@ version <-
                         br(),
                         
                         tableOutput('version_tbl')
-                        
-                        # tags$ul(
-                        #   tags$li(class= "bullet-points", "Version 1.0: October 3rd 2023 - first public release of SPBAND"), 
-                        #   tags$li(class= "bullet-points", "Version 1.1: November 9th 2023 - amended Home - How to use this dashboard")
-                        # )
                  )
                  
              ) # box
@@ -1158,7 +1153,7 @@ gestation_at_booking <- tabItem(
                                " publication.",
                                class = "notes-style"),
                              
-                             textOutput("correction") %>%
+                             uiOutput("correction") %>%
                                tagAppendAttributes(style = "font-size:14px;
                                                    text-align: left;"),
 
@@ -4030,16 +4025,19 @@ server <- function(input, output, session) {
   })
   
   # builds Version table
-
-  `Version` <- c("1.0", "1.1", "1.2", "1.3")
-  `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024")
+  
+  `Version` <- c("1.0", "1.1", "1.2", "1.3", "1.4")
+  `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024", "2 Jul 2024")
   `Change` <- c("First public release of SPBAND",
                 "Amended Home - How to use this dashboard",
                 "Updated links and standardised titles, labels and metadata",
                 "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
               replaced CSV download files with accessible Excel download files;
-              updated links and standardised titles, labels, legends and metadata"
-  )
+              updated links and standardised titles, labels, legends and metadata",
+              "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
+              revised the y-axis scales for the Island Boards in the small multiple charts (where possible) to make the mainland Boards' variation easier to see;
+              removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures)"
+              )
   
   version_info <- tibble(`Version`, `Date`, `Change`)
   
@@ -4049,12 +4047,19 @@ server <- function(input, output, session) {
   
   # deals with correction to Gestation at Booking for FV and Tayside
   
-  output$correction <- reactive({
-    
-    if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"), 
-            gest_at_booking_correction_text, "")
-    
-  })
+  url <- a("phs.matneodatahub@phs.scot", href="mailto:phs.matneodatahub@phs.scot")
+  
+  # d) correction text for Forth Valley and Tayside Gestation at booking
+
+output$correction <- renderUI({
+                 tagList(gest_at_booking_correction_text, url)
+               })
+
+observeEvent(input$hbname,
+             
+             toggleElement(id = "correction", 
+                           condition = input$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
+)
   
   # footnote Av. gestation at termination runcharts (when Island Boards are selected)
 
