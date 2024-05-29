@@ -61,39 +61,56 @@ type_of_birth_runchart_data <- reactive({
 
 # b) chart ----
 
+# Puts an asterisk next to subtitles when NHS Borders is selected # temporary till issue fixed
+
+planned_title <- reactive({
+  
+  if_else(Selected$HBName == "NHS Borders",
+          "planned caesarean births*",
+          "planned caesarean births")
+  })
+
+unplanned_title <- reactive({
+  
+  if_else(Selected$HBName == "NHS Borders",
+          "unplanned caesarean births*",
+          "unplanned caesarean births")
+  })
+
 # Insert the right number of plot output objects into the web page
-output$type_of_birth_runcharts <- renderUI({
-  tagList(
-    fluidRow(
-      column(4, 
-             h4("caesarean births"),
-             plotlyOutput(type_of_birthplotListNames[1])
-             ),
-      column(4, 
-             h4("planned caesarean births"),
-             plotlyOutput(type_of_birthplotListNames[3])
-             ),
-      column(4, 
-             h4("unplanned caesarean births"),
-             plotlyOutput(type_of_birthplotListNames[5])
-             )
+  output$type_of_birth_runcharts <- renderUI({
+    
+    tagList(
+      fluidRow(
+        column(4, 
+               h4("caesarean births"),
+               plotlyOutput(type_of_birthplotListNames[1])
+        ),
+        column(4, 
+               h4(planned_title()),
+               plotlyOutput(type_of_birthplotListNames[3])
+        ),
+        column(4, 
+               h4(unplanned_title()),
+               plotlyOutput(type_of_birthplotListNames[5])
+        )
       ), # fluidRow
-    
-    br(),
-    
-    fluidRow(
-      column(4,
-             h4( "assisted vaginal births (includes forceps, ventouse and vaginal breech births)"),
-             plotlyOutput(type_of_birthplotListNames[2])
-             ),
-      column(7,
-             h4( "spontaneous vaginal births"),
-             br(),
-             plotlyOutput(type_of_birthplotListNames[4])
-             )
-    ) # fluidRow
-  )
-})
+      
+      br(),
+      
+      fluidRow(
+        column(4,
+               h4( "assisted vaginal births (includes forceps, ventouse and vaginal breech births)"),
+               plotlyOutput(type_of_birthplotListNames[2])
+        ),
+        column(7,
+               h4( "spontaneous vaginal births"),
+               br(),
+               plotlyOutput(type_of_birthplotListNames[4])
+        )
+      ) # fluidRow
+    )
+  })
 
 for (i in 1:max_plots_type_of_birth) {
   # Need local so that each item gets its own number. Without it, the value
@@ -120,10 +137,17 @@ for (i in 1:max_plots_type_of_birth) {
 # c) chart title ----
 
 output$type_of_birth_runcharts_title <- renderText({
-  paste0("Board of ",
-         str_to_sentence(input$organisation),
-         ": ", 
-         input$hbname
-  )
   
+  if_else(input$hbname == "NHS Borders",
+          paste0("Board of ",
+                 str_to_sentence(input$organisation),
+                 ": ",
+                 input$hbname,
+                 "*"),
+          paste0("Board of ",
+                 str_to_sentence(input$organisation),
+                 ": ",
+                 input$hbname)
+  )
 })
+

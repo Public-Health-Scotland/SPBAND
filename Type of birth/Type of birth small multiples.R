@@ -12,7 +12,12 @@ type_of_birth_small_multiples_data <- reactive({
   data <- type_of_birth_data %>%
     filter(hbtype == Selected$HBType &
              measure_cat == Selected$Measure_cat) %>%
-    mutate(mytext = paste0(hbname,
+    mutate(hbname2 = if_else(grepl("planned", measure_cat) & hbname == "NHS Borders",
+                             "NHS Borders*",
+                             hbname),
+           hbname2 = factor(hbname2, 
+                            levels = HBnames),
+           mytext = paste0(hbname,
                            ": ",
                            measure_cat,
                            "<br>",
@@ -64,9 +69,9 @@ output$type_of_birth_small_multiples_title <- renderText({
   )
 })
 
-output$type_of_birth_small_multiples_sub_title <- renderText({
+output$type_of_birth_small_multiples_sub_title <- renderUI({
 
-  case_match(Selected$Measure_cat,
+  title_text <- case_match(Selected$Measure_cat,
          "assisted vaginal births" ~ HTML(paste0("Percentage of singleton live births at any gestation that were ",
                                     input$tob, 
                                     " (includes forceps, ventouse and vaginal breech births)")),
@@ -75,5 +80,10 @@ output$type_of_birth_small_multiples_sub_title <- renderText({
          .default = HTML(paste0("Percentage of singleton live births at any gestation that were ",
                            input$tob))
          )
+  
+  # add asterisk for planned and unplanned caesarean options for Borders footnote
+  
+  title_text <- if_else(grepl("planned", title_text), HTML(paste0(title_text, "*")), HTML(title_text))
+  
   })
 

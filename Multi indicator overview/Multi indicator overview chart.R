@@ -36,7 +36,7 @@ output$multi_indicator_chart <- renderPlotly({
       if(Selected$HBName %in% island_names){ # Orkney, Shetland, Western Isles
         !hbname %in% c("Scotland",
                        as.character(Selected$HBName),
-                       "NHS Orkney, NHS Shetland and NHS Western Isles*")
+                       "NHS Orkney, NHS Shetland and NHS Western Isles")
       } else {
         !hbname %in% c("Scotland",
                        Selected$HBName)
@@ -140,7 +140,7 @@ output$multi_indicator_chart <- renderPlotly({
     fig %>% 
       
       add_markers(data = filter(multi_indicator_chart_data(),
-                                hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*" # dots for Island Boards (av gest at termination)
+                                hbname == "NHS Orkney, NHS Shetland and NHS Western Isles" # dots for Island Boards (av gest at termination)
       ),
       x = ~ RESCALED,
       y = ~ label,

@@ -6,7 +6,7 @@ gest_at_termination_runchart_data <- reactive({
   req(input$hbname)
   
   Selected$HBName_terminations <- if_else(input$hbname %in% island_names,
-                                          "NHS Orkney, NHS Shetland and NHS Western Isles*",
+                                          "NHS Orkney, NHS Shetland and NHS Western Isles",
                                           input$hbname)
   
   data <- gest_at_termination_data %>%
@@ -62,9 +62,15 @@ creates_runcharts(plotdata = gest_at_termination_runchart_data(),
 # c) chart title ----
 
 output$gest_at_terminaton_runcharts_title <- renderText({
-  paste0("Board of ",
-         str_to_sentence(input$organisation),
-         ": ",
-         Selected$HBName_terminations
+  if_else(input$hbname %in% island_names,
+          paste0("Board of ",
+                 str_to_sentence(input$organisation),
+                 ": ",
+                 Selected$HBName_terminations,
+                 "*"),
+          paste0("Board of ",
+                 str_to_sentence(input$organisation),
+                 ": ",
+                 input$hbname)
   )
 })

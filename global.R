@@ -42,11 +42,6 @@ NRS_published_date <- "12 March 2024"
 
 excel_downloads_folder <- "data/excel downloads/"
 
-# unzip Excel download files and place them in the 
-
-# unzip("data/Excel-downloads.zip", overwrite = TRUE, exdir = excel_downloads_folder, unzip = "internal",
-#       setTimes = TRUE)
-
 # get Excel filenames
 
 excel_filenames <- list.files(excel_downloads_folder, pattern = ".xlsx")
@@ -184,25 +179,12 @@ show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the r
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
 
-# order for HB dropdown filter and small multiple charts
+# order for small multiple charts
 
-HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
+HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Borders*", "NHS Dumfries & Galloway",
              "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
              "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "NHS Orkney",
-             "NHS Shetland", "NHS Western Isles"
-             )
-
-# used for the plot titles for the small multiple charts in average gestation at termination
-
-HBnames_alternative <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
-                         "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
-                         "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside",
-                         "NHS Orkney, NHS Shetland <br> and NHS Western Isles*"
-)
-
-# grouped island board name
-
-HBName_terminations <- "NHS Orkney, NHS Shetland and NHS Western Isles*"
+             "NHS Shetland", "NHS Western Isles", "NHS Orkney, NHS Shetland <br> and NHS Western Isles*")
 
 # sets colour palette to the PHS colour scheme
 
