@@ -1131,6 +1131,14 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12,
+                             uiOutput("correction") %>%
+                               tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;"),
+                             
+                             br()
+                      ),
+                      
+                      column(12,
                              p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
@@ -1153,10 +1161,6 @@ gestation_at_booking <- tabItem(
                                " publication.",
                                class = "notes-style"),
                              
-                             uiOutput("correction") %>%
-                               tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;"),
-
                              hr()
                              
                       ),
@@ -2221,6 +2225,13 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
+                             p(textOutput("Borders_caesarean_footnote1") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             )
+                      ),
+                      
+                      column(12,
                              p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
@@ -2279,6 +2290,13 @@ type_of_birth <- tabItem(
                              
                              br()
                              
+                      ),
+                      
+                      column(12,
+                             p(textOutput("Borders_caesarean_footnote2") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             )
                       ),
                       
                       column(12,
@@ -2341,6 +2359,13 @@ type_of_birth <- tabItem(
                              
                              br()
                              
+                      ),
+                      
+                      column(12,
+                             p(textOutput("Borders_caesarean_footnote3") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             )
                       ),
                       
                       column(12,
@@ -3937,7 +3962,10 @@ server <- function(input, output, session) {
         #session = session,
         inputId = "hbname",
         label = "Select Board",
-        choices = HBnames,
+        choices = c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Dumfries & Galloway",
+             "NHS Fife", "NHS Forth Valley", "NHS Grampian", "NHS Greater Glasgow & Clyde",
+             "NHS Highland", "NHS Lanarkshire", "NHS Lothian", "NHS Tayside", "NHS Orkney",
+             "NHS Shetland", "NHS Western Isles"),
         selected = "Scotland",
         options = pickerOptions(size = 10), # shows 10 boards and a scroll bar - will drop up and not get hidden?
         choicesOpt = list(
@@ -4036,7 +4064,7 @@ server <- function(input, output, session) {
               updated links and standardised titles, labels, legends and metadata",
               "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
               revised the y-axis scales for the Island Boards in the small multiple charts (where possible) to make the mainland Boards' variation easier to see;
-              removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures)"
+              removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures); added notes describing the issue with NHS Borders planned and unplanned caesarean birth rates"
               )
   
   version_info <- tibble(`Version`, `Date`, `Change`)
@@ -4050,22 +4078,41 @@ server <- function(input, output, session) {
   url <- a("phs.matneodatahub@phs.scot", href="mailto:phs.matneodatahub@phs.scot")
   
   # d) correction text for Forth Valley and Tayside Gestation at booking
-
-output$correction <- renderUI({
-                 tagList(gest_at_booking_correction_text, url)
-               })
-
-observeEvent(input$hbname,
-             
-             toggleElement(id = "correction", 
-                           condition = input$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
-)
+  
+  output$correction <- renderUI({
+    tagList(gest_at_booking_correction_text, url)
+  })
+  
+  observeEvent(input$hbname,
+               
+               toggleElement(id = "correction", 
+                             condition = input$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
+  )
   
   # footnote Av. gestation at termination runcharts (when Island Boards are selected)
 
   output$gest_at_termination_runcharts_footnote1 <- renderText({
       if(input$hbname %in% island_names) {
         "* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three Boards combined."
+      }
+    })
+  
+ # footnote for Type of Birth - Board comparison - Borders caesarean anomalies
+  
+  observeEvent(input$tob,
+  
+  output$Borders_caesarean_footnote1 <- renderText({
+    if(grepl("planned", input$tob)) {
+      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
+    }
+  })
+  )
+  
+  # footnote for Type of Birth - Individual Board - Borders caesarean anomolies
+
+  output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
+      if(input$hbname == "NHS Borders") {
+        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
       }
     })
   

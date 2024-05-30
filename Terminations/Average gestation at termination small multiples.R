@@ -4,14 +4,14 @@ gest_at_termination_small_multiples_data <- reactive({
   # selects data
   
   req(input$organisation)
-
+  
   data <- gest_at_termination_data %>%
     filter(hbtype == Selected$HBType) %>%
-    mutate(hbname2 = if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*",
+    mutate(hbname2 = if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles",
                              "NHS Orkney, NHS Shetland <br> and NHS Western Isles*",
                              hbname),
            hbname2 = factor(hbname2, 
-                            levels = HBnames_alternative), # includes grouped Island Boards),
+                            levels = HBnames),
            mytext = paste0(hbname,
                            "<br>",
                            "Month: ", 
@@ -25,7 +25,7 @@ gest_at_termination_small_multiples_data <- reactive({
                            " weeks"
            ),
            hbgroup = factor(
-             if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles*", "island", "mainland"),
+             if_else(hbname == "NHS Orkney, NHS Shetland and NHS Western Isles", "island", "mainland"),
              levels = c("mainland", "island"), ordered = TRUE)
     ) %>% 
     group_by(hbgroup, hbtype) %>% 

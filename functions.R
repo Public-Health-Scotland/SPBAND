@@ -352,7 +352,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
     plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
   }
   
-  plotdata <- droplevels(plotdata) # drop unused factor levels in hbname2
+  plotdata <- droplevels(plotdata) # drop unused factor levels
   
   y_max <- max(plotdata$y_max) # allows a range to be set for y-axis
   
@@ -407,7 +407,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
     
     c(0.2, 0.25, 0.25, 0.2)} else {0.75}
   
-  if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks
+  if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks, no markers
     
     # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
@@ -617,6 +617,8 @@ creates_runcharts <- function(plotdata,
                               dottedline = "extended",
                               yaxislabel = "Percentage of births (%)"){
   
+  plotdata <- droplevels(plotdata) # drop unused factor levels
+  
   y_max <- max(plotdata$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
   
   # temp fix
@@ -659,7 +661,7 @@ creates_runcharts <- function(plotdata,
    "APGAR5" = SMR02_date_tickvals
    ) 
   
-  select_date_ticktext <- switch( # telss plotly what text to show on ticks
+  select_date_ticktext <- switch( # tells plotly what text to show on ticks
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
    "GESTATION AT BOOKING" = bookings_date_ticktext,
@@ -671,6 +673,22 @@ creates_runcharts <- function(plotdata,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
    "APGAR5" = SMR02_date_ticktext
    )
+  
+  # adds an asterisk to these Board names when there is a related footnote to show
+  
+  legend_board_name <- if_else(
+    (first(plotdata$measure == "TYPE OF BIRTH") &
+       first(plotdata$hbname == "NHS Borders")
+     ) |
+      (first(plotdata$measure == "GESTATION AT BOOKING") &
+      first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
+      ) |
+      (first(plotdata$measure == "GESTATION AT TERMINATION") &
+      first(plotdata$hbname == "NHS Orkney, NHS Shetland and NHS Western Isles")
+      ),
+    paste0(first(plotdata$hbname), "*"),
+    first(plotdata$hbname)
+    )
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -789,7 +807,7 @@ creates_runcharts <- function(plotdata,
       font = plotly_global_font,
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
-      legend = list(title = list(text = paste0(plotdata$hbname, "<br>")),
+      legend = list(title = list(text = paste0(legend_board_name, "<br>")),
                     tracegroupgap = 15,
                     orientation = "v",
                     x = 1.0,
@@ -921,6 +939,8 @@ creates_context_charts <- function(plotdata,
                                    den_hover = "mytext2",
                                    yaxislabel = "Number of births"){
   
+  plotdata <- droplevels(plotdata) # drop unused factor levels
+  
   y_max <- max(plotdata$den, na.rm = TRUE) # allows a margin to be set around y-axis
   
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
@@ -963,6 +983,16 @@ creates_context_charts <- function(plotdata,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
    "APGAR5" = SMR02_date_ticktext
    )
+  
+  # adds an asterisk to these Board names when there is a related footnote to show
+  
+  legend_board_name <- if_else(
+    (first(plotdata$measure == "TYPE OF BIRTH") &
+       first(plotdata$hbname == "NHS Borders")
+     ),
+    paste0(first(plotdata$hbname), "*"),
+    first(plotdata$hbname)
+    )
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -1028,7 +1058,7 @@ context_charts <-
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
       legend = list(
-        title = list(text = paste0(plotdata$hbname, "<br>")),
+        title = list(text = paste0(legend_board_name, "<br>")),
         orientation = "v",
         x = 1.0,
         y = 0.5,
