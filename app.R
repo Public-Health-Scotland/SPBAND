@@ -2362,6 +2362,13 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
+                             p(textOutput("Borders_caesarean_footnote3") %>%
+                                 tagAppendAttributes(style = "font-size:14px;
+                                                   text-align: left;")
+                             )
+                      ),
+                      
+                      column(12,
                              p(paste0("Data refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
@@ -4096,16 +4103,16 @@ server <- function(input, output, session) {
   
   output$Borders_caesarean_footnote1 <- renderText({
     if(grepl("planned", input$tob)) {
-      "* Data for NHS Borders for elective and emergency caesarean sections show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
+      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
     }
   })
   )
   
   # footnote for Type of Birth - Individual Board - Borders caesarean anomolies
 
-  output$Borders_caesarean_footnote2 <- renderText({
+  output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
       if(input$hbname == "NHS Borders") {
-        "* Data for NHS Borders for elective and emergency caesarean sections show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
+        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
       }
     })
   

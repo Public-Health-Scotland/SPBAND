@@ -807,7 +807,7 @@ creates_runcharts <- function(plotdata,
       font = plotly_global_font,
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
-      legend = list(title = list(text = paste0(legend_board_name, "<br>")), #plotdata$hbname
+      legend = list(title = list(text = paste0(legend_board_name, "<br>")),
                     tracegroupgap = 15,
                     orientation = "v",
                     x = 1.0,
@@ -939,6 +939,8 @@ creates_context_charts <- function(plotdata,
                                    den_hover = "mytext2",
                                    yaxislabel = "Number of births"){
   
+  plotdata <- droplevels(plotdata) # drop unused factor levels
+  
   y_max <- max(plotdata$den, na.rm = TRUE) # allows a margin to be set around y-axis
   
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
@@ -981,6 +983,16 @@ creates_context_charts <- function(plotdata,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
    "APGAR5" = SMR02_date_ticktext
    )
+  
+  # adds an asterisk to these Board names when there is a related footnote to show
+  
+  legend_board_name <- if_else(
+    (first(plotdata$measure == "TYPE OF BIRTH") &
+       first(plotdata$hbname == "NHS Borders")
+     ),
+    paste0(first(plotdata$hbname), "*"),
+    first(plotdata$hbname)
+    )
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -1046,7 +1058,7 @@ context_charts <-
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
       legend = list(
-        title = list(text = paste0(plotdata$hbname, "<br>")),
+        title = list(text = paste0(legend_board_name, "<br>")),
         orientation = "v",
         x = 1.0,
         y = 0.5,
