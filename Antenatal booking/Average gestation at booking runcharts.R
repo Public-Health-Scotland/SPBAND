@@ -68,5 +68,5 @@ output$gest_at_booking_runcharts_title <- renderText({
 
 gest_at_booking_correction_text <-
 
-  "* In early 2024 we detected errors in the way that revised medians for average gestation were calculated for NHS Forth Valley and NHS Tayside after changes in the process for recording booking. These errors, and separate errors affecting calculations of shifts relative to these medians, were corrected in the April 2024 data refresh. This issue did not impact the majority of Boards for this measure nor any other measure's runcharts.  For further details contact "
+  "* In early 2024 we detected errors in the way that revised medians for average gestation were calculated for NHS Forth Valley and NHS Tayside after changes in the process for recording booking. These errors, and separate errors affecting calculations of shifts relative to these medians, were corrected in the April 2024 release. This issue did not impact the majority of Boards for this measure nor any other measure's runcharts. For further details contact "
 

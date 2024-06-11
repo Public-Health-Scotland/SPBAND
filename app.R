@@ -4103,16 +4103,16 @@ server <- function(input, output, session) {
   
   output$Borders_caesarean_footnote1 <- renderText({
     if(grepl("planned", input$tob)) {
-      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
+      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
     }
   })
   )
   
-  # footnote for Type of Birth - Individual Board - Borders caesarean anomolies
+  # footnote for Type of Birth - Individual Board - Borders caesarean anomalies
 
   output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
       if(input$hbname == "NHS Borders") {
-        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the board to try to further understand and rectify the issue."
+        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
       }
     })
   
