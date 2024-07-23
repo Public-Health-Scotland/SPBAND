@@ -336,7 +336,7 @@ creates_overview_charts_with_median <- function(plotdata,
 # hover: hovertext for the measure_value
 # yaxislabel: text to appear on y axis
 
-creates_small_multiple_charts_without_median_test <- function(plotdata,
+creates_small_multiple_charts_without_median <- function(plotdata,
                                                    measure_value,
                                                    hover = "mytext"){
   
@@ -573,7 +573,7 @@ creates_small_multiple_charts_without_median_test <- function(plotdata,
 # Function to run the small multiples charts code (for layout)
 # Parameters:
 # plotdata: dataframe with data to be plotted
-# calls creates_small_multiple_charts_without_median_test
+# calls creates_small_multiple_charts_without_median
 # produces either one chart or two charts in a list (GESTATION AT TERMINATION)
 
 subplot_mainland_island_small_multiples <- function(plotdata) {
@@ -583,7 +583,7 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
     small_multiple_subplot <- 
       plotdata %>% 
       split(.$hbgroup) %>% 
-      map(\(df) creates_small_multiple_charts_without_median_test(df)) %>% 
+      map(\(df) creates_small_multiple_charts_without_median(df)) %>% 
       subplot(nrows = 2, heights = c(0.8, 0.2), margin = c(0.01, 0.01, 0.05, 0.01)) # seems to give 
     # separation between mainland and island plots
 
@@ -592,7 +592,7 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
     small_multiple_subplot <-
       plotdata %>%
       split(.$hbgroup) %>%
-      map(\(df) creates_small_multiple_charts_without_median_test(df))
+      map(\(df) creates_small_multiple_charts_without_median(df))
 
   }
   
