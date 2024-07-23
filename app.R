@@ -415,40 +415,7 @@ version <-
   tabPanel(title = "Version",
            value = "version",
            
-           fluidRow(
-             
-            # br(),
-             
-             box(solidHeader = TRUE,
-                 width = 12,
-                 
-                 br(),
-                 
-                 column(12,
-                        
-                        p("This dashboard is scheduled to be updated each quarter, generally by the first Tuesday in the months of January, April, July and October."
-                          ),
-                        
-                        p("Data are shown for up to and including the most recent period for which records are considered near complete. Data for the most recent period should be viewed as provisional. Data for the whole time period shown will be refreshed every time the dashboard updated, and data for the most recent periods are likely to change slightly as additional or updated records are added."
-                          ),
-                        
-                        br(),
-                        
-                        p(paste0("The data were last refreshed on ", pretty_refresh_date, ".")
-                          ),
-                        
-                        br(),
-                        
-                        p("Small changes to the format of the dashboard are noted with new version numbers as detailed below:"),
-                        
-                        br(),
-                        
-                        tableOutput('version_tbl')
-                 )
-                 
-             ) # box
-             
-           ) # fluidRow
+           uiOutput("version_panel")
            
   ) # tabPanel("Version")
 
@@ -561,13 +528,13 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                             p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -650,13 +617,13 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02",
+                             p("Source: Public Health Scotland - Antenatal Booking Collection, Termination of Pregnancy Submissions Scotland (ToPSS), SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -748,13 +715,13 @@ pregnancies_booked <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Antenatal Booking Collection",
+                             p("Source: Public Health Scotland - Antenatal Booking Collection.",
                                class = "notes-style"
                              ),
                              
@@ -841,7 +808,7 @@ pregnancies_booked <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Antenatal Booking Collection"
+                          p("Data source: Antenatal Booking Collection."
                           ),
                           
                           p("The antenatal booking data presented are based on the ", strong("Antenatal Booking Collection"), "initially established as a rapid response to COVID-19. Data are collected from the clinical information system - BadgerNet Maternity (most NHS boards) or TrakCare Maternity (NHS Lothian) - used by the midwives who ‘book’ a pregnant woman for maternity care. The booking appointment is the first planned and structured contact a midwife has with a pregnant woman, to assess her history and needs so that local maternity services can provide further care such as an early pregnancy scan and antenatal screening tests. The booking appointment can also give women further  information about how they can keep themselves and their baby healthy during pregnancy, and to help them plan labour and birth."
@@ -915,13 +882,13 @@ terminations <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"                             
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS).",
                                class = "notes-style"
                              ),
                              
@@ -993,7 +960,7 @@ terminations <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)"
+                          p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
                           ),
                           
                           p("The Abortion (Scotland) Regulations 1991 set out the arrangements under which a doctor who has terminated a pregnancy must give notice of the termination to the Chief Medical Officer (CMO), as required by the Abortion Act 1967. For any terminations taking place from 1 May 2022 onwards, the 1991 Regulations were replaced by the Abortion (Scotland) Amendment Regulations 2021. The 2021 Regulations include: the removal of the prescribed notification form (commonly known as the ‘yellow form’); changing the deadline for giving notice of a termination from ‘within 7 days’ of the termination to ‘before the fifteenth day of the calendar month immediately following the calendar month in which the practitioner terminated the pregnancy’; and a simpler notification to be sent to the CMO."
@@ -1068,13 +1035,13 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Antenatal Booking Collection",
+                             p("Source: Public Health Scotland - Antenatal Booking Collection.",
                                class = "notes-style"
                              ),
                              
@@ -1131,7 +1098,7 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12,
-                             uiOutput("correction") %>%
+                             uiOutput("gest_at_booking_footnote") %>%
                                tagAppendAttributes(style = "font-size:14px;
                                                    text-align: left;"),
                              
@@ -1139,13 +1106,13 @@ gestation_at_booking <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Antenatal Booking Collection",
+                             p("Source: Public Health Scotland - Antenatal Booking Collection.",
                                class = "notes-style"
                              ),
                              
@@ -1238,7 +1205,7 @@ gestation_at_booking <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Antenatal Booking Collection"
+                          p("Data source: Antenatal Booking Collection."
                           ),
                           
                           p("The antenatal booking data presented is based on the ", strong("Antenatal Booking Collection"), "initially established as a rapid response to COVID-19. Data on completed weeks of pregnancy are collected from the clinical information system - BadgerNet Maternity (most NHS boards) or TrakCare Maternity (NHS Lothian) - used by the midwives who ‘book’ a pregnant woman for maternity care.  The booking appointment is defined as the first planned and structured contact a midwife has with a pregnant woman, to assess her history and needs so that local maternity services can provide further care such as an early pregnancy scan and antenatal screening tests. The booking appointment can also give women further information about how they can keep themselves and their baby healthy during pregnancy, and to help them plan labour and birth."
@@ -1329,11 +1296,11 @@ gestation_at_termination <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              ),
                              
-                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS).",
                                class = "notes-style"
                              ),
                              
@@ -1396,13 +1363,13 @@ gestation_at_termination <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS)",
+                             p("Source: Public Health Scotland - Termination of Pregnancy Submissions Scotland (ToPSS).",
                                class = "notes-style"
                              ),
                              
@@ -1491,7 +1458,7 @@ gestation_at_termination <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)"
+                          p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
                           ),
                           
                           p("Up to April 2022: data were derived from the Notifications of Abortion to the Chief Medical Officer (CMO) for Scotland under the Abortion (Scotland) Regulations 1991. Notifications should be submitted to the CMO within 7 days of a termination."
@@ -1572,13 +1539,13 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -1649,13 +1616,13 @@ location_of_ex_pre_term <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -1766,7 +1733,7 @@ location_of_ex_pre_term <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("The data used for the ‘location of extremely pre-term births’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
@@ -1902,13 +1869,13 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -1966,13 +1933,13 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2033,13 +2000,13 @@ inductions <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2133,7 +2100,7 @@ inductions <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("The data used for the ‘induction of labour’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
@@ -2232,13 +2199,13 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2300,13 +2267,13 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2369,13 +2336,13 @@ type_of_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style" 
                              ),
                              
@@ -2467,7 +2434,7 @@ type_of_birth <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("The data used for the ‘type of birth’ measure come from the ‘Mode of Delivery’ field on the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
@@ -2554,13 +2521,13 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2616,13 +2583,13 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2683,13 +2650,13 @@ perineal_tears <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2790,7 +2757,7 @@ perineal_tears <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("The data used for the ‘perineal tears’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
@@ -2883,13 +2850,13 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -2947,13 +2914,13 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12, 
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -3010,13 +2977,13 @@ gestation_at_birth <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -3102,7 +3069,7 @@ gestation_at_birth <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("‘Gestation at birth’ refers to the number of completed weeks pregnant a woman is when her baby is born. Babies are ‘due’ at 40 completed weeks gestation. Those born between 37 and up to 42 weeks inclusive are considered to be born ‘at term’."
@@ -3297,7 +3264,7 @@ stillbirths <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: National Records of Scotland (NRS) vital event registrations"
+                          p("Data source: National Records of Scotland (NRS) vital event registrations."
                           ),
                           
                           p("The quarterly stillbirth and infant mortality rates shown have been generated using data provided by ", 
@@ -3443,13 +3410,13 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -3506,13 +3473,13 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -3579,13 +3546,13 @@ apgar_scores <- tabItem(
                       ),
                       
                       column(12,
-                             p(paste0("Data refreshed on ", pretty_refresh_date, "."),
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
                              )
                       ),
                       
                       column(12,
-                             p("Source: Public Health Scotland - SMR02",
+                             p("Source: Public Health Scotland - SMR02.",
                                class = "notes-style"
                              ),
                              
@@ -3642,7 +3609,7 @@ apgar_scores <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case"
+                          p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
                           ),
                           
                           p("The data used for the ‘Apgar scores’ measure come from the Scottish Morbidity Record 02 (SMR02) database. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended home births."
@@ -4051,71 +4018,7 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
-  
-  # builds Version table
-  
-  `Version` <- c("1.0", "1.1", "1.2", "1.3", "1.4")
-  `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024", "2 Jul 2024")
-  `Change` <- c("First public release of SPBAND",
-                "Amended Home - How to use this dashboard",
-                "Updated links and standardised titles, labels and metadata",
-                "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
-              replaced CSV download files with accessible Excel download files;
-              updated links and standardised titles, labels, legends and metadata",
-              "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
-              revised the y-axis scales for the Island Boards in the small multiple charts (where possible) to make the mainland Boards' variation easier to see;
-              removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures); added notes describing the issue with NHS Borders planned and unplanned caesarean birth rates"
-              )
-  
-  version_info <- tibble(`Version`, `Date`, `Change`)
-  
-  output$version_tbl <- renderTable(version_info, 
-                                    striped = TRUE,
-                                    bordered = TRUE)
-  
-  # deals with correction to Gestation at Booking for FV and Tayside
-  
-  url <- a("phs.matneodatahub@phs.scot", href="mailto:phs.matneodatahub@phs.scot")
-  
-  # d) correction text for Forth Valley and Tayside Gestation at booking
-  
-  output$correction <- renderUI({
-    tagList(gest_at_booking_correction_text, url)
-  })
-  
-  observeEvent(input$hbname,
-               
-               toggleElement(id = "correction", 
-                             condition = input$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
-  )
-  
-  # footnote Av. gestation at termination runcharts (when Island Boards are selected)
 
-  output$gest_at_termination_runcharts_footnote1 <- renderText({
-      if(input$hbname %in% island_names) {
-        "* Values shown for the Island Boards (NHS Orkney, NHS Shetland and NHS Western Isles) for ‘Average gestation at termination’ are based on the data for those three Boards combined."
-      }
-    })
-  
- # footnote for Type of Birth - Board comparison - Borders caesarean anomalies
-  
-  observeEvent(input$tob,
-  
-  output$Borders_caesarean_footnote1 <- renderText({
-    if(grepl("planned", input$tob)) {
-      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
-    }
-  })
-  )
-  
-  # footnote for Type of Birth - Individual Board - Borders caesarean anomalies
-
-  output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
-      if(input$hbname == "NHS Borders") {
-        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
-      }
-    })
-  
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
   # })
@@ -4209,6 +4112,10 @@ server <- function(input, output, session) {
   source("Apgar5/Apgar5 context charts.R", local = TRUE)
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
+  
+  source("Version.R", local = TRUE)
+  
+  source("Footnotes.R", local = TRUE)
   
 }
 
