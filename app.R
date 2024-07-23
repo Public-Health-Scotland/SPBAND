@@ -4018,7 +4018,7 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
-  
+
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
   # })
