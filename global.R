@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-06-17") 
+refresh_date <- as.Date("2024-07-17") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -85,6 +85,12 @@ apgar5_data <- load_and_split_dataframe("APGAR5")
 bookings_date_range <- unique(bookings_data$date)
 bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
+
+# temp to test post-pandemic median
+
+gest_at_booking_date_range <- unique(gest_at_booking_data$date)
+gest_at_booking_date_tickvals <- gest_at_booking_date_range[seq(1, length(gest_at_booking_date_range), 2)]
+gest_at_booking_date_ticktext <- format(gest_at_booking_date_tickvals,"%b %Y")
 
 terminations_date_range <- unique(terminations_data$date)
 terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]

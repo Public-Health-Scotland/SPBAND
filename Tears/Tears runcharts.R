@@ -14,7 +14,7 @@ data <- tears_data %>%
     den = "Total number of women: ",
     measure_value = "percentage of women (%)",
     median = " average to Oct-Dec 2019",
-    extended = " projected average from Jan-Mar 2020"
+    extended_median = " projected average from Jan-Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Quarter: ", 
                          quarter_label,

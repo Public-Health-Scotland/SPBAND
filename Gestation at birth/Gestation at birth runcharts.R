@@ -24,7 +24,7 @@ gest_at_birth_runchart_data <- reactive ({
     set_variable_labels(
       den = "Total number of births with a known gestation: ",
       median = " average to Oct-Dec 2019",
-      extended = " projected average from Jan-Mar 2020") %>% 
+      extended_median = " projected average from Jan-Mar 2020") %>% 
       droplevels()
   
   new_labels <- unique(c(data$num_label, data$measure_label))

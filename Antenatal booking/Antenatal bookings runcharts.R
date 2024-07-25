@@ -11,7 +11,7 @@ bookings_runchart_data <- reactive({
     set_variable_labels(
     measure_value = "Number of pregnancies booked",
     median = " average to end Feb 2020",
-    extended = " projected average from Mar 2020"
+    extended_median = " projected average from Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Month: ", 
                          format(date, "%b %Y"),

@@ -15,7 +15,7 @@ gest_at_termination_runchart_data <- reactive({
     set_variable_labels(
       measure_value = "Average gestation at termination",
       median = " average gestation to end Feb 2020",
-      extended = " projected average gestation from Mar 2020"
+      extended_median = " projected average gestation from Mar 2020"
     ) %>% 
     mutate(mytext = paste0("Month: ", 
                            format(date, "%b %Y"),

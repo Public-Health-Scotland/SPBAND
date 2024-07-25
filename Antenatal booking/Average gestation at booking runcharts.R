@@ -11,12 +11,16 @@ gest_at_booking_runchart_data <- reactive({
     set_variable_labels(
       measure_value = "Average gestation at booking",
       median = "average gestation to end Feb 2020",
-      extended = 
+      extended_median = 
         case_when(Selected$HBName == "NHS Forth Valley" ~ 
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Feb 2021"),
                   Selected$HBName == "NHS Tayside" ~ 
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Jul 2020"),
-                  TRUE ~ "projected average gestation from Mar 2020")
+                  TRUE ~ 
+                    paste0("projected average gestation from Mar 2020", "<br>", "to end Jun 2022")
+                  ),
+      post_pandemic_median = paste0("average gestation from Jul 2022", "<br>", "to end Jun 2024"),
+      extended_post_pandemic_median = "projected average gestation from Jul 2024" 
     ) %>% 
     mutate(mytext = paste0("Month: ", 
                            format(date, "%b %Y"),
