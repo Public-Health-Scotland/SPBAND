@@ -4,7 +4,7 @@ stillbirths_runchart_data <-
 
 NRS_timeseries %>%
   filter(!measure_cat %like% "total" & # don't want the "total" values
-           date_label != "Jan-Mar 2020") %>% # remove point from plot for a balanced look
+           date_label != "Apr-Jun 2020") %>% # remove point from plot for a balanced look
   mutate(measure_label = paste0("Rate per 1,000 ", den_description),
          hover_date_label = if_else(date_label == "2020",
                               paste0("Year: ", date_label),
@@ -54,50 +54,54 @@ stillbirth_charts <- stillbirths_runchart_data %>%
   lapply(
     function(d)
       plot_ly(d, 
-              x = ~ date_label,
-              y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
+              x = ~ date,
+              y = ~ measure_value,
               type = "scatter",
-              mode = "lines",
-              line = list(
-                color = phs_colours("phs-blue"), 
-                width = 1,
-                dash = "4"
-                ),
-              name = "projected average from Jan-Mar 2020", # label of variable
-              legendrank = 300, 
-              legendgroup = "extended",
+              mode = "lines+markers",
+              line = list(color = "black", # black lines
+                          width = 1,
+                          dash = "solid"),
+              marker = list(color = "black", # black dots
+                            size = 5),
+              name = "rate per 1,000 related births", # retrieves label of variable
+              legendrank = 100,
+              legendgroup = "measure_value",
               showlegend = ~ unique(measure_cat) == "infant deaths",
-              hovertext = "",
-              hoverinfo = "none"
-              ) %>%
-      add_trace(
-        y = ~ measure_value,
-        type = "scatter",
-        mode = "lines+markers",
-        line = list(color = "black", # black lines
-                    width = 1,
-                    dash = "solid"),
-        marker = list(color = "black", # black dots
-                      size = 5),
-        name = "rate per 1,000 related births", # retrieves label of variable
-        legendrank = 100,
-        legendgroup = "measure_value",
-        showlegend = ~ unique(measure_cat) == "infant deaths",
-        hovertext = ~ mytext,
-        hoverinfo = "text"
-        ) %>%
+              hovertext = ~ mytext,
+              hoverinfo = "text"
+      ) |> 
       add_trace(
         y = ~ mean, # solid blue line
         type = "scatter",
         mode = "lines",
         line = list(color = phs_colours("phs-blue"), 
                     width = 1, dash = "solid"),
+        marker = NULL,
         name = "average to Oct-Dec 2019", # label of variable
         legendrank = 200,
         legendgroup = "mean",
         showlegend = ~ unique(measure_cat) == "infant deaths",
-        hovertext = ""
-        ) %>%
+        hoverinfo = "y",
+        yhoverformat = ".2f"
+        #hovertext = ""
+      ) |> 
+      add_trace(
+        y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-blue"), 
+          width = 1,
+          dash = "4"
+        ),
+        marker = NULL,
+        name = "projected average from Jan-Mar 2020", # label of variable
+        legendrank = 300, 
+        legendgroup = "extended",
+        showlegend = ~ unique(measure_cat) == "infant deaths",
+        hovertext = "",
+        hoverinfo = "none"
+      ) |> 
       layout(
         font = plotly_global_font,
         xaxis = xaxis_plots,
@@ -112,9 +116,9 @@ stillbirth_charts <- stillbirths_runchart_data %>%
           xanchor = "center",
           yanchor = "bottom",
           showarrow = FALSE
-          )
         )
-    )
+      )
+  )
 
 stillbirth_charts <- stillbirth_charts %>% 
   subplot(nrows = 2,

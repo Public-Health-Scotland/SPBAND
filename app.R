@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.4") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.4") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND_test v 1.5") # this is the PRA dashboard
   )
 )
 

@@ -689,6 +689,19 @@ creates_runcharts <- function(plotdata,
     paste0(first(plotdata$hbname), "*"),
     first(plotdata$hbname)
     )
+  
+  hoverinfo_format <- switch( # tells plotly how to format median hoverinfo
+    first(plotdata$measure), 
+   "BOOKINGS" = ",.0f",
+   "GESTATION AT BOOKING" = ".1f",
+   "TERMINATIONS" = ",.0f",
+   "GESTATION AT TERMINATION" = ".1f",
+   "INDUCTIONS" = ".1f",
+   "TYPE OF BIRTH" = ".1f",
+   "TEARS" = ".2f",
+   "GESTATION AT BIRTH" = ".2f",
+   "APGAR5" = ".2f"
+   )
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -764,8 +777,10 @@ creates_runcharts <- function(plotdata,
       legendgroup = "median",
       legendrank = 200,
       showlegend = ~ include_legend,
-      hovertext = "",
-      hoverinfo = "none"
+      hoverinfo = "y",
+      yhoverformat = hoverinfo_format
+      # hovertext = "",
+      # hoverinfo = "none"
     ) %>%
     add_trace(
       y = ~ get(dottedline), # dotted blue line
@@ -888,7 +903,9 @@ creates_runcharts <- function(plotdata,
         legendrank = 1000,
         showlegend = include_legend,
         legendgroup = "post-pandemic median",
-        hovertext = ""
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+        #hovertext = ""
       ) %>%
       add_trace(
         data = filter(plotdata,!is.na(extended_post_pandemic_median)),
@@ -905,8 +922,9 @@ creates_runcharts <- function(plotdata,
                         ),
         legendrank = 1100,
         showlegend = include_legend,
-        legendgroup = "extended post-pandemic median",
-        hovertext = ""
+        legendgroup = "extended post-pandemic median"
+        # hovertext = "",
+        # hoverinfo = "none"
       )
   }
   
@@ -936,7 +954,9 @@ creates_runcharts <- function(plotdata,
         legendrank = 400,
         showlegend = include_legend,
         legendgroup = "revised median",
-        hovertext = ""
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+        #hovertext = ""
       ) %>%
       add_trace(
         data = filter(plotdata,!is.na(extended_revised_median)),
@@ -963,8 +983,6 @@ creates_runcharts <- function(plotdata,
         hovertext = ""
       )
   }
-  
-  
   
   return(runcharts)
 }

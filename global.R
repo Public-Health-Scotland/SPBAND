@@ -107,17 +107,21 @@ y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not
 
 # STLLBIRTHS SPECIFIC
 
-date_range_NRS <- as.character(unique(NRS_timeseries$date_label))
+NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") |>
+  mutate(date = if_else(date_label == "2020", as.Date("2020-04-01"), as.Date(date)))
+  
+date_range_NRS = as.character(unique(NRS_timeseries$date))
+
+date_label_range_NRS = as.character(unique(NRS_timeseries$date_label))
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
                        date_range_NRS[seq(22, length(date_range_NRS), 2)])
 
-NRS_date_ticktext <- NRS_date_tickvals
+NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], date_range_NRS[18], # only mark "Apr-Jun 2020" which is actually the annual figure
+                       date_range_NRS[seq(21, length(date_range_NRS), 2)])
 
-stillbirths_download <- NRS_timeseries %>% 
-  select("dataset", "hbtype", "hbname", "period", "date", "measure", "measure_cat", "num", "den", 
-         "measure_value", "mean", "extended", "suffix", "num_description", "den_description",
-         "measure_value_description")
+NRS_date_ticktext <- c(date_label_range_NRS[seq(1, 16, 2)], "2020", # labels to match marks
+                       date_label_range_NRS[seq(21, length(date_label_range_NRS), 2)])
 
 y_max_NRS <- max(NRS_timeseries$measure_value, na.rm = TRUE) # allows a margin to be set around y-axis
 
