@@ -796,8 +796,8 @@ creates_runcharts <- function(plotdata,
       legendgroup = "extended_median",
       legendrank = 300,
       showlegend = ~ include_legend,
-      hovertext = "",
-      hoverinfo = "none"
+      hoverinfo = "y",
+      yhoverformat = hoverinfo_format
     ) %>%
     add_trace(
       y = ~ shift, # orange lines
@@ -922,9 +922,9 @@ creates_runcharts <- function(plotdata,
                         ),
         legendrank = 1100,
         showlegend = include_legend,
-        legendgroup = "extended post-pandemic median"
-        # hovertext = "",
-        # hoverinfo = "none"
+        legendgroup = "extended post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
       )
   }
   
@@ -956,7 +956,6 @@ creates_runcharts <- function(plotdata,
         legendgroup = "revised median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
-        #hovertext = ""
       ) %>%
       add_trace(
         data = filter(plotdata,!is.na(extended_revised_median)),
@@ -980,7 +979,8 @@ creates_runcharts <- function(plotdata,
         legendrank = 500,
         showlegend = include_legend,
         legendgroup = "extended_revised_median",
-        hovertext = ""
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
       )
   }
   
