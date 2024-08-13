@@ -44,7 +44,7 @@ extremely_preterm_control_chart <-
     ),
     marker = NULL,
     name = "centreline",
-    hoverinfo = "none"
+    hoverinfo = "y"
   ) %>%
   add_lines(
     y = ~ lower_warning_limit, # lower warning limit

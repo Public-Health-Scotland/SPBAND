@@ -14,7 +14,7 @@ data <- apgar5_data %>%
     den = "Total number of babies: ",
     measure_value = "percentage of babies (%)",
     median = " average to Oct-Dec 2019",
-    extended = " projected average from Jan-Mar 2020"
+    extended_median = " projected average from Jan-Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Quarter: ", 
                          quarter_label,

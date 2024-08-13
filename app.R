@@ -20,8 +20,8 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.4") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.4") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
+          tags$p("SPBAND_test v 1.5") # this is the PRA dashboard
   )
 )
 
@@ -1549,7 +1549,7 @@ location_of_ex_pre_term <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information is available from the PHS annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -1557,8 +1557,8 @@ location_of_ex_pre_term <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
-                               class = "notes-style"
+                               " is available in PHS annual reports.",
+                               class = "notes-style",
                              ),
                              
                              hr()
@@ -1626,7 +1626,7 @@ location_of_ex_pre_term <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information is available from the PHS annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -1634,7 +1634,7 @@ location_of_ex_pre_term <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              )
                       )
@@ -1701,15 +1701,15 @@ location_of_ex_pre_term <- tabItem(
                             "to concentrate expertise and improve babies’ outcomes."
                           ),
                           
-                          p("Further information based on SMR02 data is available from the PHS annual",
+                          p("Further information on ",
                             
                             tags$a(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                              tags$u("Births in Scotland"),
+                              tags$u("Births in Scotland,"),
                               class = "externallink",
                               target = "_blank"
                             ),
-                            " report."
+                            " based on SMR02 data, is also available in PHS annual reports."
                           ),
                           
                           p("The ",
@@ -2531,7 +2531,7 @@ perineal_tears <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -2539,7 +2539,7 @@ perineal_tears <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              )
                       )
@@ -2593,7 +2593,7 @@ perineal_tears <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -2601,7 +2601,7 @@ perineal_tears <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              ),
                              
@@ -2660,7 +2660,7 @@ perineal_tears <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -2668,7 +2668,7 @@ perineal_tears <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              )
                       )
@@ -2746,7 +2746,19 @@ perineal_tears <- tabItem(
                                 "weeks of gestation who sustain a third- or fourth-degree tear is reported as higher in Scotland than in England or Wales, so we need to continue to monitor rates across Scotland in order to reduce rate and  risk."
                               ) # HTML
                             ) # div
-                          )
+                          ),
+                          
+                          p("Further information on ",
+                            
+                            tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " based on SMR02 data, is also available in PHS annual reports."
+                            )
+
                       ), # box
                       
                       box(width = 1,
@@ -3420,7 +3432,7 @@ apgar_scores <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -3428,7 +3440,7 @@ apgar_scores <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              )
                       )
@@ -3483,7 +3495,7 @@ apgar_scores <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -3491,7 +3503,7 @@ apgar_scores <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              ),
                              
@@ -3556,7 +3568,7 @@ apgar_scores <- tabItem(
                                class = "notes-style"
                              ),
                              
-                             p("Further information based on SMR02 data is available from the annual",
+                             p("Further information on ",
                                
                                tags$a(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
@@ -3564,7 +3576,7 @@ apgar_scores <- tabItem(
                                  class = "externallink",
                                  target = "_blank"
                                ),
-                               " report.",
+                               " is available in PHS annual reports.",
                                class = "notes-style"
                              )
                       )
@@ -3598,7 +3610,19 @@ apgar_scores <- tabItem(
                           ),
                           
                           p("Monitoring of the score is useful as a proxy measure for neonatal health needs and therefore understanding the distribution of need across different populations and changes over time."
-                          )
+                          ),
+                          
+                          p("Further information on ",
+                            
+                            tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " based on SMR02 data, is also available in PHS annual reports."
+                            )
+                          
                       ), # box
                       
                       box(width = 1,

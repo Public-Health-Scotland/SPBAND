@@ -614,7 +614,7 @@ creates_runcharts <- function(plotdata,
                               measure_value,
                               hover = "mytext",
                               centreline = "median",
-                              dottedline = "extended",
+                              dottedline = "extended_median",
                               yaxislabel = "Percentage of births (%)"){
   
   plotdata <- droplevels(plotdata) # drop unused factor levels
@@ -651,7 +651,7 @@ creates_runcharts <- function(plotdata,
   select_date_tickvals <- switch( # tells plotly where ticks will show
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
-   "GESTATION AT BOOKING" = bookings_date_tickvals,
+   "GESTATION AT BOOKING" = gest_at_booking_date_tickvals, # temp
    "TERMINATIONS" = terminations_date_tickvals,
    "GESTATION AT TERMINATION" = terminations_date_tickvals,
    "INDUCTIONS" = SMR02_date_tickvals,
@@ -664,7 +664,7 @@ creates_runcharts <- function(plotdata,
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
-   "GESTATION AT BOOKING" = bookings_date_ticktext,
+   "GESTATION AT BOOKING" = gest_at_booking_date_ticktext, # temp
    "TERMINATIONS" = terminations_date_ticktext,
    "GESTATION AT TERMINATION" = terminations_date_ticktext,
    "INDUCTIONS" = SMR02_date_ticktext,
@@ -689,6 +689,19 @@ creates_runcharts <- function(plotdata,
     paste0(first(plotdata$hbname), "*"),
     first(plotdata$hbname)
     )
+  
+  hoverinfo_format <- switch( # tells plotly how to format median hoverinfo
+    first(plotdata$measure), 
+   "BOOKINGS" = ",.0f",
+   "GESTATION AT BOOKING" = ".1f",
+   "TERMINATIONS" = ",.0f",
+   "GESTATION AT TERMINATION" = ".1f",
+   "INDUCTIONS" = ".1f",
+   "TYPE OF BIRTH" = ".1f",
+   "TEARS" = ".2f",
+   "GESTATION AT BIRTH" = ".2f",
+   "APGAR5" = ".2f"
+   )
 
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -715,22 +728,22 @@ creates_runcharts <- function(plotdata,
   
   runcharts <-
     plot_ly(
-    data = plotdata,
-    x = ~ date,
-    y = ~ trend, # green trend line needs to be plotted first or it obliterates the others
-    type = "scatter",
-    mode = "lines",
-    line = list(
-      color = "lightgreen",
-      width = 10
-    ),
-    name = orig_trend_label,
-    legendgroup = "trend",
-    legendrank = 1003,
-    showlegend = ~ include_trend_shift_legend,
-    hovertext = "",
-    hoverinfo = "none"
-  ) %>% 
+      data = plotdata,
+      x = ~ date,
+      y = ~ trend, # green trend line needs to be plotted first or it obliterates the others
+      type = "scatter",
+      mode = "lines",
+      line = list(
+        color = "lightgreen",
+        width = 10
+      ),
+      name = orig_trend_label,
+      legendgroup = "trend",
+      legendrank = 1200,
+      showlegend = ~ include_trend_shift_legend,
+      hovertext = "",
+      hoverinfo = "none"
+    ) %>% 
     add_trace(
       y = ~ measure_value,
       mode = "lines+markers",
@@ -745,7 +758,7 @@ creates_runcharts <- function(plotdata,
         "TYPE OF BIRTH" ~ "percentage of births (%)",
         "GESTATION AT BIRTH" ~ "percentage of births (%)",
         .default = str_to_lower(var_label(measure_value))
-        ),
+      ),
       legendgroup = "measure_value",
       legendrank = 100,
       showlegend = include_legend,
@@ -764,8 +777,10 @@ creates_runcharts <- function(plotdata,
       legendgroup = "median",
       legendrank = 200,
       showlegend = ~ include_legend,
-      hovertext = "",
-      hoverinfo = "none"
+      hoverinfo = "y",
+      yhoverformat = hoverinfo_format
+      # hovertext = "",
+      # hoverinfo = "none"
     ) %>%
     add_trace(
       y = ~ get(dottedline), # dotted blue line
@@ -778,13 +793,13 @@ creates_runcharts <- function(plotdata,
       ),
       marker = NULL,
       name = ~ paste0(var_label(get(dottedline))), # retrieves label of variable
-      legendgroup = "extended",
+      legendgroup = "extended_median",
       legendrank = 300,
       showlegend = ~ include_legend,
-      hovertext = "",
-      hoverinfo = "none"
+      hoverinfo = "y",
+      yhoverformat = hoverinfo_format
     ) %>%
-      add_trace(
+    add_trace(
       y = ~ shift, # orange lines
       mode = "lines",
       line = list(
@@ -798,7 +813,7 @@ creates_runcharts <- function(plotdata,
       # ),
       name = orig_shift_label,
       legendgroup = "shift",
-      legendrank = 1004,
+      legendrank = 1300,
       showlegend = ~ include_trend_shift_legend,
       hovertext = "",
       hoverinfo = "none"
@@ -819,64 +834,109 @@ creates_runcharts <- function(plotdata,
     ) %>%
     #config(modeBarButtons = list(list("zoomIn2d"), list("zoomOut2d"), list("pan3d")))
     config(displaylogo = F, displayModeBar = FALSE)
-
-# adds "dummy" traces for multiple runcharts to force shift and trend legends to appear even if there
-# are none in these charts
-
-if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
+  
+  # adds "dummy" traces for multiple runcharts to force shift and trend legends to appear even if there
+  # are none in these charts
+  
+  if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
                                         "between 32 and 36 weeks (inclusive)")) {
-  runcharts <- runcharts %>%
-    add_trace(
-    data = plotdata,
-    x = ~ min(date), # fake trend to show legend even when no trend exists on chart
-    y = ~ -5,
-    mode = "lines",
-    line = list(
-      color = "lightgreen",
-      width = 10
-    ),
-    #marker = NULL,
-    name = orig_trend_label, # retrieves label of variable
-    legendgroup = "trend",
-    legendrank = 600,
-    showlegend = TRUE,
-    #line = NULL,
-    hovertext = "",
-    hoverinfo = "none"
-    ) %>%
-    add_trace(
-      data = plotdata,
-      x = ~ max(date), # fake shift to show legend even when no shift exists on chart
-      y = ~ -5,
-      mode = "lines",
-      marker = NULL,
-      line = list(
-        color = "orange", # orange lines (prevents missing data warning)
-        width = 2),
-      # marker = list(
-      #   color = "orange", # orange dots
-      #   size = 6,
-      #   symbol = "circle"
-      # ),
-      name = orig_shift_label, # retrieves label of variable
-      legendgroup = "shift",
-      legendrank = 700,
-      showlegend = TRUE,
-      #line = NULL,
-      hovertext = "",
-      hoverinfo = "none"
-    )
-}
-
-# additional traces for the "special" Boards in GESTATION AT BOOKING measure
-
-  if(first(plotdata$measure) == "GESTATION AT BOOKING" &
-     first(plotdata$hbname) %in% c("NHS Forth Valley", "NHS Tayside")) {
-
     runcharts <- runcharts %>%
       add_trace(
-        data = filter(plotdata,!is.na(new_median)),
-        y = ~ new_median, # green line
+        data = plotdata,
+        x = ~ min(date), # fake trend to show legend even when no trend exists on chart
+        y = ~ -5,
+        mode = "lines",
+        line = list(
+          color = "lightgreen",
+          width = 10
+        ),
+        #marker = NULL,
+        name = orig_trend_label, # retrieves label of variable
+        legendgroup = "trend",
+        legendrank = 800,
+        showlegend = TRUE,
+        #line = NULL,
+        hovertext = "",
+        hoverinfo = "none"
+      ) %>%
+      add_trace(
+        data = plotdata,
+        x = ~ max(date), # fake shift to show legend even when no shift exists on chart
+        y = ~ -5,
+        mode = "lines",
+        marker = NULL,
+        line = list(
+          color = "orange", # orange lines (prevents missing data warning)
+          width = 2),
+        # marker = list(
+        #   color = "orange", # orange dots
+        #   size = 6,
+        #   symbol = "circle"
+        # ),
+        name = orig_shift_label, # retrieves label of variable
+        legendgroup = "shift",
+        legendrank = 900,
+        showlegend = TRUE,
+        #line = NULL,
+        hovertext = "",
+        hoverinfo = "none"
+      )
+  }
+  
+  # post-pandemic traces for the GESTATION AT BOOKING measure
+  
+  if(first(plotdata$measure) == "GESTATION AT BOOKING") {
+    
+    runcharts <- runcharts %>%
+      add_trace(
+        data = filter(plotdata,!is.na(post_pandemic_median)),
+        y = ~ post_pandemic_median, # magenta line
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-magenta"),
+          width = 1
+        ),
+        marker = NULL,
+        name = ~ paste0(var_label(post_pandemic_median)
+                        ),
+        legendrank = 1000,
+        showlegend = include_legend,
+        legendgroup = "post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+        #hovertext = ""
+      ) %>%
+      add_trace(
+        data = filter(plotdata,!is.na(extended_post_pandemic_median)),
+        y = ~ extended_post_pandemic_median, # dotted magenta line
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-magenta"),
+          width = 1,
+          dash = "4"
+        ),
+        marker = NULL,
+        name = ~ paste0(var_label(extended_post_pandemic_median)
+                        ),
+        legendrank = 1100,
+        showlegend = include_legend,
+        legendgroup = "extended post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+      )
+  }
+  
+  # additional traces for the "special" Boards in GESTATION AT BOOKING measure
+  
+  if(first(plotdata$measure) == "GESTATION AT BOOKING" &
+     first(plotdata$hbname) %in% c("NHS Forth Valley", "NHS Tayside")) {
+    
+    runcharts <- runcharts %>%
+      add_trace(
+        data = filter(plotdata,!is.na(revised_median)),
+        y = ~ revised_median, # green line
         type = "scatter",
         mode = "lines",
         line = list(
@@ -891,13 +951,15 @@ if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
             paste0("average gestation from Aug 2020", "<br>", "to end Jul 2021"),
           TRUE ~ ""
         ),
-        legendrank = 1001,
-        legendgroup = "additional median",
-        hovertext = ""
+        legendrank = 400,
+        showlegend = include_legend,
+        legendgroup = "revised median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
       ) %>%
       add_trace(
-        data = filter(plotdata,!is.na(new_extended)),
-        y = ~ new_extended, # dotted green line
+        data = filter(plotdata,!is.na(extended_revised_median)),
+        y = ~ extended_revised_median, # dotted green line
         type = "scatter",
         mode = "lines",
         line = list(
@@ -907,17 +969,21 @@ if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
         ),
         marker = NULL,
         name = ~ paste0(case_when(
-          hbname == "NHS Forth Valley" ~ "projected average gestation from Mar 2022",
-          hbname == "NHS Tayside" ~ "projected average gestation from Aug 2021",
+          hbname == "NHS Forth Valley" ~ 
+            paste0("projected average gestation from Mar 2022", "<br>", "to end Jun 2022"),
+          hbname == "NHS Tayside" ~ 
+            paste0("projected average gestation from Aug 2021", "<br>", "to end Jun 2022"),
           TRUE ~ ""
         )
         ),
-        legendrank = 1002,
-        legendgroup = "additional extended",
-        hovertext = ""
+        legendrank = 500,
+        showlegend = include_legend,
+        legendgroup = "extended_revised_median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
       )
   }
-
+  
   return(runcharts)
 }
 
@@ -946,7 +1012,7 @@ creates_context_charts <- function(plotdata,
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
   # need to see if a different method can utilise the subgroup function (will need to reformat the
   # dataframe fed into plotly)
-
+  
   include_legend <- case_when(
     first(plotdata$measure) == "TYPE OF BIRTH" &
       first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
@@ -956,49 +1022,49 @@ creates_context_charts <- function(plotdata,
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
-   select_date_tickvals <- switch( # tells plotly where ticks will show
-   first(plotdata$measure), 
-   "BOOKINGS" = bookings_date_tickvals,
-   "GESTATION AT BOOKING" = bookings_date_tickvals,
-   "TERMINATIONS" = terminations_date_tickvals,
-   "GESTATION AT TERMINATION" = terminations_date_tickvals,
-   "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_tickvals,
-   "INDUCTIONS" = SMR02_date_tickvals,
-   "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
-   "TEARS" = SMR02_date_tickvals,
-   "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
-   "APGAR5" = SMR02_date_tickvals
-   ) 
+  select_date_tickvals <- switch( # tells plotly where ticks will show
+    first(plotdata$measure), 
+    "BOOKINGS" = bookings_date_tickvals,
+    "GESTATION AT BOOKING" = bookings_date_tickvals,
+    "TERMINATIONS" = terminations_date_tickvals,
+    "GESTATION AT TERMINATION" = terminations_date_tickvals,
+    "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_tickvals,
+    "INDUCTIONS" = SMR02_date_tickvals,
+    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
+    "TEARS" = SMR02_date_tickvals,
+    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
+    "APGAR5" = SMR02_date_tickvals
+  ) 
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
-   first(plotdata$measure), 
-   "BOOKINGS" = bookings_date_ticktext,
-   "GESTATION AT BOOKING" = bookings_date_ticktext,
-   "TERMINATIONS" = terminations_date_ticktext,
-   "GESTATION AT TERMINATION" = terminations_date_ticktext,
-   "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_ticktext,
-   "INDUCTIONS" = SMR02_date_ticktext,
-   "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
-   "TEARS" = SMR02_date_ticktext,
-   "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
-   "APGAR5" = SMR02_date_ticktext
-   )
+    first(plotdata$measure), 
+    "BOOKINGS" = bookings_date_ticktext,
+    "GESTATION AT BOOKING" = bookings_date_ticktext,
+    "TERMINATIONS" = terminations_date_ticktext,
+    "GESTATION AT TERMINATION" = terminations_date_ticktext,
+    "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_ticktext,
+    "INDUCTIONS" = SMR02_date_ticktext,
+    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
+    "TEARS" = SMR02_date_ticktext,
+    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
+    "APGAR5" = SMR02_date_ticktext
+  )
   
   # adds an asterisk to these Board names when there is a related footnote to show
   
   legend_board_name <- if_else(
     (first(plotdata$measure == "TYPE OF BIRTH") &
        first(plotdata$hbname == "NHS Borders")
-     ),
+    ),
     paste0(first(plotdata$hbname), "*"),
     first(plotdata$hbname)
-    )
-
+  )
+  
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
-
+  
   yaxis_plots <- orig_yaxis_plots
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   yaxis_plots[["title"]] <- list(
@@ -1007,10 +1073,10 @@ creates_context_charts <- function(plotdata,
       "TEARS" ~ "Number of women",
       "APGAR5" ~ "Number of babies",
       .default = yaxislabel
-      ),
+    ),
     standoff = 30) # distance between axis and chart
-
-context_charts <-
+  
+  context_charts <-
     plot_ly(
       data = plotdata,
       x = ~ date,
@@ -1026,7 +1092,7 @@ context_charts <-
         c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
         "APGAR5" ~ "babies that had an Apgar5 score less than 7",
         "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
-      .default = str_to_lower(var_label(num))
+        .default = str_to_lower(var_label(num))
       ),
       #legendgroup = "measure_value"
       legendrank = 200,
@@ -1046,7 +1112,7 @@ context_charts <-
         first(plotdata$measure),
         "APGAR5" ~ "babies that had a known Apgar5 score",
         .default = str_to_lower(var_label(den))
-        ), 
+      ), 
       #legendgroup = "median"
       legendrank = 100,
       showlegend = ~ include_legend,
@@ -1066,11 +1132,11 @@ context_charts <-
         yref = "paper",
         xanchor = "left",
         itemclick = FALSE),
-        # groupclick = "togglegroup") 
+      # groupclick = "togglegroup") 
       margin = list(pad = 30) # distance between axis and first data point
     ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
-
+  
   return(context_charts)
 }
 
@@ -1097,11 +1163,11 @@ download_excel_file <- function(this_excel_measure_name) {
   this_excel_filepath <- excel_filepaths[excel_filepaths %like% this_excel_measure_name]
   
   downloadHandler(
-
-  filename = this_excel_filename,
-  
-  content = function(file) {
-    file.copy(this_excel_filepath, file)
-  }
+    
+    filename = this_excel_filename,
+    
+    content = function(file) {
+      file.copy(this_excel_filepath, file)
+    }
   )
 }
