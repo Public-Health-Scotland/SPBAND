@@ -3784,7 +3784,6 @@ ui <-
   secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
-    tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
     tags$head(
       HTML(
         "<html lang='en'>"),
