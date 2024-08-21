@@ -1097,13 +1097,15 @@ gestation_at_booking <- tabItem(
                              
                       ),
                       
-                      column(12,
-                             uiOutput("gest_at_booking_footnote") %>%
-                               tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;"),
-                             
-                             br()
-                      ),
+                      # retired as of October 2024 release
+                      
+                      # column(12,
+                      #        uiOutput("gest_at_booking_footnote") %>%
+                      #          tagAppendAttributes(style = "font-size:14px;
+                      #                              text-align: left;"),
+                      #        
+                      #        br()
+                      # ),
                       
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),

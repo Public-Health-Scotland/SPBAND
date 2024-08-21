@@ -653,7 +653,7 @@ creates_runcharts <- function(plotdata,
    "BOOKINGS" = bookings_date_tickvals,
    "GESTATION AT BOOKING" = gest_at_booking_date_tickvals, # temp
    "TERMINATIONS" = terminations_date_tickvals,
-   "GESTATION AT TERMINATION" = terminations_date_tickvals,
+   "GESTATION AT TERMINATION" = gest_at_termination_date_tickvals, # temp
    "INDUCTIONS" = SMR02_date_tickvals,
    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
    "TEARS" = SMR02_date_tickvals,
@@ -666,7 +666,7 @@ creates_runcharts <- function(plotdata,
    "BOOKINGS" = bookings_date_ticktext,
    "GESTATION AT BOOKING" = gest_at_booking_date_ticktext, # temp
    "TERMINATIONS" = terminations_date_ticktext,
-   "GESTATION AT TERMINATION" = terminations_date_ticktext,
+   "GESTATION AT TERMINATION" = gest_at_termination_date_ticktext, # temp
    "INDUCTIONS" = SMR02_date_ticktext,
    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
    "TEARS" = SMR02_date_ticktext,
@@ -680,9 +680,9 @@ creates_runcharts <- function(plotdata,
     (first(plotdata$measure == "TYPE OF BIRTH") &
        first(plotdata$hbname == "NHS Borders")
      ) |
-      (first(plotdata$measure == "GESTATION AT BOOKING") &
-      first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
-      ) |
+      # (first(plotdata$measure == "GESTATION AT BOOKING") & # retired as of October 2024 release
+      # first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
+      # ) |
       (first(plotdata$measure == "GESTATION AT TERMINATION") &
       first(plotdata$hbname == "NHS Orkney, NHS Shetland and NHS Western Isles")
       ),
@@ -883,9 +883,9 @@ creates_runcharts <- function(plotdata,
       )
   }
   
-  # post-pandemic traces for the GESTATION AT BOOKING measure
+  # post-pandemic traces for the GESTATION AT BOOKING and GESTATION AT TERMINATION measures
   
-  if(first(plotdata$measure) == "GESTATION AT BOOKING") {
+  if(first(plotdata$measure) %in% c("GESTATION AT BOOKING", "GESTATION AT TERMINATION")) {
     
     runcharts <- runcharts %>%
       add_trace(

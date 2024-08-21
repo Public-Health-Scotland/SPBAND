@@ -96,6 +96,12 @@ terminations_date_range <- unique(terminations_data$date)
 terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
 
+# temp to test post-pandemic median
+
+gest_at_termination_date_range <- unique(gest_at_termination_data$date)
+gest_at_termination_date_tickvals <- gest_at_termination_date_range[seq(1, length(gest_at_termination_date_range), 2)]
+gest_at_termination_date_ticktext <- format(gest_at_termination_date_tickvals,"%b %Y")
+
 SMR02_date_range <- unique(inductions_data$date)
 SMR02_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 2)]
 SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
