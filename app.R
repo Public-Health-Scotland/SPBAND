@@ -1097,16 +1097,6 @@ gestation_at_booking <- tabItem(
                              
                       ),
                       
-                      # retired as of October 2024 release
-                      
-                      # column(12,
-                      #        uiOutput("gest_at_booking_footnote") %>%
-                      #          tagAppendAttributes(style = "font-size:14px;
-                      #                              text-align: left;"),
-                      #        
-                      #        br()
-                      # ),
-                      
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
                                class = "notes-style"
@@ -1141,9 +1131,20 @@ gestation_at_booking <- tabItem(
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which women booked for their antenatal care (based on gestation at booking measured in completed weeks of pregnancy), for each month, from Apr 2019 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) of the mean gestation at booking each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             ),
-                             
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the overall average (median) of the mean gestation at booking each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                         ),
+                                 uiOutput("gest_at_booking_footnote"
+                                          ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at booking recorded each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         ),
+                                 )
+                               ),
+
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
                              
@@ -1398,9 +1399,18 @@ gestation_at_termination <- tabItem(
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which pregnancies were terminated (based on gestation at termination measured in completed weeks of pregnancy), for each month, from Jan 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) of the mean gestation at termination each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             ),
-                             
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the overall average (median) of the mean gestation at termination each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the pre-pandemic average is projected outside that time range."
+                                         ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at termination recorded each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         ),
+                                 )
+                               ),
+
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              )
                       )
