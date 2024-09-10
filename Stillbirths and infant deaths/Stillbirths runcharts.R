@@ -69,7 +69,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
               showlegend = ~ unique(measure_cat) == "infant deaths",
               hovertext = ~ mytext,
               hoverinfo = "text"
-      ) |> 
+      ) %>% 
       add_trace(
         y = ~ mean, # solid blue line
         type = "scatter",
@@ -83,8 +83,7 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         showlegend = ~ unique(measure_cat) == "infant deaths",
         hoverinfo = "y",
         yhoverformat = ".2f"
-        #hovertext = ""
-      ) |> 
+      ) %>% 
       add_trace(
         y = ~ extended, # dotted blue line # this line first as plotting last leads to overrun 
         type = "scatter",
@@ -99,9 +98,9 @@ stillbirth_charts <- stillbirths_runchart_data %>%
         legendrank = 300, 
         legendgroup = "extended",
         showlegend = ~ unique(measure_cat) == "infant deaths",
-        hovertext = "",
-        hoverinfo = "none"
-      ) |> 
+        hoverinfo = "y",
+        yhoverformat = ".2f"
+      ) %>% 
       layout(
         font = plotly_global_font,
         xaxis = xaxis_plots,

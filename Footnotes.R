@@ -3,7 +3,7 @@
 gest_at_booking_revised_median_text <-  # was gest_at_booking_correction_text
 
   tags$li(class= "bullet-points",
-          "A green line shows a revised overall average (median) of the mean gestation at booking during a period after changes were made to the process for recording booking. The green line is dashed where the revised average is projected outside that time range."
+          "A green line shows a revised overall average (median) of the mean gestation at booking each month during a period after changes were made to the process for recording booking. The green line is dashed where the revised average is projected outside that time range."
   )
 
   output$gest_at_booking_footnote <- renderUI({

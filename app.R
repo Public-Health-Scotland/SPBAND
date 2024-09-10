@@ -21,7 +21,7 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           #tags$p("SPBAND v 1.5") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_test v 1.5") # this is the PRA dashboard
+          tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
   )
 )
 
@@ -89,7 +89,7 @@ topicmenu <- sidebarMenu(
   ) %>% rem_menu_aria_label(),
   menuItem("Infant feeding",
            tabName = "infant_feeding",
-           icon = icon("person-breastfeeding", verify_fa = FALSE) |> rem_aria_label()
+           icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label()
 
 )
@@ -1140,7 +1140,7 @@ gestation_at_booking <- tabItem(
                                  uiOutput("gest_at_booking_footnote"
                                           ),
                                  tags$li(class= "bullet-points",
-                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at booking recorded each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at booking each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
                                          ),
                                  )
                                ),
@@ -1406,7 +1406,7 @@ gestation_at_termination <- tabItem(
                                          "A blue line shows the overall average (median) of the mean gestation at termination each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the pre-pandemic average is projected outside that time range."
                                          ),
                                  tags$li(class= "bullet-points",
-                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at termination recorded each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at termination each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
                                          ),
                                  )
                                ),

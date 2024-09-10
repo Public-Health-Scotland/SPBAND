@@ -12,7 +12,7 @@ loading <- function(whats_loading){
 load_and_split_dataframe <- function(measure) {
   
   data <- filter(runchart_dataframe, measure == {{measure}}) %>% 
-  janitor::remove_empty(., which = c("cols"), quiet = TRUE)
+  janitor::remove_empty(which = c("cols"), quiet = TRUE)
   
   return(data)
 }

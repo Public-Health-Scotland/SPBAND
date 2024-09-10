@@ -113,7 +113,7 @@ y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not
 
 # STLLBIRTHS SPECIFIC
 
-NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") |>
+NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") %>%
   mutate(date = if_else(date_label == "2020", as.Date("2020-04-01"), as.Date(date)))
   
 date_range_NRS = as.character(unique(NRS_timeseries$date))
