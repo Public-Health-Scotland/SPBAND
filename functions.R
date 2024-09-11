@@ -651,9 +651,9 @@ creates_runcharts <- function(plotdata,
   select_date_tickvals <- switch( # tells plotly where ticks will show
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
-   "GESTATION AT BOOKING" = gest_at_booking_date_tickvals, # temp
+   "GESTATION AT BOOKING" = bookings_date_tickvals,
    "TERMINATIONS" = terminations_date_tickvals,
-   "GESTATION AT TERMINATION" = gest_at_termination_date_tickvals, # temp
+   "GESTATION AT TERMINATION" = terminations_date_tickvals,
    "INDUCTIONS" = SMR02_date_tickvals,
    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
    "TEARS" = SMR02_date_tickvals,
@@ -664,9 +664,9 @@ creates_runcharts <- function(plotdata,
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
-   "GESTATION AT BOOKING" = gest_at_booking_date_ticktext, # temp
+   "GESTATION AT BOOKING" = bookings_date_ticktext,
    "TERMINATIONS" = terminations_date_ticktext,
-   "GESTATION AT TERMINATION" = gest_at_termination_date_ticktext, # temp
+   "GESTATION AT TERMINATION" = terminations_date_ticktext,
    "INDUCTIONS" = SMR02_date_ticktext,
    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
    "TEARS" = SMR02_date_ticktext,
