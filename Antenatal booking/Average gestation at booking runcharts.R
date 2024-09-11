@@ -10,8 +10,8 @@ gest_at_booking_runchart_data <- reactive({
              hbtype == Selected$HBType) %>%
     set_variable_labels(
       measure_value = "Average gestation at booking",
-      median = "average gestation to end Feb 2020",
-      extended_median = 
+      pre_pandemic_median = "average gestation to end Feb 2020",
+      extended_pre_pandemic_median = 
         case_when(Selected$HBName == "NHS Forth Valley" ~ 
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Feb 2021"),
                   Selected$HBName == "NHS Tayside" ~ 
@@ -55,15 +55,15 @@ gest_booking <- creates_runcharts(plotdata = gest_at_booking_runchart_data(),
 # c) chart title ----
 
 output$gest_at_booking_runcharts_title <- renderText({
-  if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"),
-  paste0("Board of ",
-         str_to_sentence(input$organisation),
-         ": ",
-         input$hbname,
-         "*"),
+  # if_else(input$hbname %in% c("NHS Forth Valley", "NHS Tayside"), # retired as of October 2024 release
+  # paste0("Board of ",
+  #        str_to_sentence(input$organisation),
+  #        ": ",
+  #        input$hbname,
+  #        "*"),
   paste0("Board of ",
          str_to_sentence(input$organisation),
          ": ",
          input$hbname)
-  )
+  #)
   })

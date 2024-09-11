@@ -1,22 +1,8 @@
 # builds Version table
 
-# `Version` <- c("1.0", "1.1", "1.2", "1.3", "1.4", "1.5")
-# `Date` <- c("3 Oct 2023", "9 Nov 2023", "15 Feb 2024", "2 Apr 2024", "2 Jul 2024", "1 Oct 2024")
-# `Change` <- c("First public release of SPBAND.",
-#               "Amended Home - How to use this dashboard.",
-#               "Updated links and standardised titles, labels and metadata.",
-#               "Corrected the medians and shifts for NHS Forth Valley and NHS Tayside in the ‘Gestation at booking’ measure;
-#               replaced CSV download files with accessible Excel download files;
-#               updated links and standardised titles, labels, legends and metadata.",
-#               "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
-#               revised the y-axis scales for the Island Boards in the small multiple charts (where possible) to make the mainland Boards' variation easier to see;
-#               removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures); added notes describing the issue with NHS Borders planned and unplanned caesarean birth rates.",
-#               "Added a post-pandemic median to the ‘Gestation at booking’ measure - this spans the two-year period July 2022 to June 2024. Shifts have been recalculated accordingly. "
-# )
-
 `Version` <- c("1.5", "1.4", "1.3", "1.2", "1.41", "1.0")
 `Date` <- c("1 Oct 2024", "2 Jul 2024", "2 Apr 2024", "15 Feb 2024", "9 Nov 2023", "3 Oct 2023")
-`Change` <- c("Added a post-pandemic median to the ‘Gestation at booking’ measure - this spans the two-year period July 2022 to June 2024. Shifts have been recalculated accordingly.",
+`Change` <- c("Added a post-pandemic median to the ‘Gestation at booking’ and ‘Gestation at termination’ measures - this spans the two-year period July 2022 to June 2024; shifts have been recalculated accordingly; medians, means and their extended equivalents now show their value when the mouse is hovered over them.",
               "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
               revised the y-axis scales for the Island Boards in the small multiple charts (where possible) to make the mainland Boards' variation easier to see;
               removed the 'dots' from the monthly small multiple charts (i.e. the ‘Gestation at booking’ and ‘Gestation at termination’ measures); added notes describing the issue with NHS Borders planned and unplanned caesarean birth rates.",

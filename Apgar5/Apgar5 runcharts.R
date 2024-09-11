@@ -13,8 +13,8 @@ data <- apgar5_data %>%
     num = "Number of babies that had a 5 minute Apgar score of <7: ",  # babies have apgar scores not births
     den = "Total number of babies: ",
     measure_value = "percentage of babies (%)",
-    median = " average to Oct-Dec 2019",
-    extended_median = " projected average from Jan-Mar 2020"
+    pre_pandemic_median = " average to Oct-Dec 2019",
+    extended_pre_pandemic_median = " projected average from Jan-Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Quarter: ", 
                          quarter_label,

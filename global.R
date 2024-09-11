@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-07-17") 
+refresh_date <- as.Date("2024-06-17") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -86,12 +86,6 @@ bookings_date_range <- unique(bookings_data$date)
 bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
 
-# temp to test post-pandemic median
-
-gest_at_booking_date_range <- unique(gest_at_booking_data$date)
-gest_at_booking_date_tickvals <- gest_at_booking_date_range[seq(1, length(gest_at_booking_date_range), 2)]
-gest_at_booking_date_ticktext <- format(gest_at_booking_date_tickvals,"%b %Y")
-
 terminations_date_range <- unique(terminations_data$date)
 terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
@@ -107,7 +101,7 @@ y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not
 
 # STLLBIRTHS SPECIFIC
 
-NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") |>
+NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") %>%
   mutate(date = if_else(date_label == "2020", as.Date("2020-04-01"), as.Date(date)))
   
 date_range_NRS = as.character(unique(NRS_timeseries$date))
