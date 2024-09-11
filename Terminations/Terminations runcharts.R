@@ -10,8 +10,8 @@ terminations_runchart_data <- reactive({
            hbtype == Selected$HBType) %>%
     set_variable_labels(
     measure_value = "Number of terminations",
-    median = " average to end Feb 2020",
-    extended_median = " projected average from Mar 2020"
+    pre_pandemic_median = " average to end Feb 2020",
+    extended_pre_pandemic_median = " projected average from Mar 2020"
   ) %>% 
   mutate(mytext = paste0("Month: ", 
                          format(date, "%b %Y"),

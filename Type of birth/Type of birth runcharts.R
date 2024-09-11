@@ -22,8 +22,8 @@ type_of_birth_runchart_data <- reactive({
     ) %>% 
     set_variable_labels(
       den = "Total number of births: ",
-      median = " average to Oct-Dec 2019",
-      extended_median = " projected average from Jan-Mar 2020")
+      pre_pandemic_median = " average to Oct-Dec 2019",
+      extended_pre_pandemic_median = " projected average from Jan-Mar 2020")
   
   new_labels = unique(c(data$num_label, data$measure_label))
   

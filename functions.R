@@ -613,8 +613,8 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
 creates_runcharts <- function(plotdata,
                               measure_value,
                               hover = "mytext",
-                              centreline = "median",
-                              dottedline = "extended_median",
+                              centreline = "pre_pandemic_median",
+                              dottedline = "extended_pre_pandemic_median",
                               yaxislabel = "Percentage of births (%)"){
   
   plotdata <- droplevels(plotdata) # drop unused factor levels
@@ -774,13 +774,11 @@ creates_runcharts <- function(plotdata,
         width = 1),
       marker = NULL,
       name = ~ paste0(var_label(get(centreline))), # retrieves label of variable
-      legendgroup = "median",
+      legendgroup = "pre_pandemic_median",
       legendrank = 200,
       showlegend = ~ include_legend,
       hoverinfo = "y",
       yhoverformat = hoverinfo_format
-      # hovertext = "",
-      # hoverinfo = "none"
     ) %>%
     add_trace(
       y = ~ get(dottedline), # dotted blue line
@@ -793,7 +791,7 @@ creates_runcharts <- function(plotdata,
       ),
       marker = NULL,
       name = ~ paste0(var_label(get(dottedline))), # retrieves label of variable
-      legendgroup = "extended_median",
+      legendgroup = "extended_pre_pandemic_median",
       legendrank = 300,
       showlegend = ~ include_legend,
       hoverinfo = "y",
@@ -806,11 +804,6 @@ creates_runcharts <- function(plotdata,
         color = "orange", # orange lines (prevents missing data warning)
         width = 2),
       marker = NULL,
-      # marker = list(
-      #   color = "orange", # orange dots
-      #   size = 6,
-      #   symbol = "circle"
-      # ),
       name = orig_shift_label,
       legendgroup = "shift",
       legendrank = 1300,
@@ -850,12 +843,10 @@ creates_runcharts <- function(plotdata,
           color = "lightgreen",
           width = 10
         ),
-        #marker = NULL,
         name = orig_trend_label, # retrieves label of variable
         legendgroup = "trend",
         legendrank = 800,
         showlegend = TRUE,
-        #line = NULL,
         hovertext = "",
         hoverinfo = "none"
       ) %>%
@@ -868,16 +859,10 @@ creates_runcharts <- function(plotdata,
         line = list(
           color = "orange", # orange lines (prevents missing data warning)
           width = 2),
-        # marker = list(
-        #   color = "orange", # orange dots
-        #   size = 6,
-        #   symbol = "circle"
-        # ),
         name = orig_shift_label, # retrieves label of variable
         legendgroup = "shift",
         legendrank = 900,
         showlegend = TRUE,
-        #line = NULL,
         hovertext = "",
         hoverinfo = "none"
       )
@@ -905,7 +890,6 @@ creates_runcharts <- function(plotdata,
         legendgroup = "post-pandemic median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
-        #hovertext = ""
       ) %>%
       add_trace(
         data = filter(plotdata,!is.na(extended_post_pandemic_median)),
