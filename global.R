@@ -97,7 +97,7 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not sure this is still needed
+y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # used to set common y-axis scale
 
 # STLLBIRTHS SPECIFIC
 

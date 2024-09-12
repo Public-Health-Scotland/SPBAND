@@ -1439,7 +1439,7 @@ gestation_at_termination <- tabItem(
                           p("Standard 10 of Healthcare Improvement Scotland’s current ",
                             
                             tags$a(
-                              href = "https://www.healthcareimprovementscotland.org/our_work/standards_and_guidelines/stnds/sexual_health_standards.aspx",
+                              href = "https://www.healthcareimprovementscotland.scot/publications/sexual-health-standards/",
                               tags$u("Sexual Health Standards"),
                               class = "externallink",
                               target = "_blank"
