@@ -1089,7 +1089,7 @@ gestation_at_booking <- tabItem(
                       column(12,
                              loading(
                                plotlyOutput("gest_at_booking_runcharts",
-                                            height = "30em"
+                                            height = "35em"
                                )
                              ),
                              
