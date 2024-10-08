@@ -30,13 +30,13 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-06-17") 
+refresh_date <- as.Date("2024-09-17") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "11 June 2024"
+NRS_published_date <- "17 September 2024"
 
 # folder for Excel downloads
 
@@ -108,8 +108,8 @@ date_range_NRS = as.character(unique(NRS_timeseries$date))
 
 date_label_range_NRS = as.character(unique(NRS_timeseries$date_label))
 
-NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
-                       date_range_NRS[seq(22, length(date_range_NRS), 2)])
+# NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
+#                        date_range_NRS[seq(22, length(date_range_NRS), 2)])
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], date_range_NRS[18], # only mark "Apr-Jun 2020" which is actually the annual figure
                        date_range_NRS[seq(21, length(date_range_NRS), 2)])
