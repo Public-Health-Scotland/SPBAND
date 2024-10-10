@@ -30,13 +30,13 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-07-17") 
+refresh_date <- as.Date("2024-09-17") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "11 June 2024"
+NRS_published_date <- "17 September 2024"
 
 # folder for Excel downloads
 
@@ -86,12 +86,6 @@ bookings_date_range <- unique(bookings_data$date)
 bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
 
-# temp to test post-pandemic median
-
-gest_at_booking_date_range <- unique(gest_at_booking_data$date)
-gest_at_booking_date_tickvals <- gest_at_booking_date_range[seq(1, length(gest_at_booking_date_range), 2)]
-gest_at_booking_date_ticktext <- format(gest_at_booking_date_tickvals,"%b %Y")
-
 terminations_date_range <- unique(terminations_data$date)
 terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
@@ -103,19 +97,19 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # not sure this is still needed
+y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # used to set common y-axis scale
 
 # STLLBIRTHS SPECIFIC
 
-NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") |>
+NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") %>%
   mutate(date = if_else(date_label == "2020", as.Date("2020-04-01"), as.Date(date)))
   
 date_range_NRS = as.character(unique(NRS_timeseries$date))
 
 date_label_range_NRS = as.character(unique(NRS_timeseries$date_label))
 
-NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
-                       date_range_NRS[seq(22, length(date_range_NRS), 2)])
+# NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], "2020", " ", " ", # balances x-axis dates
+#                        date_range_NRS[seq(22, length(date_range_NRS), 2)])
 
 NRS_date_tickvals <- c(date_range_NRS[seq(1, 16, 2)], date_range_NRS[18], # only mark "Apr-Jun 2020" which is actually the annual figure
                        date_range_NRS[seq(21, length(date_range_NRS), 2)])

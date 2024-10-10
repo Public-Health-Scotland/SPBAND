@@ -12,7 +12,7 @@ loading <- function(whats_loading){
 load_and_split_dataframe <- function(measure) {
   
   data <- filter(runchart_dataframe, measure == {{measure}}) %>% 
-  janitor::remove_empty(., which = c("cols"), quiet = TRUE)
+  janitor::remove_empty(which = c("cols"), quiet = TRUE)
   
   return(data)
 }
@@ -613,8 +613,8 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
 creates_runcharts <- function(plotdata,
                               measure_value,
                               hover = "mytext",
-                              centreline = "median",
-                              dottedline = "extended_median",
+                              centreline = "pre_pandemic_median",
+                              dottedline = "extended_pre_pandemic_median",
                               yaxislabel = "Percentage of births (%)"){
   
   plotdata <- droplevels(plotdata) # drop unused factor levels
@@ -651,7 +651,7 @@ creates_runcharts <- function(plotdata,
   select_date_tickvals <- switch( # tells plotly where ticks will show
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
-   "GESTATION AT BOOKING" = gest_at_booking_date_tickvals, # temp
+   "GESTATION AT BOOKING" = bookings_date_tickvals,
    "TERMINATIONS" = terminations_date_tickvals,
    "GESTATION AT TERMINATION" = terminations_date_tickvals,
    "INDUCTIONS" = SMR02_date_tickvals,
@@ -664,7 +664,7 @@ creates_runcharts <- function(plotdata,
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
-   "GESTATION AT BOOKING" = gest_at_booking_date_ticktext, # temp
+   "GESTATION AT BOOKING" = bookings_date_ticktext,
    "TERMINATIONS" = terminations_date_ticktext,
    "GESTATION AT TERMINATION" = terminations_date_ticktext,
    "INDUCTIONS" = SMR02_date_ticktext,
@@ -680,9 +680,9 @@ creates_runcharts <- function(plotdata,
     (first(plotdata$measure == "TYPE OF BIRTH") &
        first(plotdata$hbname == "NHS Borders")
      ) |
-      (first(plotdata$measure == "GESTATION AT BOOKING") &
-      first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
-      ) |
+      # (first(plotdata$measure == "GESTATION AT BOOKING") & # retired as of October 2024 release
+      # first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
+      # ) |
       (first(plotdata$measure == "GESTATION AT TERMINATION") &
       first(plotdata$hbname == "NHS Orkney, NHS Shetland and NHS Western Isles")
       ),
@@ -774,13 +774,11 @@ creates_runcharts <- function(plotdata,
         width = 1),
       marker = NULL,
       name = ~ paste0(var_label(get(centreline))), # retrieves label of variable
-      legendgroup = "median",
+      legendgroup = "pre_pandemic_median",
       legendrank = 200,
       showlegend = ~ include_legend,
       hoverinfo = "y",
       yhoverformat = hoverinfo_format
-      # hovertext = "",
-      # hoverinfo = "none"
     ) %>%
     add_trace(
       y = ~ get(dottedline), # dotted blue line
@@ -793,7 +791,7 @@ creates_runcharts <- function(plotdata,
       ),
       marker = NULL,
       name = ~ paste0(var_label(get(dottedline))), # retrieves label of variable
-      legendgroup = "extended_median",
+      legendgroup = "extended_pre_pandemic_median",
       legendrank = 300,
       showlegend = ~ include_legend,
       hoverinfo = "y",
@@ -806,11 +804,6 @@ creates_runcharts <- function(plotdata,
         color = "orange", # orange lines (prevents missing data warning)
         width = 2),
       marker = NULL,
-      # marker = list(
-      #   color = "orange", # orange dots
-      #   size = 6,
-      #   symbol = "circle"
-      # ),
       name = orig_shift_label,
       legendgroup = "shift",
       legendrank = 1300,
@@ -850,12 +843,10 @@ creates_runcharts <- function(plotdata,
           color = "lightgreen",
           width = 10
         ),
-        #marker = NULL,
         name = orig_trend_label, # retrieves label of variable
         legendgroup = "trend",
         legendrank = 800,
         showlegend = TRUE,
-        #line = NULL,
         hovertext = "",
         hoverinfo = "none"
       ) %>%
@@ -868,24 +859,18 @@ creates_runcharts <- function(plotdata,
         line = list(
           color = "orange", # orange lines (prevents missing data warning)
           width = 2),
-        # marker = list(
-        #   color = "orange", # orange dots
-        #   size = 6,
-        #   symbol = "circle"
-        # ),
         name = orig_shift_label, # retrieves label of variable
         legendgroup = "shift",
         legendrank = 900,
         showlegend = TRUE,
-        #line = NULL,
         hovertext = "",
         hoverinfo = "none"
       )
   }
   
-  # post-pandemic traces for the GESTATION AT BOOKING measure
+  # post-pandemic traces for the GESTATION AT BOOKING and GESTATION AT TERMINATION measures
   
-  if(first(plotdata$measure) == "GESTATION AT BOOKING") {
+  if(first(plotdata$measure) %in% c("GESTATION AT BOOKING", "GESTATION AT TERMINATION")) {
     
     runcharts <- runcharts %>%
       add_trace(
@@ -905,7 +890,6 @@ creates_runcharts <- function(plotdata,
         legendgroup = "post-pandemic median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
-        #hovertext = ""
       ) %>%
       add_trace(
         data = filter(plotdata,!is.na(extended_post_pandemic_median)),

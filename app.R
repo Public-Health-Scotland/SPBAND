@@ -21,7 +21,7 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           #tags$p("SPBAND v 1.5") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_test v 1.5") # this is the PRA dashboard
+          tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
   )
 )
 
@@ -89,7 +89,7 @@ topicmenu <- sidebarMenu(
   ) %>% rem_menu_aria_label(),
   menuItem("Infant feeding",
            tabName = "infant_feeding",
-           icon = icon("person-breastfeeding", verify_fa = FALSE) |> rem_aria_label()
+           icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label()
 
 )
@@ -1089,20 +1089,12 @@ gestation_at_booking <- tabItem(
                       column(12,
                              loading(
                                plotlyOutput("gest_at_booking_runcharts",
-                                            height = "30em"
+                                            height = "35em"
                                )
                              ),
                              
                              br()
                              
-                      ),
-                      
-                      column(12,
-                             uiOutput("gest_at_booking_footnote") %>%
-                               tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;"),
-                             
-                             br()
                       ),
                       
                       column(12,
@@ -1139,9 +1131,20 @@ gestation_at_booking <- tabItem(
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which women booked for their antenatal care (based on gestation at booking measured in completed weeks of pregnancy), for each month, from Apr 2019 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) of the mean gestation at booking each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             ),
-                             
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the overall average (median) of the mean gestation at booking each month over the period Apr 2019 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                         ),
+                                 uiOutput("gest_at_booking_footnote"
+                                          ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at booking each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         ),
+                                 )
+                               ),
+
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
                              
@@ -1396,9 +1399,18 @@ gestation_at_termination <- tabItem(
                              p("The black dots connected by a line in the chart above show the average (mean) gestation at which pregnancies were terminated (based on gestation at termination measured in completed weeks of pregnancy), for each month, from Jan 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) of the mean gestation at termination each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             ),
-                             
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the overall average (median) of the mean gestation at termination each month over the period Jan 2017 to Feb 2020 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the pre-pandemic average is projected outside that time range."
+                                         ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the overall average (median) of the mean gestation at termination each month in the two-year post-pandemic period (from July 2022 to June 2024).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         ),
+                                 )
+                               ),
+
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              )
                       )
@@ -1427,7 +1439,7 @@ gestation_at_termination <- tabItem(
                           p("Standard 10 of Healthcare Improvement Scotland’s current ",
                             
                             tags$a(
-                              href = "https://www.healthcareimprovementscotland.org/our_work/standards_and_guidelines/stnds/sexual_health_standards.aspx",
+                              href = "https://www.healthcareimprovementscotland.scot/publications/sexual-health-standards/",
                               tags$u("Sexual Health Standards"),
                               class = "externallink",
                               target = "_blank"
@@ -3784,7 +3796,6 @@ ui <-
   secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
-    tags$style("@import url(https://use.fontawesome.com/releases/v6.0/css/all.css);"),
     tags$head(
       HTML(
         "<html lang='en'>"),

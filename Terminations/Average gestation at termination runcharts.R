@@ -14,8 +14,10 @@ gest_at_termination_runchart_data <- reactive({
              hbtype == Selected$HBType) %>%
     set_variable_labels(
       measure_value = "Average gestation at termination",
-      median = " average gestation to end Feb 2020",
-      extended_median = " projected average gestation from Mar 2020"
+      pre_pandemic_median = " average gestation to end Feb 2020",
+      extended_pre_pandemic_median = paste0("projected average gestation from Mar 2020", "<br>", "to end Jun 2022"),
+      post_pandemic_median = paste0("average gestation from Jul 2022", "<br>", "to end Jun 2024")
+      #extended_post_pandemic_median = "projected average gestation from Jul 2024" # does not appear yet
     ) %>% 
     mutate(mytext = paste0("Month: ", 
                            format(date, "%b %Y"),
@@ -25,7 +27,9 @@ gest_at_termination_runchart_data <- reactive({
                            format(measure_value,
                                   digits = 1,
                                   nsmall = 1),
-                           " weeks")
+                           " weeks"
+                           ),
+           extended_post_pandemic_median = NA # to prevent line being plotted (till data available)
     )
 
   if (is.null(data()))
