@@ -20,8 +20,10 @@ header <- dashboardHeader(
   title = dashboardtitle,
   #titleWidth = 290,
   tags$li(class = "dropdown",
-          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard - comment out as appropriate - and secure if PRA!
-          tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
+          # comment out version as appropriate - and secure if PRA or TEST!
+          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
+          tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
+          #tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
   )
 )
 
@@ -84,6 +86,17 @@ topicmenu <- sidebarMenu(
            ),
            menuSubItem("Apgar scores",
                        tabName = "apgar_scores",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           )
+  ) %>% rem_menu_aria_label(),
+  menuItem("Neonatal",
+           icon = icon("hand-holding-medical", verify_fa = FALSE) %>% rem_aria_label(),
+           menuSubItem("Median corrected gestational age at discharge from neonatal unit",
+                       tabName = "median_cga_30_32",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           menuSubItem("Admissions to a neonatal unit by BAPM level of care",
+                       tabName = "gestation_by_BAPM_LOC",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
   ) %>% rem_menu_aria_label(),
@@ -3689,6 +3702,502 @@ apgar_scores <- tabItem(
   
 ) # tabItem ("apgar_scores")
 
+# MEDIAN CGA 30-32 WEEKS ----
+
+median_cga_30_32 <- tabItem(
+  tabName = "median_cga_30_32",
+  
+  fluidRow(
+    tabBox(title = "Median corrected gestational age",
+           
+           # The id lets us use input$tabset27 on the server to find the current tab
+           id = "tabset27",
+           width = 12,
+           
+           # Time series chart and context chart
+           
+           tabPanel(title = "Scotland", #value = "median_cga_30_32_overview",
+                    
+                    fluidRow(
+                      column(12,
+                             textOutput("median_cga_30_32_runchart_title"
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
+                      column(10,
+                             p("Median corrected gestational age at discharge from neonatal unit for babies born at 30-32 weeks gestation"
+                             )
+                      ),
+                      
+                      column(1, 
+                             downloadButton("median_cga_30_32_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
+                             )
+                      ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("median_cga_30_32_runchart",
+                                            height = "30em"
+                               )
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
+                      column(12,
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
+                               class = "notes-style"
+                             )
+                      ),
+                      
+                      column(12,
+                             p("Source: Public Health Scotland - NeoCare+.",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information on ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " is available in PHS annual reports.",
+                               class = "notes-style",
+                             ),
+                             
+                             hr()
+                             
+                      ),
+                      
+                      column(12,
+                             p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
+                             ),
+                             
+                             p("The black dots connected by a line in the chart above show the average (mean) length of stay in a NICU for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards."
+                             ),
+                             
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) of the mean length of stay each quarter over the period Jan-Mar 2018 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             ),
+                             
+                             p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
+                             ),
+                             
+                             p("Due to the small number of births at this very early gestation, data are only shown at all Scotland level."
+                             ),
+                             
+                             hr()
+                             
+                      )
+                      
+                    ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             p("Number of babies of 30-32 weeks gestation (at birth) admitted to a neonatal unit"
+                             )
+                      ),
+                      
+                      column(12,
+                             loading(
+                               plotlyOutput("median_cga_30_32_context_chart",
+                                            height = "30em"
+                               )
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
+                      column(12,
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
+                               class = "notes-style"
+                             )
+                      ),
+                      
+                      column(12,
+                             p("Source: Public Health Scotland - NeoCare+.",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information on ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " is available in PHS annual reports.",
+                               class = "notes-style"
+                             )
+                      )
+                      
+                    ) # fluidRow
+                    
+           ), # tabPanel("median_cga_30_32_overview")
+           
+           # Data source and definitions etc.
+           
+           tabPanel(title = "About this measure", #value = "median_cga_30_32_datasource",
+                    
+                    fluidRow(
+                      column(12,
+                             p("Median corrected gestational age at discharge from neonatal unit", br(), "for babies of 30-32 weeks gestation",
+                               class = "about-this-measure-title"
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
+                      box(title = "Why measure this?",
+                          status = "primary",
+                          width = 5,
+                          
+                          p("NEED SOME TEXT HERE"
+                          ),
+                          
+                          p("Further information on ",
+                            
+                            tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " based on SMR02 data, is also available in PHS annual reports."
+                            )
+                          
+                      ), # box
+                      
+                      box(width = 1,
+                          solidHeader = TRUE
+                      ),
+                      
+                      box(title = "Data source and definitions",
+                          status = "primary",
+                          width = 5,
+                          
+                          p("Data source: NeoCare+."
+                          ),
+                          
+                          p("NEED TO AMEND TEXT HERE"
+                          ),
+                          
+                          p("The data used for the ‘median corrected gestational age’ measure come from the NeoCare+ database. A NeoCare+ record is submitted by neonatal units to Public Health Scotland (PHS) whenever a baby is admitted to neonatal care."
+                          ),
+                          
+                          p("The median is calculated from the corrected gestational age at discharge for babies born at ",
+                            
+                            tags$ul(
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("32", tags$sup("+0"), " to 36", tags$sup("+6"), " weeks")
+                                        )
+                                      )
+                              )
+                            ),
+                            
+                            "who were admitted to a neonatal unit. Babies who had surgery and babies who died before discharge are excluded."
+                          ),
+                          
+                          p("Data are shown for up to and including the most recent quarter for which NeoCare+ records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional NeoCare+ records are submitted to PHS."
+                          )
+                          
+                      ) # box
+                    ) # fluidRow
+                    
+           ) # tabPanel("median_cga_30_32_datasource")
+           
+    ) # tabBox("Median corrected gestational age at discharge from neonatal unit")
+    
+  ) # fluidRow
+  
+) # tabItem ("median_cga_30_32")
+
+# LATE PRE-TERM AND TERM/POST-TERM ADMISSIONS TO NEONATAL BY BAPM LEVELS OF CARE ----
+
+gestation_by_BAPM_LOC <- tabItem(
+  tabName = "gestation_by_BAPM_LOC",
+  
+  fluidRow(
+    tabBox(title = "Late pre-term and term/post-term admissions",
+           
+           # The id lets us use input$tabset28 on the server to find the current tab
+           id = "tabset28",
+           width = 12,
+           
+           # Time series chart and context chart
+           
+           tabPanel(title = "Scotland", #value = "gestation_by_BAPM_LOC_overview",
+                    
+                    fluidRow(
+                      column(12,
+                             textOutput("gestation_by_BAPM_LOC_runcharts_title"
+                             ),
+
+                             br()
+
+                      ),
+                      
+                      column(12,
+                             uiOutput("BAPM_LOC_subgroupControl"
+                             )
+                      ),
+
+                      column(10,
+                             p(htmlOutput("gestation_by_BAPM_LOC_runcharts_sub_title"
+                             )
+                             )
+                      ),
+
+                      column(1,
+                             downloadButton("gest_by_BAPM_LOC_download_data", "Download data",
+                                            icon = shiny::icon("download") %>% rem_aria_label()
+                             )
+                      ),
+                      
+                      column(12,
+                             loading(
+                               uiOutput("gestation_by_BAPM_LOC_runcharts",
+                                            height = "30em"
+                               )
+                             ),
+
+                             br()
+
+                      ),
+
+                      column(12,
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
+                               class = "notes-style"
+                             )
+                      ),
+                      
+                      column(12,
+                             p("Source: Public Health Scotland - NeoCareIn+ and SMR02.",
+                               class = "notes-style"
+                             ),
+                             
+                             p("Further information on ",
+                               
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " is available in PHS annual reports.",
+                               class = "notes-style",
+                             ),
+                             
+                             hr()
+                             
+                      ),
+                      
+                      column(12,
+                             p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
+                             ),
+                             
+                             p("The black dots connected by a line in the charts above show the percentage of babies born at the stated gestation who were admitted to a neonatal unit by their highest level of care, for each quarter, from Jan-Mar 2017 onwards."
+                             ),
+                             
+                             p("To provide a basis for identifying patterns in the data, a blue line shows the overall average (median) percentage of neonatal admissions for each level of care over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             ),
+                             
+                             p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
+                             ),
+                             
+                             p("Due to the small number of babies admitted to neonatal care, data are only shown at all Scotland level."
+                             ),
+                             
+                             hr()
+                             
+                      )
+                      
+                    ), # fluidRow
+                    
+                    fluidRow(
+                      column(10,
+                             p(htmlOutput("gest_by_BAPM_LOC_context_chart_sub_title")
+                               )
+                             ),
+
+                      column(12,
+                             loading(
+                               plotlyOutput("gest_by_BAPM_LOC_context_charts",
+                                            height = "30em"
+                               )
+                             ),
+
+                             br()
+
+                      ),
+
+                      column(12,
+                             p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
+                               class = "notes-style"
+                             )
+                      ),
+
+                      column(12,
+                             p("Source: Public Health Scotland - NeoCareIn+ and SMR02.",
+                               class = "notes-style"
+                             ),
+
+                             p("Further information on ",
+
+                               tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " is available in PHS annual reports.",
+                               class = "notes-style"
+                             )
+                      )
+
+                    ) # fluidRow
+                    
+           ), # tabPanel("gestation_by_BAPM_LOC_overview")
+           
+           # Data source and definitions etc.
+           
+           tabPanel(title = "About this measure", #value = "gestation_by_BAPM_overview"_datasource",
+                    
+                    fluidRow(
+                      column(12,
+                             p("Admissions to a neonatal unit by BAPM level of care",
+                               class = "about-this-measure-title"
+                             ),
+                             
+                             br()
+                             
+                      ),
+                      
+                      box(title = "Why measure this?",
+                          status = "primary",
+                          width = 5,
+                          
+                          p("NEED SOME TEXT HERE"
+                          ),
+                          
+                          p("Further information on ",
+                            
+                            tags$a(
+                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
+                                 tags$u("Births in Scotland,"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               " based on SMR02 data, is also available in PHS annual reports."
+                            )
+                          
+                      ), # box
+                      
+                      box(width = 1,
+                          solidHeader = TRUE
+                      ),
+                      
+                      box(title = "Data source and definitions",
+                          status = "primary",
+                          width = 5,
+                          
+                          p("Data source: NeoCareIn+ (numerator) and Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case (denominator)."
+                          ),
+                          
+                          p("NEED TO AMEND TEXT HERE"
+                          ),
+                          
+                          p("The data used for the ‘late pre-term and term/post-term admissions’ measure come from the NeoCareIn+ and Scottish Morbidity Record 02 (SMR02) databases. A NeoCareIn+ record is submitted by neonatal units to Public Health Scotland (PHS) whenever a baby is admitted to neonatal care. An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
+                          ),
+
+                          p("The numerator contains a subset of the number of live born babies admitted to a neonatal unit (first admission only). These babies are categorised by their gestation at admission:",
+                            
+                            tags$ul(
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("34", tags$sup("+0"), " to 36", tags$sup("+6"), " weeks (late pre-term)")
+                                        )
+                                      )
+                              ),
+
+                              tags$li(class= "bullet-points",
+                                      tags$div(
+                                        HTML(
+                                          paste0("37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks (term and post-term)")
+                                        )
+                                      )
+                              )
+                              )
+                            ),
+                            
+                            p("and by the highest level of care they receive during this stay in the neonatal unit:",
+                            
+                            tags$ul(
+                              tags$li(class= "bullet-points",
+                                      "Intensive care"),
+                              tags$li(class= "bullet-points",
+                                      "High dependency care"),
+                              tags$li(class= "bullet-points",
+                                      "Special care")
+                                      )
+                              ),
+
+                          p("Babies are ‘due’ at 40 completed weeks gestation. Those born between 37 and up to 42 weeks inclusive are considered to be born ‘at term’.",
+                            style = "font-style:italic"
+                          ),
+                          
+                          p("Babies born at under 37 weeks (more than three weeks before their due date) are considered to be",
+                            
+                            tags$a(
+                              href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/after-the-birth/premature-babies",
+                              tags$u("pre-term or premature (external website)"),
+                              class = "externallink",
+                              target = "_blank" 
+                            ),
+                            
+                            "with those born at under 32 weeks considered to be very pre-term and those born at 32 to 36 weeks inclusive considered to be moderately pre-term. Babies born at or over 42 weeks (more than two weeks after their due date) are considered to be post-term or over-due.",
+                            style = "font-style:italic"
+                          ),
+                            
+                          p("A birth is allocated to a quarter based on the date the woman was discharged from hospital after giving birth."
+                          ),
+                          
+                          p("An episode in neonatal care is allocated to a quarter based on the date of admission (first admission only)."
+                            ),
+                          
+                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided."
+                          ),
+                          
+                          p("Data are shown for up to and including the most recent quarter for which NeoCare+ and SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional records are submitted to PHS."
+                          ),
+                          
+                          p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2021, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS). In addition, the recording of gestation at birth is very complete. For the period 1 April 2021 to 31 March 2022, gestation was recorded on >99.9% of SMR02 records relating to singleton live births."
+                          )
+                      ) # box
+                      
+                    ) # fluidRow
+                    
+           ) # tabPanel("gestation_by_BAPM_datasource")
+           
+    ) # tabBox("Median corrected gestational age at discharge from neonatal unit")
+    
+  ) # fluidRow
+  
+) # tabItem ("gestation_by_BAPM")
+
+
 # INFANT FEEDING ----
 
 infant_feeding <- tabItem(
@@ -3785,6 +4294,8 @@ body <- dashboardBody(
     gestation_at_birth,
     stillbirths,
     apgar_scores,
+    median_cga_30_32,
+    gestation_by_BAPM_LOC,
     infant_feeding
   ) # tabItems
   
@@ -3835,7 +4346,8 @@ server <- function(input, output, session) {
                              Subgroup = "Age group",
                              Measure_cat = "all caesarean births",
                              Gestation = "under 32 weeks",
-                             Nicename = "under 32 weeks")
+                             Nicename = "under 32 weeks",
+                             BAPM_LOC_Subgroup_cat = "between 34 and 36 weeks (inclusive)")
   
   observeEvent(input$organisation, Selected$HBType <- input$organisation)
   
@@ -3844,6 +4356,8 @@ server <- function(input, output, session) {
   observeEvent(input$date, Selected$Date <- input$date)
   
   observeEvent(input$gestation, Selected$Gestation <- input$gestation)
+  
+  observeEvent(input$BAPM_LOC_subgroup_cat, Selected$BAPM_LOC_Subgroup_cat <- input$BAPM_LOC_subgroup_cat)
   
   # observeEvent(input$link_to_patterns, {
   #   updateTabsetPanel(getDefaultReactiveDomain(),
@@ -3911,6 +4425,14 @@ server <- function(input, output, session) {
                  updateTabsetPanel(getDefaultReactiveDomain(),
                                    "tabset26", # apgar_scores
                                    "Board comparison")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset27", # median_cga_30_32
+                                   "Scotland")
+                 
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset28", # gestation_by_BAPM
+                                   "Scotland")
 
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
@@ -3929,6 +4451,8 @@ server <- function(input, output, session) {
   observeEvent(input$tabset24, Selected$Tabset <- input$tabset24)
   observeEvent(input$tabset25, Selected$Tabset <- input$tabset25)
   observeEvent(input$tabset26, Selected$Tabset <- input$tabset26)
+  observeEvent(input$tabset27, Selected$Tabset <- input$tabset27)
+  observeEvent(input$tabset28, Selected$Tabset <- input$tabset28)
 
     # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
   
@@ -4053,6 +4577,19 @@ server <- function(input, output, session) {
       inline = FALSE
     )
   })
+  
+  # select BAPM_gestation
+  
+  output$BAPM_LOC_subgroupControl <- renderUI({
+    radioButtons(
+      inputId = "BAPM_LOC_subgroup_cat",
+      label = "Select gestation group",
+      choiceNames = list("late pre-term", "term and post-term"),
+      choiceValues = list("between 34 and 36 weeks (inclusive)", "between 37 and 42 weeks (inclusive)"),
+      #selected = "late pre-term",
+      inline = TRUE
+    )
+  })
 
   # output$mytext <- renderText({ # for testing
   #   paste0("Topic = ", input$topics) 
@@ -4147,6 +4684,12 @@ server <- function(input, output, session) {
   source("Apgar5/Apgar5 context charts.R", local = TRUE)
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
+  
+  source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
+  
+  source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
+  
+  source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
   
   source("Version.R", local = TRUE)
   

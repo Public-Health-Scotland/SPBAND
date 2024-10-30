@@ -638,6 +638,8 @@ creates_runcharts <- function(plotdata,
       first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
     first(plotdata$measure) == "GESTATION AT BIRTH" &
       first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
+    first(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" &
+      first(plotdata$measure_cat) != "special care" ~ FALSE,
     TRUE ~ TRUE)
   
   # include_trend_shift_legend = TRUE ensures that the shift and trend legends appear even when the 
@@ -645,33 +647,36 @@ creates_runcharts <- function(plotdata,
   
   include_trend_shift_legend <- case_when(
     first(plotdata$measure_cat) == "spontaneous vaginal births" ~ FALSE,
-          first(plotdata$measure_cat) == "between 32 and 36 weeks (inclusive)" ~ FALSE,
+    first(plotdata$measure_cat) == "between 32 and 36 weeks (inclusive)" ~ FALSE,
+    first(plotdata$measure_cat) == "special care" ~ FALSE,
     TRUE ~ include_legend)
   
   select_date_tickvals <- switch( # tells plotly where ticks will show
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_tickvals,
-   "GESTATION AT BOOKING" = bookings_date_tickvals,
+   "GESTATION AT BOOKING" = gest_at_booking_date_tickvals, # temp
    "TERMINATIONS" = terminations_date_tickvals,
    "GESTATION AT TERMINATION" = terminations_date_tickvals,
    "INDUCTIONS" = SMR02_date_tickvals,
    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
    "TEARS" = SMR02_date_tickvals,
    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
-   "APGAR5" = SMR02_date_tickvals
-   ) 
+   "APGAR5" = SMR02_date_tickvals,
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = SMR02_multiples_date_tickvals
+   )
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
    first(plotdata$measure), 
    "BOOKINGS" = bookings_date_ticktext,
-   "GESTATION AT BOOKING" = bookings_date_ticktext,
+   "GESTATION AT BOOKING" = gest_at_booking_date_ticktext, # temp
    "TERMINATIONS" = terminations_date_ticktext,
    "GESTATION AT TERMINATION" = terminations_date_ticktext,
    "INDUCTIONS" = SMR02_date_ticktext,
    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
    "TEARS" = SMR02_date_ticktext,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
-   "APGAR5" = SMR02_date_ticktext
+   "APGAR5" = SMR02_date_ticktext,
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = SMR02_multiples_date_ticktext
    )
   
   # adds an asterisk to these Board names when there is a related footnote to show
@@ -700,7 +705,8 @@ creates_runcharts <- function(plotdata,
    "TYPE OF BIRTH" = ".1f",
    "TEARS" = ".2f",
    "GESTATION AT BIRTH" = ".2f",
-   "APGAR5" = ".2f"
+   "APGAR5" = ".2f",
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ".1f"
    )
 
   xaxis_plots <- orig_xaxis_plots
@@ -715,6 +721,7 @@ creates_runcharts <- function(plotdata,
       first(plotdata$measure),
       "TEARS" ~ "Percentage of women (%)",
       "APGAR5" ~ "Percentage of babies (%)",
+      "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" ~ "Percentage of babies (%)",
       .default = yaxislabel
       )
     )
@@ -757,6 +764,7 @@ creates_runcharts <- function(plotdata,
         first(plotdata$measure),
         "TYPE OF BIRTH" ~ "percentage of births (%)",
         "GESTATION AT BIRTH" ~ "percentage of births (%)",
+        "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" ~ "percentage of babies (%)",
         .default = str_to_lower(var_label(measure_value))
       ),
       legendgroup = "measure_value",
@@ -832,7 +840,8 @@ creates_runcharts <- function(plotdata,
   # are none in these charts
   
   if(first(plotdata$measure_cat) %in% c("spontaneous vaginal births",
-                                        "between 32 and 36 weeks (inclusive)")) {
+                                        "between 32 and 36 weeks (inclusive)",
+                                        "special care")) {
     runcharts <- runcharts %>%
       add_trace(
         data = plotdata,

@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-09-17") 
+refresh_date <- as.Date("2024-10-10") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -67,6 +67,10 @@ extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds")
 # load latest NRS stillbirths & infant deaths data
 
 NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+
+# load latest NeoCare+ gestation by BAPM data
+
+gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # split runchart_dataframe into individual measure dataframes
 
@@ -163,22 +167,24 @@ orig_shift_label <-
 
 # useful groupings for telling Shiny when to show the different drop-down filters
 
-tabnames <- 1:14
+tabnames <- 1:16
 
 names(tabnames) <- 
   c("home", "multi_indicator_overview", "pregnancies_booked",
     "terminations", "gestation_at_booking", "gestation_at_termination",
     "location_of_ex_pre_term", "inductions", "type_of_birth",
     "perineal_tears", "gestation_at_birth", "stillbirths",
-    "apgar_scores", "infant_feeding")
+    "apgar_scores", "infant_feeding", "median_cga_30_32",
+    "gestation_by_BAPM_LOC")
 
-show_org <- names(tabnames[!tabnames %in% c(1, 7, 12, 14)]) # don't show organisation selection in "home",
-                                                     # "location_of_ex_pre_term", "stillbirths", "infant_feeding"
+show_org <- names(tabnames[!tabnames %in% c(1, 7, 12, 14, 15, 16)]) # don't show organisation selection in "home",
+                                                     # "location_of_ex_pre_term", "stillbirths", "infant_feeding", 
+                                                     # "median_cga_30_32", "gestation_by_BAPM_LOC"
 
 show_HBname <- names(tabnames[tabnames %in% c(2, 3, 4)]) # show HB selection in "multi_indicator_overview",
                                                         # "pregnancies_booked", "terminations"
 
-show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the remaining measures
+show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14, 15, 16)]) # the remaining measures
 
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
