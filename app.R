@@ -4072,7 +4072,7 @@ gestation_by_BAPM_LOC <- tabItem(
            
            # Data source and definitions etc.
            
-           tabPanel(title = "About this measure", #value = "gestation_by_BAPM_overview"_datasource",
+           tabPanel(title = "About this measure", #value = "gestation_by_BAPM_LOC_datasource",
                     
                     fluidRow(
                       column(12,
@@ -4189,13 +4189,13 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                     ) # fluidRow
                     
-           ) # tabPanel("gestation_by_BAPM_datasource")
+           ) # tabPanel("gestation_by_BAPM_LOC_datasource")
            
-    ) # tabBox("Median corrected gestational age at discharge from neonatal unit")
+    ) # tabBox("Late pre-term and term/post-term admissions")
     
   ) # fluidRow
   
-) # tabItem ("gestation_by_BAPM")
+) # tabItem ("gestation_by_BAPM_LOC")
 
 
 # INFANT FEEDING ----
@@ -4431,7 +4431,7 @@ server <- function(input, output, session) {
                                    "Scotland")
                  
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset28", # gestation_by_BAPM
+                                   "tabset28", # gestation_by_BAPM_LOC
                                    "Scotland")
 
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
@@ -4578,7 +4578,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # select BAPM_gestation
+  # select BAPM_LOC_gestation
   
   output$BAPM_LOC_subgroupControl <- renderUI({
     radioButtons(
