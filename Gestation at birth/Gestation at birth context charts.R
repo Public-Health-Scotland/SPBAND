@@ -48,8 +48,6 @@ gest_at_birth_context_data <- reactive({
 
 # b) chart ---- 
 
-plotdata <- reactive({gest_at_birth_context_data()})
-
 output$gest_at_birth_context_charts <- renderPlotly({
 
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
@@ -77,7 +75,7 @@ output$gest_at_birth_context_charts <- renderPlotly({
                                  standoff = 30) # distance between axis and chart
   
   term_chart <- plot_ly(
-    data = filter(plotdata(),
+    data = filter(gest_at_birth_context_data(),
                   measure_cat %in% term),
     x = ~ date,
     y = ~ num,
@@ -97,7 +95,7 @@ output$gest_at_birth_context_charts <- renderPlotly({
     )
   
   not_term_chart <- plot_ly(
-    data = filter(plotdata(),
+    data = filter(gest_at_birth_context_data(),
                   measure_cat %in% not_term),
     x = ~ date,
     y = ~ num,
@@ -123,7 +121,7 @@ output$gest_at_birth_context_charts <- renderPlotly({
                    titleY = TRUE) %>%
     layout(
       legend = list(
-        title = list(text = paste0(plotdata()$hbname, "<br>")), # legend_board_name if needed
+        title = list(text = paste0(gest_at_birth_context_data()$hbname, "<br>")), # legend_board_name if needed
         orientation = "v",
         x = 1.0,
         y = 0.5,
