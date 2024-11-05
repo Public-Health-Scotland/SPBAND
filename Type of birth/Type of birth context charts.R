@@ -76,16 +76,18 @@ output$type_of_birth_context_charts <- renderPlotly({
     first(type_of_birth_context_data()$hbname)
   )
   
-  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
-  yaxis_plots <- orig_yaxis_plots
+  yaxis_plots <<- orig_yaxis_plots
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
-  yaxis_plots[["title"]] <- list(text = "Number of births",
-                                 standoff = 30) # distance between axis and chart
   
+  yaxislabeltext <- list(title = list(
+    text =  "Number of births")
+  )
+
   plot_ly(
     data = type_of_birth_context_data(),
     x = ~ date,
@@ -113,8 +115,9 @@ output$type_of_birth_context_charts <- renderPlotly({
         xanchor = "left",
         itemclick = FALSE),
       # groupclick = "togglegroup") 
-      margin = list(pad = 30) # distance between axis and first data point
+      margin = list(pad = 10) # distance between axis and plot
     ) %>% 
+    layout(yaxis = yaxislabeltext) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
   
 })

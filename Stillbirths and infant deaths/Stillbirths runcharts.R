@@ -31,20 +31,18 @@ NRS_timeseries %>%
 
 # set y axis labels for charts
 
-# set y axis labels for charts
+yaxislabeltext1 <- list(title = list(text = "rate per 1,000 total (live + still) births",
+                                     font = list(size = 12)))
 
-yaxislabel1 <- list(title = list(text = "rate per 1,000 total (live + still) births",
-                                 font = list(size = 12)))
+yaxislabeltext2 <- list(title = list(text = "rate per 1,000 live births",
+                                     font = list(size = 12)))
 
-yaxislabel2 <- list(title = list(text = "rate per 1,000 live births",
-                                 font = list(size = 12)))
-
-xaxis_plots <- orig_xaxis_plots
+xaxis_plots <<- orig_xaxis_plots
 xaxis_plots[["tickmode"]] = "array"
 xaxis_plots[["ticktext"]] = NRS_date_ticktext
 xaxis_plots[["tickvals"]] = NRS_date_tickvals
 
-yaxis_plots <- orig_yaxis_plots
+yaxis_plots <<- orig_yaxis_plots
 yaxis_plots[["range"]] <- list(0, y_max_NRS * 1.05) # expands the y-axis range to prevent cut-offs
 
 # create plotly chart
@@ -122,17 +120,17 @@ stillbirth_charts <- stillbirths_runchart_data %>%
 stillbirth_charts <- stillbirth_charts %>% 
   subplot(nrows = 2,
           heights = c(0.45, 0.45),
-          margin = c(0.01, 0.03, 0.075, 0.075),
+          margin = c(0.02, 0.02, 0.075, 0.075),
           shareX = FALSE,
           shareY = FALSE,
           titleY = TRUE
           ) %>%
   layout(
-      yaxis = yaxislabel1,
-      yaxis2 = yaxislabel2,
-      yaxis3 = yaxislabel1,
-      yaxis4 = yaxislabel2,
-      yaxis5 = yaxislabel2
+      yaxis = yaxislabeltext1,
+      yaxis2 = yaxislabeltext2,
+      yaxis3 = yaxislabeltext1,
+      yaxis4 = yaxislabeltext2,
+      yaxis5 = yaxislabeltext2
   )
   
 output$stillbirths_runcharts <- renderPlotly({
@@ -144,7 +142,8 @@ stillbirth_charts <- stillbirth_charts %>%
                     xanchor = "auto",
                     y = 0.25,
                     groupclick = "togglegroup"
-                    )
+                    ),
+      margin = list(pad = 10) # distance between axis and plot
       ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
 

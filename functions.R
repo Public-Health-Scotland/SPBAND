@@ -118,11 +118,11 @@ creates_overview_charts_with_median <- function(plotdata,
   
   y_max <- max(plotdata$measure_value)
 
-  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["showticklabels"]] <- if_else(plotdata$hbname %in% island_names, TRUE, FALSE)
   xaxis_plots[["dtick"]] <-  case_when(plotdata$period == "Q" ~ "2",
                                        TRUE ~ "M6")
-  yaxis_plots <- orig_yaxis_plots
+  yaxis_plots <<- orig_yaxis_plots
   yaxis_plots[["range"]] <- list(-1.0, y_max * 1.05)
   
   # annotations - plots a single blue dot at 10 weeks on last data point for
@@ -322,7 +322,8 @@ creates_overview_charts_with_median <- function(plotdata,
         showarrow = FALSE,
         xref = "paper",
         yref = "paper"
-      )
+      ),
+      margin = list(pad = 10) # distance between axis and plot
     ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
   
@@ -362,8 +363,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
     first(plotdata$measure),
     "GESTATION AT BOOKING" ~ "Average gestation at booking (weeks)",
     "GESTATION AT TERMINATION" ~ paste(strwrap("Average gestation at termination (weeks)",
-                                               width = 25
-                                         ),
+                                               width = 25),
                                        collapse = "\n"),
     "TEARS" ~ "Percentage of women (%)",
     "APGAR5" ~ "Percentage of babies (%)",
@@ -381,8 +381,8 @@ creates_small_multiple_charts_without_median <- function(plotdata,
   yaxislabelposition <- if_else(
     first(plotdata$measure) == "GESTATION AT TERMINATION",
     0.5, 0.4)
-
-  xaxis_plots <- orig_xaxis_plots
+  
+  xaxis_plots <<- orig_xaxis_plots
   
   # xaxis_plots[["range"]] <- range(unique(plotdata$date))
 
@@ -395,12 +395,10 @@ creates_small_multiple_charts_without_median <- function(plotdata,
     first(plotdata$hbgroup) == "mainland" && first(plotdata$measure != "GESTATION AT TERMINATION"),
     FALSE, TRUE)
 
-  yaxis_plots <- orig_yaxis_plots
-  
+  yaxis_plots <<- orig_yaxis_plots
+
   yaxis_plots[["tickmode"]] <- "auto"
 
-  #yaxis_plots[["nticks"]] <- 4
-  
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
   plot_heights = if(first(plotdata$hbgroup) == "mainland") {
@@ -409,7 +407,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
   
   if(first(plotdata$measure) == "GESTATION AT BOOKING") { # adds annotation at 10 weeks, no markers
     
-    # annotations - plots a single blue dot at 10 weeks on last data point for
+  # annotations - plots a single blue dot at 10 weeks on last data point for
   # AVERAGE GESTATION AT BOOKING only
   
   a <- list(
@@ -457,7 +455,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
             xaxis = xaxis_plots,
             yaxis = yaxis_plots,
             #plot_bgcolor='#ecebf3', 
-            annotations = list(
+            annotations = list( # HB names
               x = 0.5,
               y = 1.0,
               text = ~ unique(hbname2),
@@ -466,7 +464,8 @@ creates_small_multiple_charts_without_median <- function(plotdata,
               xanchor = "center",
               yanchor = "bottom",
               showarrow = FALSE
-            )
+            ),
+            margin = list(pad = 10) # distance between axis and plot
           )
       )
     
@@ -495,7 +494,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
             yaxis = yaxis_plots,
             #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
-            annotations = list(
+            annotations = list( # HB names
               x = 0.5,
               y = 1.0,
               text = ~ unique(hbname2),
@@ -504,9 +503,10 @@ creates_small_multiple_charts_without_median <- function(plotdata,
               xanchor = "center",
               yanchor = "bottom",
               showarrow = FALSE
+            ),
+            margin = list(pad = 10) # distance between axis and plot
             )
-          )
-      ) 
+        ) 
     
   } else {
     
@@ -534,7 +534,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
             yaxis = yaxis_plots,
             #plot_bgcolor='#ecebf3',
             showlegend = FALSE,
-            annotations = list(
+            annotations = list( # HB names
               x = 0.5,
               y = 1.0,
               text = ~ unique(hbname2),
@@ -543,7 +543,8 @@ creates_small_multiple_charts_without_median <- function(plotdata,
               xanchor = "center",
               yanchor = "bottom",
               showarrow = FALSE
-            )
+            ),
+            margin = list(pad = 10) # distance between axis and plot
           )
       )
   }
@@ -709,23 +710,24 @@ creates_runcharts <- function(plotdata,
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ".1f"
    )
 
-  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
 
-  yaxis_plots <- orig_yaxis_plots
+  yaxis_plots <<- orig_yaxis_plots
   
-  yaxis_plots[["title"]] <- list(
-    text = ~ case_match(
+  yaxislabeltext <- list(title = list(
+    text =  ~ case_match(
       first(plotdata$measure),
       "TEARS" ~ "Percentage of women (%)",
       "APGAR5" ~ "Percentage of babies (%)",
       "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" ~ "Percentage of babies (%)",
       .default = yaxislabel
-      )
     )
-  
+  )
+  )
+
   yaxis_plots[["tickformat"]] <- 
     if_else(first(plotdata$measure) %in% c("APGAR5", "TEARS"),
             ".1f",
@@ -831,8 +833,10 @@ creates_runcharts <- function(plotdata,
                     xref = "paper",
                     yref = "paper",
                     xanchor = "left",
-                    itemclick = FALSE)
+                    itemclick = FALSE),
+      margin = list(pad = 10) # distance between axis and plot
     ) %>%
+    layout(yaxis = yaxislabeltext) %>% 
     #config(modeBarButtons = list(list("zoomIn2d"), list("zoomOut2d"), list("pan3d")))
     config(displaylogo = F, displayModeBar = FALSE)
   
@@ -1053,22 +1057,24 @@ creates_context_charts <- function(plotdata,
     first(plotdata$hbname)
   )
   
-  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
-  yaxis_plots <- orig_yaxis_plots
+  yaxis_plots <<- orig_yaxis_plots
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
-  yaxis_plots[["title"]] <- list(
-    text = ~ case_match(
+  
+  yaxislabeltext <- list(title = list(
+    text =  ~ case_match(
       first(plotdata$measure),
       "TEARS" ~ "Number of women",
       "APGAR5" ~ "Number of babies",
       .default = yaxislabel
-    ),
-    standoff = 30) # distance between axis and chart
-  
+    )
+  )
+  )
+
   context_charts <-
     plot_ly(
       data = plotdata,
@@ -1126,8 +1132,9 @@ creates_context_charts <- function(plotdata,
         xanchor = "left",
         itemclick = FALSE),
       # groupclick = "togglegroup") 
-      margin = list(pad = 30) # distance between axis and first data point
+      margin = list(pad = 10) # distance between axis and plot
     ) %>% 
+    layout(yaxis = yaxislabeltext) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
   
   return(context_charts)

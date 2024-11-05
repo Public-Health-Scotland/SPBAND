@@ -246,7 +246,7 @@ orig_xaxis_plots <- list(
   )
                          
 orig_yaxis_plots <- list(
-  title = list(text = "", font = list(size = 14), standoff = 30),
+  title = list(text = "", font = list(size = 14), standoff = 10),
   showticklabels = TRUE,
   tickfont = list(size = 12),
   tickformat = ",d", # formats numbers with thousand separator if needed

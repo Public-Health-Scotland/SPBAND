@@ -85,8 +85,6 @@ gest_by_BAPM_LOC_context_data <- reactive({
 
 # b) chart ---- 
 
-plotdata <- reactive({gest_by_BAPM_LOC_context_data()})
-
 output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
   
     # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
@@ -94,17 +92,19 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
   select_date_tickvals <- SMR02_date_tickvals
   select_date_ticktext <- SMR02_date_ticktext
 
-  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
-  yaxis_plots <- orig_yaxis_plots
-  yaxis_plots[["title"]] <- list(text = "Number of babies",
-                                 standoff = 30) # distance between axis and chart
+  yaxis_plots <<- orig_yaxis_plots
+  
+  yaxislabeltext <- list(title = list(
+    text =  "Number of babies")
+  )
 
   breakdown_chart <- plot_ly(
-    data = filter(plotdata(),
+    data = filter(gest_by_BAPM_LOC_context_data(),
                   measure_cat != "total"
     ) %>% droplevels(),
     x = ~ date,
@@ -125,7 +125,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     )
   
   totals_chart <- plot_ly(
-    data = filter(plotdata(),
+    data = filter(gest_by_BAPM_LOC_context_data(),
                   measure_cat == "total" # %in% c("total", "all admissions to a neonatal unit"
     ) %>% droplevels(),
     x = ~ date,
@@ -142,7 +142,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     hoverinfo = "text"
   ) %>% 
     add_trace(
-      data = filter(plotdata(),
+      data = filter(gest_by_BAPM_LOC_context_data(),
                   measure_cat == "all admissions to a neonatal unit"
       ) %>% droplevels(),
       showlegend = FALSE
@@ -153,7 +153,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     )
 
   chart <- subplot(totals_chart, breakdown_chart,
-                   margin = 0.05,
+                   margin = 0.075,
                    shareX = TRUE,
                    shareY = FALSE,
                    titleY = TRUE) %>%
@@ -167,7 +167,9 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
         yref = "paper",
         xanchor = "left",
         itemclick = FALSE),
-      margin = list(pad = 30) # distance between axis and first data point
+      yaxis = yaxislabeltext,
+      yaxis2 = yaxislabeltext,
+      margin = list(pad = 10) # distance between axis and plot
     )  %>%
     config(displaylogo = F, displayModeBar = FALSE)
   
