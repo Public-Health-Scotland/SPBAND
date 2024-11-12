@@ -87,6 +87,8 @@ output$type_of_birth_context_charts <- renderPlotly({
   yaxislabeltext <- list(title = list(
     text =  "Number of births")
   )
+  
+  yaxis_plots[["title"]] <- list(standoff = 10)
 
   plot_ly(
     data = type_of_birth_context_data(),

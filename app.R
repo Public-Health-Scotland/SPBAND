@@ -2265,7 +2265,9 @@ type_of_birth <- tabItem(
                       
                       column(10,
                              p("Percentage of singleton live births at any gestation that were"
-                             )
+                             ),
+                             
+                             br()
                       ),
                       
                       column(1, 
@@ -2274,9 +2276,10 @@ type_of_birth <- tabItem(
                              )
                       ),
                       
-                      column(11,
+                      column(12,
                              loading(
-                               uiOutput("type_of_birth_runcharts"
+                               plotlyOutput("type_of_birth_runcharts",
+                                            height = "50em"
                                )
                              ),
                              
@@ -2926,7 +2929,7 @@ gestation_at_birth <- tabItem(
                              br()
                              
                       ),
-                      
+
                       column(10,
                              p("Percentage of singleton live births that were at the stated gestation",
                                style = "font-weight: normal;
@@ -2942,7 +2945,8 @@ gestation_at_birth <- tabItem(
                       
                       column(12,
                              loading(
-                               uiOutput("gest_at_birth_runcharts"
+                               plotlyOutput("gest_at_birth_runcharts",
+                                            height = "50em"
                                )
                              ),
                              
@@ -3929,7 +3933,7 @@ gestation_by_BAPM_LOC <- tabItem(
   tabName = "gestation_by_BAPM_LOC",
   
   fluidRow(
-    tabBox(title = "Late pre-term and term/post-term admissions",
+    tabBox(title = "Admissions to a neonatal unit by level of care",
            
            # The id lets us use input$tabset28 on the server to find the current tab
            id = "tabset28",
@@ -3967,8 +3971,8 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       column(12,
                              loading(
-                               uiOutput("gestation_by_BAPM_LOC_runcharts",
-                                            height = "30em"
+                               plotlyOutput("gestation_by_BAPM_LOC_runcharts",
+                                            height = "50em"
                                )
                              ),
 
@@ -4004,6 +4008,19 @@ gestation_by_BAPM_LOC <- tabItem(
                       ),
                       
                       column(12,
+                             
+                             p("The levels of care shown are those defined by the ",
+                               
+                               tags$a(
+                                 href = "https://www.bapm.org/",
+                                 tags$u("British Association of Perinatal Medicine (external website)"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                               
+                               "(BAPM). For more details see the ‘About this measure’ tab."
+                               ),
+                             
                              p("We have used run charts to present the data above. Run charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts in the ‘How do we identify patterns in the data?’ section on the Home page."
                              ),
                              
@@ -4612,6 +4629,7 @@ server <- function(input, output, session) {
   # observe(print(paste0("Gestation at birth: ", input$tabset24)))
   # observe(print(paste0("Stillbirths: ", input$tabset25)))
   # observe(print(paste0("Apgar scores: ", input$tabset26)))
+  # observe(print(paste0("BAPM: ", Selected$BAPM_LOC_Subgroup_cat)))
   
   # this section tells the app where to find the code for each tab
   

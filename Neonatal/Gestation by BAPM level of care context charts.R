@@ -92,16 +92,18 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
   select_date_tickvals <- SMR02_date_tickvals
   select_date_ticktext <- SMR02_date_ticktext
 
-  xaxis_plots <<- orig_xaxis_plots
+  xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
-  yaxis_plots <<- orig_yaxis_plots
+  yaxis_plots <- orig_yaxis_plots
   
   yaxislabeltext <- list(title = list(
     text =  "Number of babies")
   )
+  
+  yaxis_plots[["title"]] <- list(standoff = 10)
 
   breakdown_chart <- plot_ly(
     data = filter(gest_by_BAPM_LOC_context_data(),
@@ -178,5 +180,5 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
 # c) chart title ----
 
 output$gest_by_BAPM_LOC_context_chart_sub_title <- renderText({
-  HTML(paste0("Number of ", Selected$Nicename, " babies that were"))
+  HTML(paste0("Number of ", Selected$Nicename, " babies that were born alive and admitted to different levels of neonatal care"))
 })

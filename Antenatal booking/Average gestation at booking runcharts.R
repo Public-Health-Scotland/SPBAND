@@ -4,7 +4,7 @@ gest_at_booking_runchart_data <- reactive({
   # selects data
   
   req(input$hbname)
-
+  
   data <- gest_at_booking_data %>%
     filter(hbname == Selected$HBName &
              hbtype == Selected$HBType) %>%
@@ -18,7 +18,7 @@ gest_at_booking_runchart_data <- reactive({
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Jul 2020"),
                   TRUE ~ 
                     paste0("projected average gestation from Mar 2020", "<br>", "to end Jun 2022")
-                  ),
+        ),
       post_pandemic_median = paste0("average gestation from Jul 2022", "<br>", "to end Jun 2024"),
       extended_post_pandemic_median = "projected average gestation from Jul 2024" 
     ) %>% 
@@ -32,24 +32,24 @@ gest_at_booking_runchart_data <- reactive({
                                   nsmall = 1),
                            " weeks")
     )
-
-if (is.null(data()))
-{
-  return()
-}
-
-else {
-  data
-}
+  
+  if (is.null(data()))
+  {
+    return()
+  }
+  
+  else {
+    data
+  }
 })
 
 # b) chart ---- 
 
 output$gest_at_booking_runcharts <- renderPlotly({
-
-gest_booking <- creates_runcharts(plotdata = gest_at_booking_runchart_data(),
-                  yaxislabel = "Average gestation at booking (weeks)"
-                  )
+  
+  creates_runcharts(plotdata = gest_at_booking_runchart_data(),
+                    yaxislabel = "Average gestation at booking (weeks)"
+  )
 })
 
 # c) chart title ----
@@ -66,4 +66,4 @@ output$gest_at_booking_runcharts_title <- renderText({
          ": ",
          input$hbname)
   #)
-  })
+})

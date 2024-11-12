@@ -27,7 +27,7 @@ gest_at_birth_context_data <- reactive({
                                    quarter_label,
                                    "<br>",
                                    "Number of singleton live births at ",
-                                   formatted_name,
+                                   measure_cat_label,
                                    ": ",
                                    prettyNum(num, big.mark = ",")
                             )
@@ -65,16 +65,18 @@ output$gest_at_birth_context_charts <- renderPlotly({
   #   first(plotdata()$hbname)
   # )
 
-  xaxis_plots <<- orig_xaxis_plots
+  xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
-  yaxis_plots <<- orig_yaxis_plots
+  yaxis_plots <- orig_yaxis_plots
   
   yaxislabeltext <- list(title = list(
     text =  "Number of births")
   )
+  
+  yaxis_plots[["title"]] <- list(standoff = 10)
 
   term_chart <- plot_ly(
     data = filter(gest_at_birth_context_data(),
@@ -83,9 +85,9 @@ output$gest_at_birth_context_charts <- renderPlotly({
     y = ~ num,
     type = "scatter",
     mode = "lines+markers",
-    color = ~ formatted_name,
+    color = ~ measure_cat_label,
     colors = ~ selected_colours[1:2],
-    symbol = ~ formatted_name,
+    symbol = ~ measure_cat_label,
     symbols = ~ c("circle", "square-x-open"),
     line = list(width = 2),
     hovertext = ~ mytext,
@@ -103,9 +105,9 @@ output$gest_at_birth_context_charts <- renderPlotly({
     y = ~ num,
     type = "scatter",
     mode = "lines+markers",
-    color = ~ formatted_name,
+    color = ~ measure_cat_label,
     colors = ~ selected_colours[3:5],
-    symbol = ~ formatted_name,
+    symbol = ~ measure_cat_label,
     symbols = ~ c("diamond", "star", "circle-open"),
     line = list(width = 2),
     hovertext = ~ mytext,
