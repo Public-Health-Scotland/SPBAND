@@ -28,10 +28,10 @@ gest_at_termination_runchart_data <- reactive({
                                   digits = 1,
                                   nsmall = 1),
                            " weeks"
-                           ),
-           extended_post_pandemic_median = NA # to prevent line being plotted (till data available)
+    ),
+    extended_post_pandemic_median = NA # to prevent line being plotted (till data available)
     )
-
+  
   if (is.null(data()))
   {
     return()
@@ -54,13 +54,14 @@ output$gest_at_termination_runcharts <- renderPlotly({
   #               )
   #   
   #   } else {
-
-creates_runcharts(plotdata = gest_at_termination_runchart_data(),
-                  yaxislabel = "Average gestation at termination (weeks)") %>% 
-  layout(xaxis = list(range = 
-                        range(gest_at_termination_runchart_data()$date) + c(months(-1), months(1)))
-         )
-    #}
+  
+  creates_runcharts(plotdata = gest_at_termination_runchart_data(),
+                    yaxislabel = "Average gestation at termination (weeks)") %>% 
+    layout(xaxis = list(range = 
+                          range(gest_at_termination_runchart_data()$date) + c(months(-1), months(1))
+                        )
+    )
+  #}
 })
 
 # c) chart title ----

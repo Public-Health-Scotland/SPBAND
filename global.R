@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-09-17") 
+refresh_date <- as.Date("2024-10-10") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -68,6 +68,10 @@ extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds")
 
 NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
+# load latest NeoCare+ gestation by BAPM data
+
+gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+
 # split runchart_dataframe into individual measure dataframes
 
 bookings_data <- load_and_split_dataframe("BOOKINGS")
@@ -97,8 +101,6 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # used to set common y-axis scale
-
 # STLLBIRTHS SPECIFIC
 
 NRS_timeseries <- filter(NRS_timeseries, date_label != "Apr-Jun 2020") %>%
@@ -121,38 +123,81 @@ y_max_NRS <- max(NRS_timeseries$measure_value, na.rm = TRUE) # allows a margin t
 
 # GESTATION AT BIRTH SPECIFIC
 
-# create a tibble with "nice" (superscript text) gestations for gestation at birth measure
-
-# measure_cat_order
-
 measure_cat_order <- c("between 18 and 44 weeks (inclusive)",
-                     "between 37 and 41 weeks (inclusive)",
-                     "between 32 and 36 weeks (inclusive)",
-                     "42 weeks and over (inclusive)",
-                     "under 32 weeks",
-                     "under 37 weeks"
+                       "between 37 and 41 weeks (inclusive)",
+                       "between 32 and 36 weeks (inclusive)",
+                       "42 weeks and over (inclusive)",
+                       "under 32 weeks",
+                       "under 37 weeks"
 )
 
-# formatted_name is the factor which controls the order in which the context charts legends should appear
+# measure_cat_label feeds the multiple runchart titles
 
-formatted_name <- c(paste0("all known gestations (18", "<sup>+0</sup>", " to 44", "<sup>+6</sup>", " weeks)"),
-                    paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks gestation"),
-                    paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks gestation"),
-                    paste0("42", "<sup>+0</sup>", " weeks gestation and over"),
-                    "under 32 weeks gestation",
-                    "under 37 weeks gestation"
-                    )
+measure_cat_label <- c(paste0("all known gestations (18", "<sup>+0</sup>", " to 44", "<sup>+6</sup>", " weeks)"),
+                       paste0("37", "<sup>+0</sup>", " to 41", "<sup>+6</sup>", " weeks gestation"),
+                       paste0("32", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks gestation"),
+                       paste0("42", "<sup>+0</sup>", " weeks gestation and over"),
+                       "under 32 weeks gestation",
+                       "under 37 weeks gestation"
+)
 
-nicename <- tibble(measure_cat_order, formatted_name)
+# create a tibble with "nice" (superscript text) gestations for gestation at birth measure
 
-nicename$formatted_name <- factor(nicename$formatted_name, levels = formatted_name)
+nicename <- tibble(measure_cat_order, measure_cat_label)
 
-rm(measure_cat_order)
+#nicename$measure_cat_label <- factor(nicename$measure_cat_label,
+                                    # levels = measure_cat_label)
 
 gest_at_birth_data <- left_join(gest_at_birth_data,
                                 nicename,
                                 by = c("measure_cat" = "measure_cat_order")
                                 )
+
+# puts runcharts in correct order
+
+gest_at_birth_data$measure_cat <- factor(gest_at_birth_data$measure_cat, levels = measure_cat_order) 
+
+# tidy up 
+
+rm(measure_cat_order, measure_cat_label, nicename)
+
+# TYPE OF BIRTH SPECIFIC
+
+y_max_type_of_birth <- max(type_of_birth_data$measure_value, na.rm = TRUE) # used to set common y-axis scale
+
+# measure_cat_order
+
+measure_cat_order <- c("all caesarean births", "planned caesarean births", "unplanned caesarean births", 
+                         "assisted vaginal births", "spontaneous vaginal births")
+
+# measure_cat_label feeds the multiple runchart titles
+
+measure_cat_label <- c("caesarean births", "planned caesarean births", "unplanned caesarean births", 
+                       str_wrap("assisted vaginal births (includes forceps, ventouse and vaginal breech births)", 50), "spontaneous vaginal births")
+
+# create a tibble with "nice" categories for type of birth measure
+
+nicename <- tibble(measure_cat_order, measure_cat_label)
+
+type_of_birth_data <- left_join(type_of_birth_data,
+                                nicename,
+                                by = c("measure_cat" = "measure_cat_order")
+                                )
+
+# Puts an asterisk next to subtitles when NHS Borders is selected # temporary till issue fixed
+
+type_of_birth_data$measure_cat_label = 
+  if_else(type_of_birth_data$hbname == "NHS Borders" & type_of_birth_data$measure_cat_label %like% "planned",
+          str_replace(type_of_birth_data$measure_cat_label, "births", "births*"),
+          type_of_birth_data$measure_cat_label)
+
+# puts runcharts in correct order
+
+type_of_birth_data$measure_cat <- factor(type_of_birth_data$measure_cat, levels = measure_cat_order) 
+
+# tidy up 
+
+rm(measure_cat_order, measure_cat_label, nicename)
 
 # create static labels for the runchart legends
 
@@ -163,22 +208,24 @@ orig_shift_label <-
 
 # useful groupings for telling Shiny when to show the different drop-down filters
 
-tabnames <- 1:14
+tabnames <- 1:16
 
 names(tabnames) <- 
   c("home", "multi_indicator_overview", "pregnancies_booked",
     "terminations", "gestation_at_booking", "gestation_at_termination",
     "location_of_ex_pre_term", "inductions", "type_of_birth",
     "perineal_tears", "gestation_at_birth", "stillbirths",
-    "apgar_scores", "infant_feeding")
+    "apgar_scores", "infant_feeding", "median_cga_30_32",
+    "gestation_by_BAPM_LOC")
 
-show_org <- names(tabnames[!tabnames %in% c(1, 7, 12, 14)]) # don't show organisation selection in "home",
-                                                     # "location_of_ex_pre_term", "stillbirths", "infant_feeding"
+show_org <- names(tabnames[!tabnames %in% c(1, 7, 12, 14, 15, 16)]) # don't show organisation selection in "home",
+                                                     # "location_of_ex_pre_term", "stillbirths", "infant_feeding", 
+                                                     # "median_cga_30_32", "gestation_by_BAPM_LOC"
 
 show_HBname <- names(tabnames[tabnames %in% c(2, 3, 4)]) # show HB selection in "multi_indicator_overview",
                                                         # "pregnancies_booked", "terminations"
 
-show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14)]) # the remaining measures
+show_HBname2 <- names(tabnames[!tabnames %in% c(1, 2, 3, 4, 7, 12, 14, 15, 16)]) # the remaining measures
 
 island_names <- c("NHS Orkney", "NHS Shetland", "NHS Western Isles"
                   )
@@ -240,7 +287,7 @@ orig_xaxis_plots <- list(
   )
                          
 orig_yaxis_plots <- list(
-  title = list(text = "", font = list(size = 14), standoff = 30),
+  title = list(font = list(size = 14)),
   showticklabels = TRUE,
   tickfont = list(size = 12),
   tickformat = ",d", # formats numbers with thousand separator if needed

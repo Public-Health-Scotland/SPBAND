@@ -6,29 +6,28 @@ bookings_runchart_data <- reactive({
   req(input$hbname)
   
   data <- bookings_data %>%
-  filter(hbname == Selected$HBName &
-           hbtype == Selected$HBType) %>%
+    filter(hbname == Selected$HBName &
+             hbtype == Selected$HBType) %>%
     set_variable_labels(
-    measure_value = "Number of pregnancies booked",
-    pre_pandemic_median = " average to end Feb 2020",
-    extended_pre_pandemic_median = " projected average from Mar 2020"
-  ) %>% 
-  mutate(mytext = paste0("Month: ", 
-                         format(date, "%b %Y"),
-                         "<br>",
-                         var_label(measure_value),
-                         ": ",
-                         prettyNum(measure_value, big.mark = ",")),
-         trend = NA, # to prevent this line being plotted
-         shift = NA # ditto
-         )
-  
+      measure_value = "Number of pregnancies booked",
+      pre_pandemic_median = " average to end Feb 2020",
+      extended_pre_pandemic_median = " projected average from Mar 2020"
+    ) %>% 
+    mutate(mytext = paste0("Month: ", 
+                           format(date, "%b %Y"),
+                           "<br>",
+                           var_label(measure_value),
+                           ": ",
+                           prettyNum(measure_value, big.mark = ",")),
+           trend = NA, # to prevent this line being plotted
+           shift = NA # ditto
+    )
   
   if (is.null(data()))
   {
-  return()
+    return()
   }
-
+  
   else {
     data
   }
@@ -38,13 +37,13 @@ bookings_runchart_data <- reactive({
 
 output$bookings_runcharts <- renderPlotly({
   
-creates_runcharts(plotdata = bookings_runchart_data(),
-                  yaxislabel = "Number of pregnancies booked"
-                  )
+  creates_runcharts(plotdata = bookings_runchart_data(),
+                    yaxislabel = "Number of pregnancies booked"
+  )
 })
 
 # c) chart title ----
-  
+
 output$bookings_runcharts_title <- renderText({
   paste0("Board of ",
          str_to_sentence(input$organisation),

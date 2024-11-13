@@ -27,7 +27,7 @@ gest_at_birth_context_data <- reactive({
                                    quarter_label,
                                    "<br>",
                                    "Number of singleton live births at ",
-                                   formatted_name,
+                                   measure_cat_label,
                                    ": ",
                                    prettyNum(num, big.mark = ",")
                             )
@@ -71,9 +71,13 @@ output$gest_at_birth_context_charts <- renderPlotly({
   xaxis_plots[["ticktext"]] <- select_date_ticktext
   
   yaxis_plots <- orig_yaxis_plots
-  yaxis_plots[["title"]] <- list(text = "Number of births",
-                                 standoff = 30) # distance between axis and chart
   
+  yaxislabeltext <- list(title = list(
+    text =  "Number of births")
+  )
+  
+  yaxis_plots[["title"]] <- list(standoff = 10)
+
   term_chart <- plot_ly(
     data = filter(gest_at_birth_context_data(),
                   measure_cat %in% term),
@@ -81,10 +85,10 @@ output$gest_at_birth_context_charts <- renderPlotly({
     y = ~ num,
     type = "scatter",
     mode = "lines+markers",
-    color = ~ formatted_name,
-    colors = ~ selected_colours[1:5],
-    symbol = ~ formatted_name,
-    symbols = ~ c("circle", "square-x-open", "diamond", "star", "circle-open"),
+    color = ~ measure_cat_label,
+    colors = ~ selected_colours[1:2],
+    symbol = ~ measure_cat_label,
+    symbols = ~ c("circle", "square-x-open"),
     line = list(width = 2),
     hovertext = ~ mytext,
     hoverinfo = "text"
@@ -101,10 +105,10 @@ output$gest_at_birth_context_charts <- renderPlotly({
     y = ~ num,
     type = "scatter",
     mode = "lines+markers",
-    color = ~ formatted_name,
-    colors = ~ selected_colours[1:5],
-    symbol = ~ formatted_name,
-    symbols = ~ c("circle", "square-x-open", "diamond", "star", "circle-open"),
+    color = ~ measure_cat_label,
+    colors = ~ selected_colours[3:5],
+    symbol = ~ measure_cat_label,
+    symbols = ~ c("diamond", "star", "circle-open"),
     line = list(width = 2),
     hovertext = ~ mytext,
     hoverinfo = "text"
@@ -115,7 +119,7 @@ output$gest_at_birth_context_charts <- renderPlotly({
     )
   
   chart <- subplot(term_chart, not_term_chart,
-                   margin = 0.05,
+                   margin = 0.075,
                    shareX = TRUE,
                    shareY = FALSE,
                    titleY = TRUE) %>%
@@ -129,8 +133,10 @@ output$gest_at_birth_context_charts <- renderPlotly({
         yref = "paper",
         xanchor = "left",
         itemclick = FALSE),
+      yaxis = yaxislabeltext,
+      yaxis2 = yaxislabeltext,
       # groupclick = "togglegroup")
-      margin = list(pad = 30) # distance between axis and first data point
+      margin = list(pad = 10) # distance between axis and plot
     )  %>%
     config(displaylogo = F, displayModeBar = FALSE)
   

@@ -26,6 +26,9 @@ output$extremely_preterm_context_chart <- renderPlotly({
                          date = "date",
                          num = "num",
                          den = "den"
-                    )
+                    ) %>% 
+    layout(yaxis = list(title = list(standoff = 10)
+    )
+    )
 })
 

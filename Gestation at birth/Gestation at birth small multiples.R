@@ -26,7 +26,7 @@ gest_at_birth_small_multiples_data <- reactive({
              measure_cat == Selected$Gestation) %>%
     mutate(mytext = paste0(hbname,
                            ": ",
-                           formatted_name,
+                           measure_cat_label,
                            "<br>",
                            "Quarter: ",
                            quarter_label,

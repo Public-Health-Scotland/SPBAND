@@ -99,19 +99,24 @@ extremely_preterm_control_chart <-
     hoverinfo = "none"
   ) %>%  
   layout(
+    legend = list(title = list(text = paste0("Scotland", "<br>"))),
     font = plotly_global_font,
     xaxis = orig_xaxis_plots,
-    yaxis = orig_yaxis_plots)
-
+    yaxis = orig_yaxis_plots
+  )
 
 output$extremely_preterm_control_chart <- renderPlotly({
   
-extremely_preterm_control_chart <- extremely_preterm_control_chart %>% 
+  extremely_preterm_control_chart <- extremely_preterm_control_chart %>% 
     layout(
       legend = list(orientation = "v",
                     groupclick = "togglegroup"
-                    )
-      ) %>% 
+      ),
+      yaxis = list(
+        title = list(text = "Percentage of births (%)", standoff = 10)
+      ),
+      margin = list(pad = 10) # distance between axis and plot
+    )%>% 
     config(displaylogo = F, displayModeBar = FALSE)
 })
 
