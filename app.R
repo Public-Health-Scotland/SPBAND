@@ -95,7 +95,7 @@ topicmenu <- sidebarMenu(
                        tabName = "median_cga_30_32",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            ),
-           menuSubItem("Admissions to a neonatal unit by BAPM level of care",
+           menuSubItem("Admissions to a neonatal unit by level of care",
                        tabName = "gestation_by_BAPM_LOC",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
@@ -4321,7 +4321,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$head(
@@ -4347,7 +4347,7 @@ ui <-
     
    ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
