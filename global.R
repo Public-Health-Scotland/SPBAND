@@ -70,7 +70,7 @@ NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAN
 
 # load latest NeoCare+ gestation by BAPM data
 
-gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+#gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # split runchart_dataframe into individual measure dataframes
 

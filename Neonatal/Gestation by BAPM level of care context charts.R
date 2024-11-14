@@ -175,6 +175,8 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     )  %>%
     config(displaylogo = F, displayModeBar = FALSE)
   
+  return(chart)
+  
   })
 
 # c) chart title ----

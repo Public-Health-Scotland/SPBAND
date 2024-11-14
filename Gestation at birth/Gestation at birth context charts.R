@@ -53,16 +53,6 @@ output$gest_at_birth_context_charts <- renderPlotly({
   select_date_tickvals <- SMR02_date_tickvals
   select_date_ticktext <- SMR02_date_ticktext
   
-  # adds an asterisk to these Board names when there is a related footnote to show
-  
-  # legend_board_name <- if_else(
-  #   (first(plotdata()$measure == "TYPE OF BIRTH") &
-  #      first(plotdata()$hbname == "NHS Borders")
-  #   ),
-  #   paste0(first(plotdata()$hbname), "*"),
-  #   first(plotdata()$hbname)
-  # )
-
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
   xaxis_plots[["tickvals"]] <- select_date_tickvals
@@ -139,6 +129,8 @@ output$gest_at_birth_context_charts <- renderPlotly({
       margin = list(pad = 10) # distance between axis and plot
     )  %>%
     config(displaylogo = F, displayModeBar = FALSE)
+  
+  return(chart)
   
 })
 

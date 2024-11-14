@@ -118,7 +118,6 @@ output$type_of_birth_context_charts <- renderPlotly({
         yref = "paper",
         xanchor = "left",
         itemclick = FALSE),
-      # groupclick = "togglegroup") 
       margin = list(pad = 10) # distance between axis and plot
     ) %>% 
     layout(yaxis = yaxislabeltext) %>% 

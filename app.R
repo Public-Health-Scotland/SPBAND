@@ -89,17 +89,17 @@ topicmenu <- sidebarMenu(
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
   ) %>% rem_menu_aria_label(),
-  menuItem("Neonatal",
-           icon = icon("hand-holding-medical", verify_fa = FALSE) %>% rem_aria_label(),
-           menuSubItem("Median corrected gestational age at discharge from neonatal unit",
-                       tabName = "median_cga_30_32",
-                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
-           ),
-           menuSubItem("Admissions to a neonatal unit by level of care",
-                       tabName = "gestation_by_BAPM_LOC",
-                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
-           )
-  ) %>% rem_menu_aria_label(),
+  # menuItem("Neonatal",
+  #          icon = icon("hand-holding-medical", verify_fa = FALSE) %>% rem_aria_label(),
+  #          menuSubItem("Median corrected gestational age at discharge from neonatal unit",
+  #                      tabName = "median_cga_30_32",
+  #                      icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+  #          ),
+  #          menuSubItem("Admissions to a neonatal unit by level of care",
+  #                      tabName = "gestation_by_BAPM_LOC",
+  #                      icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+  #          )
+  # ) %>% rem_menu_aria_label(),
   menuItem("Infant feeding",
            tabName = "infant_feeding",
            icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
