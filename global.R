@@ -157,6 +157,11 @@ gest_at_birth_data <- left_join(gest_at_birth_data,
 
 gest_at_birth_data$measure_cat <- factor(gest_at_birth_data$measure_cat, levels = measure_cat_order) 
 
+# puts context chart lines in correct order
+
+gest_at_birth_data$measure_cat_label <- factor(gest_at_birth_data$measure_cat_label,
+                                               levels = measure_cat_label) 
+
 # tidy up 
 
 rm(measure_cat_order, measure_cat_label, nicename)

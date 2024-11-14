@@ -116,7 +116,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     color = ~ legend_name,
     colors = ~ selected_colours[2:5],
     symbol = ~ legend_name,
-    symbols = ~ c("circle", "square-x-open", "diamond", "star"),
+    symbols = ~ c("square-x-open", "diamond", "star", "circle-open"),
     line = list(width = 2),
     hovertext = ~ mytext,
     hoverinfo = "text"
@@ -128,7 +128,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
   
   totals_chart <- plot_ly(
     data = filter(gest_by_BAPM_LOC_context_data(),
-                  measure_cat == "total" # %in% c("total", "all admissions to a neonatal unit"
+                  measure_cat == "total"
     ) %>% droplevels(),
     x = ~ date,
     y = ~ num,
@@ -137,7 +137,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     color = ~ legend_name,
     colors = ~ selected_colours[1:2],
     symbol = ~ legend_name,
-    symbols = ~ c("circle-open", "circle"),
+    symbols = ~ c("circle", "square-x-open"),
     line = list(width = 2),
     showlegend = TRUE,
     hovertext = ~ mytext,

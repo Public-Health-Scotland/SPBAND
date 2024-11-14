@@ -43,7 +43,9 @@ type_of_birth_context_data <- reactive({
                             ": ",
                             prettyNum(num, big.mark = ",")
            )
-    ) 
+    ) %>%
+    droplevels() %>% 
+    select(- measure_cat_label)
   
   if (is.null(data()))
   {

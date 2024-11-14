@@ -32,9 +32,7 @@ gest_at_birth_context_data <- reactive({
                                    prettyNum(num, big.mark = ",")
                             )
     )
-    ) %>% 
-    
-    droplevels()
+    )
   
   if (is.null(data()))
   {
@@ -80,7 +78,8 @@ output$gest_at_birth_context_charts <- renderPlotly({
 
   term_chart <- plot_ly(
     data = filter(gest_at_birth_context_data(),
-                  measure_cat %in% term),
+                  measure_cat %in% term) %>% 
+      droplevels(),
     x = ~ date,
     y = ~ num,
     type = "scatter",
@@ -100,7 +99,8 @@ output$gest_at_birth_context_charts <- renderPlotly({
   
   not_term_chart <- plot_ly(
     data = filter(gest_at_birth_context_data(),
-                  measure_cat %in% not_term),
+                  measure_cat %in% not_term) %>% 
+      droplevels(),
     x = ~ date,
     y = ~ num,
     type = "scatter",
