@@ -623,7 +623,7 @@ creates_runcharts <- function(plotdata,
   plotdata <- droplevels(plotdata) # drop unused factor levels
   
   y_max <- case_when(
-    unique(plotdata$measure) %in% c("TYPE OF BIRTH", "GESTATION AT BIRTH", "ADMISSIONS TO NEOCARE BY LEVEL OF CARE") ~ 1,
+    first(plotdata$measure) %in% c("TYPE OF BIRTH", "GESTATION AT BIRTH", "ADMISSIONS TO NEOCARE BY LEVEL OF CARE") ~ 1,
     .default = max(plotdata$measure_value, na.rm = TRUE)
     
   )
@@ -632,18 +632,18 @@ creates_runcharts <- function(plotdata,
   # and TRUE for single runcharts
 
   include_legend <- case_when(
-    unique(plotdata$measure) == "TYPE OF BIRTH" &
-      unique(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
-    unique(plotdata$measure) == "GESTATION AT BIRTH" &
-      unique(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
-    unique(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" &
-      unique(plotdata$measure_cat) != "special care" ~ FALSE,
+    first(plotdata$measure) == "TYPE OF BIRTH" &
+      first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
+    first(plotdata$measure) == "GESTATION AT BIRTH" &
+      first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
+    first(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" &
+      first(plotdata$measure_cat) != "special care" ~ FALSE,
     .default = TRUE)
   
   # include_trend_shift_legend = FALSE ensures that the shift and trend legends are switched off
   
   include_trend_shift_legend <- case_when(
-    unique(plotdata$measure) %in% c("BOOKINGS", "TERMINATIONS") ~ FALSE,
+    first(plotdata$measure) %in% c("BOOKINGS", "TERMINATIONS") ~ FALSE,
     .default = include_legend)
   
   select_date_tickvals <- switch( # tells plotly where ticks will show
@@ -758,7 +758,7 @@ creates_runcharts <- function(plotdata,
       name = legend_name,
       legendgroup = "measure_value",
       legendrank = 100,
-      showlegend = include_legend,
+      showlegend = ~ include_legend,
       hovertext = ~ mytext,
       hoverinfo = "text"
     ) %>%
@@ -873,7 +873,7 @@ creates_runcharts <- function(plotdata,
         name = ~ paste0(var_label(post_pandemic_median)
                         ),
         legendrank = 600,
-        showlegend = include_legend,
+        showlegend = ~ include_legend,
         legendgroup = "post-pandemic median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
@@ -892,7 +892,7 @@ creates_runcharts <- function(plotdata,
         name = ~ paste0(var_label(extended_post_pandemic_median)
                         ),
         legendrank = 700,
-        showlegend = include_legend,
+        showlegend = ~ include_legend,
         legendgroup = "extended post-pandemic median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
@@ -923,7 +923,7 @@ creates_runcharts <- function(plotdata,
           TRUE ~ ""
         ),
         legendrank = 400,
-        showlegend = include_legend,
+        showlegend = ~ include_legend,
         legendgroup = "revised median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
@@ -948,7 +948,7 @@ creates_runcharts <- function(plotdata,
         )
         ),
         legendrank = 500,
-        showlegend = include_legend,
+        showlegend = ~ include_legend,
         legendgroup = "extended_revised_median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
@@ -964,9 +964,9 @@ creates_runcharts <- function(plotdata,
           x = 0,
           y = 1,
           text = ~ if_else(
-            unique(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE",
-            unique(plotdata$measure_cat),
-            unique(plotdata$measure_cat_label)
+            first(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE",
+            first(plotdata$measure_cat),
+            first(plotdata$measure_cat_label)
             ),
           font = list(size = 16),
           xref = "paper",
@@ -1001,17 +1001,6 @@ creates_context_charts <- function(plotdata,
   plotdata <- droplevels(plotdata) # drop unused factor levels
   
   y_max <- max(plotdata$den, na.rm = TRUE) # allows a margin to be set around y-axis
-  
-  # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
-  # need to see if a different method can utilise the subgroup function (will need to reformat the
-  # dataframe fed into plotly)
-  
-  include_legend <- case_when(
-    first(plotdata$measure) == "TYPE OF BIRTH" &
-      first(plotdata$measure_cat) != "spontaneous vaginal births" ~ FALSE,
-    first(plotdata$measure) == "GESTATION AT BIRTH" &
-      first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
-    TRUE ~ TRUE)
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
@@ -1087,19 +1076,16 @@ creates_context_charts <- function(plotdata,
                     symbol = "square-x-open"),
       name = ~ case_match( # retrieves label of variable
         first(plotdata$measure),
-        c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
         "APGAR5" ~ "babies that had an Apgar5 score less than 7",
         "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
         .default = str_to_lower(var_label(num))
       ),
-      #legendgroup = "measure_value"
       legendrank = 200,
-      showlegend = include_legend,
       hovertext = ~ get(num_hover),
       hoverinfo = "text"
     ) %>%
     add_trace(
-      y = ~ den, # dashed purple line
+      y = ~ den, # dark purple line with dots
       type = "scatter",
       mode = "lines+markers",
       line = list(color = selected_colours[1],
@@ -1111,9 +1097,7 @@ creates_context_charts <- function(plotdata,
         "APGAR5" ~ "babies that had a known Apgar5 score",
         .default = str_to_lower(var_label(den))
       ), 
-      #legendgroup = "median"
       legendrank = 100,
-      showlegend = ~ include_legend,
       hovertext = ~ get(den_hover),
       hovertext = "text"
     ) %>%
@@ -1130,7 +1114,6 @@ creates_context_charts <- function(plotdata,
         yref = "paper",
         xanchor = "left",
         itemclick = FALSE),
-      # groupclick = "togglegroup") 
       margin = list(pad = 10) # distance between axis and plot
     ) %>% 
     layout(yaxis = yaxislabeltext) %>% 

@@ -22,10 +22,7 @@ extremely_preterm_context_data <-
 # b) chart ---- 
 
 output$extremely_preterm_context_chart <- renderPlotly({
-  creates_context_charts(plotdata = extremely_preterm_context_data,
-                         date = "date",
-                         num = "num",
-                         den = "den"
+  creates_context_charts(plotdata = extremely_preterm_context_data
                     ) %>% 
     layout(yaxis = list(title = list(standoff = 10)
     )
