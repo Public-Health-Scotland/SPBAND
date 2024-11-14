@@ -21,8 +21,8 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
-          tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
+          tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
+          #tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
           #tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
   )
 )
@@ -4321,7 +4321,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$head(
@@ -4347,7 +4347,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -4443,13 +4443,13 @@ server <- function(input, output, session) {
                                    "tabset26", # apgar_scores
                                    "Board comparison")
                  
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset27", # median_cga_30_32
-                                   "Scotland")
-                 
-                 updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset28", # gestation_by_BAPM_LOC
-                                   "Scotland")
+                 # updateTabsetPanel(getDefaultReactiveDomain(),
+                 #                   "tabset27", # median_cga_30_32
+                 #                   "Scotland")
+                 # 
+                 # updateTabsetPanel(getDefaultReactiveDomain(),
+                 #                   "tabset28", # gestation_by_BAPM_LOC
+                 #                   "Scotland")
 
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
@@ -4468,8 +4468,8 @@ server <- function(input, output, session) {
   observeEvent(input$tabset24, Selected$Tabset <- input$tabset24)
   observeEvent(input$tabset25, Selected$Tabset <- input$tabset25)
   observeEvent(input$tabset26, Selected$Tabset <- input$tabset26)
-  observeEvent(input$tabset27, Selected$Tabset <- input$tabset27)
-  observeEvent(input$tabset28, Selected$Tabset <- input$tabset28)
+  # observeEvent(input$tabset27, Selected$Tabset <- input$tabset27)
+  # observeEvent(input$tabset28, Selected$Tabset <- input$tabset28)
 
     # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
   
@@ -4703,11 +4703,11 @@ server <- function(input, output, session) {
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
   
-  source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
-  
-  source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
-  
-  source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
+  # source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
+  # 
+  # source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
+  # 
+  # source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
   
   source("Version.R", local = TRUE)
   

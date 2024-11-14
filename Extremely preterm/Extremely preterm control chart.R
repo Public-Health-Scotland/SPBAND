@@ -4,13 +4,20 @@ extremely_preterm_control_chart_data <- filter(extremely_preterm_data,
                                                measure_cat == "NICU_22_26"
                                                )
 
+  xaxis_plots <- orig_xaxis_plots
+  xaxis_plots[["tickmode"]] <- "array"
+  xaxis_plots[["tickvals"]] <- SMR02_date_tickvals
+  xaxis_plots[["ticktext"]] <- SMR02_date_ticktext
+  
+  yaxis_plots <- orig_yaxis_plots
+
 # b) chart ---- 
 
 extremely_preterm_control_chart <- 
   
   plot_ly(
     data = extremely_preterm_control_chart_data,
-    x = ~ date_label,
+    x = ~ date,
     y = ~ measure_value, # percentage
     type = "scatter",
     mode = "lines+markers",
@@ -97,12 +104,12 @@ extremely_preterm_control_chart <-
     legendgroup = "control limits",
     showlegend = FALSE,
     hoverinfo = "none"
-  ) %>%  
+  ) %>%
   layout(
     legend = list(title = list(text = paste0("Scotland", "<br>"))),
     font = plotly_global_font,
-    xaxis = orig_xaxis_plots,
-    yaxis = orig_yaxis_plots
+    xaxis = xaxis_plots,
+    yaxis = yaxis_plots
   )
 
 output$extremely_preterm_control_chart <- renderPlotly({
