@@ -87,11 +87,11 @@ apgar5_data <- load_and_split_dataframe("APGAR5")
 # set up x-axis chart labels
 
 bookings_date_range <- unique(bookings_data$date)
-bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
+bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 3)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
 
 terminations_date_range <- unique(terminations_data$date)
-terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
+terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 4)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
 
 SMR02_date_range <- unique(inductions_data$date)
