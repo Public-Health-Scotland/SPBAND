@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-10-10") 
+refresh_date <- as.Date("2024-09-17") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -70,7 +70,7 @@ NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAN
 
 # load latest NeoCare+ gestation by BAPM data
 
-gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+#gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # split runchart_dataframe into individual measure dataframes
 
@@ -87,11 +87,11 @@ apgar5_data <- load_and_split_dataframe("APGAR5")
 # set up x-axis chart labels
 
 bookings_date_range <- unique(bookings_data$date)
-bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 2)]
+bookings_date_tickvals <- bookings_date_range[seq(1, length(bookings_date_range), 3)]
 bookings_date_ticktext <- format(bookings_date_tickvals,"%b %Y")
 
 terminations_date_range <- unique(terminations_data$date)
-terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 3)]
+terminations_date_tickvals <- terminations_date_range[seq(1, length(terminations_date_range), 4)]
 terminations_date_ticktext <- format(terminations_date_tickvals, "%b %Y")
 
 SMR02_date_range <- unique(inductions_data$date)
@@ -156,6 +156,11 @@ gest_at_birth_data <- left_join(gest_at_birth_data,
 # puts runcharts in correct order
 
 gest_at_birth_data$measure_cat <- factor(gest_at_birth_data$measure_cat, levels = measure_cat_order) 
+
+# puts context chart lines in correct order
+
+gest_at_birth_data$measure_cat_label <- factor(gest_at_birth_data$measure_cat_label,
+                                               levels = measure_cat_label) 
 
 # tidy up 
 

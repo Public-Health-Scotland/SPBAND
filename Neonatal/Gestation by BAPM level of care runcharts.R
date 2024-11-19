@@ -79,7 +79,8 @@ output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
   gest_by_BAPM_LOC_runchart_data() %>% 
     group_by(.$measure_cat) %>%
     group_map(~
-                creates_runcharts(plotdata = .
+                creates_runcharts(plotdata = .,
+                                  yaxislabel = "Percentage of babies (%)"
                 ) %>% 
                 layout(
                   yaxis = list(range = c(0, y_max_gest_by_BAPM_LOC() * 1.05))
