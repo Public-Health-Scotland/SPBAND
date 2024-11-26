@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter:
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-09-17") 
+refresh_date <- as.Date("2024-10-10") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -54,6 +54,22 @@ excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".x
 
 excel_filepaths <- paste0(excel_downloads_folder, excel_filenames)
 
+# folder for Excel downloads
+
+excel_download_folder <- "data/excel downloads/"
+
+# get Excel filenames
+
+excel_filenames <- list.files(excel_download_folder)
+
+# set Excel measure names
+
+excel_measure_names <- str_remove(excel_filenames, paste0("_", refresh_date, ".xlsx"))
+
+# set Excel filepaths
+
+excel_filepaths <- paste0(excel_download_folder, excel_filenames)
+
 # load latest SMR02 ABC Terminations data
 
 load("data/SMR02-ABC-Terminations.RData") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
@@ -66,11 +82,15 @@ extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds")
 
 # load latest NRS stillbirths & infant deaths data
 
-NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
+NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset##
 
-# load latest NeoCare+ gestation by BAPM data
+# load latest NeoCareIn+ gestation by BAPM location data
 
-#gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+
+# load latest NeoCareIn+ babies born at 30-32 weeks admitted to neonatal unit
+
+babies_30_32_admitted_to_neocare_data <- readRDS("data/babies-30-32-admitted-to-neocare.rds")
 
 # split runchart_dataframe into individual measure dataframes
 

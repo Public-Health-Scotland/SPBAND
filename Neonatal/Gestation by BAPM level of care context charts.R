@@ -1,17 +1,17 @@
 # a) data ----
 
-Selected$Nicename <- paste0("late pre-term (34", "<sup>+0</sup>",
-                            " to 36", "<sup>+6</sup>", " weeks gestation)")
+# Selected$Nicename2 <- paste0("late pre-term (34", "<sup>+0</sup>",
+#                             " to 36", "<sup>+6</sup>", " weeks gestation)")
 
-Selected$BAPM_LOC_Subgroup_cat <- "between 34 and 36 weeks (inclusive)"
+# Selected$BAPM_LOC_Subgroup_cat <- "between 34 and 36 weeks (inclusive)"
 
-observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
-  input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)" ~ paste0("late pre-term (34", "<sup>+0</sup>",
-                                                         " to 36", "<sup>+6</sup>", " weeks gestation)"),
-  input$BAPM_LOC_subgroup_cat == "between 37 and 42 weeks (inclusive)" ~ paste0("term and post-term (37", "<sup>+0</sup>",
-                                                         " to 42", "<sup>+6</sup>", " weeks gestation)")
-  )
-)
+# observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
+#   input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)" ~ paste0("late pre-term (34", "<sup>+0</sup>",
+#                                                          " to 36", "<sup>+6</sup>", " weeks gestation)"),
+#   input$BAPM_LOC_subgroup_cat == "between 37 and 42 weeks (inclusive)" ~ paste0("term and post-term (37", "<sup>+0</sup>",
+#                                                          " to 42", "<sup>+6</sup>", " weeks gestation)")
+#   )
+# )
 
 legend_name_order <- c("born alive",
                        "admitted to a neonatal unit",
@@ -182,5 +182,5 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
 # c) chart title ----
 
 output$gest_by_BAPM_LOC_context_chart_sub_title <- renderText({
-  HTML(paste0("Number of ", Selected$Nicename, " babies that were born alive and admitted to different levels of neonatal care"))
+  HTML(paste0("Number of ", Selected$Nicename2, " babies that were born alive and admitted to different levels of neonatal care"))
 })

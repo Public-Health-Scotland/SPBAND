@@ -21,11 +21,11 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
-          #tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
+          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
+          tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
           #tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
+          )
   )
-)
 
 # MENU ----
 
@@ -89,17 +89,17 @@ topicmenu <- sidebarMenu(
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
   ) %>% rem_menu_aria_label(),
-  # menuItem("Neonatal",
-  #          icon = icon("hand-holding-medical", verify_fa = FALSE) %>% rem_aria_label(),
-  #          menuSubItem("Median corrected gestational age at discharge from neonatal unit",
-  #                      tabName = "median_cga_30_32",
-  #                      icon = shiny::icon("angle-double-right") %>% rem_aria_label()
-  #          ),
-  #          menuSubItem("Admissions to a neonatal unit by level of care",
-  #                      tabName = "gestation_by_BAPM_LOC",
-  #                      icon = shiny::icon("angle-double-right") %>% rem_aria_label()
-  #          )
-  # ) %>% rem_menu_aria_label(),
+  menuItem("Neonatal",
+           icon = icon("hand-holding-medical", verify_fa = FALSE) %>% rem_aria_label(),
+           menuSubItem("Median corrected gestational age at discharge from neonatal unit",
+                       tabName = "median_cga_30_32",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           menuSubItem("Admissions to a neonatal unit by level of care",
+                       tabName = "gestation_by_BAPM_LOC",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           )
+  ) %>% rem_menu_aria_label(),
   menuItem("Infant feeding",
            tabName = "infant_feeding",
            icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
@@ -3724,7 +3724,7 @@ median_cga_30_32 <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             textOutput("median_cga_30_32_runchart_title"
+                             textOutput("corrected_gestational_age_runcharts_title"
                              ),
                              
                              br()
@@ -3744,8 +3744,8 @@ median_cga_30_32 <- tabItem(
                       
                       column(12,
                              loading(
-                               plotlyOutput("median_cga_30_32_runchart",
-                                            height = "30em"
+                               plotlyOutput("corrected_gestational_age_runcharts",
+                                            height = "35em"
                                )
                              ),
                              
@@ -3810,7 +3810,7 @@ median_cga_30_32 <- tabItem(
                       
                       column(12,
                              loading(
-                               plotlyOutput("median_cga_30_32_context_chart",
+                               plotlyOutput("corrected_gestational_age_context_charts",
                                             height = "30em"
                                )
                              ),
@@ -4468,8 +4468,8 @@ server <- function(input, output, session) {
   observeEvent(input$tabset24, Selected$Tabset <- input$tabset24)
   observeEvent(input$tabset25, Selected$Tabset <- input$tabset25)
   observeEvent(input$tabset26, Selected$Tabset <- input$tabset26)
-  # observeEvent(input$tabset27, Selected$Tabset <- input$tabset27)
-  # observeEvent(input$tabset28, Selected$Tabset <- input$tabset28)
+  observeEvent(input$tabset27, Selected$Tabset <- input$tabset27)
+  observeEvent(input$tabset28, Selected$Tabset <- input$tabset28)
 
     # observeEvent(input$tabset31, Selected$Tabset <- input$tabset31)  # testing whether can jump to a tabset
   
@@ -4703,11 +4703,17 @@ server <- function(input, output, session) {
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
   
-  # source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
-  # 
-  # source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
-  # 
-  # source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
+  source("Neonatal/Median corrected gestational age at discharge runcharts.R", local = TRUE)
+
+  source("Neonatal/Median corrected gestational age at discharge context charts.R", local = TRUE)
+
+  # source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
+  
+  source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
+
+  source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
+
+  source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
   
   source("Version.R", local = TRUE)
   
