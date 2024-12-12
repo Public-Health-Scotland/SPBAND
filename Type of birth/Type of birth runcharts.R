@@ -17,8 +17,8 @@ type_of_birth_runchart_data <- reactive({
     set_variable_labels(
       measure_value = "Percentage of births (%)",
       den = "Total number of births: ",
-      pre_pandemic_median = " average to Oct-Dec 2019",
-      extended_pre_pandemic_median = " projected average from Jan-Mar 2020") %>% 
+      pre_pandemic_median = "average to Oct-Dec 2019",
+      extended_pre_pandemic_median = "projected average from Jan-Mar 2020") %>% 
     mutate(mytext = paste0("Quarter: ",
                            quarter_label,
                            "<br>",
