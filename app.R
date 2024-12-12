@@ -3248,7 +3248,7 @@ stillbirths <- tabItem(
                              p("Source: National Records of Scotland ", #vital event registrations"
                                
                                tags$a(
-                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                                  tags$u("Births, Deaths and Other Vital Events - Quarterly Figures (external website)"),
                                  class = "externallink",
                                  target = "_blank"
@@ -3308,19 +3308,27 @@ stillbirths <- tabItem(
                           p("Data source: National Records of Scotland (NRS) vital event registrations."
                           ),
                           
-                          p("The quarterly stillbirth and infant mortality rates shown have been generated using data provided by ", 
+                          p("The quarterly stillbirth and infant mortality rates shown have been generated using quarterly births, deaths and other vital events data provided by ", 
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("National Records for Scotland (NRS) (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
                             
-                            "from the statutory registration of deaths and births. NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
+                            "from the statutory registration of deaths and births and using the same definitions as ",
+                            tags$a(
+                              href = "https://webarchive.nrscotland.gov.uk/20240926182510/https:/www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
+                              tags$u("National Records for Scotland (NRS) (external website)."),
+                              class = "externallink",
+                              target = "_blank"
+                            ),
+                            
+                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables",
+                              href = "https://www.nrscotland.gov.uk/publications/vital-events-reference-tables-2023/",
                               tags$u("annual data"),
                               class = "externallink",
                               target = "_blank"
@@ -3329,7 +3337,7 @@ stillbirths <- tabItem(
                             " for Scotland, (section 4 of Vital Events Reference Tables: time series; by sex and cause; by age of mother and father), and ",
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy/",
                               tags$u("quarterly data"),
                               class = "externallink",
                               target = "_blank"
@@ -3356,7 +3364,7 @@ stillbirths <- tabItem(
                           p("Across the UK, surveillance of perinatal deaths is undertaken by MBRRACE-UK (Mothers and Babies: Reducing Risk through Audits and Confidential Enquiries across the UK). Each year MBRRACE-UK publish a ",
                             
                             tags$a(
-                              href = "https://www.npeu.ox.ac.uk/mbrrace-uk#mbrrace-uk-perinatal-mortality-surveillance-report",
+                              href = "https://www.npeu.ox.ac.uk/mbrrace-uk/perinatal-programme",
                               tags$u("perinatal mortality report (external website)"),
                               class = "externallink",
                               target = "_blank"
@@ -3382,7 +3390,7 @@ stillbirths <- tabItem(
                           
                           p("Data are shown for up to and including the most recent quarter for which death and birth data are ", 
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("available from NRS."),
                               class = "externallink",
                               target = "_blank"
