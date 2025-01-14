@@ -1157,38 +1157,6 @@ creates_context_charts <- function(plotdata,
     return(context_charts)
   }
 
-# # Function to build download data
-# # Parameter: 
-# # measure: dataframe to be downloaded
-# 
-# builds_download_data <- function(measure) {
-#   
-#   downloaddata <- download_dataframe[[{{measure}}]] 
-#     
-#   return(downloaddata)
-#   
-# }
-
-# Function to select Excel download file
-# Parameter: 
-# this_excel_measure_name: name of the measure (as seen in the Excel filenames)
-
-download_excel_file <- function(this_excel_measure_name) {
-  
-  this_excel_filename <- excel_filenames[excel_filenames %like% this_excel_measure_name]
-  
-  this_excel_filepath <- excel_filepaths[excel_filepaths %like% this_excel_measure_name]
-  
-  downloadHandler(
-    
-    filename = this_excel_filename,
-    
-    content = function(file) {
-      file.copy(this_excel_filepath, file)
-    }
-  )
-}
-
 # Function to build download data
 # Parameter: 
 # measure: dataframe to be downloaded
@@ -1221,7 +1189,3 @@ download_excel_file <- function(this_excel_measure_name) {
   )
 }
 
-
-
-
->>>>>>> bffc9c2 (Changed the downloads from csv to Excel. Changed the download code for each measure to utilise a new function which reads in the Excel filenames.)
