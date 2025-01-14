@@ -1162,6 +1162,7 @@ gestation_at_booking <- tabItem(
                              ),
                              
                              p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file for the ‘Number of pregnancies booked’ measure.")
+                             
                       )
                       ) # fluidRow
                     
@@ -3555,8 +3556,8 @@ apgar_scores <- tabItem(
                              p(tags$div(
                                HTML(
                                  paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
-                                 )
-                               ) # HTML
+                             )
+                             ) # HTML
                              ) # div
                              ),
                              
