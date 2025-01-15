@@ -73,4 +73,3 @@ this_excel_measure_name <- "terminations"
 output$terminations_download_data <-
   
   download_excel_file(this_excel_measure_name)
-

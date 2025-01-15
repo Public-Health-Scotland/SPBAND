@@ -32,7 +32,7 @@ apgar5_runchart_data <- reactive({
                                   nsmall = 2),
                            "%")
     )
-  
+
   if (is.null(data()))
   {
     return()

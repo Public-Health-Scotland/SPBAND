@@ -166,4 +166,3 @@ this_excel_measure_name <- "stillbirths_and_infant_deaths"
 output$stillbirths_download_data <- 
   
   download_excel_file(this_excel_measure_name)
-  
