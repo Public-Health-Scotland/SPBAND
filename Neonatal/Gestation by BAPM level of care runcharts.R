@@ -25,16 +25,16 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
   req(input$BAPM_LOC_subgroup_cat)
   
   data <- gest_by_BAPM_LOC_data %>% 
-    filter(measure_cat %in% BAPM_LOC_plotListNames & subgroup_cat == Selected$BAPM_LOC_Subgroup_cat & date >= "2018-01-01") %>% 
+    filter(measure_cat %in% BAPM_LOC_plotListNames &
+             subgroup_cat == Selected$BAPM_LOC_Subgroup_cat) %>% 
     droplevels() %>%
-   # filter(!is.na(measure_cat2) & subgroup_cat == Selected$BAPM_LOC_Subgroup_cat) %>% 
     mutate(num_label = paste0("Number of ", short_formatted_name, " babies", "<br>", "admitted to ", measure_cat, ": "),
            den_label = paste0("Total number of ", short_formatted_name, " babies: "), 
            measure_label = paste0("Percentage of ", short_formatted_name, " babies admitted to ", measure_cat, " (%)"),
            measure_cat_label = measure_cat
     ) %>%   
     set_variable_labels(
-      measure_value = "Percentage of births (%)"
+      measure_value = "Percentage of babies (%)"
       #pre_pandemic_median = " average to Oct-Dec 2019",
       #extended_pre_pandemic_median = " projected average from Jan-Mar 2020"
       #post_pandemic_median = paste0("average from Jul 2022", "<br>", "to end Jun 2024"),
@@ -57,6 +57,7 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
            shift = NA,
            trend = NA
     )
+  data$measure_cat = factor(data$measure_cat, levels = BAPM_LOC_plotListNames)
 
   new_max <- max(data$measure_value) # local maximum measure_value
   

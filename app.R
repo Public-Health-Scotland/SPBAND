@@ -21,11 +21,11 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.5") # this is the LIVE dashboard 
+          #tags$p("SPBAND v 1.6") # this is the LIVE dashboard 
           tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
-          #tags$p("SPBAND_PRA v 1.5") # this is the PRA dashboard
-          )
+          #tags$p("SPBAND_PRA v 1.6") # this is the PRA dashboard
   )
+)
 
 # MENU ----
 
@@ -1162,7 +1162,6 @@ gestation_at_booking <- tabItem(
                              ),
                              
                              p("Numbers of pregnancies booked for antenatal care by gestation bands (under 10 weeks, between 10 and 12 weeks, and 13 weeks and over) are available in the download file for the ‘Number of pregnancies booked’ measure.")
-                             
                       )
                       ) # fluidRow
                     
@@ -1813,7 +1812,7 @@ location_of_ex_pre_term <- tabItem(
                             )
                           ),
                           
-                          p("The following approach has been used to classify episodes as occurring in a hospital with a NICU on site. The location of birth as recorded on SMR02 was compared to the above list of hospitals to determine whether the birth occurred at a hospital with a NICU on site. Admissions following home births or any births occurring en-route to hospital were not counted as a birth in a hospital with a NICU on site. In the calculation of the percentage of births occurring in a hospital with a NICU on site, admissions following home births and births occurring en-route to hospital are excluded from the numerator but are included in the denominator. There were no births where location of birth was recorded as unknown or missing."
+                          p("The following approach has been used to classify episodes as occurring in a hospital with a NICU on site. The location of birth as recorded on SMR02 was compared to the above list of hospitals to determine whether the birth occurred at a hospital with a NICU on site. Admissions following home births or after delivery in another hospital or any births occurring en-route to hospital were not counted as a birth in a hospital with a NICU on site. In the calculation of the percentage of births occurring in a hospital with a NICU on site, admissions following home births or births occurring en-route to hospital are excluded from the numerator but are included in the denominator. Admissions after delivery in another hospital are excluded from both numerator and denominator. There were no births where location of birth was recorded as unknown or missing."
                           ),
                           
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters is likely to change slightly as additional SMR02 records are submitted to PHS."
@@ -3249,7 +3248,7 @@ stillbirths <- tabItem(
                              p("Source: National Records of Scotland ", #vital event registrations"
                                
                                tags$a(
-                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                                 href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                                  tags$u("Births, Deaths and Other Vital Events - Quarterly Figures (external website)"),
                                  class = "externallink",
                                  target = "_blank"
@@ -3309,19 +3308,27 @@ stillbirths <- tabItem(
                           p("Data source: National Records of Scotland (NRS) vital event registrations."
                           ),
                           
-                          p("The quarterly stillbirth and infant mortality rates shown have been generated using data provided by ", 
+                          p("The quarterly stillbirth and infant mortality rates shown have been generated using quarterly births, deaths and other vital events data provided by ", 
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("National Records for Scotland (NRS) (external website)"),
                               class = "externallink",
                               target = "_blank"
                             ),
                             
-                            "from the statutory registration of deaths and births. NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
+                            "from the statutory registration of deaths and births and using the same definitions as ",
+                            tags$a(
+                              href = "https://webarchive.nrscotland.gov.uk/20240926182510/https:/www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
+                              tags$u("National Records for Scotland (NRS) (external website)."),
+                              class = "externallink",
+                              target = "_blank"
+                            ),
+                            
+                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/vital-events-reference-tables",
+                              href = "https://www.nrscotland.gov.uk/publications/vital-events-reference-tables-2023/",
                               tags$u("annual data"),
                               class = "externallink",
                               target = "_blank"
@@ -3330,7 +3337,7 @@ stillbirths <- tabItem(
                             " for Scotland, (section 4 of Vital Events Reference Tables: time series; by sex and cause; by age of mother and father), and ",
                             
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy/",
                               tags$u("quarterly data"),
                               class = "externallink",
                               target = "_blank"
@@ -3357,7 +3364,7 @@ stillbirths <- tabItem(
                           p("Across the UK, surveillance of perinatal deaths is undertaken by MBRRACE-UK (Mothers and Babies: Reducing Risk through Audits and Confidential Enquiries across the UK). Each year MBRRACE-UK publish a ",
                             
                             tags$a(
-                              href = "https://www.npeu.ox.ac.uk/mbrrace-uk#mbrrace-uk-perinatal-mortality-surveillance-report",
+                              href = "https://www.npeu.ox.ac.uk/mbrrace-uk/perinatal-programme",
                               tags$u("perinatal mortality report (external website)"),
                               class = "externallink",
                               target = "_blank"
@@ -3383,7 +3390,7 @@ stillbirths <- tabItem(
                           
                           p("Data are shown for up to and including the most recent quarter for which death and birth data are ", 
                             tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/general-publications/quarterly-births-deaths-and-other-vital-events",
+                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("available from NRS."),
                               class = "externallink",
                               target = "_blank"
@@ -3556,8 +3563,8 @@ apgar_scores <- tabItem(
                              p(tags$div(
                                HTML(
                                  paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
-                             )
-                             ) # HTML
+                                 )
+                               ) # HTML
                              ) # div
                              ),
                              
@@ -3738,7 +3745,7 @@ median_cga_30_32 <- tabItem(
                       ),
                       
                       column(1, 
-                             downloadButton("median_cga_30_32_download_data", "Download data",
+                             downloadButton("corrected_gestational_age_download_data", "Download data",
                                             icon = shiny::icon("download") %>% rem_aria_label()
                              )
                       ),
@@ -3746,7 +3753,7 @@ median_cga_30_32 <- tabItem(
                       column(12,
                              loading(
                                plotlyOutput("corrected_gestational_age_runcharts",
-                                            height = "35em"
+                                            height = "30em"
                                )
                              ),
                              
@@ -4444,13 +4451,13 @@ server <- function(input, output, session) {
                                    "tabset26", # apgar_scores
                                    "Board comparison")
                  
-                 # updateTabsetPanel(getDefaultReactiveDomain(),
-                 #                   "tabset27", # median_cga_30_32
-                 #                   "Scotland")
-                 # 
-                 # updateTabsetPanel(getDefaultReactiveDomain(),
-                 #                   "tabset28", # gestation_by_BAPM_LOC
-                 #                   "Scotland")
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset27", # median_cga_30_32
+                                   "Scotland")
+
+                 updateTabsetPanel(getDefaultReactiveDomain(),
+                                   "tabset28", # gestation_by_BAPM_LOC
+                                   "Scotland")
 
                  Selected$Tabset <- "Board comparison" # forces reset for HBname filter where there is a Board comparison tab
                }
@@ -4708,8 +4715,8 @@ server <- function(input, output, session) {
 
   source("Neonatal/Median corrected gestational age at discharge context charts.R", local = TRUE)
 
-  # source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
-  
+  source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
+
   source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
 
   source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)

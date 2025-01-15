@@ -1077,28 +1077,25 @@ creates_context_charts <- function(plotdata,
     plot_ly(
       data = plotdata,
       x = ~ date,
-      y = ~ num,
-      type = "scatter",
-      mode = "lines+markers",
-      line = list(color = selected_colours[2], # magenta line with x
-                  width = 2),
-      marker = list(color = selected_colours[2],
-                    symbol = "square-x-open"),
-      name = ~ case_match( # retrieves label of variable
-        first(plotdata$measure),
-        c("TYPE OF BIRTH", "GESTATION AT BIRTH") ~ "number of births",
-        "APGAR5" ~ "babies that had an Apgar5 score less than 7",
-        "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
-      .default = str_to_lower(var_label(num))
-      ),
-      #legendgroup = "measure_value"
-      legendrank = 200,
-      showlegend = include_legend,
-      hovertext = ~ get(num_hover),
-      hoverinfo = "text"
-    ) %>%
-    add_trace(
-      y = ~ den, # dashed purple line
+    #   y = ~ num,
+    #   type = "scatter",
+    #   mode = "lines+markers",
+    #   line = list(color = selected_colours[2], # magenta line with x
+    #               width = 2),
+    #   marker = list(color = selected_colours[2],
+    #                 symbol = "square-x-open"),
+    #   name = ~ case_match( # retrieves label of variable
+    #     first(plotdata$measure),
+    #     "APGAR5" ~ "babies that had an Apgar5 score less than 7",
+    #     "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
+    #   .default = str_to_lower(var_label(num))
+    #   ),
+    #   legendrank = 200,
+    #   hovertext = ~ get(num_hover),
+    #   hoverinfo = "text"
+    # ) %>%
+    # add_trace(
+      y = ~ den, # dark purple line with dots
       type = "scatter",
       mode = "lines+markers",
       line = list(color = selected_colours[1],

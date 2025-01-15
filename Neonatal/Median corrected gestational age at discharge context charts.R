@@ -3,7 +3,7 @@
 corrected_gestational_age_context_data <- ({ 
   # selects data
   
-  data <- corrected_gestational_age_runchart_data %>%
+  data <- babies_30_32_admitted_to_neocare_data %>%
     mutate(den = num) %>%  # to fix y-axis ignoring den 
     set_variable_labels(
       den = "Babies born at 30 to 32 weeks gestation admitted to a neonatal unit",

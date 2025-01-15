@@ -1,17 +1,17 @@
 # a) data ----
 
-# Selected$Nicename2 <- paste0("late pre-term (34", "<sup>+0</sup>",
-#                             " to 36", "<sup>+6</sup>", " weeks gestation)")
+Selected$Nicename2 <- paste0("late pre-term (34", "<sup>+0</sup>",
+                            " to 36", "<sup>+6</sup>", " weeks gestation)")
 
 # Selected$BAPM_LOC_Subgroup_cat <- "between 34 and 36 weeks (inclusive)"
 
-# observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
-#   input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)" ~ paste0("late pre-term (34", "<sup>+0</sup>",
-#                                                          " to 36", "<sup>+6</sup>", " weeks gestation)"),
-#   input$BAPM_LOC_subgroup_cat == "between 37 and 42 weeks (inclusive)" ~ paste0("term and post-term (37", "<sup>+0</sup>",
-#                                                          " to 42", "<sup>+6</sup>", " weeks gestation)")
-#   )
-# )
+observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
+  input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)" ~ paste0("late pre-term (34", "<sup>+0</sup>",
+                                                         " to 36", "<sup>+6</sup>", " weeks gestation)"),
+  input$BAPM_LOC_subgroup_cat == "between 37 and 42 weeks (inclusive)" ~ paste0("term and post-term (37", "<sup>+0</sup>",
+                                                         " to 42", "<sup>+6</sup>", " weeks gestation)")
+  )
+)
 
 legend_name_order <- c("born alive",
                        "admitted to a neonatal unit",
@@ -25,10 +25,10 @@ gest_by_BAPM_LOC_context_data <- reactive({
   req(input$BAPM_LOC_subgroup_cat)
   
   data <- gest_by_BAPM_LOC_data %>%
-    filter(measure_cat != "other or not needed" & subgroup_cat == Selected$BAPM_LOC_Subgroup_cat
+    filter(subgroup_cat == Selected$BAPM_LOC_Subgroup_cat
     ) %>% 
     mutate(mytext = case_when(
-      measure_cat == "total" ~
+      measure_cat == "babies born alive" ~
         paste0("Quarter: ",
                date_label,
                "<br>",
@@ -61,7 +61,7 @@ gest_by_BAPM_LOC_context_data <- reactive({
     legend_name = case_match(
       measure_cat,
       "all admissions to a neonatal unit" ~ "admitted to a neonatal unit",
-      "total" ~ "born alive",
+      "babies born alive" ~ "born alive",
       .default = paste0("admitted to ", measure_cat)
     ),
     legend_name = factor(legend_name,
@@ -107,7 +107,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
 
   breakdown_chart <- plot_ly(
     data = filter(gest_by_BAPM_LOC_context_data(),
-                  measure_cat != "total"
+                  measure_cat != "babies born alive"
     ) %>% droplevels(),
     x = ~ date,
     y = ~ num,
@@ -128,7 +128,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
   
   totals_chart <- plot_ly(
     data = filter(gest_by_BAPM_LOC_context_data(),
-                  measure_cat == "total"
+                  measure_cat == "babies born alive"
     ) %>% droplevels(),
     x = ~ date,
     y = ~ num,
