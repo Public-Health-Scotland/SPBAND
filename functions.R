@@ -345,10 +345,6 @@ creates_small_multiple_charts_without_median <- function(plotdata,
   # average gestation at termination has hbname2 defined already, the other measures have 
   # hbname2 defined here
   
-  # sorts plots in correct order (Scotland first)
-  # average gestation at termination has hbname2 defined already, the other measures have 
-  # hbname2 defined here
-  
   if(!"hbname2" %in% names(plotdata)) {
     plotdata$hbname2 <- factor(plotdata$hbname, levels = HBnames)
   }
@@ -658,7 +654,7 @@ creates_runcharts <- function(plotdata,
    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
    "APGAR5" = SMR02_date_tickvals,
    "MEDIAN CORRECTED GEST AGE" = SMR02_date_tickvals,
-   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = SMR02_date_tickvals
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = NeoCare_date_tickvals
    )
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
@@ -673,7 +669,7 @@ creates_runcharts <- function(plotdata,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
    "APGAR5" = SMR02_date_ticktext,
    "MEDIAN CORRECTED GEST AGE" = SMR02_date_ticktext,
-   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = SMR02_date_ticktext
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = NeoCare_date_ticktext
    )
   
   # adds an asterisk to these Board names when there is a related footnote to show
@@ -771,7 +767,6 @@ creates_runcharts <- function(plotdata,
       line = list(
         color = "orange", # orange lines (prevents missing data warning)
         width = 2),
-      #marker = NULL,
       name = orig_shift_label,
       legendgroup = "shift",
       legendrank = 1300,
@@ -798,7 +793,6 @@ creates_runcharts <- function(plotdata,
       x = ~ max(date), # fake shift to show legend even when no shift exists on chart
       y = ~ 0,
       mode = "lines",
-      #marker = NULL,
       line = list(
         color = "orange", # orange lines (prevents missing data warning)
         width = 2),
@@ -810,6 +804,8 @@ creates_runcharts <- function(plotdata,
       hoverinfo = "none"
     )
   
+  # add medians where plotted
+  
   if(first(plotdata$dataset != "NeoCareIn+")) {
     
     runcharts <- runcharts %>% 
@@ -819,7 +815,6 @@ creates_runcharts <- function(plotdata,
         line = list(
           color = phs_colours("phs-blue"),
           width = 1),
-        #marker = NULL,
         name = ~ paste0(var_label(get(centreline))), # retrieves label of variable
         legendgroup = "pre_pandemic_median",
         legendrank = 200,
@@ -835,7 +830,6 @@ creates_runcharts <- function(plotdata,
           width = 1,
           dash = "4"
         ),
-        #marker = NULL,
         name = ~ paste0(var_label(get(dottedline))), # retrieves label of variable
         legendgroup = "extended_pre_pandemic_median",
         legendrank = 300,
@@ -877,7 +871,6 @@ creates_runcharts <- function(plotdata,
           color = phs_colours("phs-magenta"),
           width = 1
         ),
-        #marker = NULL,
         name = ~ paste0(var_label(post_pandemic_median)
                         ),
         legendrank = 600,
@@ -896,7 +889,6 @@ creates_runcharts <- function(plotdata,
           width = 1,
           dash = "4"
         ),
-        #marker = NULL,
         name = ~ paste0(var_label(extended_post_pandemic_median)
                         ),
         legendrank = 700,
@@ -922,7 +914,6 @@ creates_runcharts <- function(plotdata,
           color = phs_colours("phs-green"),
           width = 1
         ),
-        #marker = NULL,
         name = ~ case_when(
           hbname == "NHS Forth Valley" ~
             paste0("average gestation from Mar 2021", "<br>", "to end Feb 2022"),
@@ -946,7 +937,6 @@ creates_runcharts <- function(plotdata,
           width = 1,
           dash = "4"
         ),
-        #marker = NULL,
         name = ~ paste0(case_when(
           hbname == "NHS Forth Valley" ~
             paste0("projected average gestation from Mar 2022", "<br>", "to end Jun 2022"),
@@ -1024,7 +1014,7 @@ creates_context_charts <- function(plotdata,
     "TEARS" = SMR02_date_tickvals,
     "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
     "APGAR5" = SMR02_date_tickvals,
-    "MEDIAN CORRECTED GEST AGE" = SMR02_date_tickvals
+    "MEDIAN CORRECTED GEST AGE" = NeoCare_date_tickvals
   ) 
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
@@ -1039,7 +1029,7 @@ creates_context_charts <- function(plotdata,
     "TEARS" = SMR02_date_ticktext,
     "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
     "APGAR5" = SMR02_date_ticktext,
-    "MEDIAN CORRECTED GEST AGE"= SMR02_date_ticktext
+    "MEDIAN CORRECTED GEST AGE"= NeoCare_date_ticktext
   )
   
   # adds an asterisk to these Board names when there is a related footnote to show
@@ -1077,24 +1067,6 @@ creates_context_charts <- function(plotdata,
     plot_ly(
       data = plotdata,
       x = ~ date,
-    #   y = ~ num,
-    #   type = "scatter",
-    #   mode = "lines+markers",
-    #   line = list(color = selected_colours[2], # magenta line with x
-    #               width = 2),
-    #   marker = list(color = selected_colours[2],
-    #                 symbol = "square-x-open"),
-    #   name = ~ case_match( # retrieves label of variable
-    #     first(plotdata$measure),
-    #     "APGAR5" ~ "babies that had an Apgar5 score less than 7",
-    #     "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
-    #   .default = str_to_lower(var_label(num))
-    #   ),
-    #   legendrank = 200,
-    #   hovertext = ~ get(num_hover),
-    #   hoverinfo = "text"
-    # ) %>%
-    # add_trace(
       y = ~ den, # dark purple line with dots
       type = "scatter",
       mode = "lines+markers",

@@ -3,22 +3,19 @@
 corrected_gestational_age_context_data <- ({ 
   # selects data
   
-  data <- babies_30_32_admitted_to_neocare_data %>%
-    mutate(den = num) %>%  # to fix y-axis ignoring den 
+  data <- babies_30_32_discharged_from_neocare_data %>% 
+    filter(measure_cat != "median corrected gestational age") %>% 
+    rename(den = measure_value) %>% # so function works
     set_variable_labels(
-      den = "Babies born at 30 to 32 weeks gestation admitted to a neonatal unit",
-      #den = "Babies born alive at 30 to 32 weeks gestation"
+      den = "Number of babies discharged from neonatal care", # to pass into function
     ) %>% 
     mutate(mytext1 = "",
-             # paste0("Quarter: ", 
-             #                date_label,
-             #                "<br>",
-             #                var_label(num), ": ", prettyNum(num, big.mark = ",")),
            mytext2 = paste0("Quarter: ",
-                            quarter_label,
+                            date_label,
                             "<br>",
                             var_label(den), ": ", prettyNum(den, big.mark = ","))
-    )
+    ) %>% 
+    ungroup()
     
   if (is.null(data))
   {
