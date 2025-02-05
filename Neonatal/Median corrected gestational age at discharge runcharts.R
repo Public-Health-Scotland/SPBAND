@@ -42,8 +42,8 @@ output$corrected_gestational_age_runcharts <- renderPlotly({
   
   creates_runcharts(plotdata = corrected_gestational_age_runchart_data,
                     yaxislabel = "Median corrected gestational age at discharge (weeks)"
-  ) %>% 
-    layout(showlegend = TRUE)
+  ) #%>% 
+    #layout(showlegend = TRUE)
 })
 
 # c) chart title ----

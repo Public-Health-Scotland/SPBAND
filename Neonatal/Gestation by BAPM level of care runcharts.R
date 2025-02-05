@@ -109,6 +109,6 @@ output$gestation_by_BAPM_LOC_runcharts_title <- renderText({
 })
 
 output$gestation_by_BAPM_LOC_runcharts_sub_title <- renderText({
-  HTML(paste0("Percentage of ", Selected$Nicename2, " babies admitted to a neonatal unit")
+  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a neonatal unit, by highest BAPM level of care*")
   )
 })

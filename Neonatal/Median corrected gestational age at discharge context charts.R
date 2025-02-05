@@ -33,6 +33,6 @@ output$corrected_gestational_age_context_charts <- renderPlotly({
   
   creates_context_charts(plotdata = corrected_gestational_age_context_data,
                          yaxislabel = "Number of babies"
-                    ) %>% 
-    layout(showlegend = TRUE)
+                    ) #%>% 
+    #layout(showlegend = TRUE)
 })
