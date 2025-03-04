@@ -2216,12 +2216,12 @@ type_of_birth <- tabItem(
                              )
                       ),
                       
-                      column(12,
-                             p(textOutput("Borders_caesarean_footnote1") %>%
-                                 tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;")
-                             )
-                      ),
+                      # column(12,
+                      #        p(textOutput("Borders_caesarean_footnote1") %>%
+                      #            tagAppendAttributes(style = "font-size:14px;
+                      #                              text-align: left;")
+                      #        )
+                      # ),
                       
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
@@ -2287,12 +2287,12 @@ type_of_birth <- tabItem(
                              
                       ),
                       
-                      column(12,
-                             p(textOutput("Borders_caesarean_footnote2") %>%
-                                 tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;")
-                             )
-                      ),
+                      # column(12,
+                      #        p(textOutput("Borders_caesarean_footnote2") %>%
+                      #            tagAppendAttributes(style = "font-size:14px;
+                      #                              text-align: left;")
+                      #        )
+                      # ),
                       
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
@@ -2356,12 +2356,12 @@ type_of_birth <- tabItem(
                              
                       ),
                       
-                      column(12,
-                             p(textOutput("Borders_caesarean_footnote3") %>%
-                                 tagAppendAttributes(style = "font-size:14px;
-                                                   text-align: left;")
-                             )
-                      ),
+                      # column(12,
+                      #        p(textOutput("Borders_caesarean_footnote3") %>%
+                      #            tagAppendAttributes(style = "font-size:14px;
+                      #                              text-align: left;")
+                      #        )
+                      # ),
                       
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
@@ -4320,7 +4320,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$head(
@@ -4346,7 +4346,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
