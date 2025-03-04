@@ -4320,7 +4320,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  #secure_app( # uncomment if want password protection
+  secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$head(
@@ -4346,7 +4346,7 @@ ui <-
     
    ) # tagList
 
-#) # secure_app # uncomment if want password protection
+) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -4702,17 +4702,17 @@ server <- function(input, output, session) {
   
   source("Apgar5/Apgar5 download data.R", local = TRUE)
   
-  source("Neonatal/Median corrected gestational age at discharge runcharts.R", local = TRUE)
+ # source("Neonatal/Median corrected gestational age at discharge runcharts.R", local = TRUE)
 
-  source("Neonatal/Median corrected gestational age at discharge context charts.R", local = TRUE)
+ # source("Neonatal/Median corrected gestational age at discharge context charts.R", local = TRUE)
 
-  source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
+ # source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
 
-  source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
+ # source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
 
-  source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
+ # source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
 
-  source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
+ # source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
   
   source("Version.R", local = TRUE)
   
