@@ -675,9 +675,9 @@ creates_runcharts <- function(plotdata,
   # adds an asterisk to these Board names when there is a related footnote to show
   
   legend_board_name <- if_else(
-    (first(plotdata$measure == "TYPE OF BIRTH") &
-       first(plotdata$hbname == "NHS Borders")
-     ) |
+    # (first(plotdata$measure == "TYPE OF BIRTH") &
+    #    first(plotdata$hbname == "NHS Borders")
+    #  ) |
       # (first(plotdata$measure == "GESTATION AT BOOKING") & # retired as of October 2024 release
       # first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
       # ) |
@@ -1010,9 +1010,9 @@ creates_context_charts <- function(plotdata,
     "GESTATION AT TERMINATION" = terminations_date_tickvals,
     "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_tickvals,
     "INDUCTIONS" = SMR02_date_tickvals,
-    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
+    #"TYPE OF BIRTH" = SMR02_multiples_date_tickvals, # hard coded as multiple charts
     "TEARS" = SMR02_date_tickvals,
-    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
+    #"GESTATION AT BIRTH" = SMR02_multiples_date_tickvals, # hard coded as multiple charts
     "APGAR5" = SMR02_date_tickvals,
     "MEDIAN CORRECTED GEST AGE" = NeoCare_date_tickvals
   ) 
@@ -1025,22 +1025,22 @@ creates_context_charts <- function(plotdata,
     "GESTATION AT TERMINATION" = terminations_date_ticktext,
     "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_ticktext,
     "INDUCTIONS" = SMR02_date_ticktext,
-    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
+    #"TYPE OF BIRTH" = SMR02_multiples_date_ticktext, # hard coded as multiple charts
     "TEARS" = SMR02_date_ticktext,
-    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
+    #"GESTATION AT BIRTH" = SMR02_multiples_date_ticktext, # hard coded as multiple charts
     "APGAR5" = SMR02_date_ticktext,
     "MEDIAN CORRECTED GEST AGE"= NeoCare_date_ticktext
   )
   
   # adds an asterisk to these Board names when there is a related footnote to show
   
-  legend_board_name <- if_else(
-    (first(plotdata$measure == "TYPE OF BIRTH") &
-       first(plotdata$hbname == "NHS Borders")
-    ),
-    paste0(first(plotdata$hbname), "*"),
+  legend_board_name <- #if_else(
+    # (first(plotdata$measure == "TYPE OF BIRTH") &
+    #    first(plotdata$hbname == "NHS Borders")
+    # ),
+    # paste0(first(plotdata$hbname), "*"),
     first(plotdata$hbname)
-  )
+  #)
   
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"

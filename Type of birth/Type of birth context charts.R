@@ -70,13 +70,13 @@ output$type_of_birth_context_charts <- renderPlotly({
   
   # adds an asterisk to these Board names when there is a related footnote to show
   
-  legend_board_name <- if_else(
-    (first(type_of_birth_context_data()$measure == "TYPE OF BIRTH") &
-       first(type_of_birth_context_data()$hbname == "NHS Borders")
-    ),
-    paste0(first(type_of_birth_context_data()$hbname), "*"),
+  legend_board_name <- #if_else(
+    # (first(type_of_birth_context_data()$measure == "TYPE OF BIRTH") &
+    #    first(type_of_birth_context_data()$hbname == "NHS Borders")
+    # ),
+    # paste0(first(type_of_birth_context_data()$hbname), "*"),
     first(type_of_birth_context_data()$hbname)
-  )
+  #)
   
   xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"

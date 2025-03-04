@@ -203,10 +203,10 @@ type_of_birth_data <- left_join(type_of_birth_data,
 
 # Puts an asterisk next to subtitles when NHS Borders is selected # temporary till issue fixed
 
-type_of_birth_data$measure_cat_label = 
-  if_else(type_of_birth_data$hbname == "NHS Borders" & type_of_birth_data$measure_cat_label %like% "planned",
-          str_replace(type_of_birth_data$measure_cat_label, "births", "births*"),
-          type_of_birth_data$measure_cat_label)
+# type_of_birth_data$measure_cat_label = 
+#   if_else(type_of_birth_data$hbname == "NHS Borders" & type_of_birth_data$measure_cat_label %like% "planned",
+#           str_replace(type_of_birth_data$measure_cat_label, "births", "births*"),
+#           type_of_birth_data$measure_cat_label)
 
 # puts runcharts in correct order
 

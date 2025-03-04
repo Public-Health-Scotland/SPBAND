@@ -26,21 +26,21 @@ gest_at_booking_revised_median_text <-  # was gest_at_booking_correction_text
     
     })
   
- # footnote for Type of Birth - Board comparison - Borders caesarean anomalies
+ # footnote for Type of Birth - Board comparison - Borders caesarean anomalies - removed as of April 2025 following resolution of issue
   
-  observeEvent(input$tob,
+  # observeEvent(input$tob,
   
-  output$Borders_caesarean_footnote1 <- renderText({
-    if(grepl("planned", input$tob)) {
-      "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
-    }
-  })
-  )
+  # output$Borders_caesarean_footnote1 <- renderText({
+  #   if(grepl("planned", input$tob)) {
+  #     "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
+  #   }
+  # })
+  # )
   
   # footnote for Type of Birth - Individual Board - Borders caesarean anomalies
 
-  output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
-      if(input$hbname == "NHS Borders") {
-        "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
-      }
-    })
+  # output$Borders_caesarean_footnote2 <- output$Borders_caesarean_footnote3 <- renderText({
+  #     if(input$hbname == "NHS Borders") {
+  #       "* Data for NHS Borders for planned and unplanned caesarean births show some unusual patterns from April 2022 to date. We have been liaising with NHS Borders and believe this to be a recording issue rather than a true reflection of the numbers. We are working with the Board to try to further understand and rectify the issue."
+  #     }
+  #   })

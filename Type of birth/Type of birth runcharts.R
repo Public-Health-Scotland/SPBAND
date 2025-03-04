@@ -70,16 +70,16 @@ output$type_of_birth_runcharts <- renderPlotly({
 
 output$type_of_birth_runcharts_title <- renderText({
   
-  if_else(input$hbname == "NHS Borders",
-          paste0("Board of ",
-                 str_to_sentence(input$organisation),
-                 ": ",
-                 input$hbname,
-                 "*"),
+  # if_else(input$hbname == "NHS Borders",
+  #         paste0("Board of ",
+  #                str_to_sentence(input$organisation),
+  #                ": ",
+  #                input$hbname,
+  #                "*"),
           paste0("Board of ",
                  str_to_sentence(input$organisation),
                  ": ",
                  input$hbname)
-  )
+  #)
 })
 
