@@ -74,11 +74,11 @@ NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAN
 
 # load latest NeoCareIn+ gestation by highest BAPM level of care data
 
-gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+# gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # load latest NeoCareIn+ babies born at 30-32 weeks admitted to neonatal unit
 
-babies_30_32_discharged_from_neocare_data <- readRDS("data/babies-30-32-discharged-from-neocare.rds")
+# babies_30_32_discharged_from_neocare_data <- readRDS("data/babies-30-32-discharged-from-neocare.rds")
 
 # split runchart_dataframe into individual measure dataframes ----
 
@@ -109,9 +109,9 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-NeoCare_date_range <- unique(gest_by_BAPM_LOC_data$date)
-NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
-NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
+# NeoCare_date_range <- unique(gest_by_BAPM_LOC_data$date)
+# NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
+# NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
 
 # STLLBIRTHS SPECIFIC ----
 
