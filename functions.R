@@ -623,6 +623,21 @@ creates_runcharts <- function(plotdata,
     .default = max(plotdata$measure_value, na.rm = TRUE)
     
   )
+  
+  alt_text <- switch(
+    first(plotdata$measure),
+   "BOOKINGS" = "Timeseries showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
+   "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
+   "TERMINATIONS" = "Timeseries showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
+   "GESTATION AT TERMINATION" = "Run chart showing average gestation at termination, for each month, from Jan 2017 onwards",
+   "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+   "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
+   "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+   "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+   "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+   "MEDIAN CORRECTED GEST AGE" = "",
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+   )
 
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
   # and TRUE for single runcharts
@@ -975,6 +990,13 @@ creates_runcharts <- function(plotdata,
         ))
   }
   
+  print(alt_text)
+  
+  runcharts <- htmlwidgets::onRender(runcharts, "
+      function(el, x) {
+        el.setAttribute('aria-label', alt_text);
+      }")
+  
   return(runcharts)
 }
 
@@ -1157,4 +1179,24 @@ download_excel_file <- function(this_excel_measure_name) {
   }
   )
 }
+
+# Function to add alt text to plotly runcharts
+# Parameter:
+# plotdata: dataframe with data to be plotted
+# measure: variable to be plotted as black dots/lines
+
+  # alt_text <- switch(
+  #   first(plotdata$measure), 
+  #  "BOOKINGS" = "Timeseries showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
+  #  "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
+  #  "TERMINATIONS" = "Timeseries showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
+  #  "GESTATION AT TERMINATION" = "Run chart showing average gestation at termination, for each month, from Jan 2017 onwards",
+  #  "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+  #  "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
+  #  "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+  #  "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+  #  "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+  #  "MEDIAN CORRECTED GEST AGE" = "",
+  #  "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  #  )
 
