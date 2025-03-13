@@ -3776,22 +3776,7 @@ median_cga_30_32 <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - NeoCareIn+.",
                                class = "notes-style"
-                             ),
-                             
-                             p("Further information on ",
-                               
-                               tags$a(
-                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                                 tags$u("Births in Scotland"),
-                                 class = "externallink",
-                                 target = "_blank"
-                               ),
-                               " is available in PHS annual reports.",
-                               class = "notes-style",
-                             ),
-                             
-                             hr()
-                             
+                             )
                       ),
                       
                       column(12,
@@ -3834,18 +3819,6 @@ median_cga_30_32 <- tabItem(
                       column(12,
                              p("Source: Public Health Scotland - NeoCareIn+.",
                                class = "notes-style"
-                             ),
-                             
-                             p("Further information on ",
-                               
-                               tags$a(
-                                 href = "https://publichealthscotland.scot/publications/births-in-scotland/",
-                                 tags$u("Births in Scotland"),
-                                 class = "externallink",
-                                 target = "_blank"
-                               ),
-                               " is available in PHS annual reports.",
-                               class = "notes-style"
                              )
                       )
                       
@@ -3859,7 +3832,7 @@ median_cga_30_32 <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p("Median corrected gestational age at discharge from neonatal care", br(), "for babies of 30-32 weeks gestation",
+                             p("Median corrected gestational age at discharge from neonatal care for babies born at 30-32 weeks gestation",
                                class = "about-this-measure-title"
                              ),
                              
@@ -3871,7 +3844,7 @@ median_cga_30_32 <- tabItem(
                           status = "primary",
                           width = 5,
                           
-                          p("Because admission to a neonatal unit necessitates separating the mother and baby, and the cost of specialist neonatal care is high, it is important to monitor how long babies are cared for in a neonatal unit. The aim is to support care at home earlier. One population of babies that we are particularly keen receive the shortest (but still appropriate) care as inpatients are those born early but not extremely early (babies born at 30-32 weeks gestation)."
+                          p("Knowing how long babies are likely to spend in neonatal intensive care is important for clinicians and parents to support conversations and planning around their stay. It can also help in the planning of services and resources to meet needs. Length of stay is influenced by factors such as a baby’s weight, sex, and the gestation at which they were born. Where length of stay is different over time or between places, it may warrant examination of any other factors which contribute to this."
                           ),
                           
                           p("In this measure we use corrected gestational age at discharge to take account of the fact that babies born earlier might be expected to stay longer."
@@ -3889,10 +3862,7 @@ median_cga_30_32 <- tabItem(
                           
                           p("Data source: NeoCareIn+."
                             ),
-                          
-                          p("NEED TO CHECK TEXT HERE"
-                            ),
-                          
+
                           p("The data used for the ‘median corrected gestational age’ measure come from the NeoCareIn+ database."
                             ),
                           
@@ -4010,7 +3980,16 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       column(12,
                              
-                             p("* The levels of care shown are those defined by the ",
+                             p("*These levels of care are ",
+                            
+                            tags$a(
+                                 href = "https://www.bapm.org/resources/34-categories-of-care-2011",
+                                 tags$u("defined"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                            
+                            "by the ",
                                
                                tags$a(
                                  href = "https://www.bapm.org/",
@@ -4100,7 +4079,7 @@ gestation_by_BAPM_LOC <- tabItem(
                           p("Admission to a neonatal unit is necessary when a baby requires a level of care higher than that which can be provided in a postnatal ward environment."
                           ),
                           
-                          p("However admission to a neonatal unit necessitates separating the mother and baby, and the cost of neonatal intensive care is high.  We therefore wish to monitor the proportion of babies born at:",
+                          p("However, admission to a neonatal unit necessitates separating the mother and baby, and the cost of neonatal intensive care is high. Premature birth is a major factor influencing the likelihood of admission to NICU, but other factors will play a role in babies born at later gestations. We therefore wish to monitor the proportion of babies born at:",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -4136,7 +4115,16 @@ gestation_by_BAPM_LOC <- tabItem(
                             
                             ),
                           
-                          p("These levels of care shown are those defined by the ",
+                          p("These levels of care are ",
+                            
+                            tags$a(
+                                 href = "https://www.bapm.org/resources/34-categories-of-care-2011",
+                                 tags$u("defined"),
+                                 class = "externallink",
+                                 target = "_blank"
+                               ),
+                            
+                            "by the ",
                             
                             tags$a(
                                  href = "https://www.bapm.org/",
@@ -4173,9 +4161,6 @@ gestation_by_BAPM_LOC <- tabItem(
                           width = 5,
                           
                           p("Data source: NeoCareIn+ (numerator) and Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case (denominator)."
-                          ),
-                          
-                          p("NEED TO CHECK TEXT HERE"
                           ),
                           
                           p("The data used for the ‘late pre-term and term/post-term admissions’ measure come from the NeoCareIn+ and Scottish Morbidity Record 02 (SMR02) databases."
@@ -4223,8 +4208,7 @@ gestation_by_BAPM_LOC <- tabItem(
                             
                               ),
 
-                          p("Babies are ‘due’ at 40 completed weeks gestation. Those born between 37 and up to 42 weeks inclusive are considered to be born ‘at term’.",
-                            style = "font-style:italic"
+                          p("Babies are ‘due’ at 40 completed weeks gestation. Those born between 37 and up to 42 weeks inclusive are considered to be born ‘at term’."
                           ),
                           
                           p("Babies born at under 37 weeks (more than three weeks before their due date) are considered to be",
@@ -4235,19 +4219,14 @@ gestation_by_BAPM_LOC <- tabItem(
                               target = "_blank" 
                             ),
                             
-                            "with those born at under 32 weeks considered to be very pre-term and those born at 32 to 36 weeks inclusive considered to be moderately pre-term. Babies born at or over 42 weeks (more than two weeks after their due date) are considered to be post-term or over-due.",
-                            style = "font-style:italic"
-                          ),
+                            "with those born at under 32 weeks considered to be very pre-term and those born at 32 to 36 weeks inclusive considered to be moderately pre-term. Babies born at or over 42 weeks (more than two weeks after their due date) are considered to be post-term or over-due."
+                            ),
                             
                           p("A birth is allocated to a quarter based on the date of birth."
                           ),
                           
                           p("An admission to neonatal care is allocated to a quarter based on the date of admission (first admission only)."
                             ),
-                          
-                          p("Pregnancies of cis women (non-transgender women), trans men, and gender non-binary people are included in the data shown.  However, as national health records do not currently provide reliable data on individuals’ gender identity, data on the number of trans or non-binary people cannot be provided.",
-                            style = "font-style:italic"
-                          ),
                           
                           p("Data are shown for up to and including the most recent quarter for which NeoCareIn+ and SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional records are submitted to PHS."
                           ),
