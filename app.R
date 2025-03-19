@@ -4536,7 +4536,7 @@ server <- function(input, output, session) {
         inputId = "date",
         label = "Choose time period",
         choices = factor_labels_year,
-        selected = "2023",
+        #selected = "2023",
         width = "fit",
         choicesOpt = list(
           style = rep("color: #3F3685;",
