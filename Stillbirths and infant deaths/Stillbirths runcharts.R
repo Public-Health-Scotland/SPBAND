@@ -151,6 +151,13 @@ stillbirth_charts <- stillbirth_charts %>%
       ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
 
+# Add dynamic alt text using htmlwidgets::onRender
+
+stillbirth_charts <- htmlwidgets::onRender(stillbirth_charts, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Timeseries charts showing the rates of stillbirths and infant deaths, for each quarter, from Jan-Mar 2016 onwards');
+      }
+      ")
   })
 
 # c) chart title ----

@@ -157,6 +157,17 @@ output$multi_indicator_chart <- renderPlotly({
     fig
     
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  fig <- htmlwidgets::onRender(fig, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Comparisons of core measures by NHS Board, for each selected financial or calendar year');
+      }
+      ")
+  
+  return(fig)
+  
   })
 
 # c) title
