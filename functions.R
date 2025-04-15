@@ -577,6 +577,19 @@ creates_small_multiple_charts_without_median <- function(plotdata,
 
 subplot_mainland_island_small_multiples <- function(plotdata) {
   
+  alt_text <- switch(
+    first(plotdata$measure),
+    "GESTATION AT BOOKING" = "Comparing all NHS Boards: timeseries charts showing average gestation at booking (based on completed weeks of pregnancy), for each month from April 2019 onwards",
+    "GESTATION AT TERMINATION" = "Comparing all NHS Boards: timeseries charts showing average gestation at termination (based on completed weeks of pregnancy), for each month from January 2017 onwards",
+    "INDUCTIONS" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+    "TYPE OF BIRTH" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births at any gestation that were of the selected type of birth, for each quarter from Jan-Mar 2017 onwards", 
+    "TEARS" = "Comparing all NHS Boards: timeseries charts showing the percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+    "GESTATION AT BIRTH" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births that were at the selected gestation, for each quarter from Jan-Mar 2017 onwards",
+    "APGAR5" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7, for each quarter from Jan-Mar 2017 onwards",
+    "MEDIAN CORRECTED GEST AGE" = "",
+    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  )
+  
   if(first(plotdata$measure != "GESTATION AT TERMINATION")) {
     
     small_multiple_subplot <- 
@@ -594,6 +607,15 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
       map(\(df) creates_small_multiple_charts_without_median(df))
 
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  small_multiple_subplot <- htmlwidgets::onRender(small_multiple_subplot, sprintf("
+      function(el, x) {
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
   
   return(small_multiple_subplot)
 }
@@ -626,14 +648,14 @@ creates_runcharts <- function(plotdata,
   
   alt_text <- switch(
     first(plotdata$measure),
-   "BOOKINGS" = "Timeseries showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
+   "BOOKINGS" = "Timeseries chart showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
    "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
-   "TERMINATIONS" = "Timeseries showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
+   "TERMINATIONS" = "Timeseries chart showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
    "GESTATION AT TERMINATION" = "Run chart showing average gestation at termination, for each month, from Jan 2017 onwards",
    "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
-   "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
+  "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
    "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
-   "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+  # "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
    "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
    "MEDIAN CORRECTED GEST AGE" = "",
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
@@ -990,13 +1012,15 @@ creates_runcharts <- function(plotdata,
         ))
   }
   
-  print(alt_text)
+  # Add dynamic alt text using htmlwidgets::onRender
   
-  runcharts <- htmlwidgets::onRender(runcharts, "
+  runcharts <- htmlwidgets::onRender(runcharts, sprintf("
       function(el, x) {
-        el.setAttribute('aria-label', alt_text);
-      }")
-  
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
+
   return(runcharts)
 }
 
@@ -1021,6 +1045,15 @@ creates_context_charts <- function(plotdata,
   plotdata <- droplevels(plotdata) # drop unused factor levels
   
   y_max <- max(plotdata$den, na.rm = TRUE) # allows a margin to be set around y-axis
+  
+  alt_text <- switch(
+    first(plotdata$measure),
+    "INDUCTIONS" = "Timeseries chart showing the number of singleton live births at 37+0 to 42+6 weeks gestation with a known induction status, and those that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+    "TEARS" = "Timeseries chart showing the number of women giving birth vaginally with a known perineal tear status, and those who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+    "APGAR5" = "Timeseries chart showing the number of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score, and those that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+    "MEDIAN CORRECTED GEST AGE" = "",
+    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  )
   
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
@@ -1145,6 +1178,15 @@ creates_context_charts <- function(plotdata,
         hoverinfo = "text"
       )
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  context_charts <- htmlwidgets::onRender(context_charts, sprintf("
+      function(el, x) {
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
     return(context_charts)
   }
 

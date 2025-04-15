@@ -125,6 +125,17 @@ output$extremely_preterm_control_chart <- renderPlotly({
       margin = list(pad = 10) # distance between axis and plot
     )%>% 
     config(displaylogo = F, displayModeBar = FALSE)
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  extremely_preterm_control_chart <- htmlwidgets::onRender(extremely_preterm_control_chart, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Control chart showing the percentage of births at 22-26 weeks gestation resulting in a live born baby that occurred in a hospital with a neonatal intensive care unit (NICU) on site, for each quarter, from Jan-Mar 2018 onwards');
+      }
+      ")
+  
+  return(extremely_preterm_control_chart)
+  
 })
 
 # c) chart title ----

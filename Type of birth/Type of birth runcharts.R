@@ -46,6 +46,8 @@ type_of_birth_runchart_data <- reactive({
 
 output$type_of_birth_runcharts <- renderPlotly({
   
+  runcharts <- 
+  
   type_of_birth_runchart_data() %>% 
     group_by(.$measure_cat) %>%
     group_map(~
@@ -64,7 +66,18 @@ output$type_of_birth_runcharts <- renderPlotly({
              list(x = 0.7,
                   y = 0)
            )
-  })
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  runcharts <- htmlwidgets::onRender(runcharts, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Run charts showing the percentage of singleton live births at any gestation by each type of birth, for each quarter, from Jan-Mar 2017 onwards');
+      }
+      ")
+  
+  return(runcharts)
+  
+})
 
 # c) chart title ----
 

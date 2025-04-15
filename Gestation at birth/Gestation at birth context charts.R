@@ -47,7 +47,7 @@ gest_at_birth_context_data <- reactive({
 # b) chart ---- 
 
 output$gest_at_birth_context_charts <- renderPlotly({
-
+  
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
   select_date_tickvals <- SMR02_date_tickvals
@@ -130,6 +130,14 @@ output$gest_at_birth_context_charts <- renderPlotly({
     )  %>%
     config(displaylogo = F, displayModeBar = FALSE)
   
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  chart <- htmlwidgets::onRender(chart, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Timeseries charts showing the the number of singleton live births at 18-44 weeks, 37+0 to 41+6 weeks, 32+0 to 36+6 weeks, 42+0 weeks and over and under 32 weeks gestation, for each quarter, from Jan-Mar 2017 onwards');
+      }
+      ")
+
   return(chart)
   
 })

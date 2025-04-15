@@ -4320,7 +4320,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+  #secure_app( # uncomment if want password protection
   tagList( #needed for shinyjs
     #useShinyjs(),  # Include shinyjs
     tags$head(
@@ -4346,7 +4346,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -4536,7 +4536,7 @@ server <- function(input, output, session) {
         inputId = "date",
         label = "Choose time period",
         choices = factor_labels_year,
-        selected = "2023",
+        #selected = "2023",
         width = "fit",
         choicesOpt = list(
           style = rep("color: #3F3685;",

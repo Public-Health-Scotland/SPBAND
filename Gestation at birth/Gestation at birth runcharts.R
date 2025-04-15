@@ -64,6 +64,8 @@ gest_at_birth_runchart_data <- reactive({
   
 output$gest_at_birth_runcharts <- renderPlotly({
   
+  runcharts <- 
+  
   gest_at_birth_runchart_data() %>% 
     group_by(.$measure_cat) %>%
     group_map(~
@@ -82,6 +84,16 @@ output$gest_at_birth_runcharts <- renderPlotly({
              list(x = 1.05,
                   y = 0.94)
     )
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  runcharts <- htmlwidgets::onRender(runcharts, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Run charts showing the percentage of singleton live births at under 32 weeks, 32+0 to 36+6 weeks, under 37 weeks and 42+0 weeks and over, for each quarter, from Jan-Mar 2017 onwards');
+      }
+      ")
+  
+  return(runcharts)
 })
   
 # c) chart title ----
