@@ -4,11 +4,7 @@
     "Repositories": [
       {
         "Name": "CRAN",
-        "URL": "https://ppm-prod.publichealthscotland.org/cran/latest"
-      },
-      {
-        "Name": "PHSGITHUB",
-        "URL": "https://ppm-prod.publichealthscotland.org/phs-github/latest"
+        "URL": "https://packagemanager.posit.co/cran/latest"
       }
     ]
   },
