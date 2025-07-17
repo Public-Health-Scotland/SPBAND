@@ -14,7 +14,9 @@ inductions_runchart_data <- reactive({
       den = "Total number of births: ",
       measure_value = "percentage of births (%)",
       pre_pandemic_median = "average to Oct-Dec 2019",
-      extended_pre_pandemic_median = "projected average from Jan-Mar 2020"
+      extended_pre_pandemic_median = paste0("projected average from Jan-Mar 2020", "<br>", "to Apr-Jun 2022"),
+      post_pandemic_median = paste0("average from Jul-Sep 2022", "<br>", "to Apr-Jun 2025")
+      #extended_post_pandemic_median = "projected average from Jul-Sep 2025" 
     ) %>% 
     mutate(mytext = paste0("Quarter: ", 
                            quarter_label,
