@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter: ----
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2025-06-12") 
+refresh_date <- as.Date("2025-08-14") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
