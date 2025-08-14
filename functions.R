@@ -893,6 +893,8 @@ creates_runcharts <- function(plotdata,
     margin = list(pad = 10) # distance between axis and plot
   ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
+  
+  # TEMPORARY SPLIT UNTIL JAN 2026 PUBLICATION WHEN EXTENDED POST_PANDEMIC MEDIAN WILL APPEAR ----
 
   # post-pandemic traces for the GESTATION AT BOOKING and GESTATION AT TERMINATION measures
 
@@ -934,6 +936,48 @@ creates_runcharts <- function(plotdata,
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
       )
+  }
+  
+  # post-pandemic median trace for the SMR02 measures
+
+  if(first(plotdata$dataset) == "SMR02") {
+
+    runcharts <- runcharts %>%
+      add_trace(
+        data = filter(plotdata,!is.na(post_pandemic_median)),
+        y = ~ post_pandemic_median, # magenta line
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-magenta"),
+          width = 1
+        ),
+        name = ~ paste0(var_label(post_pandemic_median)
+                        ),
+        legendrank = 600,
+        showlegend = ~ include_legend,
+        legendgroup = "post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+      ) #%>%
+      # add_trace(
+      #   data = filter(plotdata,!is.na(extended_post_pandemic_median)),
+      #   y = ~ extended_post_pandemic_median, # dotted magenta line
+      #   type = "scatter",
+      #   mode = "lines",
+      #   line = list(
+      #     color = phs_colours("phs-magenta"),
+      #     width = 1,
+      #     dash = "4"
+      #   ),
+      #   name = ~ paste0(var_label(extended_post_pandemic_median)
+      #                   ),
+      #   legendrank = 700,
+      #   showlegend = ~ include_legend,
+      #   legendgroup = "extended post-pandemic median",
+      #   hoverinfo = "y",
+      #   yhoverformat = hoverinfo_format
+      # )
   }
 
   # additional traces for the "special" Boards in GESTATION AT BOOKING measure

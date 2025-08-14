@@ -21,9 +21,9 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.6") # this is the LIVE dashboard 
-          #tags$p("SPBAND_test v 1.6") # this is the TEST dashboard 
-          tags$p("SPBAND_PRA v 1.6") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.7") # this is the LIVE dashboard 
+          #tags$p("SPBAND_test v 1.7") # this is the TEST dashboard 
+          tags$p("SPBAND_PRA v 1.7") # this is the PRA dashboard
   )
 )
 
@@ -1996,8 +1996,20 @@ inductions <- tabItem(
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of births that followed induction of labour over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
-                             ),
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the average (median) percentage of births that followed induction of labour over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                         ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the average (median) percentage of births that followed induction of labour in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         ),
+                                 )
+                               ),
+                             # 
+                             # p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of births that followed induction of labour over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             # ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
@@ -2328,8 +2340,20 @@ type_of_birth <- tabItem(
                              p("The black dots connected by a line in the charts above show the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of each type of birth over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the average (median) percentage of each type of birth over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                 ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the average (median) percentage of each type of birth in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                 ),
+                               )
                              ),
+                             
+                             # p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of each type of birth over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             # ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
@@ -2649,8 +2673,20 @@ perineal_tears <- tabItem(
                              ) # div
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who had a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the average (median) percentage of women who had a third- or fourth-degree perineal tear over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                 ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the average (median) percentage of women who had a third- or fourth-degree perineal tear in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                 ),
+                               )
                              ),
+                             
+                             # p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of women who had a third- or fourth-degree perineal tear, over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             # ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
@@ -2988,8 +3024,20 @@ gestation_at_birth <- tabItem(
                              p("The black dots connected by a line in the charts above show the percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards."
                              ),
                              
-                             p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         "A blue line shows the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                 ),
+                                 tags$li(class= "bullet-points",
+                                         "A magenta line shows a post-pandemic median - the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                 ),
+                               )
                              ),
+                             
+                             # p("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton live births (with known gestation; 18-44 weeks) that were at the stated gestation over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                             # ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
@@ -3560,13 +3608,36 @@ apgar_scores <- tabItem(
                              ) # div
                              ),
                              
-                             p(tags$div(
+                             p("To provide a basis for identifying patterns in the data:",
+                               
+                               tags$ul(
+                                 tags$li(class= "bullet-points",
+                                         tags$div(
                                HTML(
-                                 paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
-                                 )
-                               ) # HTML
-                             ) # div
-                             ),
+                                 paste0("A blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland). The blue line is dashed where the average is projected outside that time range."
+                                        )
+                                 ) # HTML
+                                         ) # div
+                               ), # li
+                               
+                                 tags$li(class= "bullet-points",
+                                         tags$div(
+                                           HTML(
+                                             paste0("A magenta line shows a post-pandemic median - the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025).  The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                                         )
+                                           ) # HTML
+                                         ) # div
+                                         ) # li
+                               ) # ul
+                               ),
+                             
+                             # p(tags$div(
+                             #   HTML(
+                             #     paste0("To provide a basis for identifying patterns in the data, a blue line shows the average (median) percentage of singleton babies born alive at 37", tags$sup("+0"), " to 42", tags$sup("+6"), " weeks gestation with a known 5-minute Apgar score that had a score of <7 over the period Jan-Mar 2017 to Oct-Dec 2019 inclusive (the period before the COVID-19 pandemic in Scotland).  The blue line is dashed where the average is projected outside that time range."
+                             #     )
+                             #   ) # HTML
+                             # ) # div
+                             # ),
                              
                              p("The black line becomes yellow where there are 6 or more consecutive points above or below the average and is highlighted in green where there are 5 or more consecutively increasing or decreasing points."
                              ),
