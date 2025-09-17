@@ -23,7 +23,7 @@ header <- dashboardHeader(
           # comment out version as appropriate - and secure if PRA or TEST!
           #tags$p("SPBAND v 1.7") # this is the LIVE dashboard 
           #tags$p("SPBAND_test v 1.7") # this is the TEST dashboard 
-          tags$p("SPBAND_PRA v 1.7") # this is the PRA dashboard
+          tags$p("SPBAND_PRA v 500") # this is the PRA dashboard
   )
 )
 
