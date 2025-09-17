@@ -3373,25 +3373,8 @@ stillbirths <- tabItem(
                               target = "_blank"
                             ),
                             
-                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
+                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes annual data for Scotland, by sex and cause, and by age of mother and father (Vital events reference tables), and quarterly data for Scotland, Council Areas and NHS Boards (Quarterly births, deaths and other vital events).",
                             
-                            tags$a(
-                              href = "https://www.nrscotland.gov.uk/publications/vital-events-reference-tables-2023/",
-                              tags$u("annual data"),
-                              class = "externallink",
-                              target = "_blank"
-                            ),
-                            
-                            " for Scotland, (section 4 of Vital Events Reference Tables: time series; by sex and cause; by age of mother and father), and ",
-                            
-                            tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy/",
-                              tags$u("quarterly data"),
-                              class = "externallink",
-                              target = "_blank"
-                            ),
-                            
-                            " for Scotland, Council Areas and NHS Boards."
                           ),
                           
                           p(strong("Stillbirths"), " refer to children born after the 24th week of pregnancy (gestations of 24 weeks or longer) that did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
