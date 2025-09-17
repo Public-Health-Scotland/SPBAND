@@ -3424,7 +3424,7 @@ stillbirths <- tabItem(
                           p("Within Scotland, the ",
                             
                             tags$a(
-                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/spsp-perinatal-programme/",
+                              href = "https://www.healthcareimprovementscotland.scot/improving-care/improvement-resources/scottish-patient-safety-programme-spsp/",
                               tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
                               class = "externallink",
                               target = "_blank"
