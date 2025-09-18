@@ -2795,22 +2795,20 @@ perineal_tears <- tabItem(
                             tags$div(
                               HTML(
                                 paste0(
-                                  "The most recent National Maternity and Perinatal Audit (NMPA) report that includes Scottish data ",
-                                  
+                                  "Variations in rates of third- and fourth-degree perineal tears between UK countries were reported by the ",
                                   tags$a(
-                                    href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                                    tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)"),
+                                    href = "https://maternityaudit.org.uk/pages/clinpub",
+                                    tags$u("National Maternity and Perinatal Audit (external website)."),
                                     class = "externallink",
                                     target = "_blank"
                                   ),
-                                  
-                                  " notes (on page 18) that ‘Rates of third- and fourth-degree tears in Scotland and Wales remain steady with minimal fluctuation in rates since the first NMPA report time point.’ However, the overall proportion of women who give birth vaginally to a singleton baby in the cephalic position between 37", tags$sup("+0"), " and 42", tags$sup("+6")
-                                ), # paste0,
-                                
-                                "weeks of gestation who sustain a third- or fourth-degree tear is reported as higher in Scotland than in England or Wales, so we need to continue to monitor rates across Scotland in order to reduce rate and  risk."
-                              ) # HTML
-                            ) # div
+                                  " Variations between maternity care providers in each nation were also reported. ",
+                                  "So we need to continue to monitor rates across Scotland in order to reduce rate and risk."
+                                )
+                              )
+                            )
                           ),
+                          
                           
                           p("Further information on ",
                             
