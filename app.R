@@ -2454,16 +2454,16 @@ type_of_birth <- tabItem(
                             )
                           ),
                           
-                          p("This variation in rates of operative deliveries (i.e. assisted and caesarean deliveries) between countries was highlighted in the National Maternity and Perinatal Audit (NMPA)",
+                          p("Variations in rates of spontaneous vaginal births and of assisted and caesarean births between UK countries were reported by the ",
                             
                             tags$a(
-                              href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                              tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)."),
+                              href = "https://maternityaudit.org.uk/pages/clinpub",
+                              tags$u("National Maternity and Perinatal Audit (external website)."),
                               class = "externallink",
                               target = "_blank"
                             ),
                             
-                            "This report (the most recent that includes Scottish data) looks at births in the year 2017/18. For full term singleton babies born, there were differences in the proportions of women across England, Scotland and Wales who had spontaneous, instrumental, or caesarean births. In this report, Scotland had higher rates for both planned and unplanned caesarean births and lower rates of spontaneous vaginal birth when compared to England and Wales."
+                           
                           ),
                           
                           p("It is because of these variations in practice, and the potential health consequences for both mother and baby, that the type of birth is recorded, and the numbers of operative interventions are measured and published as national statistics in the annual",
