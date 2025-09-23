@@ -161,6 +161,14 @@ including tabBoxes and menu items!important*/
   text-align: center;
     }
     
+/* to make h2 title smaller */  
+
+.smaller--h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-align: center;
+    }
+    
 /* formats titles in each tab (textOutput) */
 
 .shiny-text-output {
