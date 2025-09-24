@@ -107,6 +107,10 @@ topicmenu <- sidebarMenu(
   menuItem("MatNeo Data Hub",
            tabName = "matneo_data_hub",
            icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
+  ) %>% rem_menu_aria_label(),
+  menuItem("MatNeo Data Hub2",
+           tabName = "matneo_data_hub2",
+           icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label()
 
 )
@@ -119,10 +123,6 @@ instructions <-
            value = "instructions",
            
            fluidRow(
-             
-             br(),
-             
-             br(),
              
              p("Click +/- to open and close the sections below", 
                style = "text-align: right;"),
@@ -436,188 +436,177 @@ version <-
            
   ) # tabPanel("Version")
 
-# MATNEO DATA HUB OVERVIEW ----
-
-matneo_overview2 <- 
-  
-  tabPanel(title = "MatNeo Data Hub Overview",
-           value = "matneo_overview2",
-           
-           uiOutput("matneo_data_hub_intro")
-           
-  ) # tabPanel("MatNeo Data Hub Overview")
-
-# ABOUT THE MATNEO DATA HUB ----
-
-matneo_overview <- 
-  
-  tabPanel(title = "A MatNeo Data Hub for Scotland",
-           value = "matneo_overview",
-           
-           fluidRow(
-             
-             br(),
-             
-             br(),
-             
-             p("Click +/- to open and close the sections below", 
-               style = "text-align: right;"),
-             
-             box(title = p(strong("A MatNeo Data Hub for Scotland")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = TRUE,
-                 collapsed = FALSE,
-                 
-                 column(12,
-                        p("One recommendation of ‘The Best Start – A Five Year Forward Plan for Maternity and Neonatal Care in Scotland’ was to establish a Maternity and Neonatal Data Hub for Scotland."
-                          ),
-                        
-                        p("A MatNeo Data Hub has been created within Public Health Scotland (PHS), with support from the Scottish Perinatal Network, Healthcare Improvement Scotland, Scottish Government, and National Records of Scotland. The MatNeo Data Hub is now part of the Early Years and Young People Programme in PHS."
-                        ),
-                        
-                        p("Developmental work since 2019 includes:"
-                        ),
-                        
-                        p("Establish additional new all-Scotland maternity data sets"
-                        ),
-                        
-                        tags$ol(
-                          tags$li(class = "bullet-points", "Antenatal Booking Collection (ABC; including an expansion to collect further variables on mother’s social circumstances, health and behaviours, and antenatal scans)"), 
-                          tags$li(class = "bullet-points", "Mother, Birth and Baby (MoBBa; to sit alongside SMR02 and collect data on mother’s health, details of birth and information on baby’s health and treatment "), 
-                          tags$li(class = "bullet-points", "Miscarriage (to provide enhanced awareness of numbers of women experiencing miscarriages, numbers of miscarriages and numbers of recurrent miscarriages)")
-                        ),
-                        
-                        p("Routine collection of data on specialist neonatal care (NeoCareIn+), Data displays showing maternity and neonatal CORE measures (including the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard)"
-                        )
-                 )
-                 
-             ) # box "A MatNeo Data Hub for Scotland"
-             
-             %>% rem_button_aria_label(), 
-             
-             box(title = p(strong("Topics Index")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
-
-                 column(12,
-                        p("The Topics Index catalogues individual maternity and neonatal measures already available, including those on the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard, the Health in the Early Years in Scotland (HEYS) dashboard, Discovery, NMPA, NNAP, National Records of Scotland and PHS websites. The Topics Index also includes a list of CORE maternity measures."
-                        ),
-
-                        p("The Topics index is available at: https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=277533606"
-                        ),
-
-                        p("We appreciate the Google Sheets platform may not be available to all our users and are working to develop a more sophisticated accessible platform for the catalogue. In the meantime, if you cannot access the hyperlink above and would like to view the Topics Index, please contact the Hub Programme Team (phs.matneodatahub@phs.scot) and we will seek alternative ways of sharing the index with you."
-                        ),
-                 )
-
-             ) # box "Topics Index"
-
-             %>% rem_button_aria_label(),
-
-             box(title = p(strong("Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
-
-                 column(12,
-                        p("As part of our COVID-19 response, Public Health Scotland created a data dashboard showing wider impacts of COVID-19. Pregnancy and Births and babies sections of the Wider Impacts dashboard were updated each month until Sep 2023. Those two sections were replaced in October 2023 by a new Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard. Data on SPBAND is refreshed quarterly (in January, April, July and October each year).
-
-SPBAND includes the same topics as those that featured in the two sections of the Wider Impacts dashboard it replaces:
-
-Pregnancy: number of pregnancies booked; average gestation at booking; number of terminations; average gestation at termination
-
-Births and Babies: location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores
-
-SPBAND offers three ways to view data: time series charts for individual measures and individual Health Boards; small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi-indicator overview that displays multiple measures simultaneously, allowing comparison across Health Board areas."
-                        )
-                 )
-
-             ) # box "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)"
-
-             %>% rem_button_aria_label(),
-
-             box(title = p(strong("Health in the Early Years in Scotland (HEYS) Dashboard")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
-
-                 column(12,
-                        p("The Health in the Early Years in Scotland (HEYS) dashboard provides information on infant feeding (and child development), and is updated quarterly. A link to data on HEYS is now available from a new Infant feeding menu item on SPBAND."
-                        )
-                 )
-
-             ) # box "Health in the Early Years in Scotland (HEYS) Dashboard"
-
-             %>% rem_button_aria_label(),
-
-             box(title = p(strong("NSS Discovery")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = FALSE,
-                 collapsed = FALSE,
-
-                 column(12,
-                        p("Another Public Health Scotland dashboard that includes information on maternity care in Scotland is the NSS Discovery dashboard. You will need to register for a user name and password for this one."
-                          )
-                 )
-
-             ), # box "NSS Discovery"
-
-             # %>% rem_button_aria_label()
-
-             box(title = p(strong("Public Health Scotland Official Statistics on maternal and neonatal health")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = FALSE,
-                 collapsed = FALSE,
-
-                 column(12,
-                        p("Public Health Scotland publishes a series of annual Official Statistics on pregnancy, childbirth and the early care of babies born in Scotland.
-
-Births in Scotland: data on mother’s age, ethnicity, deprivation, BMI, maternal diabetes, method of birth, gestation at birth and birthweight.
-
-Antenatal Booking in Scotland: data on numbers of pregnancies booked, gestation at booking, and smoking status (by mother’s age, deprivation and ethnicity, for all three topics).
-
-Termination of pregnancy: information on age, gestation, method of termination, deprivation, ethnicity, previous terminations, and grounds for termination.
-
-Teenage pregnancies: information is provided on age group (<16, <18, <20), deprivation, and whether the pregnancy was terminated or led to a birth.
-
-Congenital Conditions in Scotland: current best estimates of the number of babies with serious congenital conditions.
-
-Infant feeding: information on exclusive breastfeeding, mixed, and formula feeding (initiation; first visit; 6-8 week; 13 to 15 month; maternal age; deprivation, ethnicity; looked-after status; maternal smoking status).
-
-Pregnancy Screening for Down’s Syndrome, Edward’s Syndrome, and Patau’s Syndrome in Scotland: information on the coverage of screening (including by maternal age group, deprivation quintile and ethnic group), screening results and laboratory activity."
-                          )
-
-                 )
-
-             ), # box "Public Health Scotland Official Statistics on maternal and neonatal health"
-
-             # %>% rem_button_aria_label()
-             
-             box(title = p(strong("Contact details for MatNeo Data Hub Team")),
-                 status = "primary",
-                 width = 12,
-                 collapsible = FALSE,
-                 collapsed = FALSE,
-
-                 column(12,
-                        p("You can contact the Hub Programme Team by emailing their generic inbox (phs.matneodatahub@phs.scot)."
-                          )
-                 )
-
-             ) # box "Contact details for MatNeo Data Hub Team"
-
-             # %>% rem_button_aria_label()
-             
-             ) # fluidRow
-           
-  ) # tabPanel("A MatNeo Data Hub for Scotland")
+# # ABOUT THE MATNEO DATA HUB TAB ON HOME PAGE ----
+# 
+# matneo_overview_tab <- 
+#   
+#   tabPanel(title = "A MatNeo Data Hub for Scotland",
+#            value = "matneo_overview_tab",
+#            
+#            fluidRow(
+#              
+#              br(),
+#              
+#              br(),
+#              
+#              p("Click +/- to open and close the sections below", 
+#                style = "text-align: right;"),
+#              
+#              box(title = p(strong("A MatNeo Data Hub for Scotland")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = FALSE,
+#                  
+#                  column(12,
+#                         p("One recommendation of ‘The Best Start – A Five Year Forward Plan for Maternity and Neonatal Care in Scotland’ was to establish a Maternity and Neonatal Data Hub for Scotland."
+#                           ),
+#                         
+#                         p("A MatNeo Data Hub has been created within Public Health Scotland (PHS), with support from the Scottish Perinatal Network, Healthcare Improvement Scotland, Scottish Government, and National Records of Scotland. The MatNeo Data Hub is now part of the Early Years and Young People Programme in PHS."
+#                         ),
+#                         
+#                         p("Developmental work since 2019 includes:"
+#                         ),
+#                         
+#                         p("Establish additional new all-Scotland maternity data sets"
+#                         ),
+#                         
+#                         tags$ol(
+#                           tags$li(class = "bullet-points", "Antenatal Booking Collection (ABC; including an expansion to collect further variables on mother’s social circumstances, health and behaviours, and antenatal scans)"), 
+#                           tags$li(class = "bullet-points", "Mother, Birth and Baby (MoBBa; to sit alongside SMR02 and collect data on mother’s health, details of birth and information on baby’s health and treatment "), 
+#                           tags$li(class = "bullet-points", "Miscarriage (to provide enhanced awareness of numbers of women experiencing miscarriages, numbers of miscarriages and numbers of recurrent miscarriages)")
+#                         ),
+#                         
+#                         p("Routine collection of data on specialist neonatal care (NeoCareIn+), Data displays showing maternity and neonatal CORE measures (including the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard)"
+#                         )
+#                  )
+#                  
+#              ) # box "A MatNeo Data Hub for Scotland"
+#              
+#              %>% rem_button_aria_label(), 
+#              
+#              box(title = p(strong("Topics Index")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = TRUE,
+# 
+#                  column(12,
+#                         p("The Topics Index catalogues individual maternity and neonatal measures already available, including those on the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard, the Health in the Early Years in Scotland (HEYS) dashboard, Discovery, NMPA, NNAP, National Records of Scotland and PHS websites. The Topics Index also includes a list of CORE maternity measures."
+#                         ),
+# 
+#                         p("The Topics index is available at: https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=277533606"
+#                         ),
+# 
+#                         p("We appreciate the Google Sheets platform may not be available to all our users and are working to develop a more sophisticated accessible platform for the catalogue. In the meantime, if you cannot access the hyperlink above and would like to view the Topics Index, please contact the Hub Programme Team (phs.matneodatahub@phs.scot) and we will seek alternative ways of sharing the index with you."
+#                         ),
+#                  )
+# 
+#              ) # box "Topics Index"
+# 
+#              %>% rem_button_aria_label(),
+# 
+#              box(title = p(strong("Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = TRUE,
+# 
+#                  column(12,
+#                         p("As part of our COVID-19 response, Public Health Scotland created a data dashboard showing wider impacts of COVID-19. Pregnancy and Births and babies sections of the Wider Impacts dashboard were updated each month until Sep 2023. Those two sections were replaced in October 2023 by a new Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard. Data on SPBAND is refreshed quarterly (in January, April, July and October each year).
+# 
+# SPBAND includes the same topics as those that featured in the two sections of the Wider Impacts dashboard it replaces:
+# 
+# Pregnancy: number of pregnancies booked; average gestation at booking; number of terminations; average gestation at termination
+# 
+# Births and Babies: location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores
+# 
+# SPBAND offers three ways to view data: time series charts for individual measures and individual Health Boards; small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi-indicator overview that displays multiple measures simultaneously, allowing comparison across Health Board areas."
+#                         )
+#                  )
+# 
+#              ) # box "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)"
+# 
+#              %>% rem_button_aria_label(),
+# 
+#              box(title = p(strong("Health in the Early Years in Scotland (HEYS) Dashboard")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = TRUE,
+# 
+#                  column(12,
+#                         p("The Health in the Early Years in Scotland (HEYS) dashboard provides information on infant feeding (and child development), and is updated quarterly. A link to data on HEYS is now available from a new Infant feeding menu item on SPBAND."
+#                         )
+#                  )
+# 
+#              ) # box "Health in the Early Years in Scotland (HEYS) Dashboard"
+# 
+#              %>% rem_button_aria_label(),
+# 
+#              box(title = p(strong("NSS Discovery")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = TRUE,
+# 
+#                  column(12,
+#                         p("Another Public Health Scotland dashboard that includes information on maternity care in Scotland is the NSS Discovery dashboard. You will need to register for a user name and password for this one."
+#                           )
+#                  )
+# 
+#              ), # box "NSS Discovery"
+# 
+#              # %>% rem_button_aria_label()
+# 
+#              box(title = p(strong("Public Health Scotland Official Statistics on maternal and neonatal health")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = TRUE,
+#                  collapsed = TRUE,
+# 
+#                  column(12,
+#                         p("Public Health Scotland publishes a series of annual Official Statistics on pregnancy, childbirth and the early care of babies born in Scotland.
+# 
+# Births in Scotland: data on mother’s age, ethnicity, deprivation, BMI, maternal diabetes, method of birth, gestation at birth and birthweight.
+# 
+# Antenatal Booking in Scotland: data on numbers of pregnancies booked, gestation at booking, and smoking status (by mother’s age, deprivation and ethnicity, for all three topics).
+# 
+# Termination of pregnancy: information on age, gestation, method of termination, deprivation, ethnicity, previous terminations, and grounds for termination.
+# 
+# Teenage pregnancies: information is provided on age group (<16, <18, <20), deprivation, and whether the pregnancy was terminated or led to a birth.
+# 
+# Congenital Conditions in Scotland: current best estimates of the number of babies with serious congenital conditions.
+# 
+# Infant feeding: information on exclusive breastfeeding, mixed, and formula feeding (initiation; first visit; 6-8 week; 13 to 15 month; maternal age; deprivation, ethnicity; looked-after status; maternal smoking status).
+# 
+# Pregnancy Screening for Down’s Syndrome, Edward’s Syndrome, and Patau’s Syndrome in Scotland: information on the coverage of screening (including by maternal age group, deprivation quintile and ethnic group), screening results and laboratory activity."
+#                           )
+# 
+#                  )
+# 
+#              ), # box "Public Health Scotland Official Statistics on maternal and neonatal health"
+# 
+#              # %>% rem_button_aria_label()
+#              
+#              box(title = p(strong("Contact details for MatNeo Data Hub Team")),
+#                  status = "primary",
+#                  width = 12,
+#                  collapsible = FALSE,
+#                  collapsed = FALSE,
+# 
+#                  column(12,
+#                         p("You can contact the Hub Programme Team by emailing their generic inbox (phs.matneodatahub@phs.scot)."
+#                           )
+#                  )
+# 
+#              ) # box "Contact details for MatNeo Data Hub Team"
+# 
+#              # %>% rem_button_aria_label()
+#              
+#              ) # fluidRow
+#            
+#   ) # tabPanel("A MatNeo Data Hub for Scotland")
 
 # SIDEBAR ----
 
@@ -647,11 +636,20 @@ home <- tabItem(
        class = "smaller--h1"
     ),
     
-    hr(),
+    column(2),
     
-    h2("This dashboard was developed by the Maternity and Neonatal Data Hub. Find out more about the data hub and access other MatNeo data for Scotland through the MatNeo Data Hub tab below",
-       class = "smaller--h2"
-       ),
+    column(8,
+    
+    h2("This dashboard was developed by the Maternity and Neonatal Data Hub. Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
+       class = "smaller--h2--centred"
+    )
+    ),
+    
+    column(2)
+    
+  ), # fluidRow
+  
+  fluidRow(
     
     hr(),
     
@@ -667,9 +665,9 @@ home <- tabItem(
            
            background,
            
-           version,
+           version
            
-           matneo_overview
+           #matneo_overview_tab
            
     ) # tabBox
     
@@ -4559,66 +4557,175 @@ infant_feeding <- tabItem(
 
 matneo_data_hub <- tabItem(
   tabName = "matneo_data_hub",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("MatNeo Data Hub"
+        )
+    )
+  ),
   
   fluidRow(
-    
-    h1("A MatNeo Data Hub for Scotland ",
-       class = "smaller--h1"
-    ),
-    
-    hr(),
-    
-    h2("Contact details for MatNeo Data Hub Team",
-       class = "smaller--h2"
-       ),
-    
-    br(),
-    
-    p("You can contact the Hub Programme Team by emailing their generic inbox (phs.matneodatahub@phs.scot)."
-      ),
-    
-    hr(),
-    
-    tabBox(title = "MatNeo Data Hub",
+    column(12,
+           h1("A MatNeo Data Hub for Scotland ",
+              class = "smaller--h1"
+           ),
+           
+           box(#status = "primary",
+               #solidHeader = TRUE,
+               width = 12,
+               
+               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
+                  class = "smaller--h2"
+               )
+               
+           ), # box
+           
+           box(#status = "primary",
+             title = "Hub Overview",
+             #solidHeader = TRUE,
+             width = 12,
 
-           # The id lets us use input$tabset40 on the server to find the current tab
-           id = "tabset40",
-           width = 12,
+             uiOutput("hub_overview")
 
-           patterns,
+           ), # box
 
-           matneo_overview2
+           box(#status = "primary",
+             title = "Topics Index",
+             #solidHeader = TRUE,
+             width = 12,
 
-    ) # tabBox
+             uiOutput("hub_topics_index")
+
+           ), # box
+           
+           box(#status = "primary",
+               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
+               #solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_spband")
+               
+           ), # box
+           
+           box(#status = "primary",
+               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
+               #solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_heys")
+               
+           ), # box
+           
+           box(#status = "primary",
+               title = "NSS Discovery",
+               #solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_discovery")
+               
+           ), # box
+           
+           box(#status = "primary",
+               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
+               #solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_other_phs")
+               
+           ) # box
     
-
-  # tabPanel(title = "Matneo",
-  #          value = "matneo",
-  #          
-  #          uiOutput("matneo_overview2")
-  #          
-  #   ) # tabPanel
-    
-    # tabBox(title = "MatNeo",
-    # 
-    #        # The id lets us use input$tabset40 on the server to find the current tab
-    #        id = "tabset40",
-    #        width = 12,
-    # 
-    #        # instructions,
-    #        #
-    #        # patterns,
-    #        #
-    #        # background,
-    #        #
-    #        # version,
-    # 
-    #        uiOutput("matneo_overview2")
-    #        ) # tabBox
-
+    ) # column
+  
   ) # fluidRow
   
-) # tabItem ("matneo_data_hub")
+) # tabItem ""MatNeo Data Hub"
+
+# MATNEO DATA HUB2 ----
+
+matneo_data_hub2 <- tabItem(
+  tabName = "matneo_data_hub2",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("MatNeo Data Hub"
+        )
+    )
+  ),
+  
+  fluidRow(
+    column(12,
+           h1("A MatNeo Data Hub for Scotland",
+              class = "smaller--h1"
+           ),
+           
+           box(#status = "primary",
+               solidHeader = TRUE,
+               width = 12,
+               
+               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
+                  class = "smaller--h2"
+               )
+               
+           ), # box
+           
+           box(status = "primary",
+             title = "Hub Overview",
+             solidHeader = TRUE,
+             width = 12,
+
+             uiOutput("hub_overview2")
+
+           ), # box
+
+           box(status = "primary",
+             title = "Topics Index",
+             solidHeader = TRUE,
+             width = 12,
+
+             uiOutput("hub_topics_index2")
+
+           ), # box
+           
+           box(status = "primary",
+               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_spband2")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_heys2")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "NSS Discovery",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_discovery2")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_other_phs2")
+               
+           ) # box
+
+    ) # column
+  
+  ) # fluidRow
+  
+) # tabItem ""MatNeo Data Hub2"
 
 # BODY ----
 
@@ -4644,7 +4751,8 @@ body <- dashboardBody(
     median_cga_30_32,
     gestation_by_BAPM_LOC,
     infant_feeding,
-    matneo_data_hub
+    matneo_data_hub,
+    matneo_data_hub2
   ) # tabItems
   
 ) # dashboardBody
@@ -5048,7 +5156,17 @@ server <- function(input, output, session) {
   
   source("Version.R", local = TRUE)
   
-  source("matneo_overview2.R", local = TRUE)
+  source("MatNeo Data Hub/Overview.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Topics Index.R", local = TRUE)
+  
+  source("MatNeo Data Hub/SPBAND.R", local = TRUE)
+  
+  source("MatNeo Data Hub/HEYS.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Discovery.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Other PHS content.R", local = TRUE)
   
   source("Footnotes.R", local = TRUE)
   

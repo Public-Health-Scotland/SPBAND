@@ -153,6 +153,12 @@ including tabBoxes and menu items!important*/
   padding-bottom: 4px;
 }
 
+.open-bullet-points {
+  padding-left: 20px;
+  padding-bottom: 4px;
+  list-style-type: circle;
+}
+
 /* to make h1 title smaller */  
 
 .smaller--h1 {
@@ -164,6 +170,14 @@ including tabBoxes and menu items!important*/
 /* to make h2 title smaller */  
 
 .smaller--h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-align: left;
+    }
+    
+    /* to make h2 title smaller and centred */  
+
+.smaller--h2--centred {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
   text-align: center;
