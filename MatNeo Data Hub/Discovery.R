@@ -12,7 +12,8 @@ output$hub_discovery <- renderUI({
             href = "https://www.nssdiscovery.scot.nhs.uk/",
             tags$u("Discovery dashboard."),
             class = "externallink",
-            target = "_blank"
+            target = "_blank",
+            rel = "noopener noreferrer"
           ),
           
           "You will need to register for a user name and password for this one."

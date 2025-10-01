@@ -13,7 +13,8 @@ output$hub_topics_index <- renderUI({
             href = "https://scotland.shinyapps.io/phs-pregnancy-births-neonatal/",
             tags$u("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           "the ",
@@ -22,35 +23,40 @@ output$hub_topics_index <- renderUI({
             href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
             tags$u("Health in the Early Years in Scotland (HEYS) dashboard,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://publichealthscotland.scot/services/discovery/overview/what-is-discovery/",
             tags$u("Discovery,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://maternityaudit.org.uk/",
             tags$u("NMPA,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://www.rcpch.ac.uk/work-we-do/quality-improvement-patient-safety/national-neonatal-audit-programme",
             tags$u("NNAP,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://www.nrscotland.gov.uk/statistics-and-data",
             tags$u("National Records of Scotland"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           "and",
@@ -59,7 +65,8 @@ output$hub_topics_index <- renderUI({
             href = "https://publichealthscotland.scot/population-health/early-years-and-young-people/maternity-and-births/",
             tags$u("PHS"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           "websites."
@@ -74,7 +81,8 @@ output$hub_topics_index <- renderUI({
             href = "https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=277533606",
             tags$u("MatNeo Data Hub Topics Index."),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           )
         ),
         

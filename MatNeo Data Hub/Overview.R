@@ -13,7 +13,8 @@ output$hub_overview <- renderUI({
             href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
             tags$u("The Best Start: five year plan for maternity and neonatal care"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           "was to establish a Maternity and Neonatal Data Hub for Scotland."
@@ -25,7 +26,8 @@ output$hub_overview <- renderUI({
             href = "https://www.publichealthscotland.scot/",
             tags$u("Public Health Scotland"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           " (PHS), with support from the ",
@@ -34,21 +36,24 @@ output$hub_overview <- renderUI({
             href = "https://perinatalnetwork.scot/",
             tags$u("Scottish Perinatal Network,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://www.healthcareimprovementscotland.scot/",
             tags$u("Healthcare Improvement Scotland,"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           tags$a(
             href = "https://www.gov.scot/policies/maternal-and-child-health/improving-maternal-and-neonatal-care/",
             tags$u("Scottish Government"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           " and",
@@ -57,7 +62,8 @@ output$hub_overview <- renderUI({
             href = "https://www.nrscotland.gov.uk/statistics-and-data",
             tags$u("National Records of Scotland."),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           " The Hub is now part of the ",
@@ -66,7 +72,8 @@ output$hub_overview <- renderUI({
             href = "https://www.publichealthscotland.scot/population-health/early-years-and-young-people/",
             tags$u("Early Years and Young People Programme"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
           
           " in PHS."
@@ -130,7 +137,8 @@ output$hub_overview <- renderUI({
                     href = "https://scotland.shinyapps.io/phs-pregnancy-births-neonatal/",
                     tags$u("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"),
                     class = "externallink",
-                    target = "_blank"
+                    target = "_blank", 
+                    rel = "noopener noreferrer"
                   )
           )
         ) # tags$ul

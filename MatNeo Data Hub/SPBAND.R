@@ -17,7 +17,8 @@ output$hub_spband <- renderUI({
             href = "https://scotland.shinyapps.io/phs-pregnancy-births-neonatal/",
             tags$u("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"),
             class = "externallink",
-            target = "_blank"
+            target = "_blank", 
+            rel = "noopener noreferrer"
           ),
 
         "(this dashboard). The measures on SPBAND are refreshed quarterly (in January, April, July and October each year)."
