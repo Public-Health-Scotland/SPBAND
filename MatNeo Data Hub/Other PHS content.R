@@ -1,6 +1,6 @@
 # MatNeo Data Hub Other PHS content
 
-output$hub_other_phs <- output$hub_other_phs2 <- renderUI({
+output$hub_other_phs <- renderUI({
   
   fluidRow(
     

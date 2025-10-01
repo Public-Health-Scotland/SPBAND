@@ -1,6 +1,6 @@
 # Topics Index
 
-output$hub_topics_index <- output$hub_topics_index2 <- renderUI({
+output$hub_topics_index <- renderUI({
   
   fluidRow(
     

@@ -1,6 +1,6 @@
 # MatNeo Data Hub Discovery
 
-output$hub_discovery <- output$hub_discovery2 <- renderUI({
+output$hub_discovery <- renderUI({
   
   fluidRow(
     
@@ -10,7 +10,7 @@ output$hub_discovery <- output$hub_discovery2 <- renderUI({
         p("Another Public Health Scotland dashboard that includes information on maternity care in Scotland is the ",
           tags$a(
             href = "https://www.nssdiscovery.scot.nhs.uk/",
-            tags$u("NSS Discovery dashboard."),
+            tags$u("Discovery dashboard."),
             class = "externallink",
             target = "_blank"
           ),

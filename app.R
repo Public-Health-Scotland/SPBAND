@@ -35,13 +35,17 @@ topicmenu <- sidebarMenu(
            tabName = "home",
            icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label()
            ),
-  menuItem("Multi indicator overview",
+  menuItem("MatNeo Data Hub",
+           tabName = "matneo_data_hub",
+           icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
+  ) %>% rem_menu_aria_label(),
+    menuItem("Multi indicator overview",
            tabName = "multi_indicator_overview",
            icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
   ),
   menuItem("Pregnancy",
            icon = icon("person-pregnant", verify_fa = FALSE) %>% rem_aria_label(),
-           menuSubItem("Number of pregnancies booked", 
+           menuSubItem("Number of pregnancies booked",
                        tabName = "pregnancies_booked",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            ),
@@ -103,16 +107,7 @@ topicmenu <- sidebarMenu(
   menuItem("Infant feeding",
            tabName = "infant_feeding",
            icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
-  ) %>% rem_menu_aria_label(),
-  menuItem("MatNeo Data Hub",
-           tabName = "matneo_data_hub",
-           icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
-  ) %>% rem_menu_aria_label(),
-  menuItem("MatNeo Data Hub2",
-           tabName = "matneo_data_hub2",
-           icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label()
-
 )
 
 # HOW TO USE THIS DASHBOARD ----
@@ -127,8 +122,9 @@ instructions <-
              p("Click +/- to open and close the sections below", 
                style = "text-align: right;"),
              
-             box(title = p(strong("Navigation and filtering")),
+             box(title = "Navigation and filtering",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = FALSE,
@@ -178,8 +174,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("There are three ways to view data")),
+             box(title = "There are three ways to view data",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -210,8 +207,9 @@ instructions <-
              
              %>% rem_button_aria_label(),
              
-             box(title = p(strong("Notes on particular measures")),
+             box(title = "Notes on particular measures",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -228,8 +226,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("Copying charts and downloading data")),
+             box(title = "Copying charts and downloading data",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -249,8 +248,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("Tell us what you think")),
+             box(title = "Tell us what you think",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = FALSE,
                  collapsed = FALSE,
@@ -436,178 +436,6 @@ version <-
            
   ) # tabPanel("Version")
 
-# # ABOUT THE MATNEO DATA HUB TAB ON HOME PAGE ----
-# 
-# matneo_overview_tab <- 
-#   
-#   tabPanel(title = "A MatNeo Data Hub for Scotland",
-#            value = "matneo_overview_tab",
-#            
-#            fluidRow(
-#              
-#              br(),
-#              
-#              br(),
-#              
-#              p("Click +/- to open and close the sections below", 
-#                style = "text-align: right;"),
-#              
-#              box(title = p(strong("A MatNeo Data Hub for Scotland")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = FALSE,
-#                  
-#                  column(12,
-#                         p("One recommendation of ‘The Best Start – A Five Year Forward Plan for Maternity and Neonatal Care in Scotland’ was to establish a Maternity and Neonatal Data Hub for Scotland."
-#                           ),
-#                         
-#                         p("A MatNeo Data Hub has been created within Public Health Scotland (PHS), with support from the Scottish Perinatal Network, Healthcare Improvement Scotland, Scottish Government, and National Records of Scotland. The MatNeo Data Hub is now part of the Early Years and Young People Programme in PHS."
-#                         ),
-#                         
-#                         p("Developmental work since 2019 includes:"
-#                         ),
-#                         
-#                         p("Establish additional new all-Scotland maternity data sets"
-#                         ),
-#                         
-#                         tags$ol(
-#                           tags$li(class = "bullet-points", "Antenatal Booking Collection (ABC; including an expansion to collect further variables on mother’s social circumstances, health and behaviours, and antenatal scans)"), 
-#                           tags$li(class = "bullet-points", "Mother, Birth and Baby (MoBBa; to sit alongside SMR02 and collect data on mother’s health, details of birth and information on baby’s health and treatment "), 
-#                           tags$li(class = "bullet-points", "Miscarriage (to provide enhanced awareness of numbers of women experiencing miscarriages, numbers of miscarriages and numbers of recurrent miscarriages)")
-#                         ),
-#                         
-#                         p("Routine collection of data on specialist neonatal care (NeoCareIn+), Data displays showing maternity and neonatal CORE measures (including the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard)"
-#                         )
-#                  )
-#                  
-#              ) # box "A MatNeo Data Hub for Scotland"
-#              
-#              %>% rem_button_aria_label(), 
-#              
-#              box(title = p(strong("Topics Index")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = TRUE,
-# 
-#                  column(12,
-#                         p("The Topics Index catalogues individual maternity and neonatal measures already available, including those on the Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard, the Health in the Early Years in Scotland (HEYS) dashboard, Discovery, NMPA, NNAP, National Records of Scotland and PHS websites. The Topics Index also includes a list of CORE maternity measures."
-#                         ),
-# 
-#                         p("The Topics index is available at: https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=277533606"
-#                         ),
-# 
-#                         p("We appreciate the Google Sheets platform may not be available to all our users and are working to develop a more sophisticated accessible platform for the catalogue. In the meantime, if you cannot access the hyperlink above and would like to view the Topics Index, please contact the Hub Programme Team (phs.matneodatahub@phs.scot) and we will seek alternative ways of sharing the index with you."
-#                         ),
-#                  )
-# 
-#              ) # box "Topics Index"
-# 
-#              %>% rem_button_aria_label(),
-# 
-#              box(title = p(strong("Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = TRUE,
-# 
-#                  column(12,
-#                         p("As part of our COVID-19 response, Public Health Scotland created a data dashboard showing wider impacts of COVID-19. Pregnancy and Births and babies sections of the Wider Impacts dashboard were updated each month until Sep 2023. Those two sections were replaced in October 2023 by a new Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard. Data on SPBAND is refreshed quarterly (in January, April, July and October each year).
-# 
-# SPBAND includes the same topics as those that featured in the two sections of the Wider Impacts dashboard it replaces:
-# 
-# Pregnancy: number of pregnancies booked; average gestation at booking; number of terminations; average gestation at termination
-# 
-# Births and Babies: location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores
-# 
-# SPBAND offers three ways to view data: time series charts for individual measures and individual Health Boards; small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi-indicator overview that displays multiple measures simultaneously, allowing comparison across Health Board areas."
-#                         )
-#                  )
-# 
-#              ) # box "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)"
-# 
-#              %>% rem_button_aria_label(),
-# 
-#              box(title = p(strong("Health in the Early Years in Scotland (HEYS) Dashboard")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = TRUE,
-# 
-#                  column(12,
-#                         p("The Health in the Early Years in Scotland (HEYS) dashboard provides information on infant feeding (and child development), and is updated quarterly. A link to data on HEYS is now available from a new Infant feeding menu item on SPBAND."
-#                         )
-#                  )
-# 
-#              ) # box "Health in the Early Years in Scotland (HEYS) Dashboard"
-# 
-#              %>% rem_button_aria_label(),
-# 
-#              box(title = p(strong("NSS Discovery")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = TRUE,
-# 
-#                  column(12,
-#                         p("Another Public Health Scotland dashboard that includes information on maternity care in Scotland is the NSS Discovery dashboard. You will need to register for a user name and password for this one."
-#                           )
-#                  )
-# 
-#              ), # box "NSS Discovery"
-# 
-#              # %>% rem_button_aria_label()
-# 
-#              box(title = p(strong("Public Health Scotland Official Statistics on maternal and neonatal health")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = TRUE,
-#                  collapsed = TRUE,
-# 
-#                  column(12,
-#                         p("Public Health Scotland publishes a series of annual Official Statistics on pregnancy, childbirth and the early care of babies born in Scotland.
-# 
-# Births in Scotland: data on mother’s age, ethnicity, deprivation, BMI, maternal diabetes, method of birth, gestation at birth and birthweight.
-# 
-# Antenatal Booking in Scotland: data on numbers of pregnancies booked, gestation at booking, and smoking status (by mother’s age, deprivation and ethnicity, for all three topics).
-# 
-# Termination of pregnancy: information on age, gestation, method of termination, deprivation, ethnicity, previous terminations, and grounds for termination.
-# 
-# Teenage pregnancies: information is provided on age group (<16, <18, <20), deprivation, and whether the pregnancy was terminated or led to a birth.
-# 
-# Congenital Conditions in Scotland: current best estimates of the number of babies with serious congenital conditions.
-# 
-# Infant feeding: information on exclusive breastfeeding, mixed, and formula feeding (initiation; first visit; 6-8 week; 13 to 15 month; maternal age; deprivation, ethnicity; looked-after status; maternal smoking status).
-# 
-# Pregnancy Screening for Down’s Syndrome, Edward’s Syndrome, and Patau’s Syndrome in Scotland: information on the coverage of screening (including by maternal age group, deprivation quintile and ethnic group), screening results and laboratory activity."
-#                           )
-# 
-#                  )
-# 
-#              ), # box "Public Health Scotland Official Statistics on maternal and neonatal health"
-# 
-#              # %>% rem_button_aria_label()
-#              
-#              box(title = p(strong("Contact details for MatNeo Data Hub Team")),
-#                  status = "primary",
-#                  width = 12,
-#                  collapsible = FALSE,
-#                  collapsed = FALSE,
-# 
-#                  column(12,
-#                         p("You can contact the Hub Programme Team by emailing their generic inbox (phs.matneodatahub@phs.scot)."
-#                           )
-#                  )
-# 
-#              ) # box "Contact details for MatNeo Data Hub Team"
-# 
-#              # %>% rem_button_aria_label()
-#              
-#              ) # fluidRow
-#            
-#   ) # tabPanel("A MatNeo Data Hub for Scotland")
-
 # SIDEBAR ----
 
 sidebar <- dashboardSidebar(#width = 280,
@@ -636,16 +464,18 @@ home <- tabItem(
        class = "smaller--h1"
     ),
     
-    column(2),
+    #column(2),
     
-    column(8,
+    column(12,
     
-    h2("This dashboard was developed by the Maternity and Neonatal Data Hub. Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
+    h2("This dashboard was developed by the ", strong("Maternity and Neonatal Data Hub."),
        class = "smaller--h2--centred"
-    )
-    ),
+       ),
     
-    column(2)
+    h2("Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
+       class = "smaller--h2--centred"
+       )
+    ) # column
     
   ), # fluidRow
   
@@ -674,6 +504,93 @@ home <- tabItem(
   ) # fluidRow
   
 ) # tabItem ("home")
+
+# MATNEO DATA HUB ----
+
+matneo_data_hub <- tabItem(
+  tabName = "matneo_data_hub",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("MatNeo Data Hub"
+        )
+    )
+  ),
+  
+  fluidRow(
+    column(12,
+           h1("A MatNeo Data Hub for Scotland",
+              class = "smaller--h1"
+           ),
+           
+           box(#status = "primary",
+               solidHeader = TRUE,
+               width = 12,
+               
+               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
+                  class = "smaller--h2"
+               )
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Hub Overview",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_overview")
+
+           ), # box
+
+           box(status = "primary",
+               title = "Topics Index",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_topics_index")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_spband")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_heys")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Discovery",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_discovery")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_other_phs")
+               
+           ) # box
+           
+    ) # column
+    
+  ) # fluidRow
+  
+) # tabItem ""MatNeo Data Hub"
 
 # MULTI INDICATOR OVERVIEW ----
 
@@ -977,6 +894,7 @@ pregnancies_booked <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -1009,9 +927,10 @@ pregnancies_booked <- tabItem(
                       box(width = 1,
                           solidHeader = TRUE
                       ),
-                      
+
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection."
@@ -1140,6 +1059,7 @@ terminations <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Monitoring the number of terminations of pregnancy is useful for service planners to understand changes in demand and need for termination services."
@@ -1164,6 +1084,7 @@ terminations <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
@@ -1376,6 +1297,7 @@ gestation_at_booking <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -1412,6 +1334,7 @@ gestation_at_booking <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection."
@@ -1640,6 +1563,7 @@ gestation_at_termination <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Standard 10 of Healthcare Improvement Scotland’s current ",
@@ -1674,6 +1598,7 @@ gestation_at_termination <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
@@ -1877,6 +1802,7 @@ location_of_ex_pre_term <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Babies born pre-term (at least 3 weeks before their due date) are at increased risk of health problems compared to babies born at term (around their due date). The earlier in pregnancy a baby is born, the higher the risk."
@@ -1949,6 +1875,7 @@ location_of_ex_pre_term <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2272,6 +2199,7 @@ inductions <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p(
@@ -2328,6 +2256,7 @@ inductions <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2623,6 +2552,7 @@ type_of_birth <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -2677,6 +2607,7 @@ type_of_birth <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2949,6 +2880,7 @@ perineal_tears <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("When a woman is giving birth, the baby stretches the mother’s vagina and perineum. Occasionally, the tissues cannot stretch enough, and a tear (called a ",
@@ -3024,6 +2956,7 @@ perineal_tears <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -3302,6 +3235,7 @@ gestation_at_birth <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Gestation at birth strongly influences babies’ health. Babies born preterm can have complications following their birth and the consequences of being born too early can continue to affect health and development throughout childhood and adult life. The ",
@@ -3349,6 +3283,7 @@ gestation_at_birth <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -3532,6 +3467,7 @@ stillbirths <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Monitoring rates of stillbirth, neonatal and infant mortality allows us to understand the distribution of need for prevention across different populations, review change over time and evaluate the impact of prevention efforts."
@@ -3544,6 +3480,7 @@ stillbirths <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: National Records of Scotland (NRS) vital event registrations."
@@ -3902,6 +3839,7 @@ apgar_scores <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The Apgar score was developed by Dr Virginia Apgar in 1952 to measure the condition of newborn babies. Scoring allows health professionals to quickly identify babies needing resuscitation after birth. Babies are scored 0, 1, or 2 for each of their heart rate, respiratory effort, muscle tone, response to stimulation, and skin colour. Scores therefore range from 0 to 10, with higher scores indicating a better condition. Scores of 7 or over are generally interpreted as ‘reassuring’, with scores of 4-6 considered moderately low, and scores of 0-3 considered very low. The Apgar score is measured at 1 and 5 minutes after birth for all babies in Scotland."
@@ -3932,6 +3870,7 @@ apgar_scores <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -4135,6 +4074,7 @@ median_cga_30_32 <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("NEED SOME TEXT HERE"
@@ -4159,6 +4099,7 @@ median_cga_30_32 <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: NeoCare+."
@@ -4366,6 +4307,7 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("NEED SOME TEXT HERE"
@@ -4390,6 +4332,7 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: NeoCareIn+ (numerator) and Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case (denominator)."
@@ -4489,14 +4432,8 @@ infant_feeding <- tabItem(
     )
   ),
   
-  fluidRow(
-    column(12,
-           div(class = "shiny-text-output",
-               p("Infant Feeding Information",
-                 style = "padding: 20px 0 14px 0;"
-               )
-           )
-    )
+  h1("Infant Feeding Information",
+     class = "smaller--h1"
   ),
   
   box(solidHeader = TRUE,
@@ -4537,7 +4474,7 @@ infant_feeding <- tabItem(
       ),
       
       br(),
-
+      
       tags$a(
         href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
         class = "externallink",
@@ -4548,184 +4485,10 @@ infant_feeding <- tabItem(
                  width = "90%",
                  height = "90%")
       )
-
+      
   ) # box
   
 ) # tabItem ("infant_feeding")
-
-# MATNEO DATA HUB ----
-
-matneo_data_hub <- tabItem(
-  tabName = "matneo_data_hub",
-  fluidRow(
-    div(class = "no-tabbox-title",
-        p("MatNeo Data Hub"
-        )
-    )
-  ),
-  
-  fluidRow(
-    column(12,
-           h1("A MatNeo Data Hub for Scotland ",
-              class = "smaller--h1"
-           ),
-           
-           box(#status = "primary",
-               #solidHeader = TRUE,
-               width = 12,
-               
-               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
-                  class = "smaller--h2"
-               )
-               
-           ), # box
-           
-           box(#status = "primary",
-             title = "Hub Overview",
-             #solidHeader = TRUE,
-             width = 12,
-
-             uiOutput("hub_overview")
-
-           ), # box
-
-           box(#status = "primary",
-             title = "Topics Index",
-             #solidHeader = TRUE,
-             width = 12,
-
-             uiOutput("hub_topics_index")
-
-           ), # box
-           
-           box(#status = "primary",
-               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
-               #solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_spband")
-               
-           ), # box
-           
-           box(#status = "primary",
-               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
-               #solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_heys")
-               
-           ), # box
-           
-           box(#status = "primary",
-               title = "NSS Discovery",
-               #solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_discovery")
-               
-           ), # box
-           
-           box(#status = "primary",
-               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
-               #solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_other_phs")
-               
-           ) # box
-    
-    ) # column
-  
-  ) # fluidRow
-  
-) # tabItem ""MatNeo Data Hub"
-
-# MATNEO DATA HUB2 ----
-
-matneo_data_hub2 <- tabItem(
-  tabName = "matneo_data_hub2",
-  fluidRow(
-    div(class = "no-tabbox-title",
-        p("MatNeo Data Hub"
-        )
-    )
-  ),
-  
-  fluidRow(
-    column(12,
-           h1("A MatNeo Data Hub for Scotland",
-              class = "smaller--h1"
-           ),
-           
-           box(#status = "primary",
-               solidHeader = TRUE,
-               width = 12,
-               
-               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
-                  class = "smaller--h2"
-               )
-               
-           ), # box
-           
-           box(status = "primary",
-             title = "Hub Overview",
-             solidHeader = TRUE,
-             width = 12,
-
-             uiOutput("hub_overview2")
-
-           ), # box
-
-           box(status = "primary",
-             title = "Topics Index",
-             solidHeader = TRUE,
-             width = 12,
-
-             uiOutput("hub_topics_index2")
-
-           ), # box
-           
-           box(status = "primary",
-               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
-               solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_spband2")
-               
-           ), # box
-           
-           box(status = "primary",
-               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
-               solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_heys2")
-               
-           ), # box
-           
-           box(status = "primary",
-               title = "NSS Discovery",
-               solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_discovery2")
-               
-           ), # box
-           
-           box(status = "primary",
-               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
-               solidHeader = TRUE,
-               width = 12,
-               
-               uiOutput("hub_other_phs2")
-               
-           ) # box
-
-    ) # column
-  
-  ) # fluidRow
-  
-) # tabItem ""MatNeo Data Hub2"
 
 # BODY ----
 
@@ -4751,8 +4514,7 @@ body <- dashboardBody(
     median_cga_30_32,
     gestation_by_BAPM_LOC,
     infant_feeding,
-    matneo_data_hub,
-    matneo_data_hub2
+    matneo_data_hub
   ) # tabItems
   
 ) # dashboardBody

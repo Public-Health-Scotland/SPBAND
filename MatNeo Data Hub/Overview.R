@@ -1,6 +1,6 @@
 # MatNeo Data Hub Overview
 
-output$hub_overview <- output$hub_overview2 <- renderUI({
+output$hub_overview <- renderUI({
   
   fluidRow(
     
@@ -22,7 +22,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
         p("The MatNeo Data Hub was created within ",
           
           tags$a(
-            href = "https://www.publichealthscotland.scot/population-health/early-years-and-young-people/maternity-and-births/",
+            href = "https://www.publichealthscotland.scot/",
             tags$u("Public Health Scotland"),
             class = "externallink",
             target = "_blank"
@@ -38,7 +38,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
           ),
           
           tags$a(
-            href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/spsp-perinatal-programme/",
+            href = "https://www.healthcareimprovementscotland.scot/",
             tags$u("Healthcare Improvement Scotland,"),
             class = "externallink",
             target = "_blank"
@@ -63,7 +63,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
           " The Hub is now part of the ",
           
           tags$a(
-            href = "https://www.publichealthscotland.scot/population-health/early-years-and-young-people/maternity-and-births/",
+            href = "https://www.publichealthscotland.scot/population-health/early-years-and-young-people/",
             tags$u("Early Years and Young People Programme"),
             class = "externallink",
             target = "_blank"
@@ -81,13 +81,13 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
                   
                   p("Establish additional new all-Scotland ", strong("maternity data sets")
                   )
-          )
+          ),
           
-        ), # tags$ul,
+        #), # tags$ul,
         
         tags$ul(
           
-          column(1),
+          #column(1),
           
           tags$li(class = "open-bullet-points", 
                   p(strong("Antenatal Booking Collection"), 
@@ -95,7 +95,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
                   )
           ),
           
-          column(1),
+          #column(1),
           
           tags$li(class = "open-bullet-points",
                   p(strong("Mother, Birth and Baby"),
@@ -103,7 +103,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
                   )
           ),
           
-          column(1),
+          #column(1),
           
           tags$li(class = "open-bullet-points",
                   p(strong("Miscarriage"),
@@ -113,7 +113,7 @@ output$hub_overview <- output$hub_overview2 <- renderUI({
           
         ), # tags$ul
         
-        tags$ul(
+        #tags$ul(
           
           tags$li(class = "bullet-points",
                   p("Routine collection of data on ",

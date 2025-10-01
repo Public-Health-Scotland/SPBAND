@@ -1,6 +1,6 @@
 # MatNeo Data Hub HEYS
 
-output$hub_heys <- output$hub_heys2 <- renderUI({
+output$hub_heys <- renderUI({
   
   fluidRow(
     

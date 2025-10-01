@@ -1,6 +1,6 @@
 # MatNeo Data Hub SPBAND
 
-output$hub_spband <- output$hub_spband2 <- renderUI({
+output$hub_spband <- renderUI({
   
   fluidRow(
     
