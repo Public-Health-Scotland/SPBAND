@@ -76,7 +76,7 @@ body {
     font-size: 16px;
     line-height: 1.42857143;
     color: #3F3685;
-    background-color: #fff;
+    background-color: white;
   /*  font-size: 0.875em;  14px/16=0.875em */
   /*  overflow-x: hidden;
     overflow-y: auto; */
@@ -110,7 +110,7 @@ body {
 
 .box-title {
   border-style: solid;
-  border-bottom-color: #ffffff;
+  border-bottom-color: white;
   border-width: 0 0 1px 0;
   color: #3F3685;
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
@@ -153,11 +153,33 @@ including tabBoxes and menu items!important*/
   padding-bottom: 4px;
 }
 
+.open-bullet-points {
+  padding-left: 20px;
+  padding-bottom: 4px;
+  list-style-type: circle;
+}
+
 /* to make h1 title smaller */  
 
 .smaller--h1 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 30px;
+  text-align: center;
+    }
+    
+/* to make h2 title smaller */  
+
+.smaller--h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-align: left;
+    }
+    
+    /* to make h2 title smaller and centred */  
+
+.smaller--h2--centred {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
   text-align: center;
     }
     
@@ -210,6 +232,27 @@ including tabBoxes and menu items!important*/
 
 .box.box-primary {
     border-top-color: #C5C3DA; 
+}
+
+/* makes box boundary white */
+
+.box.box-solid.box-primary {
+  border: 1px solid white;
+}
+
+
+.box-title {
+    border-style: solid;
+    border-bottom-color: #3F3685;
+    border-width: 0 0 1px 0;
+    color: white;
+    /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px !important;
+    font-weight: bold;
+    text-align: left;
+    background-color: #3F3685;
+    padding: 0 10px;
 }
 
 /* formats the left-hand title in About this measure tab */

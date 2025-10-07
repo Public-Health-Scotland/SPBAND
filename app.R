@@ -6,7 +6,8 @@ source("global.R")
 # appears top left
 
 dashboardtitle <- tags$a(href = "https://www.publichealthscotland.scot/",
-                         target="_blank",
+                         target = "_blank",
+                         rel = "noopener noreferrer",
                          tags$imag(src = "phs-logo.png",
                                    alt = "Public Health Scotland logo",
                                    width = 120)
@@ -21,9 +22,9 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.7") # this is the LIVE dashboard 
-          #tags$p("SPBAND_test v 1.7") # this is the TEST dashboard 
-          tags$p("SPBAND_PRA v 1.7") # this is the PRA dashboard
+          tags$p("SPBAND v 1.8") # this is the LIVE dashboard 
+          #tags$p("SPBAND_test v 1.8") # this is the TEST dashboard 
+          #tags$p("SPBAND_PRA v 1.8") # this is the PRA dashboard
   )
 )
 
@@ -35,13 +36,17 @@ topicmenu <- sidebarMenu(
            tabName = "home",
            icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label()
            ),
-  menuItem("Multi indicator overview",
+  menuItem("MatNeo Data Hub",
+           tabName = "matneo_data_hub",
+           icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
+  ) %>% rem_menu_aria_label(),
+    menuItem("Multi indicator overview",
            tabName = "multi_indicator_overview",
            icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
   ),
   menuItem("Pregnancy",
            icon = icon("person-pregnant", verify_fa = FALSE) %>% rem_aria_label(),
-           menuSubItem("Number of pregnancies booked", 
+           menuSubItem("Number of pregnancies booked",
                        tabName = "pregnancies_booked",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            ),
@@ -104,7 +109,6 @@ topicmenu <- sidebarMenu(
            tabName = "infant_feeding",
            icon = icon("person-breastfeeding", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label()
-
 )
 
 # HOW TO USE THIS DASHBOARD ----
@@ -116,15 +120,12 @@ instructions <-
            
            fluidRow(
              
-             br(),
-             
-             br(),
-             
              p("Click +/- to open and close the sections below", 
                style = "text-align: right;"),
              
-             box(title = p(strong("Navigation and filtering")),
+             box(title = "Navigation and filtering",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = FALSE,
@@ -174,8 +175,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("There are three ways to view data")),
+             box(title = "There are three ways to view data",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -206,8 +208,9 @@ instructions <-
              
              %>% rem_button_aria_label(),
              
-             box(title = p(strong("Notes on particular measures")),
+             box(title = "Notes on particular measures",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -224,8 +227,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("Copying charts and downloading data")),
+             box(title = "Copying charts and downloading data",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = TRUE,
                  collapsed = TRUE,
@@ -245,8 +249,9 @@ instructions <-
              
              %>% rem_button_aria_label(), 
              
-             box(title = p(strong("Tell us what you think")),
+             box(title = "Tell us what you think",
                  status = "primary",
+                 solidHeader = TRUE,
                  width = 12,
                  collapsible = FALSE,
                  collapsed = FALSE,
@@ -337,7 +342,8 @@ patterns <-
                      href = "https://webarchive.nrscotland.gov.uk/20231129152542mp_/https://www.isdscotland.org/Health-Topics/Quality-Indicators/Statistical-Process-Control/_docs/Statistical-Process-Control-Tutorial-Guide-180713.pdf",
                      tags$u("guide to statistical process control charts (PDF)."),
                      class = "externallink",
-                     target = "_blank"
+                     target = "_blank",
+                     rel = "noopener noreferrer"
                    )
                  )
                  
@@ -369,7 +375,8 @@ background <-
                      href = "https://www.gov.scot/publications/best-start-five-year-forward-plan-maternity-neonatal-care-scotland/",
                      tags$u("The Best Start: five year plan for maternity and neonatal care"),
                      class = "externallink",
-                     target = "_blank"
+                     target = "_blank",
+                     rel = "noopener noreferrer"
                    ),
                    
                    " that:  ‘national level maternity and neonatal dashboards should be developed to facilitate benchmarking and reduce variations in care’."
@@ -381,7 +388,8 @@ background <-
                      href = "https://www.perinatalnetwork.scot/data/",
                      tags$u("MatNeo Data Hub"),
                      class = "externallink",
-                     target = "_blank"
+                     target = "_blank",
+                     rel = "noopener noreferrer"
                    ),
                    
                    " compiled an initial list of CORE maternity measures by exploring what measures are used in a variety of local and national dashboards."
@@ -396,7 +404,8 @@ background <-
                      href = "https://docs.google.com/spreadsheets/d/1iAcRF8gc1-k7341JygofiSUmsvmKJ_OxUPyE07XVTPU/edit#gid=747368373",
                      tags$u("Topics Index"),
                      class = "externallink", 
-                     target = "_blank"
+                     target = "_blank",
+                     rel = "noopener noreferrer"
                    ),
                    
                    " produced by the MatNeo Data Hub."
@@ -408,7 +417,8 @@ background <-
                      href =  "https://scotland.shinyapps.io/phs-covid-wider-impact/",
                      tags$u("COVID-19 wider impacts on the health care system."),
                      class = "externallink",
-                     target = "_blank"
+                     target = "_blank",
+                     rel = "noopener noreferrer"
                    )
                  ),
                  
@@ -460,6 +470,23 @@ home <- tabItem(
        class = "smaller--h1"
     ),
     
+    column(12,
+    
+    h2("This dashboard was developed by the ", strong("Maternity and Neonatal Data Hub."),
+
+    br(),
+    
+    br(),
+    
+    "Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
+       class = "smaller--h2--centred"
+       )
+    ) # column
+    
+  ), # fluidRow
+  
+  fluidRow(
+    
     hr(),
     
     tabBox(title = "Home",
@@ -476,11 +503,100 @@ home <- tabItem(
            
            version
            
+           #matneo_overview_tab
+           
     ) # tabBox
     
   ) # fluidRow
   
 ) # tabItem ("home")
+
+# MATNEO DATA HUB ----
+
+matneo_data_hub <- tabItem(
+  tabName = "matneo_data_hub",
+  fluidRow(
+    div(class = "no-tabbox-title",
+        p("MatNeo Data Hub"
+        )
+    )
+  ),
+  
+  fluidRow(
+    column(12,
+           h1("A MatNeo Data Hub for Scotland",
+              class = "smaller--h1"
+           ),
+           
+           box(#status = "primary",
+               solidHeader = TRUE,
+               width = 12,
+               
+               h2("You can contact the Hub Programme Team by emailing their generic inbox", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot.")),
+                  class = "smaller--h2"
+               )
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Hub Overview",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_overview")
+
+           ), # box
+
+           box(status = "primary",
+               title = "Topics Index",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_topics_index")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Scottish Pregnancy, Births and Neonatal Data Dashboard (SPBAND)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_spband")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Health in the Early Years in Scotland Dashboard (HEYS)",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_heys")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Discovery",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_discovery")
+               
+           ), # box
+           
+           box(status = "primary",
+               title = "Public Health Scotland Official Statistics on maternal and neonatal health",
+               solidHeader = TRUE,
+               width = 12,
+               
+               uiOutput("hub_other_phs")
+               
+           ) # box
+           
+    ) # column
+    
+  ) # fluidRow
+  
+) # tabItem ""MatNeo Data Hub"
 
 # MULTI INDICATOR OVERVIEW ----
 
@@ -557,7 +673,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                                  tags$u("Antenatal booking in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                " ",
@@ -566,7 +683,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                                  tags$u("Termination of pregnancy statistics"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                "and ",
@@ -575,7 +693,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " reports.",
                                class = "notes-style"
@@ -646,7 +765,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                                  tags$u("Antenatal booking in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                " ",
@@ -655,7 +775,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                                  tags$u("Termination of pregnancy statistics"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                "and ",
@@ -664,7 +785,8 @@ multi_indicator_overview <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " reports.",
                                class = "notes-style"
@@ -744,7 +866,8 @@ pregnancies_booked <- tabItem(
                                  href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                                  tags$u("Antenatal booking in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel ="noopener noreferrer"
                                ),
                             
                             " publication.",
@@ -784,6 +907,7 @@ pregnancies_booked <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -792,7 +916,8 @@ pregnancies_booked <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/pregnancy/your-antenatal-care/your-booking-appointment-booking-visit",
                               tags$u("‘booking’ appointment (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " is the first main appointment a woman has with her local maternity service once she knows she is pregnant. At the booking appointment, women are assessed by a midwife who can then tailor the subsequent care they receive during their pregnancy to their particular preferences and needs. Women are encouraged to book before they are 13 weeks pregnant, and ideally before they are 10 weeks pregnant."
@@ -806,7 +931,8 @@ pregnancies_booked <- tabItem(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                               tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " publication."
@@ -816,9 +942,10 @@ pregnancies_booked <- tabItem(
                       box(width = 1,
                           solidHeader = TRUE
                       ),
-                      
+
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection."
@@ -911,7 +1038,8 @@ terminations <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                                  tags$u("Termination of pregnancy statistics"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " publication.",
                                class = "notes-style"),
@@ -947,6 +1075,7 @@ terminations <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Monitoring the number of terminations of pregnancy is useful for service planners to understand changes in demand and need for termination services."
@@ -958,7 +1087,8 @@ terminations <- tabItem(
                               href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                               tags$u("Termination of pregnancy statistics"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "where other data tables and charts are available."
@@ -971,6 +1101,7 @@ terminations <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
@@ -1064,7 +1195,8 @@ gestation_at_booking <- tabItem(
                                  href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                                  tags$u("Antenatal booking in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                " publication.",
@@ -1127,7 +1259,8 @@ gestation_at_booking <- tabItem(
                                  href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                                  tags$u("Antenatal booking in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                " publication.",
@@ -1183,6 +1316,7 @@ gestation_at_booking <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -1191,7 +1325,8 @@ gestation_at_booking <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/pregnancy/your-antenatal-care/your-booking-appointment-booking-visit",
                               tags$u("‘booking’ appointment (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " is the first main appointment a woman has with her local maternity service once she knows she is pregnant. At the booking appointment, women are assessed by a midwife who can then tailor the subsequent care they receive during their pregnancy to their particular preferences and needs. Women are encouraged to book before they are 13 weeks pregnant, and ideally before they are 10 weeks pregnant. Early access to antenatal care supports promotion of healthier pregnancies and identification and optimal management of risks for poorer maternal and infant health outcomes."
@@ -1205,7 +1340,8 @@ gestation_at_booking <- tabItem(
                               href = "https://www.publichealthscotland.scot/publications/antenatal-booking-in-scotland/",
                               tags$u("Antenatal booking in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " publication."
@@ -1219,6 +1355,7 @@ gestation_at_booking <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Antenatal Booking Collection."
@@ -1326,7 +1463,8 @@ gestation_at_termination <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                                  tags$u("Termination of pregnancy statistics"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " publication.",
                                class = "notes-style"
@@ -1395,7 +1533,8 @@ gestation_at_termination <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                                  tags$u("Termination of pregnancy statistics"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " publication.",
                                class = "notes-style"
@@ -1447,6 +1586,7 @@ gestation_at_termination <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Standard 10 of Healthcare Improvement Scotland’s current ",
@@ -1455,7 +1595,8 @@ gestation_at_termination <- tabItem(
                               href = "https://www.healthcareimprovementscotland.scot/publications/sexual-health-standards/",
                               tags$u("Sexual Health Standards"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " states that ‘Women, trans and non-binary people who become pregnant can access safe, timely and person-centred abortion care services’. Monitoring average gestation at termination supports assessment of access to timely service provision."
@@ -1467,7 +1608,8 @@ gestation_at_termination <- tabItem(
                               href = "https://publichealthscotland.scot/publications/termination-of-pregnancy-statistics/",
                               tags$u("Termination of pregnancy statistics"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "where other data tables and charts are available."
@@ -1481,6 +1623,7 @@ gestation_at_termination <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Termination of Pregnancy Submissions Scotland (ToPSS)."
@@ -1580,7 +1723,8 @@ location_of_ex_pre_term <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style",
@@ -1657,7 +1801,8 @@ location_of_ex_pre_term <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -1684,6 +1829,7 @@ location_of_ex_pre_term <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Babies born pre-term (at least 3 weeks before their due date) are at increased risk of health problems compared to babies born at term (around their due date). The earlier in pregnancy a baby is born, the higher the risk."
@@ -1702,7 +1848,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://www.bapm.org/resources/80-perinatal-management-of-extreme-preterm-birth-before-27-weeks-of-gestation-2019",
                               tags$u("recommends (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " that when a woman is thought to be at imminent risk of extremely pre-term delivery she should be transferred to a maternity unit in a hospital with an on-site neonatal intensive care unit to allow her baby (or babies in the case of a multiple pregnancy of twins or more) to be born in the safest place. In addition, whilst the overall number of neonatal units is not changing in Scotland, the number of units that are classed as ",
@@ -1711,7 +1858,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://www.bapm.org/resources/296-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk-2021",
                               tags$u("neonatal intensive care units (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "(also known as level III units, that is those able to provide the most complex, specialist care) is reducing over time in line with ",
@@ -1720,7 +1868,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://www.gov.scot/publications/five-year-forward-plan-maternity-neonatal-services-neonatal-intensive-care-options-appraisal-report/",
                               tags$u("national policy (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "to concentrate expertise and improve babies’ outcomes."
@@ -1732,7 +1881,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland,"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             " based on SMR02 data, is also available in PHS annual reports."
                           ),
@@ -1743,7 +1893,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://www.rcpch.ac.uk/work-we-do/clinical-audits/nnap",
                               tags$u("National Neonatal Audit Programme (NNAP)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "also monitor this measure but Scottish Units did not participate in NNAP during 2021."
@@ -1756,6 +1907,7 @@ location_of_ex_pre_term <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -1781,7 +1933,8 @@ location_of_ex_pre_term <- tabItem(
                               href = "https://www.perinatalnetwork.scot/",
                               tags$u("Scottish Perinatal Network (external website)."),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "For the purpose of this measure, since January 2018, the following hospitals in Scotland have been considered to have a NICU on site for the period specified:",
@@ -1826,7 +1979,8 @@ location_of_ex_pre_term <- tabItem(
                                        href = "https://webarchive.nrscotland.gov.uk/20231129152352/http:/www.isdscotland.org/Products-and-Services/Data-Quality/docs/20191023-Assessment-of-SMR02-Data-Scotland-2017-2018.pdf",
                                        tags$u("Data Quality Assessment Report (PDF)"),
                                        class = "externallink",
-                                       target = "_blank"
+                                       target = "_blank",
+                                       rel = "noopener noreferrer"
                                      ),
                                      
                                      " found gestation to be accurately recorded in 95% of episodes although there was no information provided on the accuracy of the location of delivery data item."
@@ -1910,7 +2064,8 @@ inductions <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -1974,7 +2129,8 @@ inductions <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -2053,7 +2209,8 @@ inductions <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -2079,6 +2236,7 @@ inductions <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p(
@@ -2086,7 +2244,8 @@ inductions <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/getting-ready-for-the-birth/induced-labour",
                               tags$u("‘Induction of labour’ (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " is when a woman is given a medical intervention to start her labour, when medically indicated, rather than waiting for labour to start spontaneously."
@@ -2107,7 +2266,8 @@ inductions <- tabItem(
                               href = "https://maternityaudit.org.uk/",
                               tags$u("National Maternity and Perinatal Audit"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "recommends that national bodies such as NHS England, the Scottish Government, the Welsh Government, the Royal College of Obstetrics and Gynaecology (RCOG) and the Royal College of Midwives (RCM) should work together to review the need for guidance and standards to reduce variation in key aspects of maternity care, including induction of labour and modes of birth."
@@ -2122,7 +2282,8 @@ inductions <- tabItem(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank", 
+                              rel = "noopener noreferrer"
                             ),
                             
                             "report where other data tables and charts are available."
@@ -2135,6 +2296,7 @@ inductions <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2252,7 +2414,8 @@ type_of_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -2323,7 +2486,8 @@ type_of_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -2404,7 +2568,8 @@ type_of_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -2430,6 +2595,7 @@ type_of_birth <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The ",
@@ -2438,7 +2604,8 @@ type_of_birth <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/assisted-birth",
                               tags$u("‘type of birth’ (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "refers to the way a baby is born. Different types of birth (sometimes previously called ‘method of delivery’ or ‘mode of delivery’) include spontaneous vaginal birth, assisted vaginal birth (including vaginal birth by forceps or ventouse, or vaginal breech birth), or a caesarean section (an operation to deliver the baby through an incision in the mother’s abdomen). A caesarean birth can be planned (sometimes called elective; planned in advance and provided before labour has started) or unplanned (sometimes called emergency, usually but not always provided after labour has started)."
@@ -2450,7 +2617,8 @@ type_of_birth <- tabItem(
                               href = "https://www.who.int/publications/i/item/WHO-RHR-15.02",
                               tags$u("statement on caesarean section rates (external website)."),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             )
                           ),
                           
@@ -2460,7 +2628,8 @@ type_of_birth <- tabItem(
                               href = "https://maternityaudit.org.uk/pages/clinpub",
                               tags$u("National Maternity and Perinatal Audit (external website)."),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                            
@@ -2472,7 +2641,8 @@ type_of_birth <- tabItem(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             " report."
                           )
@@ -2484,6 +2654,7 @@ type_of_birth <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2589,7 +2760,8 @@ perineal_tears <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -2651,7 +2823,8 @@ perineal_tears <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -2730,7 +2903,8 @@ perineal_tears <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -2756,6 +2930,7 @@ perineal_tears <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("When a woman is giving birth, the baby stretches the mother’s vagina and perineum. Occasionally, the tissues cannot stretch enough, and a tear (called a ",
@@ -2764,7 +2939,8 @@ perineal_tears <- tabItem(
                               href = "https://www.rcog.org.uk/en/patients/patient-leaflets/third--or-fourth-degree-tear-during-childbirth/",
                               tags$u("‘perineal tear’ (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "occurs. The perineum is the area between a woman’s vagina and anus."
@@ -2785,7 +2961,8 @@ perineal_tears <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/assisted-birth/perineal-tears-and-episiotomy",
                               tags$u("‘episiotomy’ (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "may be offered if a woman is thought to be at risk of a tear. An episiotomy is a controlled cut made by a healthcare professional through the vaginal wall and perineum that is repaired with stitches after birth. An episiotomy does not guarantee that a tear will not happen, as the episiotomy cut may extend and become a tear. Women requiring an assisted vaginal birth (with forceps or ventouse) are at high risk of a tear so would generally be offered an episiotomy."
@@ -2800,7 +2977,8 @@ perineal_tears <- tabItem(
                                     href = "https://maternityaudit.org.uk/pages/clinpub",
                                     tags$u("National Maternity and Perinatal Audit (external website)."),
                                     class = "externallink",
-                                    target = "_blank"
+                                    target = "_blank",
+                                    rel = "noopener noreferrer"
                                   ),
                                   " Variations between maternity care providers in each nation were also reported. ",
                                   "So we need to continue to monitor rates across Scotland in order to reduce rate and risk."
@@ -2816,7 +2994,8 @@ perineal_tears <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " based on SMR02 data, is also available in PHS annual reports."
                             )
@@ -2829,6 +3008,7 @@ perineal_tears <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -2940,7 +3120,8 @@ gestation_at_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -3005,7 +3186,8 @@ gestation_at_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -3080,7 +3262,8 @@ gestation_at_birth <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " report.",
                                class = "notes-style"
@@ -3107,6 +3290,7 @@ gestation_at_birth <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Gestation at birth strongly influences babies’ health. Babies born preterm can have complications following their birth and the consequences of being born too early can continue to affect health and development throughout childhood and adult life. The ",
@@ -3115,7 +3299,8 @@ gestation_at_birth <- tabItem(
                               href = "https://www.tommys.org/pregnancy-information/premature-birth/how-long-do-you-stay-in-hospital-after-birth/gestational-age-and-medical-needs",
                               tags$u("risk increases the earlier a baby is born (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "In Scotland, being born too soon is the single biggest reason babies require admission to neonatal care and the single biggest cause of death in early infancy."
@@ -3127,7 +3312,8 @@ gestation_at_birth <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/getting-ready-for-the-birth/induced-labour",
                               tags$u("risk of stillbirth (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "increases from 42 weeks gestation onwards."
@@ -3142,7 +3328,8 @@ gestation_at_birth <- tabItem(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             " report."
                           )
@@ -3154,6 +3341,7 @@ gestation_at_birth <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -3168,7 +3356,8 @@ gestation_at_birth <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/after-the-birth/premature-babies",
                               tags$u("pre-term or premature (external website)"),
                               class = "externallink",
-                              target = "_blank" 
+                              target = "_blank",
+                              rel = "noopener noreferrer" 
                             ),
                             
                             "with those born at under 32 weeks considered to be very pre-term and those born at 32 to 36 weeks inclusive considered to be moderately pre-term. Babies born at or over 42 weeks (more than two weeks after their due date) are considered to be post-term or over-due."
@@ -3297,7 +3486,8 @@ stillbirths <- tabItem(
                                  href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                                  tags$u("Births, Deaths and Other Vital Events - Quarterly Figures (external website)"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                class = "notes-style"
                              ),
@@ -3337,6 +3527,7 @@ stillbirths <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Monitoring rates of stillbirth, neonatal and infant mortality allows us to understand the distribution of need for prevention across different populations, review change over time and evaluate the impact of prevention efforts."
@@ -3349,6 +3540,7 @@ stillbirths <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: National Records of Scotland (NRS) vital event registrations."
@@ -3360,7 +3552,8 @@ stillbirths <- tabItem(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("National Records for Scotland (NRS) (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "from the statutory registration of deaths and births and using the same definitions as ",
@@ -3368,7 +3561,8 @@ stillbirths <- tabItem(
                               href = "https://webarchive.nrscotland.gov.uk/20240926182510/https:/www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
                               tags$u("National Records for Scotland (NRS) (external website)."),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             "NRS are the primary publishers of data on stillbirth and infant death and their website includes annual data for Scotland, by sex and cause, and by age of mother and father (Vital events reference tables), and quarterly data for Scotland, Council Areas and NHS Boards (Quarterly births, deaths and other vital events).",
@@ -3396,7 +3590,8 @@ stillbirths <- tabItem(
                               href = "https://www.npeu.ox.ac.uk/mbrrace-uk/perinatal-programme",
                               tags$u("perinatal mortality report (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             
                             " that provides background information on factors that influence perinatal deaths."
@@ -3408,7 +3603,8 @@ stillbirths <- tabItem(
                               href = "https://www.healthcareimprovementscotland.scot/improving-care/improvement-resources/scottish-patient-safety-programme-spsp/",
                               tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
 
                             " focuses on care quality to improve outcomes for babies, children and their mothers. One of the key outcomes they track is stillbirths."
@@ -3422,7 +3618,8 @@ stillbirths <- tabItem(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
                               tags$u("available from NRS."),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             )
                           ),
                           
@@ -3504,7 +3701,8 @@ apgar_scores <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -3567,7 +3765,8 @@ apgar_scores <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -3663,7 +3862,8 @@ apgar_scores <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -3690,6 +3890,7 @@ apgar_scores <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("The Apgar score was developed by Dr Virginia Apgar in 1952 to measure the condition of newborn babies. Scoring allows health professionals to quickly identify babies needing resuscitation after birth. Babies are scored 0, 1, or 2 for each of their heart rate, respiratory effort, muscle tone, response to stimulation, and skin colour. Scores therefore range from 0 to 10, with higher scores indicating a better condition. Scores of 7 or over are generally interpreted as ‘reassuring’, with scores of 4-6 considered moderately low, and scores of 0-3 considered very low. The Apgar score is measured at 1 and 5 minutes after birth for all babies in Scotland."
@@ -3707,7 +3908,8 @@ apgar_scores <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " based on SMR02 data, is also available in PHS annual reports."
                             )
@@ -3720,6 +3922,7 @@ apgar_scores <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case."
@@ -3751,7 +3954,8 @@ apgar_scores <- tabItem(
                               href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                               tags$u("Births in Scotland"),
                               class = "externallink",
-                              target = "_blank"
+                              target = "_blank",
+                              rel = "noopener noreferrer"
                             ),
                             " report."
                           )
@@ -3836,7 +4040,8 @@ median_cga_30_32 <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style",
@@ -3896,7 +4101,8 @@ median_cga_30_32 <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank", 
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -3923,6 +4129,7 @@ median_cga_30_32 <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("NEED SOME TEXT HERE"
@@ -3934,7 +4141,8 @@ median_cga_30_32 <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " based on SMR02 data, is also available in PHS annual reports."
                             )
@@ -3947,6 +4155,7 @@ median_cga_30_32 <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: NeoCare+."
@@ -4057,7 +4266,8 @@ gestation_by_BAPM_LOC <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style",
@@ -4075,7 +4285,8 @@ gestation_by_BAPM_LOC <- tabItem(
                                  href = "https://www.bapm.org/",
                                  tags$u("British Association of Perinatal Medicine (external website)"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                
                                "(BAPM). For more details see the ‘About this measure’ tab."
@@ -4127,7 +4338,8 @@ gestation_by_BAPM_LOC <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " is available in PHS annual reports.",
                                class = "notes-style"
@@ -4154,6 +4366,7 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       box(title = "Why measure this?",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("NEED SOME TEXT HERE"
@@ -4165,7 +4378,8 @@ gestation_by_BAPM_LOC <- tabItem(
                                  href = "https://publichealthscotland.scot/publications/births-in-scotland/",
                                  tags$u("Births in Scotland,"),
                                  class = "externallink",
-                                 target = "_blank"
+                                 target = "_blank",
+                                 rel = "noopener noreferrer"
                                ),
                                " based on SMR02 data, is also available in PHS annual reports."
                             )
@@ -4178,6 +4392,7 @@ gestation_by_BAPM_LOC <- tabItem(
                       
                       box(title = "Data source and definitions",
                           status = "primary",
+                          solidHeader = TRUE,
                           width = 5,
                           
                           p("Data source: NeoCareIn+ (numerator) and Scottish Morbidity Record (SMR02) - Maternity Inpatient and Day Case (denominator)."
@@ -4232,7 +4447,8 @@ gestation_by_BAPM_LOC <- tabItem(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/after-the-birth/premature-babies",
                               tags$u("pre-term or premature (external website)"),
                               class = "externallink",
-                              target = "_blank" 
+                              target = "_blank",
+                              rel = "noopener noreferrer" 
                             ),
                             
                             "with those born at under 32 weeks considered to be very pre-term and those born at 32 to 36 weeks inclusive considered to be moderately pre-term. Babies born at or over 42 weeks (more than two weeks after their due date) are considered to be post-term or over-due.",
@@ -4277,14 +4493,8 @@ infant_feeding <- tabItem(
     )
   ),
   
-  fluidRow(
-    column(12,
-           div(class = "shiny-text-output",
-               p("Infant Feeding Information",
-                 style = "padding: 20px 0 14px 0;"
-               )
-           )
-    )
+  h1("Infant Feeding Information",
+     class = "smaller--h1"
   ),
   
   box(solidHeader = TRUE,
@@ -4296,7 +4506,8 @@ infant_feeding <- tabItem(
           href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
           tags$u("Health in the Early Years in Scotland (HEYS) Dashboard"),
           class = "externallink",
-          target = "_blank"
+          target = "_blank",
+          rel = "noopener noreferrer"
         ),
         
         "also published by Public Health Scotland"
@@ -4325,18 +4536,19 @@ infant_feeding <- tabItem(
       ),
       
       br(),
-
+      
       tags$a(
         href = "https://scotland.shinyapps.io/phs-health-in-the-early-years-in-scotland/",
         class = "externallink",
         target = "_blank",
+        rel = "noopener noreferrer",
         tags$img(src = "HEYS.png",
                  alt = "Health in the Early Years in Scotland (HEYS) Dashboard landing page",
                  title = "Typical representation of the Health in the Early Years in Scotland (HEYS) Dashboard landing page",
                  width = "90%",
                  height = "90%")
       )
-
+      
   ) # box
   
 ) # tabItem ("infant_feeding")
@@ -4364,7 +4576,8 @@ body <- dashboardBody(
     apgar_scores,
     median_cga_30_32,
     gestation_by_BAPM_LOC,
-    infant_feeding
+    infant_feeding,
+    matneo_data_hub
   ) # tabItems
   
 ) # dashboardBody
@@ -4372,9 +4585,9 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
-  tagList( #needed for shinyjs
-    #useShinyjs(),  # Include shinyjs
+  #secure_app( # uncomment if want password protection
+  tagList( # needed for shinyjs
+
     tags$head(
       HTML(
         "<html lang='en'>"),
@@ -4382,9 +4595,7 @@ ui <-
                 href="favicon_phs.ico"), # Icon for browser tab
       tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"),
     ),
-    # Including Google analytics
-    # includeScript("google-analytics.js")),
-    
+
     dashboardPage(
 
       header,
@@ -4398,7 +4609,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
@@ -4768,8 +4979,20 @@ server <- function(input, output, session) {
   
   source("Version.R", local = TRUE)
   
+  source("MatNeo Data Hub/Overview.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Topics Index.R", local = TRUE)
+  
+  source("MatNeo Data Hub/SPBAND.R", local = TRUE)
+  
+  source("MatNeo Data Hub/HEYS.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Discovery.R", local = TRUE)
+  
+  source("MatNeo Data Hub/Other PHS content.R", local = TRUE)
+  
   source("Footnotes.R", local = TRUE)
   
 }
 
-shinyApp(ui, server)  
+shinyApp(ui, server)
