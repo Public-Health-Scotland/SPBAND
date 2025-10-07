@@ -22,9 +22,9 @@ header <- dashboardHeader(
   #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.7") # this is the LIVE dashboard 
-          #tags$p("SPBAND_test v 1.7") # this is the TEST dashboard 
-          tags$p("SPBAND_PRA v 1.7") # this is the PRA dashboard
+          tags$p("SPBAND v 1.8") # this is the LIVE dashboard 
+          #tags$p("SPBAND_test v 1.8") # this is the TEST dashboard 
+          #tags$p("SPBAND_PRA v 1.8") # this is the PRA dashboard
   )
 )
 
@@ -470,15 +470,15 @@ home <- tabItem(
        class = "smaller--h1"
     ),
     
-    #column(2),
-    
     column(12,
     
     h2("This dashboard was developed by the ", strong("Maternity and Neonatal Data Hub."),
-       class = "smaller--h2--centred"
-       ),
+
+    br(),
     
-    h2("Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
+    br(),
+    
+    "Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
        class = "smaller--h2--centred"
        )
     ) # column
@@ -4607,8 +4607,8 @@ body <- dashboardBody(
 
 ui <- 
   #secure_app( # uncomment if want password protection
-  tagList( #needed for shinyjs
-    #useShinyjs(),  # Include shinyjs
+  tagList( # needed for shinyjs
+
     tags$head(
       HTML(
         "<html lang='en'>"),
@@ -4616,9 +4616,7 @@ ui <-
                 href="favicon_phs.ico"), # Icon for browser tab
       tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"),
     ),
-    # Including Google analytics
-    # includeScript("google-analytics.js")),
-    
+
     dashboardPage(
 
       header,

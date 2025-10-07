@@ -1,8 +1,9 @@
 # builds Version table
 
-`Version` <- c("1.7", "1.6", "1.5", "1.4", "1.3", "1.2", "1.1", "1.0")
-`Date` <- c("7 Oct 2025", "14 Jan 2025", "1 Oct 2024", "2 Jul 2024", "2 Apr 2024", "15 Feb 2024", "9 Nov 2023", "3 Oct 2023")
-`Change` <- c("Added post-pandemic medians to the ‘Induction of labour’, ‘Type of birth’, ‘Perineal tears’, ‘Gestation at birth’ and   ‘Low Apgar5 scores’ measures. These span the three-year period Jul-Sep 2022 to Apr-Jun 2025; shifts have been recalculated accordingly.",
+`Version` <- c("1.8", "1.7", "1.6", "1.5", "1.4", "1.3", "1.2", "1.1", "1.0")
+`Date` <- c("9 Oct 2025", "7 Oct 2025", "14 Jan 2025", "1 Oct 2024", "2 Jul 2024", "2 Apr 2024", "15 Feb 2024", "9 Nov 2023", "3 Oct 2023")
+`Change` <- c("Added page about the MatNeo Data Hub with links to access other MatNeo data for Scotland. Available through the MatNeo Data Hub link in the left-hand menu",
+              "Added post-pandemic medians to the ‘Induction of labour’, ‘Type of birth’, ‘Perineal tears’, ‘Gestation at birth’ and   ‘Low Apgar5 scores’ measures. These span the three-year period Jul-Sep 2022 to Apr-Jun 2025; shifts have been recalculated accordingly.",
               "Removed births after delivery in another hospital from both the numerator and the denominator in the ‘Location of extremely pre-term births’ measure.", 
               "Added a post-pandemic median to the ‘Gestation at booking’ and ‘Gestation at termination’ measures - this spans the two-year period July 2022 to June 2024; shifts have been recalculated accordingly; medians, means and their extended equivalents now show their value when the mouse is hovered over them.",
               "Added aggregated values for the Island Boards in the ‘Gestation at termination’ measure - these Boards are now also represented on the Multi Indicator Overview for this measure;
