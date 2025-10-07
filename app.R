@@ -2622,17 +2622,17 @@ type_of_birth <- tabItem(
                             )
                           ),
                           
-                          p("This variation in rates of operative deliveries (i.e. assisted and caesarean deliveries) between countries was highlighted in the National Maternity and Perinatal Audit (NMPA)",
+                          p("Variations in rates of spontaneous vaginal births and of assisted and caesarean births between UK countries were reported by the ",
                             
                             tags$a(
-                              href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                              tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)."),
+                              href = "https://maternityaudit.org.uk/pages/clinpub",
+                              tags$u("National Maternity and Perinatal Audit (external website)."),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
                             ),
                             
-                            "This report (the most recent that includes Scottish data) looks at births in the year 2017/18. For full term singleton babies born, there were differences in the proportions of women across England, Scotland and Wales who had spontaneous, instrumental, or caesarean births. In this report, Scotland had higher rates for both planned and unplanned caesarean births and lower rates of spontaneous vaginal birth when compared to England and Wales."
+                           
                           ),
                           
                           p("It is because of these variations in practice, and the potential health consequences for both mother and baby, that the type of birth is recorded, and the numbers of operative interventions are measured and published as national statistics in the annual",
@@ -2972,23 +2972,21 @@ perineal_tears <- tabItem(
                             tags$div(
                               HTML(
                                 paste0(
-                                  "The most recent National Maternity and Perinatal Audit (NMPA) report that includes Scottish data ",
-                                  
+                                  "Variations in rates of third- and fourth-degree perineal tears between UK countries were reported by the ",
                                   tags$a(
-                                    href = "https://maternityaudit.org.uk/FilesUploaded/Ref315%20NMPA%20clinical%20report%202021_v1.1.pdf",
-                                    tags$u("Clinical Report 2021 - version 1.1 (PDF on external website)"),
+                                    href = "https://maternityaudit.org.uk/pages/clinpub",
+                                    tags$u("National Maternity and Perinatal Audit (external website)."),
                                     class = "externallink",
                                     target = "_blank",
                                     rel = "noopener noreferrer"
                                   ),
-                                  
-                                  " notes (on page 18) that ‘Rates of third- and fourth-degree tears in Scotland and Wales remain steady with minimal fluctuation in rates since the first NMPA report time point.’ However, the overall proportion of women who give birth vaginally to a singleton baby in the cephalic position between 37", tags$sup("+0"), " and 42", tags$sup("+6")
-                                ), # paste0,
-                                
-                                "weeks of gestation who sustain a third- or fourth-degree tear is reported as higher in Scotland than in England or Wales, so we need to continue to monitor rates across Scotland in order to reduce rate and  risk."
-                              ) # HTML
-                            ) # div
+                                  " Variations between maternity care providers in each nation were also reported. ",
+                                  "So we need to continue to monitor rates across Scotland in order to reduce rate and risk."
+                                )
+                              )
+                            )
                           ),
+                          
                           
                           p("Further information on ",
                             
@@ -3567,27 +3565,8 @@ stillbirths <- tabItem(
                               rel = "noopener noreferrer"
                             ),
                             
-                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes ",
+                            "NRS are the primary publishers of data on stillbirth and infant death and their website includes annual data for Scotland, by sex and cause, and by age of mother and father (Vital events reference tables), and quarterly data for Scotland, Council Areas and NHS Boards (Quarterly births, deaths and other vital events).",
                             
-                            tags$a(
-                              href = "https://www.nrscotland.gov.uk/publications/vital-events-reference-tables-2023/",
-                              tags$u("annual data"),
-                              class = "externallink",
-                              target = "_blank",
-                              rel = "noopener noreferrer"
-                            ),
-                            
-                            " for Scotland, (section 4 of Vital Events Reference Tables: time series; by sex and cause; by age of mother and father), and ",
-                            
-                            tags$a(
-                              href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy/",
-                              tags$u("quarterly data"),
-                              class = "externallink",
-                              target = "_blank",
-                              rel = "noopener noreferrer"
-                            ),
-                            
-                            " for Scotland, Council Areas and NHS Boards."
                           ),
                           
                           p(strong("Stillbirths"), " refer to children born after the 24th week of pregnancy (gestations of 24 weeks or longer) that did not breathe or show any signs of life. The stillbirth rate is the number of stillbirths per 1,000 total (live + still) births."
@@ -3621,7 +3600,7 @@ stillbirths <- tabItem(
                           p("Within Scotland, the ",
                             
                             tags$a(
-                              href = "https://ihub.scot/improvement-programmes/scottish-patient-safety-programme-spsp/spsp-perinatal-programme/",
+                              href = "https://www.healthcareimprovementscotland.scot/improving-care/improvement-resources/scottish-patient-safety-programme-spsp/",
                               tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
                               class = "externallink",
                               target = "_blank",
