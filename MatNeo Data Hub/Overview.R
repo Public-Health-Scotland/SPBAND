@@ -84,49 +84,36 @@ output$hub_overview <- renderUI({
         
         tags$ul(
           
-          tags$li(class = "bullet-points", 
+          tags$li(class = "bullet-points",
                   
                   p("Establish additional new all-Scotland ", strong("maternity data sets")
-                  )
-          ),
-          
-        #), # tags$ul,
-        
-        tags$ul(
-          
-          #column(1),
-          
-          tags$li(class = "open-bullet-points", 
-                  p(strong("Antenatal Booking Collection"), 
-                    " -  known as ABC; including an expansion to collect further variables on mother’s social circumstances, health and behaviours, and antenatal scans"
-                  )
-          ),
-          
-          #column(1),
-          
-          tags$li(class = "open-bullet-points",
-                  p(strong("Mother, Birth and Baby"),
-                    " - known as MoBBa; to sit alongside SMR02 and collect data on mother’s health, details of birth and information on baby’s health and treatment"
-                  )
-          ),
-          
-          #column(1),
-          
-          tags$li(class = "open-bullet-points",
-                  p(strong("Miscarriage"),
-                    " - to provide enhanced awareness of numbers of women experiencing miscarriages, numbers of miscarriages and numbers of recurrent miscarriages"
-                  )
-          )
-          
-        ), # tags$ul
-        
-        #tags$ul(
+                  ),
+                  
+                  tags$ul(
+                    
+                    tags$li(class = "open-bullet-points",
+                            strong("Antenatal Booking Collection"),
+                            " -  known as ABC; including an expansion to collect further variables on mother’s social circumstances, health and behaviours, and antenatal scans"
+                    ),
+                    
+                    tags$li(class = "open-bullet-points",
+                            strong("Mother, Birth and Baby"),
+                            " - known as MoBBa; to sit alongside SMR02 and collect data on mother’s health, details of birth and information on baby’s health and treatment"
+                    ),
+                    
+                    tags$li(class = "open-bullet-points",
+                            strong("Miscarriage"),
+                            " - to provide enhanced awareness of numbers of women experiencing miscarriages, numbers of miscarriages and numbers of recurrent miscarriages"
+                    )
+                    
+                  ) # tags$ul
+                  
+          ), # tags$li
           
           tags$li(class = "bullet-points",
-                  p("Routine collection of data on ",
-                    strong("specialist neonatal care"),
-                    "(NeoCareIn+)"
-                  )
+                  "Routine collection of data on ",
+                  strong("specialist neonatal care"),
+                  "(NeoCareIn+)"
           ),
           
           tags$li(class = "bullet-points",
@@ -137,7 +124,7 @@ output$hub_overview <- renderUI({
                     href = "https://scotland.shinyapps.io/phs-pregnancy-births-neonatal/",
                     tags$u("Scottish Pregnancy, Births and Neonatal Data (SPBAND) Dashboard"),
                     class = "externallink",
-                    target = "_blank", 
+                    target = "_blank",
                     rel = "noopener noreferrer"
                   )
           )

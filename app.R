@@ -19,7 +19,6 @@ dashboardtitle <- tags$a(href = "https://www.publichealthscotland.scot/",
 
 header <- dashboardHeader(
   title = dashboardtitle,
-  #titleWidth = 290,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
           tags$p("SPBAND v 1.8") # this is the LIVE dashboard 
@@ -35,12 +34,12 @@ topicmenu <- sidebarMenu(
   menuItem("Home",
            tabName = "home",
            icon = icon("info-circle", verify_fa = FALSE) %>% rem_aria_label()
-           ),
+  ) %>% rem_menu_aria_label(),
   menuItem("MatNeo Data Hub",
            tabName = "matneo_data_hub",
            icon = icon("network-wired", verify_fa = FALSE) %>% rem_aria_label()
   ) %>% rem_menu_aria_label(),
-    menuItem("Multi indicator overview",
+  menuItem("Multi indicator overview",
            tabName = "multi_indicator_overview",
            icon = icon("tachometer-alt", verify_fa = FALSE) %>% rem_aria_label()
   ),
@@ -115,20 +114,22 @@ topicmenu <- sidebarMenu(
 
 instructions <- 
   
-  tabPanel(title = "How to use this dashboard",
+  tabPanel(title = h2("How to use this dashboard", class = "tabBox-title--h2"),
            value = "instructions",
            
            fluidRow(
              
-             p("Click +/- to open and close the sections below", 
-               style = "text-align: right;"),
+             br(),
+             
+             # p("Click +/- to open and close the sections below", 
+             #   style = "text-align: right;"),
              
              box(title = "Navigation and filtering",
                  status = "primary",
                  solidHeader = TRUE,
                  width = 12,
-                 collapsible = TRUE,
-                 collapsed = FALSE,
+                 # collapsible = TRUE,
+                 # collapsed = FALSE,
                  
                  column(10,
                         p("This dashboard has been developed with simplicity in mind. The ", strong("left-hand navigation menu"), " lists all the content available and will expand and collapse when a sub-menu with an arrow to the right is selected."
@@ -171,16 +172,16 @@ instructions <-
                         
                  )
                  
-             ) # box "Navigation and filtering"
+             ),# box "Navigation and filtering"
              
-             %>% rem_button_aria_label(), 
+             # %>% rem_button_aria_label(), 
              
              box(title = "There are three ways to view data",
                  status = "primary",
                  solidHeader = TRUE,
                  width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
+                 # collapsible = TRUE,
+                 # collapsed = TRUE,
                  
                  column(12,
                         tags$ol(
@@ -204,16 +205,16 @@ instructions <-
                         )
                  )
                  
-             ) # box "There are three ways to view data"
+             ), # box "There are three ways to view data"
              
-             %>% rem_button_aria_label(),
+             # %>% rem_button_aria_label(),
              
              box(title = "Notes on particular measures",
                  status = "primary",
                  solidHeader = TRUE,
                  width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
+                 # collapsible = TRUE,
+                 # collapsed = TRUE,
                  
                  column(12,
                         p("The ", strong("Location of extremely pre-term births"), " measure has a ", strong("Scotland"), " tab which shows a control chart. Control charts use a series of rules to help identify unusual behaviour in data and indicate patterns that merit further investigation. Read more about the rules used in the charts by clicking the tab ", strong("How do we identify patterns in the data?"), " There are no filters applicable to this chart."
@@ -223,16 +224,16 @@ instructions <-
                         )
                  )
                  
-             ) # box "Notes on particular measures"
+             ), # box "Notes on particular measures"
              
-             %>% rem_button_aria_label(), 
+             # %>% rem_button_aria_label(), 
              
              box(title = "Copying charts and downloading data",
                  status = "primary",
                  solidHeader = TRUE,
                  width = 12,
-                 collapsible = TRUE,
-                 collapsed = TRUE,
+                 # collapsible = TRUE,
+                 # collapsed = TRUE,
                  
                  column(12,
                         p("To make a ", strong("copy"), " of any content it is recommended that a snipping tool is used as this will ensure all titles and footnotes can be included in the snapshot. For Windows, use the Windows logo key + Shift + S; for Apple Mac use Command + Shift + 5."
@@ -245,16 +246,16 @@ instructions <-
                         )
                  )
                  
-             ) # box "Copying charts and downloading data"
+             ), # box "Copying charts and downloading data"
              
-             %>% rem_button_aria_label(), 
+             # %>% rem_button_aria_label(), 
              
              box(title = "Tell us what you think",
                  status = "primary",
                  solidHeader = TRUE,
                  width = 12,
-                 collapsible = FALSE,
-                 collapsed = FALSE,
+                 # collapsible = FALSE,
+                 # collapsed = FALSE,
                  
                  column(12,
                         p("The version of the dashboard available today is still in development and is subject to changes and refinements in the future. Contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
@@ -273,7 +274,7 @@ instructions <-
 
 patterns <- 
   
-  tabPanel(title = "How do we identify patterns in the data?",
+  tabPanel(title = h2("How do we identify patterns in the data?", class = "tabBox-title--h2"),
            value = "patterns",
            
            fluidRow(
@@ -357,7 +358,7 @@ patterns <-
 
 background <- 
   
-  tabPanel(title = "Background",
+  tabPanel(title = h2("Background", class = "tabBox-title--h2"),
            value = "background",
            
            fluidRow(
@@ -435,7 +436,7 @@ background <-
 
 version <- 
   
-  tabPanel(title = "Version",
+  tabPanel(title = h2("Version", class = "tabBox-title--h2"),
            value = "version",
            
            uiOutput("version_panel")
@@ -470,14 +471,14 @@ home <- tabItem(
        class = "smaller--h1"
     ),
     
+    br(),
+    
     column(12,
     
-    h2("This dashboard was developed by the ", strong("Maternity and Neonatal Data Hub."),
+    p("This dashboard was developed by the ", strong("Maternity and Neonatal Data Hub."),
 
     br(),
-    
-    br(),
-    
+
     "Find out more about the Data Hub and access other MatNeo data for Scotland through the MatNeo Data Hub link in the left-hand menu.",
        class = "smaller--h2--centred"
        )
@@ -629,6 +630,7 @@ multi_indicator_overview <- tabItem(
                       ),
                       
                       column(1, 
+                             
                              downloadButton("multi_indicator_download_data1", "Download data",
                                             icon = shiny::icon("download") %>% rem_aria_label()
                              )
@@ -914,7 +916,7 @@ pregnancies_booked <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/pregnancy/your-antenatal-care/your-booking-appointment-booking-visit",
-                              tags$u("‘booking’ appointment (external website)"),
+                              tags$u("‘booking’ appointment"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -1323,7 +1325,7 @@ gestation_at_booking <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/pregnancy/your-antenatal-care/your-booking-appointment-booking-visit",
-                              tags$u("‘booking’ appointment (external website)"),
+                              tags$u("‘booking’ appointment"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -1842,21 +1844,21 @@ location_of_ex_pre_term <- tabItem(
                           ) # div
                           ),
                           
-                          p("Reflecting this evidence, the British Association of Perinatal Medicine",
+                          p("Reflecting this evidence, the ",
                             
                             tags$a(
                               href = "https://www.bapm.org/resources/80-perinatal-management-of-extreme-preterm-birth-before-27-weeks-of-gestation-2019",
-                              tags$u("recommends (external website)"),
+                              tags$u("British Association of Perinatal Medicine"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
                             ),
                             
-                            " that when a woman is thought to be at imminent risk of extremely pre-term delivery she should be transferred to a maternity unit in a hospital with an on-site neonatal intensive care unit to allow her baby (or babies in the case of a multiple pregnancy of twins or more) to be born in the safest place. In addition, whilst the overall number of neonatal units is not changing in Scotland, the number of units that are classed as ",
+                            " recommends that when a woman is thought to be at imminent risk of extremely pre-term delivery she should be transferred to a maternity unit in a hospital with an on-site neonatal intensive care unit to allow her baby (or babies in the case of a multiple pregnancy of twins or more) to be born in the safest place. In addition, whilst the overall number of neonatal units is not changing in Scotland, the number of units that are classed as ",
                             
                             tags$a(
                               href = "https://www.bapm.org/resources/296-optimal-arrangements-for-neonatal-intensive-care-units-in-the-uk-2021",
-                              tags$u("neonatal intensive care units (external website)"),
+                              tags$u("neonatal intensive care units"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -1866,7 +1868,7 @@ location_of_ex_pre_term <- tabItem(
                             
                             tags$a(
                               href = "https://www.gov.scot/publications/five-year-forward-plan-maternity-neonatal-services-neonatal-intensive-care-options-appraisal-report/",
-                              tags$u("national policy (external website)"),
+                              tags$u("national policy"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -1931,7 +1933,7 @@ location_of_ex_pre_term <- tabItem(
                             
                             tags$a(
                               href = "https://www.perinatalnetwork.scot/",
-                              tags$u("Scottish Perinatal Network (external website)."),
+                              tags$u("Scottish Perinatal Network."),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2242,7 +2244,7 @@ inductions <- tabItem(
                           p(
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/getting-ready-for-the-birth/induced-labour",
-                              tags$u("‘Induction of labour’ (external website)"),
+                              tags$u("‘Induction of labour’"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2602,7 +2604,7 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/assisted-birth",
-                              tags$u("‘type of birth’ (external website)"),
+                              tags$u("‘type of birth’"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2615,7 +2617,7 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://www.who.int/publications/i/item/WHO-RHR-15.02",
-                              tags$u("statement on caesarean section rates (external website)."),
+                              tags$u("statement on caesarean section rates."),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2626,7 +2628,7 @@ type_of_birth <- tabItem(
                             
                             tags$a(
                               href = "https://maternityaudit.org.uk/pages/clinpub",
-                              tags$u("National Maternity and Perinatal Audit (external website)."),
+                              tags$u("National Maternity and Perinatal Audit."),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2937,7 +2939,7 @@ perineal_tears <- tabItem(
                             
                             tags$a(
                               href = "https://www.rcog.org.uk/en/patients/patient-leaflets/third--or-fourth-degree-tear-during-childbirth/",
-                              tags$u("‘perineal tear’ (external website)"),
+                              tags$u("‘perineal tear’"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2959,7 +2961,7 @@ perineal_tears <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/assisted-birth/perineal-tears-and-episiotomy",
-                              tags$u("‘episiotomy’ (external website)"),
+                              tags$u("‘episiotomy’"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -2975,7 +2977,7 @@ perineal_tears <- tabItem(
                                   "Variations in rates of third- and fourth-degree perineal tears between UK countries were reported by the ",
                                   tags$a(
                                     href = "https://maternityaudit.org.uk/pages/clinpub",
-                                    tags$u("National Maternity and Perinatal Audit (external website)."),
+                                    tags$u("National Maternity and Perinatal Audit."),
                                     class = "externallink",
                                     target = "_blank",
                                     rel = "noopener noreferrer"
@@ -3297,7 +3299,7 @@ gestation_at_birth <- tabItem(
                             
                             tags$a(
                               href = "https://www.tommys.org/pregnancy-information/premature-birth/how-long-do-you-stay-in-hospital-after-birth/gestational-age-and-medical-needs",
-                              tags$u("risk increases the earlier a baby is born (external website)"),
+                              tags$u("risk increases the earlier a baby is born"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -3310,7 +3312,7 @@ gestation_at_birth <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/getting-ready-for-the-birth/induced-labour",
-                              tags$u("risk of stillbirth (external website)"),
+                              tags$u("risk of stillbirth"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -3354,7 +3356,7 @@ gestation_at_birth <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/after-the-birth/premature-babies",
-                              tags$u("pre-term or premature (external website)"),
+                              tags$u("pre-term or premature"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer" 
@@ -3484,7 +3486,7 @@ stillbirths <- tabItem(
                                
                                tags$a(
                                  href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
-                                 tags$u("Births, Deaths and Other Vital Events - Quarterly Figures (external website)"),
+                                 tags$u("Births, Deaths and Other Vital Events - Quarterly Figures"),
                                  class = "externallink",
                                  target = "_blank",
                                  rel = "noopener noreferrer"
@@ -3550,7 +3552,7 @@ stillbirths <- tabItem(
                             
                             tags$a(
                               href = "https://www.nrscotland.gov.uk/statistics-and-data/births-deaths-marriages-and-life-expectancy",
-                              tags$u("National Records for Scotland (NRS) (external website)"),
+                              tags$u("National Records for Scotland (NRS)"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -3559,7 +3561,7 @@ stillbirths <- tabItem(
                             "from the statutory registration of deaths and births and using the same definitions as ",
                             tags$a(
                               href = "https://webarchive.nrscotland.gov.uk/20240926182510/https:/www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/vital-events/deaths/deaths-background-information/stillbirths-and-infant-deaths",
-                              tags$u("National Records for Scotland (NRS) (external website)."),
+                              tags$u("National Records for Scotland (NRS)."),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -3588,7 +3590,7 @@ stillbirths <- tabItem(
                             
                             tags$a(
                               href = "https://www.npeu.ox.ac.uk/mbrrace-uk/perinatal-programme",
-                              tags$u("perinatal mortality report (external website)"),
+                              tags$u("perinatal mortality report"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -3601,7 +3603,7 @@ stillbirths <- tabItem(
                             
                             tags$a(
                               href = "https://www.healthcareimprovementscotland.scot/improving-care/improvement-resources/scottish-patient-safety-programme-spsp/",
-                              tags$u("Scottish Patient Safety Programme - Perinatal (external website)"),
+                              tags$u("Scottish Patient Safety Programme - Perinatal"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer"
@@ -4283,7 +4285,7 @@ gestation_by_BAPM_LOC <- tabItem(
                                
                                tags$a(
                                  href = "https://www.bapm.org/",
-                                 tags$u("British Association of Perinatal Medicine (external website)"),
+                                 tags$u("British Association of Perinatal Medicine"),
                                  class = "externallink",
                                  target = "_blank",
                                  rel = "noopener noreferrer"
@@ -4445,7 +4447,7 @@ gestation_by_BAPM_LOC <- tabItem(
                             
                             tags$a(
                               href = "https://www.nhsinform.scot/ready-steady-baby/labour-and-birth/after-the-birth/premature-babies",
-                              tags$u("pre-term or premature (external website)"),
+                              tags$u("pre-term or premature"),
                               class = "externallink",
                               target = "_blank",
                               rel = "noopener noreferrer" 
@@ -4557,8 +4559,8 @@ infant_feeding <- tabItem(
 
 body <- dashboardBody(
   
-  use_theme(mytheme), # <-- use the theme to change colours
-  tags$head(includeCSS("www/styles.css")),
+  # use_theme(mytheme), # <-- use the theme to change colours
+  # tags$head(includeCSS("www/styles.css")),
   
   tabItems(
     home,
@@ -4588,12 +4590,14 @@ ui <-
   #secure_app( # uncomment if want password protection
   tagList( # needed for shinyjs
 
+    use_theme(mytheme), # <-- use the theme to change colours
     tags$head(
+      includeCSS("www/styles.css"),
       HTML(
         "<html lang='en'>"),
-      tags$link(rel="shortcut icon",
-                href="favicon_phs.ico"), # Icon for browser tab
-      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"),
+      tags$link(rel = "shortcut icon",
+                href = "favicon_phs.ico"), # Icon for browser tab
+      tags$title("Scottish Pregnancy, Births and Neonatal Dashboard"), # Name for browser tab
     ),
 
     dashboardPage(

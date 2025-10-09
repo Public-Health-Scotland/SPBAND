@@ -30,15 +30,13 @@ output$hub_spband <- renderUI({
         tags$ul(
           
           tags$li(class = "bullet-points",
-                  p(strong("Pregnancy:"),
-                    "number of pregnancies booked; average gestation at booking; number of terminations; average gestation at termination"
-          )
+                  strong("Pregnancy:"),
+                  "number of pregnancies booked; average gestation at booking; number of terminations; average gestation at termination"
           ),
           
           tags$li(class = "bullet-points",
-                  p(strong("Births and Babies:"),
-                    "location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores"
-          )
+                  strong("Births and Babies:"),
+                  "location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores"
           )
         ), # tags$ul
         

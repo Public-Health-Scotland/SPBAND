@@ -30,13 +30,13 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter: ----
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2025-08-14") 
+refresh_date <- as.Date("2025-09-16") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "10 June 2025"
+NRS_published_date <- "09 September 2025"
 
 # initialise folders and filenames for Excel downloads ----
 
@@ -262,6 +262,12 @@ selected_colours <-
                    names(phs_colours()), "-80"
                  ))))
 
+#3F3685
+#8c3585
+#0057ae
+#296600
+
+
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 
 # reasons
 
@@ -271,12 +277,12 @@ mytheme <- create_theme(
   ),
   adminlte_sidebar( # sidebar colours
     width = "290px",
-    dark_bg = "#655E9D", # background colour (not selected) = PHS-purple-80
+    dark_bg = "#57518f", # background colour (not selected) = close to PHS-purple-80
     dark_hover_bg = "#3F3685", # background colour (when hovering) = PHS-purple
-    dark_color = "#ECEBF3", # text colour (not selected) = PHS-purple-10
-    dark_submenu_bg = "#9B4393", # sub-menu background colour = PHS-magenta
-    dark_submenu_color = "#ECEBF3", # sub-menu text colour (not selected) = PHS-purple-10
-    dark_submenu_hover_color = "#FFFFFF", # text colour (when hovering) = white
+    dark_color = "white", # text colour (not selected) = white
+    dark_submenu_bg = "#8C3585", # sub-menu background colour = close to PHS-magenta
+    dark_submenu_color = "white", # sub-menu text colour (not selected) = white
+    dark_submenu_hover_color = "white", # text colour (when hovering) = white
   ),
   adminlte_global(
     content_bg = "#FFF",
