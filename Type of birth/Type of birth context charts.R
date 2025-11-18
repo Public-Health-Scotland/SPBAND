@@ -70,13 +70,13 @@ output$type_of_birth_context_charts <- renderPlotly({
   
   # adds an asterisk to these Board names when there is a related footnote to show
   
-  legend_board_name <- if_else(
-    (first(type_of_birth_context_data()$measure == "TYPE OF BIRTH") &
-       first(type_of_birth_context_data()$hbname == "NHS Borders")
-    ),
-    paste0(first(type_of_birth_context_data()$hbname), "*"),
+  legend_board_name <- #if_else(
+    # (first(type_of_birth_context_data()$measure == "TYPE OF BIRTH") &
+    #    first(type_of_birth_context_data()$hbname == "NHS Borders")
+    # ),
+    # paste0(first(type_of_birth_context_data()$hbname), "*"),
     first(type_of_birth_context_data()$hbname)
-  )
+  #)
   
   xaxis_plots <<- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -92,20 +92,21 @@ output$type_of_birth_context_charts <- renderPlotly({
   
   yaxis_plots[["title"]] <- list(standoff = 10)
 
-  plot_ly(
-    data = type_of_birth_context_data(),
-    x = ~ date,
-    y = ~ num,
-    type = "scatter",
-    mode = "lines+markers",
-    color = ~ measure_cat,
-    colors = selected_colours[1:5],
-    symbol = ~ measure_cat,
-    symbols = ~ c("circle", "square-x-open", "diamond", "star", "circle-open"),
-    line = list(width = 2),
-    hovertext = ~ mytext1,
-    hoverinfo = "text"
-  ) %>%
+  context <- 
+    plot_ly(
+      data = type_of_birth_context_data(),
+      x = ~ date,
+      y = ~ num,
+      type = "scatter",
+      mode = "lines+markers",
+      color = ~ measure_cat,
+      colors = selected_colours[1:5],
+      symbol = ~ measure_cat,
+      symbols = ~ c("circle", "square-x-open", "diamond", "star", "circle-open"),
+      line = list(width = 2),
+      hovertext = ~ mytext1,
+      hoverinfo = "text"
+    ) %>%
     layout(
       xaxis = xaxis_plots,
       yaxis = yaxis_plots,
@@ -122,6 +123,16 @@ output$type_of_birth_context_charts <- renderPlotly({
     ) %>% 
     layout(yaxis = yaxislabeltext) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  context <- htmlwidgets::onRender(context, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Timeseries charts showing the the number of singleton live births at any gestation, and the number of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards');
+      }
+      ")
+  
+  return(context)
   
 })
 

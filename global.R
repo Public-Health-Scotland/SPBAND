@@ -30,13 +30,13 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter: ----
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2024-12-13") 
+refresh_date <- as.Date("2025-09-16") 
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "10 December 2024"
+NRS_published_date <- "09 September 2025"
 
 # initialise folders and filenames for Excel downloads ----
 
@@ -74,11 +74,11 @@ NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAN
 
 # load latest NeoCareIn+ gestation by highest BAPM level of care data
 
-gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+# gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # load latest NeoCareIn+ babies born at 30-32 weeks admitted to neonatal unit
 
-babies_30_32_discharged_from_neocare_data <- readRDS("data/babies-30-32-discharged-from-neocare.rds")
+# babies_30_32_discharged_from_neocare_data <- readRDS("data/babies-30-32-discharged-from-neocare.rds")
 
 # split runchart_dataframe into individual measure dataframes ----
 
@@ -109,9 +109,9 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-NeoCare_date_range <- unique(gest_by_BAPM_LOC_data$date)
-NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
-NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
+# NeoCare_date_range <- unique(gest_by_BAPM_LOC_data$date)
+# NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
+# NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
 
 # STLLBIRTHS SPECIFIC ----
 
@@ -203,10 +203,10 @@ type_of_birth_data <- left_join(type_of_birth_data,
 
 # Puts an asterisk next to subtitles when NHS Borders is selected # temporary till issue fixed
 
-type_of_birth_data$measure_cat_label = 
-  if_else(type_of_birth_data$hbname == "NHS Borders" & type_of_birth_data$measure_cat_label %like% "planned",
-          str_replace(type_of_birth_data$measure_cat_label, "births", "births*"),
-          type_of_birth_data$measure_cat_label)
+# type_of_birth_data$measure_cat_label = 
+#   if_else(type_of_birth_data$hbname == "NHS Borders" & type_of_birth_data$measure_cat_label %like% "planned",
+#           str_replace(type_of_birth_data$measure_cat_label, "births", "births*"),
+#           type_of_birth_data$measure_cat_label)
 
 # puts runcharts in correct order
 
@@ -262,6 +262,12 @@ selected_colours <-
                    names(phs_colours()), "-80"
                  ))))
 
+#3F3685
+#8c3585
+#0057ae
+#296600
+
+
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 
 # reasons
 
@@ -271,12 +277,12 @@ mytheme <- create_theme(
   ),
   adminlte_sidebar( # sidebar colours
     width = "290px",
-    dark_bg = "#655E9D", # background colour (not selected) = PHS-purple-80
+    dark_bg = "#57518f", # background colour (not selected) = close to PHS-purple-80
     dark_hover_bg = "#3F3685", # background colour (when hovering) = PHS-purple
-    dark_color = "#ECEBF3", # text colour (not selected) = PHS-purple-10
-    dark_submenu_bg = "#9B4393", # sub-menu background colour = PHS-magenta
-    dark_submenu_color = "#ECEBF3", # sub-menu text colour (not selected) = PHS-purple-10
-    dark_submenu_hover_color = "#FFFFFF", # text colour (when hovering) = white
+    dark_color = "white", # text colour (not selected) = white
+    dark_submenu_bg = "#8C3585", # sub-menu background colour = close to PHS-magenta
+    dark_submenu_color = "white", # sub-menu text colour (not selected) = white
+    dark_submenu_hover_color = "white", # text colour (when hovering) = white
   ),
   adminlte_global(
     content_bg = "#FFF",

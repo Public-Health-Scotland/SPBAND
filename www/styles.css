@@ -1,21 +1,11 @@
 /* CSS styles used in the shiny app */
 
+/* Shiny settings */
+
 /* to avoid red text error messages in the whole app, take out for testing*/
+
 .shiny-output-error { visibility: hidden; }
 .shiny-output-error:before { visibility: hidden; }
-
-/* to force sidebar to "fit" below widened header bar */
-/*.sidebar {
-  /*margin: 0;
-  padding: 0;
-  width: 220px;
-  position: fixed;
-  height: 75%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 100vh;
-  -ms-overflow-style: none;
-}*/
 
 /*to put dashboard title on far right of header bar in white, font size 20 */
 
@@ -27,35 +17,33 @@
   color: white;
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 20px;
-}
+  }
 
 /* to force phs logo to have a white background */
 .skin-blue .main-header .logo {
   background-color: white;
   min-height: 54px;
   max-height: 54px;
-}
+  }
 
 .skin-blue .main-header .logo:hover {
   background-color: white; 
   min-height: 54px;
   max-height: 54px;
-}
+  }
 
 .skin-blue .main-header .nav-bar-static-top {
   background-color: white; 
   min-height: 54px;
   max-height: 54px;
-}
+  }
 
 /* makes sidebar scroll appear when needed */
 
 .sidebar {
   height: 90vh;
   overflow-y: auto;
-  /*width: 290px;
-  white-space: nowrap;*/
-}
+  }
 
 /*to format and indent sub-menu */
 
@@ -63,12 +51,14 @@
   /*padding: 5px 5px 5px 30px;
     display: block; */
     font-size: 15px;
-}
+  }
 
 /* to wrap sidebarMenu text */
 .sidebar-menu > li {
 white-space: normal;
-}
+  }
+
+/* default page format */
 
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -76,20 +66,8 @@ body {
     font-size: 16px;
     line-height: 1.42857143;
     color: #3F3685;
-    background-color: #fff;
-  /*  font-size: 0.875em;  14px/16=0.875em */
-  /*  overflow-x: hidden;
-    overflow-y: auto; */
-}
-
-/*.footer {
-     text-align: left;
-     font-size: 10px;
-     position: absolute;
-     bottom: 0;
-     padding-left: 10px;
-     padding-top: 10px;
-}*/
+    background-color: white;
+  }
 
 /* to force tab with no tabBox title to appear the same as the tabBox title */
 
@@ -106,19 +84,18 @@ body {
   margin: 0 0 0 -20px;
   }
 
-/* styles box titles - in concertina on Home page */
+/* styles box titles - e.g. on Home and MatNeo Data Hub pages */
 
 .box-title {
   border-style: solid;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #3F3685;
   border-width: 0 0 1px 0;
-  color: #3F3685;
-  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  color: white;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px !important;
   font-weight: bold;
   text-align: left;
-  background-color: white;
+  background-color: #3F3685;
   padding: 0 10px;
   }
   
@@ -131,57 +108,91 @@ body {
   margin-bottom: 10px;
   }
   
-/*.sticky_footer {
-  position:fixed;
-  bottom:0;
-  right:0;
-  left:0;
-  background:#3c8dbc;
-  z-index: 0;
-  opacity: 0.9;
-  }*/
-  
-/* to pad bullet points - doesn't just pad bullet points!important any element with li is padded 
-including tabBoxes and menu items!important*/
-  
-/*  ul li {
- padding: 0 0 4px 23px;
-}*/
+/* formats bullet points specifically */
 
 .bullet-points {
   padding-left: 20px;
   padding-bottom: 4px;
-}
+  }
 
-/* to make h1 title smaller */  
+.open-bullet-points {
+  padding-left: 20px;
+  padding-bottom: 4px;
+  list-style-type: circle;
+  }
+
+/* change default fonts */
+
+/* to make h1 title smaller and centred */  
 
 .smaller--h1 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 30px;
   text-align: center;
-    }
+  }
+  
+/* to make "subtitle"" on MatNeo Data Hub page smaller */  
+
+.smaller--h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  }
     
-/* formats titles in each tab (textOutput) */
+/* to make "subtitle"" on Home page smaller and centred */  
+
+.smaller--h2--centred {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  }
+    
+/* to make h2 title 16px and bold for tab titles */  
+
+.tabBox-title--h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  }
+    
+/* formats titles in each tab (textOutput) e.g. Core measures, by Board of Residence, for calendar year 2024 on MIO  */
 
 .shiny-text-output {
   font-size: 26px;
   text-align: center;
-}
+  }
 
-/* formats top border of selected tab */
+/* formats title text top right in tabPanel, e.g Home */
+
+.nav-tabs-custom>.nav-tabs>li.header {
+    line-height: 35px;
+    padding: 0 10px;
+    font-size: 20px;
+    color: #3F3685;
+  }
+
+/* formats top border of "selected" tab- close to phs-magenta */
 
 .nav-tabs-custom>.nav-tabs>li.active {
-    border-top-color: #9B4393;
-}
+    border-top-color: #8C3585;
+  }
 
-/* formats "selected" tabtitles - phs-magenta */
+/* formats "selected" tabtitles - close to phs-magenta */
 
 .nav-tabs-custom>.nav-tabs>li.active>a,
 .nav-tabs-custom>.nav-tabs>li.active:hover>a {
-  color: #9B4393;
+  color: #8C3585;
   border-radius: 0;
   font-weight: bold;
-}
+  }
+
+/* formats hover over "unselected" tabtitles - close to phs-blue no better than the default grey */
+
+/*.nav-tabs-custom >.nav-tabs > li> a:hover {
+    color: #0057ae;
+    border-radius: 0;
+    font-weight: bold;
+  }*/
 
 /* formats "unselected" tabtitles - phs-purple */
 
@@ -189,16 +200,7 @@ including tabBoxes and menu items!important*/
     color: #3F3685; 
     border-radius: 0;
     font-weight: bold;
-}
-
-/* formats title text top right in tabPanel */
-
-.nav-tabs-custom>.nav-tabs>li.header {
-    line-height: 35px;
-    padding: 0 10px;
-    font-size: 20px;
-    color: #3F3685;
-}
+  }
 
 /* removes lines round boxes */
 
@@ -206,11 +208,17 @@ including tabBoxes and menu items!important*/
   box-shadow: none;
   }
 
-/* formats top border of box - phs-purple-30 */
+/* formats top border of box - phs-purple-30 */ 
 
 .box.box-primary {
-    border-top-color: #C5C3DA; 
-}
+    border-top-color: #C5C3DA;
+  }
+
+/* makes box boundary white */
+
+.box.box-solid.box-primary {
+  border: 1px solid white;
+  }
 
 /* formats the left-hand title in About this measure tab */
 
@@ -219,9 +227,24 @@ including tabBoxes and menu items!important*/
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
-}
+  }
 
 /* notes (source, caveats, data of refresh) - style */
 .notes-style {
   font-size: 14px;
-}
+  }
+
+/* formats links */
+
+/* Set the default link colour - close to phs-magenta */
+
+a {
+  color: #8C3585; 
+  }
+  
+/* mouse over link  - close to phs-teal */
+
+a:hover {
+  color: #1E7F84; 
+  }
+  

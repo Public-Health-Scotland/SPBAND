@@ -38,8 +38,15 @@ bookings_runchart_data <- reactive({
 output$bookings_runcharts <- renderPlotly({
   
   creates_runcharts(plotdata = bookings_runchart_data(),
-                    yaxislabel = "Number of pregnancies booked"
+                         yaxislabel = "Number of pregnancies booked"
   )
+  # 
+  # p <- htmlwidgets::onRender(p, "
+  #     function(el, x) {
+  #       el.setAttribute('aria-label', 'Scatter plot of Sepal Length vs Sepal Width');
+  #     }")
+  # p
+  
 })
 
 # c) chart title ----

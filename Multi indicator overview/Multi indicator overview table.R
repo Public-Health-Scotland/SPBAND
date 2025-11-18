@@ -66,16 +66,17 @@ multi_indicator_table_data_hb <- reactive({
   else {
     data
   }
+
 })
 
 # b) data table
 
 # pull header names from the table
 header.names <- reactive ({
-  c("", if_else(input$hbname %in% island_names,
+  c("Measure", if_else(input$hbname %in% island_names,
                 paste0(Selected$HBName, "*"),
                 Selected$HBName),
-    "Scotland", "")
+    "Scotland", "Suffix")
  })
 
 # the container parameter allows us to design the header of the table using CSS
@@ -120,6 +121,17 @@ output$mytable <-
     my.table <- formatRound(
       my.table,
       columns = c("measure_value", "SCOT_MEASURE"), 1)
+    
+    # Add dynamic alt text using htmlwidgets::onRender
+    
+    my.table <- htmlwidgets::onRender(my.table, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Core measures for selected NHS Board and selected financial or calendar year');
+      }
+      ")
+  
+  return(my.table)
+    
   })
 
 # c) title

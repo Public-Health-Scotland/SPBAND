@@ -59,7 +59,7 @@ output$multi_indicator_chart <- renderPlotly({
     hoverinfo = "text",
     opacity = .5,
     marker = list(color = "#CAC6D1",
-                  line = list(color = "#000000", width = 1)), # phs-graphite-50
+                  line = list(color = "black", width = 1)), # phs-graphite-50
     size = I(20)
   ) %>% 
   
@@ -70,8 +70,8 @@ output$multi_indicator_chart <- renderPlotly({
                 name = "Scotland",
                 #visible = TRUE,
                 opacity = 1,
-                marker = list(color = "#000000",
-                              line = list(color = "#000000", width = 1) ),
+                marker = list(color = "black",
+                              line = list(color = "black", width = 1) ),
                 size = I(50)) %>%
   
     add_markers(data = filter(multi_indicator_chart_data(),
@@ -81,7 +81,7 @@ output$multi_indicator_chart <- renderPlotly({
                 name = ~ if_else(hbname %in% island_names, paste0(hbname, "*"), hbname),
                 opacity = 1,
                 marker = list(color = selected_colours[4], # phs-green want #0078D4 phs-blue?
-                              line = list(color = "#000000", width = 1)),
+                              line = list(color = "black", width = 1)),
                 size = I(50)) %>%
   
     layout(
@@ -147,7 +147,7 @@ output$multi_indicator_chart <- renderPlotly({
       name = ~ hbname,
       opacity = 1,
       marker = list(color = selected_colours[4], # phs-green want #0078D4 phs-blue?
-                    line = list(color = "#000000", width = 1)),
+                    line = list(color = "black", width = 1)),
       size = I(50),
       showlegend = FALSE
       )
@@ -157,6 +157,17 @@ output$multi_indicator_chart <- renderPlotly({
     fig
     
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  fig <- htmlwidgets::onRender(fig, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Comparisons of core measures by NHS Board, for each selected financial or calendar year');
+      }
+      ")
+  
+  return(fig)
+  
   })
 
 # c) title

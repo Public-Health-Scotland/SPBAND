@@ -577,6 +577,19 @@ creates_small_multiple_charts_without_median <- function(plotdata,
 
 subplot_mainland_island_small_multiples <- function(plotdata) {
   
+  alt_text <- switch(
+    first(plotdata$measure),
+    "GESTATION AT BOOKING" = "Comparing all NHS Boards: timeseries charts showing average gestation at booking (based on completed weeks of pregnancy), for each month from April 2019 onwards",
+    "GESTATION AT TERMINATION" = "Comparing all NHS Boards: timeseries charts showing average gestation at termination (based on completed weeks of pregnancy), for each month from January 2017 onwards",
+    "INDUCTIONS" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+    "TYPE OF BIRTH" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births at any gestation that were of the selected type of birth, for each quarter from Jan-Mar 2017 onwards", 
+    "TEARS" = "Comparing all NHS Boards: timeseries charts showing the percentage of women giving birth vaginally to a singleton live or stillborn baby with a cephalic presentation at 37-42 weeks gestation who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+    "GESTATION AT BIRTH" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton live births that were at the selected gestation, for each quarter from Jan-Mar 2017 onwards",
+    "APGAR5" = "Comparing all NHS Boards: timeseries charts showing the percentage of singleton babies born alive at 37-42 weeks gestation that had a 5-minute Apgar score of less than 7, for each quarter from Jan-Mar 2017 onwards",
+    "MEDIAN CORRECTED GEST AGE" = "",
+    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  )
+  
   if(first(plotdata$measure != "GESTATION AT TERMINATION")) {
     
     small_multiple_subplot <- 
@@ -594,6 +607,15 @@ subplot_mainland_island_small_multiples <- function(plotdata) {
       map(\(df) creates_small_multiple_charts_without_median(df))
 
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  small_multiple_subplot <- htmlwidgets::onRender(small_multiple_subplot, sprintf("
+      function(el, x) {
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
   
   return(small_multiple_subplot)
 }
@@ -623,6 +645,21 @@ creates_runcharts <- function(plotdata,
     .default = max(plotdata$measure_value, na.rm = TRUE)
     
   )
+  
+  alt_text <- switch(
+    first(plotdata$measure),
+   "BOOKINGS" = "Timeseries chart showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
+   "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
+   "TERMINATIONS" = "Timeseries chart showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
+   "GESTATION AT TERMINATION" = "Run chart showing average gestation at termination, for each month, from Jan 2017 onwards",
+   "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+  "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
+   "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+  # "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+   "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+   "MEDIAN CORRECTED GEST AGE" = "",
+   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+   )
 
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
   # and TRUE for single runcharts
@@ -675,9 +712,9 @@ creates_runcharts <- function(plotdata,
   # adds an asterisk to these Board names when there is a related footnote to show
   
   legend_board_name <- if_else(
-    (first(plotdata$measure == "TYPE OF BIRTH") &
-       first(plotdata$hbname == "NHS Borders")
-     ) |
+    # (first(plotdata$measure == "TYPE OF BIRTH") &
+    #    first(plotdata$hbname == "NHS Borders")
+    #  ) |
       # (first(plotdata$measure == "GESTATION AT BOOKING") & # retired as of October 2024 release
       # first(plotdata$hbname %in% c("NHS Forth Valley", "NHS Tayside"))
       # ) |
@@ -856,6 +893,8 @@ creates_runcharts <- function(plotdata,
     margin = list(pad = 10) # distance between axis and plot
   ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
+  
+  # TEMPORARY SPLIT UNTIL JAN 2026 PUBLICATION WHEN EXTENDED POST_PANDEMIC MEDIAN WILL APPEAR ----
 
   # post-pandemic traces for the GESTATION AT BOOKING and GESTATION AT TERMINATION measures
 
@@ -897,6 +936,48 @@ creates_runcharts <- function(plotdata,
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
       )
+  }
+  
+  # post-pandemic median trace for the SMR02 measures
+
+  if(first(plotdata$dataset) == "SMR02") {
+
+    runcharts <- runcharts %>%
+      add_trace(
+        data = filter(plotdata,!is.na(post_pandemic_median)),
+        y = ~ post_pandemic_median, # magenta line
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-magenta"),
+          width = 1
+        ),
+        name = ~ paste0(var_label(post_pandemic_median)
+                        ),
+        legendrank = 600,
+        showlegend = ~ include_legend,
+        legendgroup = "post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+      ) #%>%
+      # add_trace(
+      #   data = filter(plotdata,!is.na(extended_post_pandemic_median)),
+      #   y = ~ extended_post_pandemic_median, # dotted magenta line
+      #   type = "scatter",
+      #   mode = "lines",
+      #   line = list(
+      #     color = phs_colours("phs-magenta"),
+      #     width = 1,
+      #     dash = "4"
+      #   ),
+      #   name = ~ paste0(var_label(extended_post_pandemic_median)
+      #                   ),
+      #   legendrank = 700,
+      #   showlegend = ~ include_legend,
+      #   legendgroup = "extended post-pandemic median",
+      #   hoverinfo = "y",
+      #   yhoverformat = hoverinfo_format
+      # )
   }
 
   # additional traces for the "special" Boards in GESTATION AT BOOKING measure
@@ -975,6 +1056,15 @@ creates_runcharts <- function(plotdata,
         ))
   }
   
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  runcharts <- htmlwidgets::onRender(runcharts, sprintf("
+      function(el, x) {
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
+
   return(runcharts)
 }
 
@@ -1000,6 +1090,15 @@ creates_context_charts <- function(plotdata,
   
   y_max <- max(plotdata$den, na.rm = TRUE) # allows a margin to be set around y-axis
   
+  alt_text <- switch(
+    first(plotdata$measure),
+    "INDUCTIONS" = "Timeseries chart showing the number of singleton live births at 37+0 to 42+6 weeks gestation with a known induction status, and those that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+    "TEARS" = "Timeseries chart showing the number of women giving birth vaginally with a known perineal tear status, and those who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+    "APGAR5" = "Timeseries chart showing the number of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score, and those that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+    "MEDIAN CORRECTED GEST AGE" = "",
+    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  )
+  
   # ensures ticks and tick labels correspond (different for ABC, TERMINATIONS, SMR02)
   
   select_date_tickvals <- switch( # tells plotly where ticks will show
@@ -1010,9 +1109,9 @@ creates_context_charts <- function(plotdata,
     "GESTATION AT TERMINATION" = terminations_date_tickvals,
     "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_tickvals,
     "INDUCTIONS" = SMR02_date_tickvals,
-    "TYPE OF BIRTH" = SMR02_multiples_date_tickvals,
+    #"TYPE OF BIRTH" = SMR02_multiples_date_tickvals, # hard coded as multiple charts
     "TEARS" = SMR02_date_tickvals,
-    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
+    #"GESTATION AT BIRTH" = SMR02_multiples_date_tickvals, # hard coded as multiple charts
     "APGAR5" = SMR02_date_tickvals,
     "MEDIAN CORRECTED GEST AGE" = NeoCare_date_tickvals
   ) 
@@ -1025,22 +1124,22 @@ creates_context_charts <- function(plotdata,
     "GESTATION AT TERMINATION" = terminations_date_ticktext,
     "EXTREMELY PRE-TERM BIRTHS" = SMR02_date_ticktext,
     "INDUCTIONS" = SMR02_date_ticktext,
-    "TYPE OF BIRTH" = SMR02_multiples_date_ticktext,
+    #"TYPE OF BIRTH" = SMR02_multiples_date_ticktext, # hard coded as multiple charts
     "TEARS" = SMR02_date_ticktext,
-    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
+    #"GESTATION AT BIRTH" = SMR02_multiples_date_ticktext, # hard coded as multiple charts
     "APGAR5" = SMR02_date_ticktext,
     "MEDIAN CORRECTED GEST AGE"= NeoCare_date_ticktext
   )
   
   # adds an asterisk to these Board names when there is a related footnote to show
   
-  legend_board_name <- if_else(
-    (first(plotdata$measure == "TYPE OF BIRTH") &
-       first(plotdata$hbname == "NHS Borders")
-    ),
-    paste0(first(plotdata$hbname), "*"),
+  legend_board_name <- #if_else(
+    # (first(plotdata$measure == "TYPE OF BIRTH") &
+    #    first(plotdata$hbname == "NHS Borders")
+    # ),
+    # paste0(first(plotdata$hbname), "*"),
     first(plotdata$hbname)
-  )
+  #)
   
   xaxis_plots <- orig_xaxis_plots
   xaxis_plots[["tickmode"]] <- "array"
@@ -1123,6 +1222,15 @@ creates_context_charts <- function(plotdata,
         hoverinfo = "text"
       )
   }
+  
+  # Add dynamic alt text using htmlwidgets::onRender
+  
+  context_charts <- htmlwidgets::onRender(context_charts, sprintf("
+      function(el, x) {
+        el.setAttribute('aria-label', '%s');
+      } 
+      ", alt_text)
+  )
     return(context_charts)
   }
 
@@ -1157,4 +1265,24 @@ download_excel_file <- function(this_excel_measure_name) {
   }
   )
 }
+
+# Function to add alt text to plotly runcharts
+# Parameter:
+# plotdata: dataframe with data to be plotted
+# measure: variable to be plotted as black dots/lines
+
+  # alt_text <- switch(
+  #   first(plotdata$measure), 
+  #  "BOOKINGS" = "Timeseries showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
+  #  "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
+  #  "TERMINATIONS" = "Timeseries showing the number of terminations of pregnancy, for each month, from Jan 2017 onwards",
+  #  "GESTATION AT TERMINATION" = "Run chart showing average gestation at termination, for each month, from Jan 2017 onwards",
+  #  "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
+  #  "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
+  #  "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
+  #  "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+  #  "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
+  #  "MEDIAN CORRECTED GEST AGE" = "",
+  #  "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+  #  )
 

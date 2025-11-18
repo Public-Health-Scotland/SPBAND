@@ -12,11 +12,11 @@ type_of_birth_small_multiples_data <- reactive({
   data <- type_of_birth_data %>%
     filter(hbtype == Selected$HBType &
              measure_cat == Selected$Measure_cat) %>%
-    mutate(hbname2 = if_else(grepl("planned", measure_cat) & hbname == "NHS Borders",
-                             "NHS Borders*",
-                             hbname),
-           hbname2 = factor(hbname2, 
-                            levels = HBnames),
+    mutate(#hbname2 = if_else(grepl("planned", measure_cat) & hbname == "NHS Borders",
+           #                   "NHS Borders*",
+           #                   hbname),
+           # hbname2 = factor(hbname2, 
+           #                  levels = HBnames),
            mytext = paste0(hbname,
                            ": ",
                            measure_cat,
@@ -83,7 +83,7 @@ output$type_of_birth_small_multiples_sub_title <- renderUI({
   
   # add asterisk for planned and unplanned caesarean options for Borders footnote
   
-  title_text <- if_else(grepl("planned", title_text), HTML(paste0(title_text, "*")), HTML(title_text))
+  # title_text <- if_else(grepl("planned", title_text), HTML(paste0(title_text, "*")), HTML(title_text))
   
   })
 
