@@ -1,7 +1,7 @@
 # Median corrected gestational age at discharge download data
 
-this_excel_measure_name <- "median_corrected_gestational_age"
+this_excel_measure_name <- "corrected_gestation_at_discharge"
 
-output$corrected_gestational_age_download_data <- 
+output$corrected_gest_age_at_discharge_download_data <- 
   
   download_excel_file(this_excel_measure_name)

@@ -10,6 +10,7 @@ extremely_preterm_control_chart_data <- filter(extremely_preterm_data,
   xaxis_plots[["ticktext"]] <- SMR02_date_ticktext
   
   yaxis_plots <- orig_yaxis_plots
+  yaxis_plots[["rangemode"]] = "normal"
 
 # b) chart ---- 
 
