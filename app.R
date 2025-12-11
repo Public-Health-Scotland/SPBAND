@@ -4309,7 +4309,7 @@ gestation_by_BAPM_LOC <- tabItem(
                                "(BAPM). For more details see the ‘About this measure’ tab."
                                ),
                              
-                             p("The black dots connected by a line in the time-series charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
+                             p("The black dots connected by a line in the charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
                                ),
 
                              p("Due to the small number of babies admitted to neonatal care, data are only shown at all-Scotland level."
@@ -4785,7 +4785,7 @@ server <- function(input, output, session) {
                                    "Board comparison")
                  
                  updateTabsetPanel(getDefaultReactiveDomain(),
-                                   "tabset27", # median_ga_30_32
+                                   "tabset27", # median_cga_30_32
                                    "Scotland")
 
                  updateTabsetPanel(getDefaultReactiveDomain(),
