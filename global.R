@@ -30,13 +30,13 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter: ----
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2025-09-16") 
+refresh_date <- as.Date("2025-12-10")
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
 # latest NRS publication date
 
-NRS_published_date <- "09 September 2025"
+NRS_published_date <- "10 December 2025"
 
 # initialise folders and filenames for Excel downloads ----
 
@@ -70,15 +70,15 @@ extremely_preterm_data <- readRDS("data/extremely-preterm-data.rds")
 
 # load latest NRS stillbirths & infant deaths data
 
-NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset##
+NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAND dashboard - cannot connect to server, needs self-contained dataset
 
 # load latest NeoCareIn+ gestation by highest BAPM level of care data
 
-# gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+#gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # load latest NeoCareIn+ babies born at 30-32 weeks admitted to neonatal unit
 
-# babies_30_32_discharged_from_neocare_data <- readRDS("data/babies-30-32-discharged-from-neocare.rds")
+corrected_gest_at_discharge_data <- readRDS("data/babies-30-32-weeks-discharged-from-neocare.rds")
 
 # split runchart_dataframe into individual measure dataframes ----
 
@@ -109,9 +109,9 @@ SMR02_date_ticktext <- qtr(SMR02_date_tickvals, format = "short")
 SMR02_multiples_date_tickvals <- SMR02_date_range[seq(1, length(SMR02_date_range), 4)]
 SMR02_multiples_date_ticktext <- qtr(SMR02_multiples_date_tickvals, format = "short")
 
-# NeoCare_date_range <- unique(gest_by_BAPM_LOC_data$date)
-# NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
-# NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
+NeoCare_date_range <- unique(corrected_gest_at_discharge_data$date)
+NeoCare_date_tickvals <- NeoCare_date_range[seq(1, length(NeoCare_date_range), 2)]
+NeoCare_date_ticktext <- qtr(NeoCare_date_tickvals, format = "short")
 
 # STLLBIRTHS SPECIFIC ----
 

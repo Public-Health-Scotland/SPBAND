@@ -645,8 +645,14 @@ creates_runcharts <- function(plotdata,
     .default = max(plotdata$measure_value, na.rm = TRUE)
     
   )
+
+  y_min <- if_else(
+    first(plotdata$measure) == "GESTATION AT DISCHARGE FROM NEONATAL CARE", 
+    30,
+    0
+    )
   
-  alt_text <- switch(
+    alt_text <- switch(
     first(plotdata$measure),
    "BOOKINGS" = "Timeseries chart showing the number of pregnancies booked for antenatal care, for each month from Apr 2019 onwards",
    "GESTATION AT BOOKING" = "Run chart showing the average gestation at booking, for each month from Apr 2019 onwards",
@@ -657,7 +663,7 @@ creates_runcharts <- function(plotdata,
    "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
   # "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
    "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
-   "MEDIAN CORRECTED GEST AGE" = "",
+   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = "Timeseries chart showing the average corrected gestation at discharge from a specialist neonatal unit for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards",
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
    )
 
@@ -676,7 +682,7 @@ creates_runcharts <- function(plotdata,
   # include_trend_shift_legend = FALSE ensures that the shift and trend legends are switched off
   
   include_trend_shift_legend <- case_when(
-    first(plotdata$measure) %in% c("BOOKINGS", "TERMINATIONS", "MEDIAN CORRECTED GEST AGE", "ADMISSIONS TO NEOCARE BY LEVEL OF CARE") ~ FALSE,
+    first(plotdata$measure) %in% c("BOOKINGS", "TERMINATIONS", "GESTATION AT DISCHARGE FROM NEONATAL CARE", "ADMISSIONS TO NEOCARE BY LEVEL OF CARE") ~ FALSE,
     .default = include_legend)
   
   select_date_tickvals <- switch( # tells plotly where ticks will show
@@ -690,7 +696,7 @@ creates_runcharts <- function(plotdata,
    "TEARS" = SMR02_date_tickvals,
    "GESTATION AT BIRTH" = SMR02_multiples_date_tickvals,
    "APGAR5" = SMR02_date_tickvals,
-   "MEDIAN CORRECTED GEST AGE" = SMR02_date_tickvals,
+   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = NeoCare_date_tickvals,
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = NeoCare_date_tickvals
    )
   
@@ -705,7 +711,7 @@ creates_runcharts <- function(plotdata,
    "TEARS" = SMR02_date_ticktext,
    "GESTATION AT BIRTH" = SMR02_multiples_date_ticktext,
    "APGAR5" = SMR02_date_ticktext,
-   "MEDIAN CORRECTED GEST AGE" = SMR02_date_ticktext,
+   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = NeoCare_date_ticktext,
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = NeoCare_date_ticktext
    )
   
@@ -744,7 +750,7 @@ creates_runcharts <- function(plotdata,
    "TEARS" = ".2f",
    "GESTATION AT BIRTH" = ".2f",
    "APGAR5" = ".2f",
-   "MEDIAN CORRECTED GEST AGE" = ".1f",
+   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = ".1f",
    "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ".1f"
    )
 
@@ -762,7 +768,7 @@ creates_runcharts <- function(plotdata,
             ".1f",
             ",d")
   
-  yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
+  yaxis_plots[["range"]] <- list(y_min, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
   runcharts <- 
     plot_ly(
@@ -841,7 +847,7 @@ creates_runcharts <- function(plotdata,
       hoverinfo = "none"
     )
   
-  # add medians where plotted
+  # add pre_pandemic medians where plotted
   
   if(first(plotdata$dataset != "NeoCareIn+")) {
     
@@ -894,8 +900,6 @@ creates_runcharts <- function(plotdata,
   ) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
   
-  # TEMPORARY SPLIT UNTIL JAN 2026 PUBLICATION WHEN EXTENDED POST_PANDEMIC MEDIAN WILL APPEAR ----
-
   # post-pandemic traces for the GESTATION AT BOOKING and GESTATION AT TERMINATION measures
 
   if(first(plotdata$measure) %in% c("GESTATION AT BOOKING", "GESTATION AT TERMINATION")) {
@@ -938,9 +942,9 @@ creates_runcharts <- function(plotdata,
       )
   }
   
-  # post-pandemic median trace for the SMR02 measures
+  # post-pandemic median trace for the SMR02 and NeoCare measures
 
-  if(first(plotdata$dataset) == "SMR02") {
+  if(first(plotdata$dataset) %in% c("SMR02", "NeoCareIn+")) {
 
     runcharts <- runcharts %>%
       add_trace(
@@ -959,25 +963,25 @@ creates_runcharts <- function(plotdata,
         legendgroup = "post-pandemic median",
         hoverinfo = "y",
         yhoverformat = hoverinfo_format
-      ) #%>%
-      # add_trace(
-      #   data = filter(plotdata,!is.na(extended_post_pandemic_median)),
-      #   y = ~ extended_post_pandemic_median, # dotted magenta line
-      #   type = "scatter",
-      #   mode = "lines",
-      #   line = list(
-      #     color = phs_colours("phs-magenta"),
-      #     width = 1,
-      #     dash = "4"
-      #   ),
-      #   name = ~ paste0(var_label(extended_post_pandemic_median)
-      #                   ),
-      #   legendrank = 700,
-      #   showlegend = ~ include_legend,
-      #   legendgroup = "extended post-pandemic median",
-      #   hoverinfo = "y",
-      #   yhoverformat = hoverinfo_format
-      # )
+      ) %>%
+      add_trace(
+        data = filter(plotdata,!is.na(extended_post_pandemic_median)),
+        y = ~ extended_post_pandemic_median, # dotted magenta line
+        type = "scatter",
+        mode = "lines",
+        line = list(
+          color = phs_colours("phs-magenta"),
+          width = 1,
+          dash = "4"
+        ),
+        name = ~ paste0(var_label(extended_post_pandemic_median)
+                        ),
+        legendrank = 700,
+        showlegend = ~ include_legend,
+        legendgroup = "extended post-pandemic median",
+        hoverinfo = "y",
+        yhoverformat = hoverinfo_format
+      )
   }
 
   # additional traces for the "special" Boards in GESTATION AT BOOKING measure
@@ -1095,7 +1099,7 @@ creates_context_charts <- function(plotdata,
     "INDUCTIONS" = "Timeseries chart showing the number of singleton live births at 37+0 to 42+6 weeks gestation with a known induction status, and those that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
     "TEARS" = "Timeseries chart showing the number of women giving birth vaginally with a known perineal tear status, and those who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
     "APGAR5" = "Timeseries chart showing the number of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score, and those that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
-    "MEDIAN CORRECTED GEST AGE" = "",
+    "GESTATION AT DISCHARGE FROM NEONATAL CARE" = "Timeseries chart showing the number of babies of 30-32 weeks gestation (at birth) discharged to home or foster care from specialist neonatal care, for each quarter, from Jan-Mar 2018 onwards",
     "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
   )
   
@@ -1113,7 +1117,7 @@ creates_context_charts <- function(plotdata,
     "TEARS" = SMR02_date_tickvals,
     #"GESTATION AT BIRTH" = SMR02_multiples_date_tickvals, # hard coded as multiple charts
     "APGAR5" = SMR02_date_tickvals,
-    "MEDIAN CORRECTED GEST AGE" = NeoCare_date_tickvals
+    "GESTATION AT DISCHARGE FROM NEONATAL CARE" = NeoCare_date_tickvals
   ) 
   
   select_date_ticktext <- switch( # tells plotly what text to show on ticks
@@ -1128,7 +1132,7 @@ creates_context_charts <- function(plotdata,
     "TEARS" = SMR02_date_ticktext,
     #"GESTATION AT BIRTH" = SMR02_multiples_date_ticktext, # hard coded as multiple charts
     "APGAR5" = SMR02_date_ticktext,
-    "MEDIAN CORRECTED GEST AGE"= NeoCare_date_ticktext
+    "GESTATION AT DISCHARGE FROM NEONATAL CARE"= NeoCare_date_ticktext
   )
   
   # adds an asterisk to these Board names when there is a related footnote to show
@@ -1200,8 +1204,8 @@ creates_context_charts <- function(plotdata,
     layout(yaxis = yaxislabeltext) %>% 
     config(displaylogo = F, displayModeBar = FALSE)
 
-  if(first(plotdata$measure != "MEDIAN CORRECTED GEST AGE")) {
-    
+  if(first(plotdata$measure != "GESTATION AT DISCHARGE FROM NEONATAL CARE")) {
+
     context_charts <- context_charts %>%
       add_trace(
         y = ~ num,

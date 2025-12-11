@@ -76,6 +76,8 @@
         "jquerylib",
         "jsonlite (>= 0.9.16)",
         "magrittr",
+        "crosstalk",
+        "jquerylib",
         "promises"
       ],
       "Suggests": [
@@ -2708,7 +2710,7 @@
       "URL": "https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr",
       "BugReports": "https://github.com/tidyverse/purrr/issues",
       "Depends": [
-        "R (>= 4.1)"
+       "R (>= 4.1)"
       ],
       "Imports": [
         "cli (>= 3.6.1)",
