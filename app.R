@@ -4903,7 +4903,7 @@ server <- function(input, output, session) {
       inputId = "tob",
       label = "Choose type of birth",
       choiceNames = list("all caesarean", "planned caesarean", "unplanned caesarean",
-                         "assisted", "spontaneous vaginal"),
+                         "assisted vaginal", "spontaneous vaginal"),
       choiceValues = list("all caesarean births", "planned caesarean births",
                           "unplanned caesarean births", "assisted vaginal births",
                           "spontaneous vaginal births"),
