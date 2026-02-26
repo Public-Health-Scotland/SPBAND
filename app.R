@@ -21,9 +21,9 @@ header <- dashboardHeader(
   title = dashboardtitle,
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
-          #tags$p("SPBAND v 1.9") # this is the LIVE dashboard 
-          tags$p("SPBAND_test v 1.9") # this is the TEST dashboard 
-          #tags$p("SPBAND_PRA v 1.9") # this is the PRA dashboard
+          #tags$p("SPBAND v 1.10") # this is the LIVE dashboard 
+          tags$p("SPBAND_test v 1.10") # this is the TEST dashboard 
+          #tags$p("SPBAND_PRA v 1.10") # this is the PRA dashboard
   )
 )
 
@@ -98,11 +98,11 @@ topicmenu <- sidebarMenu(
            menuSubItem("Median corrected gestational age at discharge from specialist neonatal care",
                        tabName = "median_cga_30_32",
                        icon = shiny::icon("angle-double-right") %>% rem_aria_label()
+           ),
+           menuSubItem("Admissions to a specialist neonatal unit by highest level of care",
+                       tabName = "gestation_by_BAPM_LOC",
+                       icon = shiny::icon("angle-double-right") %>% rem_aria_label()
            )
-           # menuSubItem("Admissions to a neonatal unit by highest level of care",
-           #             tabName = "gestation_by_BAPM_LOC",
-           #             icon = shiny::icon("angle-double-right") %>% rem_aria_label()
-           # )
   ) %>% rem_menu_aria_label(),
   menuItem("Infant feeding",
            tabName = "infant_feeding",
@@ -4210,7 +4210,7 @@ gestation_by_BAPM_LOC <- tabItem(
   tabName = "gestation_by_BAPM_LOC",
   
   fluidRow(
-    tabBox(title = "Admissions to a neonatal unit by highest level of care",
+    tabBox(title = "Admissions to a specialist neonatal unit by highest level of care",
            
            # The id lets us use input$tabset28 on the server to find the current tab
            id = "tabset28",
@@ -4309,10 +4309,10 @@ gestation_by_BAPM_LOC <- tabItem(
                                "(BAPM). For more details see the ‘About this measure’ tab."
                                ),
                              
-                             p("The black dots connected by a line in the time-series charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
+                             p("The black dots connected by a line in the time-series charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of specialist neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
                                ),
 
-                             p("Due to the small number of babies admitted to neonatal care, data are only shown at all-Scotland level."
+                             p("Due to the small number of babies admitted to specialist neonatal care, data are only shown at all-Scotland level."
                              ),
                              
                              hr()
@@ -4373,7 +4373,7 @@ gestation_by_BAPM_LOC <- tabItem(
                     
                     fluidRow(
                       column(12,
-                             p("Admissions to a neonatal unit by highest level of care",
+                             p("Admissions to a specialist neonatal unit by highest level of care",
                                class = "about-this-measure-title"
                              ),
                              
@@ -4386,10 +4386,10 @@ gestation_by_BAPM_LOC <- tabItem(
                           solidHeader = TRUE,
                           width = 5,
                           
-                          p("Admission to a neonatal unit is necessary when a baby requires a level of care higher than that which can be provided in a postnatal ward environment."
+                          p("Admission to a specialist neonatal unit is necessary when a baby requires a level of care higher than that which can be provided in a postnatal ward environment."
                           ),
                           
-                          p("However, admission to a neonatal unit necessitates separating the mother and baby, and the cost of neonatal intensive care is high. Premature birth is a major factor influencing the likelihood of admission to NICU, but other factors will play a role in babies born at later gestations. We therefore wish to monitor the proportion of babies born at:",
+                          p("However, admission to a specialist neonatal unit necessitates separating the mother and baby, and the cost of neonatal intensive care is high. Premature birth is a major factor influencing the likelihood of admission to NICU, but other factors will play a role in babies born at later gestations. We therefore wish to monitor the proportion of babies born at:",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -4484,7 +4484,7 @@ gestation_by_BAPM_LOC <- tabItem(
                           p("An SMR02 record is submitted by maternity hospitals to Public Health Scotland (PHS) whenever a woman is discharged from an episode of day case or inpatient maternity care. From October 2019, maternity hospitals have also been asked to submit SMR02 records following attended homebirths."
                           ),
 
-                          p("The numerator contains a subset of the number of live born babies admitted to a neonatal unit (first admission only). These babies are categorised by their gestation at admission:",
+                          p("The numerator contains a subset of the number of live born babies admitted to a neonatal unit (first admission only). These babies are categorised by their gestation at birth:",
                             
                             tags$ul(
                               tags$li(class= "bullet-points",
@@ -4538,7 +4538,7 @@ gestation_by_BAPM_LOC <- tabItem(
                           p("A birth is allocated to a quarter based on the date of birth."
                           ),
                           
-                          p("An admission to neonatal care is allocated to a quarter based on the date of admission (first admission only)."
+                          p("An admission to specialist neonatal care is allocated to a quarter based on the date of birth (using the first admission only)."
                             ),
                           
                           p("Data are shown for up to and including the most recent quarter for which NeoCareIn+ and SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional records are submitted to PHS."
@@ -4653,7 +4653,7 @@ body <- dashboardBody(
     stillbirths,
     apgar_scores,
     median_cga_30_32,
-    #gestation_by_BAPM_LOC,
+    gestation_by_BAPM_LOC,
     infant_feeding
   ) # tabItems
   
@@ -5050,11 +5050,11 @@ server <- function(input, output, session) {
 
   source("Neonatal/Median corrected gestational age at discharge download data.R", local = TRUE)
 
-  #source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
+  source("Neonatal/Gestation by BAPM level of care runcharts.R", local = TRUE)
 
-  #source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
+  source("Neonatal/Gestation by BAPM level of care context charts.R", local = TRUE)
 
-  #source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
+  source("Neonatal/Gestation by BAPM level of care download data.R", local = TRUE)
   
   source("Version.R", local = TRUE)
   

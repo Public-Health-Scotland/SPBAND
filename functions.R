@@ -661,10 +661,10 @@ creates_runcharts <- function(plotdata,
    "INDUCTIONS" = "Run chart showing the percentage of singleton live births at 37+0 to 42+6 weeks gestation that followed induction of labour, for each quarter from Jan-Mar 2017 onwards",
   "TYPE OF BIRTH" = "Run charts showing the percentage of births by each type of birth, for each quarter, from Jan-Mar 2017 onwards",
    "TEARS" = "Run chart showing the percentage of women giving birth vaginally who had a third- or fourth-degree perineal tear, for each quarter from Jan-Mar 2017 onwards",
-  # "GESTATION AT BIRTH" = "Run charts showing the percentage of singleton live births that were at the stated gestation, for each quarter, from Jan-Mar 2017 onwards",
+  # "GESTATION AT BIRTH" alt text rendered in runchart code
    "APGAR5" = "Run chart showing the percentage of singleton babies born alive at 37+0 to 42+6 weeks gestation with a known 5-minute Apgar score that had a score of <7, for each quarter from Jan-Mar 2017 onwards",
-   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = "Timeseries chart showing the average corrected gestation at discharge from a specialist neonatal unit for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards",
-   "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" = ""
+   "GESTATION AT DISCHARGE FROM NEONATAL CARE" = "Timeseries chart showing the average corrected gestation at discharge from a specialist neonatal unit for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards"
+   # "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" alt text rendered in runchart code
    )
 
   # include_legend = TRUE for ONE of multiple runcharts (otherwise the legends get repeated) 
@@ -676,7 +676,7 @@ creates_runcharts <- function(plotdata,
     first(plotdata$measure) == "GESTATION AT BIRTH" &
       first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
     first(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" &
-      first(plotdata$measure_cat) != "special care" ~ FALSE,
+      first(plotdata$measure_cat) != "normal care" ~ FALSE,
     .default = TRUE)
   
   # include_trend_shift_legend = FALSE ensures that the shift and trend legends are switched off

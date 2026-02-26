@@ -15,9 +15,10 @@ observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
 
 legend_name_order <- c("born alive",
                        "admitted to a neonatal unit",
+                       "admitted to high dependency care",
                        "admitted to special care",
                        "admitted to intensive care",
-                       "admitted to high dependency care")
+                       "admitted to normal care")
 
 gest_by_BAPM_LOC_context_data <- reactive({ 
   # selects data
@@ -35,7 +36,7 @@ gest_by_BAPM_LOC_context_data <- reactive({
                "Total number of ",
                short_formatted_name,
                " babies born alive: ",
-               prettyNum(num, big.mark = ",")
+               prettyNum(den, big.mark = ",")
         ),
       measure_cat == "all admissions to a neonatal unit" ~
         paste0("Quarter: ",
@@ -114,9 +115,9 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
     type = "scatter",
     mode = "lines+markers",
     color = ~ legend_name,
-    colors = ~ selected_colours[2:5],
+    colors = ~ selected_colours[2:6],
     symbol = ~ legend_name,
-    symbols = ~ c("square-x-open", "diamond", "star", "circle-open"),
+    symbols = ~ c("square-x-open", "diamond", "star", "circle-open", "star-diamond"),
     line = list(width = 2),
     hovertext = ~ mytext,
     hoverinfo = "text"
@@ -131,7 +132,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
                   measure_cat == "babies born alive"
     ) %>% droplevels(),
     x = ~ date,
-    y = ~ num,
+    y = ~ den,
     type = "scatter",
     mode = "lines+markers",
     color = ~ legend_name,
@@ -147,6 +148,7 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
       data = filter(gest_by_BAPM_LOC_context_data(),
                   measure_cat == "all admissions to a neonatal unit"
       ) %>% droplevels(),
+      y = ~ num,
       showlegend = FALSE
     ) %>% 
     layout(
