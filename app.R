@@ -4055,7 +4055,7 @@ median_cga_30_32 <- tabItem(
                       
                       column(12,
                              
-                             p("The black dots connected by a line in the time-series chart above show the average (median) corrected gestation at discharge from a specialist neonatal unit for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards."
+                             p("The black dots connected by a line in the chart above show the average (median) corrected gestation at discharge from a specialist neonatal unit for babies born at 30-32 weeks gestation, for each quarter, from Jan-Mar 2018 onwards."
                              ),
                              
                              p("To provide a basis for identifying patterns in the data a magenta line shows a post-pandemic median - the overall average (median) of the median corrected gestation at discharge in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025). The magenta line is dashed where the post-pandemic average is projected outside that time range."
