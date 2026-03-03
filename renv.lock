@@ -10,7 +10,8 @@
         "Name": "PHSGITHUB",
         "URL": "https://ppm-prod.publichealthscotland.org/phs-github/latest"
       }
-    ],
+    ]
+    },
   "Packages": {
     "DBI": {
       "Package": "DBI",
@@ -2335,7 +2336,7 @@
     "phsmethods": {
       "Package": "phsmethods",
       "Version": "1.0.2",
-      "Source": "GitHub",
+      "Source": "PHSGITHUB",
       "Title": "Standard Methods for Use in Public Health Scotland",
       "Authors@R": "c( person(\"Public Health Scotland\", , , \"phs.datascience@phs.scot\", role = \"cph\"), person(\"David\", \"Caldwell\", , \"David.Caldwell@phs.scot\", role = \"aut\"), person(\"Lucinda\", \"Lawrie\", , \"Lucinda.Lawrie@phs.scot\", role = \"rev\"), person(\"Jack\", \"Hannah\", , \"jack.hannah2@phs.scot\", role = \"aut\"), person(\"Tina\", \"Fu\", , \"Yuyan.Fu2@phs.scot\", role = c(\"aut\", \"cre\")), person(\"Ciara\", \"Gribben\", , \"Ciara.Gribben@phs.scot\", role = \"aut\"), person(\"Chris\", \"Deans\", , \"Chris.Deans2@phs.scot\", role = \"aut\"), person(\"Jaime\", \"Villacampa\", , \"Jaime.Villacampa@phs.scot\", role = \"aut\"), person(\"Graeme\", \"Gowans\", , \"Graeme.Gowans@phs.scot\", role = \"aut\"), person(\"Alice\", \"Byers\", role = \"ctb\"), person(\"Alan\", \"Yeung\", , \"Alan.Yeung@phs.scot\", role = \"ctb\"), person(\"James\", \"McMahon\", , \"James.McMahon@phs.scot\", role = \"aut\", comment = c(ORCID = \"0000-0002-5380-2029\")), person(\"Nicolaos\", \"Christofidis\", , \"nicolaos.christofidis@phs.scot\", role = \"aut\") )",
       "Description": "A collection of methods for commonly undertaken analytical tasks, primarily developed for Public Health Scotland (PHS) analysts, but the package is also generally useful to others working in the healthcare space, particularly since it has functions for working with Community Health Index (CHI) numbers. The package can help to make data manipulation and analysis more efficient and reproducible.",
@@ -2388,7 +2389,7 @@
     "phsstyles": {
       "Package": "phsstyles",
       "Version": "0.1.2",
-      "Source": "GitHub",
+      "Source": "PHSGITHUB",
       "Title": "Standard Graphic Styles for use in Public Health Scotland",
       "Authors@R": "c( person(\"Tina\", \"Fu\", email = \"Yuyan.Fu2@phs.scot\", role = c(\"aut\", \"cre\")),  person(\"Bob\", \"Taylor\", email = \"bob.taylor2@phs.scot\", role = \"aut\") )",
       "Description": "Bespoke functions for creating graphics and visualisations in Public Health Scotland.",
