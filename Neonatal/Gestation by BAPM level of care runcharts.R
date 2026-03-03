@@ -1,6 +1,6 @@
 # a) data ----
 
-BAPM_LOC_plotListNames = c("intensive care", "high dependency care", "special care") # placeholder for plots
+BAPM_LOC_plotListNames = c("intensive care", "high dependency care", "special care", "normal care") # placeholder for plots
 
 # initialise Selected$Nicename2
 
@@ -34,11 +34,11 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
            measure_cat_label = measure_cat
     ) %>%   
     set_variable_labels(
-      measure_value = "Percentage of babies (%)"
+      measure_value = "Percentage of babies (%)",
       #pre_pandemic_median = " average to Oct-Dec 2019",
       #extended_pre_pandemic_median = " projected average from Jan-Mar 2020"
-      #post_pandemic_median = paste0("average from Jul 2022", "<br>", "to end Jun 2024"),
-      #extended_post_pandemic_median = "projected average from Jul 2024"
+      post_pandemic_median = paste0("average from Jul-Sep 2022", "<br>", "to Apr-Jun 2025"),
+      extended_post_pandemic_median = "projected average from Jul-Sep 2025"
     ) %>% 
     mutate(mytext = paste0("Quarter: ",
                            date_label,
@@ -57,15 +57,16 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
            shift = NA,
            trend = NA
     )
+  
   data$measure_cat = factor(data$measure_cat, levels = BAPM_LOC_plotListNames)
 
-  new_max <- max(data$measure_value) # local maximum measure_value
+  new_max <- max(data$measure_value, na.rm = TRUE) # local maximum measure_value
   
   observeEvent(new_max, {   # update maximum measure_value when subgroup_cat changes
     y_max_gest_by_BAPM_LOC(new_max)
   }
   )
-
+  
   if (is.null(data()))
   {
     return()
@@ -80,13 +81,15 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
 
 output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
   
+  runcharts <- 
+  
   gest_by_BAPM_LOC_runchart_data() %>% 
     group_by(.$measure_cat) %>%
     group_map(~
                 creates_runcharts(plotdata = .,
                                   yaxislabel = "Percentage of babies (%)",
                 ) %>% 
-                layout(showlegend = ~ unique(measure_cat) == "special care",
+                layout(showlegend = ~ unique(measure_cat) == "normal care",
                        yaxis = list(range = c(0, y_max_gest_by_BAPM_LOC() * 1.05))
                 ) # forces y axis to same value on all charts
     ) %>% 
@@ -97,11 +100,22 @@ output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
             shareY = FALSE,
             titleY = TRUE) %>% 
     layout(legend =
-             list(x = 0.53,
-                  y = 0.25)
+             list(x = 1.05,
+                  y = 0.94)
     )
+  
+    # Add dynamic alt text using htmlwidgets::onRender
+  
+  runcharts <- htmlwidgets::onRender(runcharts, "
+      function(el, x) {
+        el.setAttribute('aria-label', 'Run charts showing the percentage of babies born at 32+0 to 34+6 weeks (late pre-term) and 37+0 to 42+6 weeks gestation, by the highest level of care during their stay in specialist neonatal care, for each quarter, from Jan-Mar 2018 onwards');
+      }
+      ")
+  
 })
 
+
+  
 # c) chart title ----
 
 output$gestation_by_BAPM_LOC_runcharts_title <- renderText({
@@ -109,6 +123,6 @@ output$gestation_by_BAPM_LOC_runcharts_title <- renderText({
 })
 
 output$gestation_by_BAPM_LOC_runcharts_sub_title <- renderText({
-  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a neonatal unit, by highest level of care*")
+  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a specialist neonatal unit, by highest level of care*")
   )
 })

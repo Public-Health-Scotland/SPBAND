@@ -30,7 +30,7 @@ credentials <- readRDS("admin/credentials.rds")
 # change each quarter: ----
 # refresh_date =  the date the SMR02, ABC, Terminations data are refreshed, used on each dashboard chart page - autopopulates them
 
-refresh_date <- as.Date("2025-12-10")
+refresh_date <- as.Date("2026-02-25")
 
 pretty_refresh_date <- format(refresh_date,"%d %B %Y")
 
@@ -74,7 +74,7 @@ NRS_timeseries <- readRDS("data/stillbirths-infant-deaths-data.rds") # for SPBAN
 
 # load latest NeoCareIn+ gestation by highest BAPM level of care data
 
-#gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
+gest_by_BAPM_LOC_data <- readRDS("data/gestation-by-BAPM-level-of-care.rds")
 
 # load latest NeoCareIn+ babies born at 30-32 weeks admitted to neonatal unit
 
@@ -256,16 +256,22 @@ HBnames <- c("Scotland", "NHS Ayrshire & Arran", "NHS Borders", "NHS Borders*", 
 
 # sets colour palette to the PHS colour scheme ----
 
-selected_colours <-
-  as.character(c(phs_colours()[1:8],
-                 phs_colours(str_subset(
-                   names(phs_colours()), "-80"
-                 ))))
+# selected_colours <-
+#   as.character(c(phs_colours()[1:8],
+#                  phs_colours(str_subset(
+#                    names(phs_colours()), "-80"
+#                  ))))
 
 #3F3685
 #8c3585
 #0057ae
 #296600
+
+new_selected_colours <- c("#12436D", "#28A197", "#801650", "#F46A25", "#3F085C", "#3E8ECC", "#3D3D3D", "#A285D1")
+
+suggested_selected_colours <- c("#3F3685", "#8C3585", "#005AA0", "#446114", "#5C566A", "#176266", "#605277", "#A42F14", "#59528A", "#7E4379", "#185C91", "#47601E", "#5C566A", "#2F6063", "#5F5470", "#983B25")
+
+selected_colours <- c("#3F3685", "#9B4393", "#0078D4", "#83BB26", "#948DA3", "#1E7F84", "#6B5C85", "#C73918", "#655E9D", "#AF69A9", "#3393DD", "#9CC951", "#A9A4B5", "#4B999D", "#897D9D", "#D26146")
 
 
 # overwrites "Shiny" set dashboard colours with PHS colours - may need to change for accessibility 

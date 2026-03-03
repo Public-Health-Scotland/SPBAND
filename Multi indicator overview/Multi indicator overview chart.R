@@ -58,7 +58,7 @@ output$multi_indicator_chart <- renderPlotly({
                          suffix),
     hoverinfo = "text",
     opacity = .5,
-    marker = list(color = "#CAC6D1",
+    marker = list(color = "#bebebe", #"#CAC6D1",
                   line = list(color = "black", width = 1)), # phs-graphite-50
     size = I(20)
   ) %>% 
