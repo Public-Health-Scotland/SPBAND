@@ -355,7 +355,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
   
   # sets y-axis label
   
-  yaxislabeltext  <- case_match(
+  yaxislabeltext  <- recode_values(
     first(plotdata$measure),
     "GESTATION AT BOOKING" ~ "Average gestation at booking (weeks)",
     "GESTATION AT TERMINATION" ~ paste(strwrap("Average gestation at termination (weeks)",
@@ -363,7 +363,7 @@ creates_small_multiple_charts_without_median <- function(plotdata,
                                        collapse = "\n"),
     "TEARS" ~ "Percentage of women (%)",
     "APGAR5" ~ "Percentage of babies (%)",
-    .default = "Percentage of births (%)"
+    default = "Percentage of births (%)"
   )
   
   # sets whether y-axis label should be shown (prevents double-printing)
@@ -731,12 +731,12 @@ creates_runcharts <- function(plotdata,
     first(plotdata$hbname)
     )
   
-  legend_name <- case_match(
+  legend_name <- recode_values(
     first(plotdata$measure),
     "TYPE OF BIRTH" ~ "percentage of births (%)",
     "GESTATION AT BIRTH" ~ "percentage of births (%)",
     "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" ~ "percentage of babies (%)",
-    .default = str_to_lower(var_label(plotdata$measure_value))
+    default = str_to_lower(var_label(plotdata$measure_value))
   )
   
   hoverinfo_format <- switch( # tells plotly how to format median hoverinfo
@@ -1155,11 +1155,11 @@ creates_context_charts <- function(plotdata,
   yaxis_plots[["range"]] <- list(0, y_max * 1.05) # expands the y-axis range to prevent cut-offs
   
   yaxislabeltext <- list(title = list(
-    text =  ~ case_match(
+    text =  ~ recode_values(
       first(plotdata$measure),
       "TEARS" ~ "Number of women",
       "APGAR5" ~ "Number of babies",
-      .default = yaxislabel
+      default = yaxislabel
     )
     )
   )
@@ -1177,10 +1177,10 @@ creates_context_charts <- function(plotdata,
                   width = 2),
       marker = list(color = selected_colours[1],
                     symbol = "circle"),
-      name = ~ case_match( # retrieves label of variable
+      name = ~ recode_values( # retrieves label of variable
         first(plotdata$measure),
         "APGAR5" ~ "babies that had a known Apgar5 score",
-        .default = str_to_lower(var_label(den))
+        default = str_to_lower(var_label(den))
       ), 
       legendrank = 100,
       hovertext = ~ get(den_hover),
@@ -1215,11 +1215,11 @@ creates_context_charts <- function(plotdata,
                     width = 2),
         marker = list(color = selected_colours[2],
                       symbol = "square-x-open"),
-        name = ~ case_match( # retrieves label of variable
+        name = ~ recode_values( # retrieves label of variable
           first(plotdata$measure),
           "APGAR5" ~ "babies that had an Apgar5 score less than 7",
           "EXTREMELY PRE-TERM BIRTHS" ~ "births at 22-26 weeks in a hospital with a NICU",
-          .default = str_to_lower(var_label(num))
+          default = str_to_lower(var_label(num))
         ),
         legendrank = 200,
         hovertext = ~ get(num_hover),

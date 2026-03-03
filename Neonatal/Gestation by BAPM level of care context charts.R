@@ -59,11 +59,11 @@ gest_by_BAPM_LOC_context_data <- reactive({
                prettyNum(num, big.mark = ",")
         )
     ),
-    legend_name = case_match(
+    legend_name = recode_values(
       measure_cat,
       "all admissions to a neonatal unit" ~ "admitted to a neonatal unit",
       "babies born alive" ~ "born alive",
-      .default = paste0("admitted to ", measure_cat)
+      default = paste0("admitted to ", measure_cat)
     ),
     legend_name = factor(legend_name,
                          levels = legend_name_order
