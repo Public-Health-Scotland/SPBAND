@@ -4256,6 +4256,13 @@ gestation_by_BAPM_LOC <- tabItem(
                              br()
 
                       ),
+                      
+                      column(12,
+                      
+                      p("^ For more details about the cohort of babies included in this analysis please refer to ‘About this measure’.", 
+                        class = "notes-style"
+                      )
+                      ),
 
                       column(12,
                              p(paste0("Data last refreshed on ", pretty_refresh_date, "."),
@@ -4281,13 +4288,15 @@ gestation_by_BAPM_LOC <- tabItem(
                                class = "notes-style",
                              ),
                              
-                             hr()
+                             p("This measure is a new developmental presentation based on specifications from the National Neonatal Network Data group. Please contact ", tags$a(href = "mailto:phs.matneodatahub@phs.scot", tags$u("phs.matneodatahub@phs.scot")), "for more information or to provide feedback."
+                               ),
                              
+                             hr()
                       ),
                       
                       column(12,
                              
-                             p("*These levels of care are ",
+                             p("* These levels of care are ",
                             
                             tags$a(
                                  href = "https://www.bapm.org/resources/34-categories-of-care-2011",
@@ -4309,9 +4318,11 @@ gestation_by_BAPM_LOC <- tabItem(
                                "(BAPM). For more details see the ‘About this measure’ tab."
                                ),
                              
-                             p("The black dots connected by a line in the charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
-
-                               ),
+                            p("The black dots connected by a line in the charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
+                            ),
+                            
+                            p("To provide a basis for identifying patterns in the data a magenta line shows a post-pandemic median - the overall average (median) of the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025). The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                            ),
 
                              p("Due to the small number of babies admitted to specialist neonatal care, data are only shown at all-Scotland level."
                              ),

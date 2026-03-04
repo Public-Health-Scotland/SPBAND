@@ -123,6 +123,6 @@ output$gestation_by_BAPM_LOC_runcharts_title <- renderText({
 })
 
 output$gestation_by_BAPM_LOC_runcharts_sub_title <- renderText({
-  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a specialist neonatal unit, by highest level of care*")
+  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a specialist neonatal unit, by highest level of care^*")
   )
 })
