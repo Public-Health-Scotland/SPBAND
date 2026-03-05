@@ -4519,16 +4519,19 @@ gestation_by_BAPM_LOC <- tabItem(
                             
                             p("and by the highest level of care they receive during this stay in the neonatal unit:",
                             
-                            tags$ul(
-                              tags$li(class= "bullet-points",
-                                      "intensive care"),
-                              
-                              tags$li(class= "bullet-points",
-                                      "high dependency care"),
-                              
-                              tags$li(class= "bullet-points",
-                                      "special care")
-                                      )
+                              tags$ul(
+                                tags$li(class= "bullet-points",
+                                        "intensive care"),
+                                
+                                tags$li(class= "bullet-points",
+                                        "high dependency care"),
+                                
+                                tags$li(class= "bullet-points",
+                                        "special care"),
+                                
+                                tags$li(class= "bullet-points",
+                                        "normal care")
+                                )
                             
                               ),
 

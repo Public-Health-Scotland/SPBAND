@@ -28,9 +28,9 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
     filter(measure_cat %in% BAPM_LOC_plotListNames &
              subgroup_cat == Selected$BAPM_LOC_Subgroup_cat) %>% 
     droplevels() %>%
-    mutate(num_label = paste0("Number of ", short_formatted_name, " babies", "<br>", "admitted to ", measure_cat, ": "),
+    mutate(num_label = paste0("Number of ", short_formatted_name, " babies", "<br>", "receiving ", measure_cat, ": "),
            den_label = paste0("Total number of ", short_formatted_name, " babies: "), 
-           measure_label = paste0("Percentage of ", short_formatted_name, " babies admitted to ", measure_cat, " (%)"),
+           measure_label = paste0("Percentage of ", short_formatted_name, " babies receiving ", measure_cat, " (%)"),
            measure_cat_label = measure_cat
     ) %>%   
     set_variable_labels(
@@ -108,7 +108,7 @@ output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
   
   runcharts <- htmlwidgets::onRender(runcharts, "
       function(el, x) {
-        el.setAttribute('aria-label', 'Run charts showing the percentage of babies born at 32+0 to 34+6 weeks (late pre-term) and 37+0 to 42+6 weeks gestation, by the highest level of care during their stay in specialist neonatal care, for each quarter, from Jan-Mar 2018 onwards');
+        el.setAttribute('aria-label', 'Run charts showing the percentage of babies born at 32+0 to 34+6 weeks (late pre-term) and 37+0 to 42+6 weeks gestation, by the highest level of care received during their stay in specialist neonatal care, for each quarter, from Jan-Mar 2018 onwards');
       }
       ")
   

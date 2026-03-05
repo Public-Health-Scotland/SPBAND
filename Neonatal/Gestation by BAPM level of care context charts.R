@@ -15,10 +15,10 @@ observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename <- case_when(
 
 legend_name_order <- c("born alive",
                        "admitted to a neonatal unit",
-                       "admitted to high dependency care",
-                       "admitted to special care",
-                       "admitted to intensive care",
-                       "admitted to normal care")
+                       "receiving high dependency care",
+                       "receiving special care",
+                       "receiving intensive care",
+                       "receiving normal care")
 
 gest_by_BAPM_LOC_context_data <- reactive({ 
   # selects data
@@ -53,7 +53,7 @@ gest_by_BAPM_LOC_context_data <- reactive({
                "<br>",
                "Number of ",
                short_formatted_name,
-               " babies admitted to ",
+               " babies receiving ",
                measure_cat,
                ": ",
                prettyNum(num, big.mark = ",")
@@ -63,7 +63,7 @@ gest_by_BAPM_LOC_context_data <- reactive({
       measure_cat,
       "all admissions to a neonatal unit" ~ "admitted to a neonatal unit",
       "babies born alive" ~ "born alive",
-      default = paste0("admitted to ", measure_cat)
+      default = paste0("receiving ", measure_cat)
     ),
     legend_name = factor(legend_name,
                          levels = legend_name_order
