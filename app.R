@@ -22,8 +22,8 @@ header <- dashboardHeader(
   tags$li(class = "dropdown",
           # comment out version as appropriate - and secure if PRA or TEST!
           #tags$p("SPBAND v 1.10") # this is the LIVE dashboard 
-          tags$p("SPBAND_test v 1.10") # this is the TEST dashboard 
-          #tags$p("SPBAND_PRA v 1.10") # this is the PRA dashboard
+          #tags$p("SPBAND_test v 1.10") # this is the TEST dashboard 
+          tags$p("SPBAND_PRA v 1.10") # this is the PRA dashboard
   )
 )
 
@@ -3408,7 +3408,7 @@ gestation_at_birth <- tabItem(
                           p("Data are shown for up to and including the most recent quarter for which SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional SMR02 records are submitted to PHS."
                           ),
                           
-                          p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2021, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS). In addition, the recording of gestation at birth is very complete. For the period 1 April 2021 to 31 March 2022, gestation was recorded on >99.9% of SMR02 records relating to singleton live births."
+                          p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2022, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS). In addition, the recording of gestation at birth is very complete. For the period 1 April 2021 to 31 March 2022, gestation was recorded on >99.9% of SMR02 records relating to singleton live births."
                           )
                       ) # box
                       
@@ -4559,7 +4559,7 @@ gestation_by_BAPM_LOC <- tabItem(
                           p("Data are shown for up to and including the most recent quarter for which NeoCareIn+ and SMR02 records are considered near complete. Data for the most recent quarters should be viewed as provisional. Data for all quarters will be refreshed every time the dashboard page is updated, and data for the most recent quarters are likely to change slightly as additional records are submitted to PHS."
                           ),
                           
-                          p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2021, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS). In addition, the recording of gestation at birth is very complete. For the period 1 April 2021 to 31 March 2022, gestation was recorded on >99.9% of SMR02 records relating to singleton live births."
+                          p("Although there is no legal requirement to submit SMR02 records to PHS, data completeness is very high. For example, for the period 1 April 2021 to 31 March 2022, live births recorded on SMR02 represented 97.6% of the live births registered by law with National Records of Scotland (NRS). In addition, the recording of gestation at birth is very complete. For the period 1 April 2021 to 31 March 2022, gestation was recorded on >99.9% of SMR02 records relating to singleton live births."
                           )
                       ) # box
                       
