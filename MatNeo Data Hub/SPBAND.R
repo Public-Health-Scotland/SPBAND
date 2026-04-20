@@ -37,7 +37,12 @@ output$hub_spband <- renderUI({
           tags$li(class = "bullet-points",
                   strong("Births and Babies:"),
                   "location of extremely pre-term births; induction of labour; type of birth; third- and fourth-degree perineal tears; pre- and post-term births; stillbirths and infant deaths; Apgar scores"
+          ),
+          tags$li(class = "bullet-points",
+                  strong("Neonatal:"),
+                  " median corrected gestational age at discharge from specialist neonatal care; admissions to a specialist neonatal unit by highest level of care "
           )
+          
         ), # tags$ul
         
         p("SPBAND offers three ways to view data: time series charts for individual measures and individual Health Boards; small multiple time series charts, to allow comparison (for a particular measure) across Health Board areas, and a multi-indicator overview that displays multiple measures simultaneously, allowing comparison across Health Board areas."
