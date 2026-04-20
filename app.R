@@ -4677,7 +4677,7 @@ body <- dashboardBody(
 # ui ----
 
 ui <- 
-  secure_app( # uncomment if want password protection
+ # secure_app( # uncomment if want password protection
   tagList( # needed for shinyjs
 
     use_theme(mytheme), # <-- use the theme to change colours
@@ -4703,7 +4703,7 @@ ui <-
     
    ) # tagList
 
-) # secure_app # uncomment if want password protection
+#) # secure_app # uncomment if want password protection
 
 server <- function(input, output, session) {
   
