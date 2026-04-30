@@ -184,5 +184,5 @@ output$gest_by_BAPM_LOC_context_charts <- renderPlotly({
 # c) chart title ----
 
 output$gest_by_BAPM_LOC_context_chart_sub_title <- renderText({
-  HTML(paste0("Number of ", Selected$Nicename2, " babies that were born alive by the highest level of neonatal care received"))
+  HTML(paste0("Number of ", Selected$Nicename2, " babies that were born alive and by the highest level of neonatal care received"))
 })

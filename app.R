@@ -4318,10 +4318,10 @@ gestation_by_BAPM_LOC <- tabItem(
                                "(BAPM). For more details see the ‘About this measure’ tab."
                                ),
                              
-                            p("The black dots connected by a line in the charts above show the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
+                            p("The black dots connected by a line in the charts above show the percentage of babies in the gestational group chosen, who were admitted to a neonatal unit and by each level of neonatal care, for each quarter from Jan-Mar 2018 onwards. Babies are only included in one level of care, the highest they experience."
                             ),
                             
-                            p("To provide a basis for identifying patterns in the data a magenta line shows a post-pandemic median - the overall average (median) of the percentage of babies in the gestational group chosen, who were admitted to each level of neonatal care, in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025). The magenta line is dashed where the post-pandemic average is projected outside that time range."
+                            p("To provide a basis for identifying patterns in the data a magenta line shows a post-pandemic median - the overall average (median) of the percentage of babies in the gestational group chosen, who were admitted to neonatal care and to each level of neonatal care, in the three-year post-pandemic period (from Jul-Sep 2022 to Apr-June 2025). The magenta line is dashed where the post-pandemic average is projected outside that time range."
                             ),
 
                              p("Due to the small number of babies admitted to specialist neonatal care, data are only shown at all-Scotland level."

@@ -1,6 +1,6 @@
 # a) data ----
 
-BAPM_LOC_plotListNames = c("intensive care", "high dependency care", "special care", "normal care") # placeholder for plots
+BAPM_LOC_plotListNames = c("all admissions to a neonatal unit", "intensive care", "high dependency care", "special care") # placeholder for plots
 
 # initialise Selected$Nicename2
 
@@ -9,15 +9,24 @@ Selected$Nicename2 <- paste0("late pre-term (34", "<sup>+0</sup>",
 
 Selected$BAPM_LOC_Subgroup_cat <- "between 34 and 36 weeks (inclusive)"
 
-observeEvent(input$BAPM_LOC_subgroup_cat, Selected$Nicename2 <- case_when(
-  input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)" ~ paste0("late pre-term (34", "<sup>+0</sup>",
-                                                                                " to 36", "<sup>+6</sup>", " weeks gestation)"),
-  input$BAPM_LOC_subgroup_cat == "between 37 and 42 weeks (inclusive)" ~ paste0("term and post-term (37", "<sup>+0</sup>",
-                                                                                " to 42", "<sup>+6</sup>", " weeks gestation)")
-)
+observeEvent(input$BAPM_LOC_subgroup_cat, 
+             Selected$Nicename2 <- if_else(
+               input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)",
+               paste0("late pre-term (34", "<sup>+0</sup>", " to 36", "<sup>+6</sup>", " weeks gestation)"),
+               paste0("term and post-term (37", "<sup>+0</sup>", " to 42", "<sup>+6</sup>", " weeks gestation)")
+             )
 )
 
 y_max_gest_by_BAPM_LOC <- reactiveVal(0) # initialise y_max_gest_by_BAPM_LOC
+
+dtick_value <- reactiveVal(10) # initialise dtick_value (for gridlines on y-axis)
+
+observeEvent(input$BAPM_LOC_subgroup_cat, { # switch dtick value depending on gestation group selection
+  new_dtick_value <- if_else(
+    input$BAPM_LOC_subgroup_cat == "between 34 and 36 weeks (inclusive)", 10, 1)
+  dtick_value(new_dtick_value)
+}
+)
 
 gest_by_BAPM_LOC_runchart_data <- reactive({
   # selects data
@@ -28,10 +37,14 @@ gest_by_BAPM_LOC_runchart_data <- reactive({
     filter(measure_cat %in% BAPM_LOC_plotListNames &
              subgroup_cat == Selected$BAPM_LOC_Subgroup_cat) %>% 
     droplevels() %>%
-    mutate(num_label = paste0("Number of ", short_formatted_name, " babies", "<br>", "receiving ", measure_cat, ": "),
-           den_label = paste0("Total number of ", short_formatted_name, " babies: "), 
-           measure_label = paste0("Percentage of ", short_formatted_name, " babies receiving ", measure_cat, " (%)"),
-           measure_cat_label = measure_cat
+    mutate(num_label = if_else(
+      measure_cat == "all admissions to a neonatal unit",
+      paste0("Number of ", short_formatted_name, " babies", "<br>", "who were admitted to a neonatal unit ", ": "),
+      paste0("Number of ", short_formatted_name, " babies", "<br>", "who received ", measure_cat, ": ")
+    ),
+    den_label = paste0("Total number of ", short_formatted_name, " babies: "), 
+    measure_label = paste0("Percentage of ", short_formatted_name, " babies who received ", measure_cat, " (%)"),
+    measure_cat_label = measure_cat
     ) %>%   
     set_variable_labels(
       measure_value = "Percentage of babies (%)",
@@ -89,9 +102,11 @@ output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
                 creates_runcharts(plotdata = .,
                                   yaxislabel = "Percentage of babies (%)",
                 ) %>% 
-                layout(showlegend = ~ unique(measure_cat) == "normal care",
-                       yaxis = list(range = c(0, y_max_gest_by_BAPM_LOC() * 1.05))
-                ) # forces y axis to same value on all charts
+                layout(showlegend = ~ unique(measure_cat) == "special care",
+                       yaxis = list(range = c(0, y_max_gest_by_BAPM_LOC() * 1.05),
+                                    tick0 = 0,
+                                    dtick = dtick_value())
+                ) # forces y axis to same value on all charts; sets distance between ticks
     ) %>% 
     subplot(.,
             nrows = 2,
@@ -106,13 +121,13 @@ output$gestation_by_BAPM_LOC_runcharts <- renderPlotly({
   
     # Add dynamic alt text using htmlwidgets::onRender
   
-  runcharts <- htmlwidgets::onRender(runcharts, "
+    runcharts <- htmlwidgets::onRender(runcharts, "
       function(el, x) {
         el.setAttribute('aria-label', 'Run charts showing the percentage of babies born at 32+0 to 34+6 weeks (late pre-term) and 37+0 to 42+6 weeks gestation, by the highest level of care received during their stay in specialist neonatal care, for each quarter, from Jan-Mar 2018 onwards');
       }
       ")
-  
-})
+    
+    })
 
 
   
@@ -123,6 +138,6 @@ output$gestation_by_BAPM_LOC_runcharts_title <- renderText({
 })
 
 output$gestation_by_BAPM_LOC_runcharts_sub_title <- renderText({
-  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a specialist neonatal unit, by highest level of care^*")
+  HTML(paste0("Percentage of babies born at ", Selected$Nicename2, " who were admitted to a specialist neonatal unit, all, and by highest level of care^*")
   )
 })
