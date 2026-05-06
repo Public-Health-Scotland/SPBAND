@@ -100,8 +100,20 @@ output$hub_other_phs <- renderUI({
                        ),
                        
                        " - information on the coverage of screening (including by maternal age group, deprivation quintile and ethnic group), screening results, laboratory activity, invasive diagnostic procedures following screening, and pregnancy outcomes."
-               )
-               
+               ),
+  
+               tags$li(class = "bullet-points",
+                       
+                       tags$a(
+                         href = "https://publichealthscotland.scot/publications/pregnancy-infectious-diseases-screening-in-scotland/pregnancy-infectious-diseases-screening-in-scotland/",
+                         tags$u("Pregnancy infectious diseases screening in Scotland"),
+                         class = "externallink",
+                         target = "_blank", 
+                         rel = "noopener noreferrer"
+                       ),
+                       
+                       " - number of women eligible for pregnancy infectious diseases screening, and the coverage and results of pregnancy screening for hepatitis B."
+               )            
              ) # tags$ul
              
            ) # p
