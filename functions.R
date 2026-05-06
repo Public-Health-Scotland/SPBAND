@@ -676,7 +676,7 @@ creates_runcharts <- function(plotdata,
     first(plotdata$measure) == "GESTATION AT BIRTH" &
       first(plotdata$measure_cat) != "between 32 and 36 weeks (inclusive)" ~ FALSE,
     first(plotdata$measure) == "ADMISSIONS TO NEOCARE BY LEVEL OF CARE" &
-      first(plotdata$measure_cat) != "normal care" ~ FALSE,
+      first(plotdata$measure_cat) != "special care" ~ FALSE,
     .default = TRUE)
   
   # include_trend_shift_legend = FALSE ensures that the shift and trend legends are switched off
